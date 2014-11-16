@@ -1,0 +1,11 @@
+{
+  "name": "irgid",
+  "version": "1.0.0",
+  "authors": [
+    "m <mmailm@mail.ru>"
+  ],
+  "description": "my site",
+  "dependencies": {
+    "bootstrap": "~2.3.2"
+  }
+}

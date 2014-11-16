@@ -5,4 +5,5 @@ media.tar
 media/*
 static/*
 .idea/*
+node_modules/
 local_settings.py
