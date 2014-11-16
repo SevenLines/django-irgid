@@ -1,1 +1,60 @@
 {% extends "_/base.html" %}
+{% load static sekizai_tags %}
+
+{% block content %}
+    <div class="e-preview">
+        {% for c in categories %}
+            <div class="e-class-container">
+
+                <div class="e-class">
+                    <a class="e-class-description" href="{% url "excursions.views.category" c.pk %}">
+                        <h3>{{ c.title }}</h3>
+                    </a>
+                    {% if user.is_authenticated %}
+                        <div class="e-class-menu">
+                            <button class="btn btn-danger"
+                                    data-toggle="modal"
+                                    data-target="#modal-category-remove"
+                                    data-id="{{ c.pk }}"
+                                    data-title="{{ c.title }}"
+                                    data-action="{% url "excursions.views.category_remove" c.pk %}">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                            <button class="btn btn-success"
+                                    data-toggle="modal"
+                                    data-target="#modal-category-edit"
+                                    data-id="{{ c.pk }}"
+                                    data-title="{{ c.title }}"
+                                    data-description="{{ c.description }}"
+                                    data-action="{% url "excursions.views.category_save" %}">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                            <button class="btn btn-info"><span class="glyphicon glyphicon-eye-open"></span></button>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+        {% if user.is_authenticated %}
+            <div class="e-class-container" data-toggle="modal" data-target="#modal-category-edit"
+                    data-action="{% url "excursions.views.category_save" %}">
+                <div class="e-class alert-info">
+                    <div class="e-class-description">
+                        <h1 class="glyphicon glyphicon-plus"></h1>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <div style="clear:both"></div>
+    </div>
+
+
+    {% addtoblock 'css' %}
+        <link rel="stylesheet" href="{% static "css/excursions.css" %}"/>
+    {% endaddtoblock %}
+
+    {% if user.is_authenticated %}
+        {% include "excursions/category-modal.html" %}
+    {% endif %}
+{% endblock %}
+

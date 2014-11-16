@@ -2,3 +2,5 @@ Django==1.6
 django-cms
 psycopg2
 Pillow==2.4.0
+easy_thumbnails
+django-filer

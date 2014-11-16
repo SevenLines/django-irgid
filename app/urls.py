@@ -2,12 +2,15 @@ from django.conf.urls import include, patterns, url
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.conf import settings
+import excursions.urls
+import main_page.urls
 
 admin.autodiscover()
 
 
-urlpatterns = i18n_patterns('',
+urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^excursions/', include(excursions.urls)),
     url(r'^', include('cms.urls')),
 )
 

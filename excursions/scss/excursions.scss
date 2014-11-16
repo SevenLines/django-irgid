@@ -1,0 +1,48 @@
+@import "constants";
+
+$grid-gap: 8px;
+
+.e-preview {
+  padding-bottom: 1em;
+}
+
+.e-class {
+  @include transition(0.2s);
+  margin: $grid-gap;
+  padding: 16px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+
+  box-shadow: 0 0 1px gray;
+
+  &:hover {
+    box-shadow: 0 0 8px gray;
+  }
+}
+
+.e-class-container {
+
+  width: 33.3%;
+  @media (max-width: $width-medium) {
+    width: 50%;
+  }
+  @media (max-width: $width-small) {
+    width: 100%;
+  }
+
+  float: left;
+  height: 240px;
+  padding: 120px $grid-gap;
+  position: relative;
+}
+
+.e-class-description {
+
+}

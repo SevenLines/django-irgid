@@ -1,0 +1,7 @@
+<div class="e-categories list-group">
+    {% for c in categories %}
+        <a class="e-category list-group-item" href="{% url "excursions.views.category" c.pk %}">
+            {{ c.title }}
+        </a>
+    {% endfor %}
+</div>

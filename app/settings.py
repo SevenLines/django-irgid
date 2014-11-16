@@ -125,6 +125,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.core.context_processors.media',
     'django.core.context_processors.static',
+    'django.contrib.messages.context_processors.messages',
     'cms.context_processors.media',
     'sekizai.context_processors.sekizai',
 )

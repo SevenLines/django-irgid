@@ -6,6 +6,6 @@
   ],
   "description": "my site",
   "dependencies": {
-    "bootstrap": "~2.3.2"
+    "bootstrap": "~3"
   }
 }

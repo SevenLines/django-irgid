@@ -1,0 +1,21 @@
+{% extends "_/base.html" %}
+{% load static sekizai_tags %}
+
+{% block content %}
+    <div class="e-preview">
+        <div class="row">
+            <div style="width: 200px;; float: left">
+                {% include "excursions/list.html" %}
+            </div>
+            <div style="padding-left: 200px; width: 100%">
+                {% include "excursions/description-excursion.html" %}
+            </div>
+        </div>
+    </div>
+
+
+    {% addtoblock 'css' %}
+        <link rel="stylesheet" href="{% static "css/excursions.css" %}"/>
+    {% endaddtoblock %}
+{% endblock %}
+

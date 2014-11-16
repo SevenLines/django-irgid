@@ -17,8 +17,13 @@ INSTALLED_APPS = (
     'south',
     'sekizai',
 
+    'filer',
+    'mptt',
+    'easy_thumbnails',
+
     'excursions',
-    'utils',
+    'main_page',
+    # 'utils',
 )
 
 # THUMBNAIL_DEBUG = True

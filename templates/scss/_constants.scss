@@ -1,0 +1,38 @@
+$background-color: #e6e6e6;
+$width-small: 500px;
+$width-medium: 768px;
+$width-big: 990px;
+
+@mixin transition($speed) {
+  -webkit-transition: all ease-in-out $speed;
+  -moz-transition: all ease-in-out $speed;
+  -ms-transition: all ease-in-out $speed;
+  -o-transition: all ease-in-out $speed;
+  transition: all ease-in-out $speed;
+}
+
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes $animation-name {
+    @content;
+  }
+  @-moz-keyframes $animation-name {
+    @content;
+  }
+  @keyframes $animation-name {
+    @content;
+  }
+}
+
+@mixin background_size($size) {
+  -webkit-background-size: $size;
+  -moz-background-size: $size;
+  -ms-background-size: $size;
+  background-size: $size;
+}
+
+@mixin animation($description) {
+  -webkit-animation: $description;
+  -moz-animation: $description;
+  -o-animation: $description;
+  animation: $description;
+}
