@@ -1,0 +1,19 @@
+{% extends "base_page.html" %}
+{% load cms_tags sekizai_tags %}
+
+
+{% block header %}
+{#<div class="page_title col-md-11">#}
+  &gt; {% page_attribute "menu_title" %}
+{#</div>#}
+{% endblock %}
+
+
+{%  block content %}
+{#<div class="col-md-11">#}
+{% placeholder base_content %}
+</div>
+{#<div class="col-md-12">#}
+
+{#</div>#}
+{% endblock %}

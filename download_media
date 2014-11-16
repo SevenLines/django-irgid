@@ -1,0 +1,2 @@
+scp -C hosting_mmailm@phosphorus.locum.ru:~/projects/irgid/media.tar .
+tar xvf media.tar

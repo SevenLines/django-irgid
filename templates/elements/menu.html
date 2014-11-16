@@ -1,0 +1,33 @@
+{% load cms_tags menu_tags %}
+{% for child in children %}
+
+    <li class="{% if child.selected %} active{% endif %}
+{% if child.sibling %} sibling{% endif %}
+{% if child.descendant %} descendant{% endif %}
+{% if child.children %} dropdown {% endif %}
+{% if child.ancestor %} ancestor{% endif %}
+">
+        <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}" class="dropdown-toggle"
+           {% if child.children %}data-toggle="dropdown"{% endif %}>
+            {% if child.menu_icon_image %}
+                <img class="icon" height=24 src="{{ MEDIA_URL }}{{ child.menu_icon_image }}"/>
+                {{ child.get_menu_title }}
+            {% elif child.menu_icon_url %}
+                <img class="icon" height=24 src="{{ child.menu_icon_url }}"/>
+                {{ child.get_menu_title }}
+            {% elif child.menu_icon_font_awesome %}
+                <img class="{{ child.menu_icon_font_awesome }}" height=24/>
+                {{ child.get_menu_title }}
+            {% else %}
+                {{ child.get_menu_title }}
+            {% endif %}
+            {% if child.children %} <b class="caret"></b> {% endif %}
+        </a>
+        {% if child.children %}
+            <ul class="dropdown-menu">
+                {% show_menu from_level to_level extra_inactive extra_active template "" "" child %}
+            </ul>
+
+        {% endif %}
+    </li>
+{% endfor %}

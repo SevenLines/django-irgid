@@ -1,0 +1,85 @@
+{% load staticfiles cms_tags sekizai_tags menu_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="экскурсии, Иркутск, Байкал, экскурсионное агенство, Иркутск в картинках, Иркутск на открытках, sightseeings, Irkutsk, Baikal, tours" />
+<meta name="description" content="Иркутское экскурсионное агенство, предлагает экскурсии по городу Иркутску и Прибайкалью" />
+    {% render_block "css" %}
+    {% addtoblock "css" %}
+        <link rel="stylesheet" href="{% static 'ball/css/bootstrap.min.css' %}" media="screen">
+    {% endaddtoblock %}
+    {% addtoblock "css" %}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" media="screen">
+    {% endaddtoblock %}
+    {% addtoblock "css" %}
+        <!--[if lt IE 8]>
+        <link rel="stylesheet" href="{% static 'css/bootstrap-ie7.css' %}" media="all">
+        <![endif]-->
+    {% endaddtoblock %}
+    <title>{% page_attribute page_title %}</title>
+</head>
+<body>
+{% cms_toolbar %}
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand icon" href="/">
+                <img src="{% static 'images/logo.png' %}"
+                     onmouseout="this.src = '{% static 'images/logo.png' %}'"
+                     onmouseover="this.src = '{% static 'images/logo-hover.png' %}'">
+            </a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav nav-pills navbar-nav" role="menu">
+                {% show_menu 0 100 100 100 'elements/menu.html' %}
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="main container theme-showcase">
+    {% block inner %}
+    {% endblock %}
+</div>
+
+{% render_block "js" %}
+
+{% addtoblock "js" %}
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+{% endaddtoblock %}
+
+{% addtoblock "js" %}
+    <script src="{{ STATIC_URL }}ball/js/bootstrap.min.js"></script>
+{% endaddtoblock %}
+
+{% addtoblock "js" %}
+    <script src="{{ STATIC_URL }}js/main.js"></script>
+{% endaddtoblock %}
+
+{% addtoblock "js" %}
+    <!--[if lt IE 9]>
+          <script src="{{ STATIC_URL }}js/html5shiv.js"></script>
+    <![endif]-->
+{% endaddtoblock %}
+{% addtoblock "js" %}
+    <!--[if lt IE 9]>
+          <script src="{{ STATIC_URL }}js/respond.min.js"></script>
+    <![endif]-->
+{% endaddtoblock %}
+{% addtoblock "js" %}
+{% include "google_analytics.html" %}
+{% endaddtoblock %}
+
+{% block scripts_top %}
+{% endblock %}
+
+</body>
+</html>
