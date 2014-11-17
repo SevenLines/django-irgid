@@ -1,0 +1,93 @@
+.e-preview {
+  margin-left: -8px;
+  margin-right: -8px; }
+
+.e-class {
+  -webkit-transition: all ease-in-out 0.2s;
+  -moz-transition: all ease-in-out 0.2s;
+  -ms-transition: all ease-in-out 0.2s;
+  -o-transition: all ease-in-out 0.2s;
+  transition: all ease-in-out 0.2s;
+  padding: 16px;
+  height: 240px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+  box-shadow: 0 0 1px gray; }
+  .e-class:hover {
+    box-shadow: 0 0 8px gray; }
+
+.e-class-container {
+  width: 33.3%;
+  float: left;
+  padding: 8px;
+  position: relative; }
+  @media (max-width: 768px) {
+    .e-class-container {
+      width: 50%; } }
+  @media (max-width: 500px) {
+    .e-class-container {
+      width: 100%; } }
+
+.e-ex-container {
+  width: 24%;
+  float: left;
+  position: relative; }
+  @media (max-width: 768px) {
+    .e-ex-container {
+      width: 50%; } }
+  @media (max-width: 500px) {
+    .e-ex-container {
+      width: 100%; } }
+
+.e-ex {
+  -webkit-transition: all ease-in-out 0.2s;
+  -moz-transition: all ease-in-out 0.2s;
+  -ms-transition: all ease-in-out 0.2s;
+  -o-transition: all ease-in-out 0.2s;
+  transition: all ease-in-out 0.2s;
+  padding: 16px;
+  height: 180px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+  box-shadow: 0 0 1px gray; }
+  .e-ex:hover {
+    box-shadow: 0 0 8px gray; }
+
+/* excursions */
+.excursions-list {
+  padding-left: 1.5em;
+  padding-bottom: 1em; }
+  .excursions-list .excursion {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; }
+    .excursions-list .excursion .toggle {
+      color: royalblue;
+      cursor: pointer;
+      border-bottom: dashed 1px; }
+      .excursions-list .excursion .toggle:hover {
+        color: black; }
+    .excursions-list .excursion .description {
+      font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; }
+    .excursions-list .excursion h2 {
+      margin-bottom: 2px;
+      padding-left: 0;
+      margin-left: 0; }
+    .excursions-list .excursion .price {
+      margin-top: 8px; }
+    .excursions-list .excursion .price table {
+      border: 1px solid black;
+      border-bottom: none;
+      border-right: none;
+      border-collapse: separate;
+      /*font-size: 1e*/ }
+    .excursions-list .excursion .price th, .excursions-list .excursion .price td {
+      padding: 0.5em;
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+      background-color: white;
+      text-align: center; }
+
+/* end excursions */

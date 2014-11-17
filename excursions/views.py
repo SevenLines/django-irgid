@@ -22,7 +22,11 @@ def index(request):
 
 
 def category(request, id):
-    return render(request, "excursions/preview-category.html", RequestContext(request, e_context()))
+    context = e_context()
+    category = ExcursionCategory.objects.get(pk=id)
+    context['current_category'] = category
+    context['excursions'] = Excursion.objects.filter(category=category)
+    return render(request, "excursions/preview-category.html", RequestContext(request, context))
 
 
 @login_required

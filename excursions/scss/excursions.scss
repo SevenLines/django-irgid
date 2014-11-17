@@ -3,18 +3,20 @@
 $grid-gap: 8px;
 
 .e-preview {
-  padding-bottom: 1em;
+  margin-left: -$grid-gap;
+  margin-right: -$grid-gap;
 }
 
 .e-class {
   @include transition(0.2s);
-  margin: $grid-gap;
+  //  margin: $grid-gap;
   padding: 16px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  //  position: absolute;
+  //  top: 0;
+  //  left: 0;
+  //  right: 0;
+  //  bottom: 0;
+  height: 240px;
   border-radius: 8px;
   cursor: pointer;
   text-align: center;
@@ -38,11 +40,93 @@ $grid-gap: 8px;
   }
 
   float: left;
-  height: 240px;
-  padding: 120px $grid-gap;
+  //  height: 240px;
+  padding: $grid-gap;
   position: relative;
 }
 
-.e-class-description {
+.e-ex-container {
 
+  width: 24%;
+  @media (max-width: $width-medium) {
+    width: 50%;
+  }
+  @media (max-width: $width-small) {
+    width: 100%;
+  }
+
+  float: left;
+  position: relative;
 }
+
+.e-ex {
+  @include transition(0.2s);
+  //  margin: $grid-gap;
+  padding: 16px;
+  //  position: absolute;
+  //  top: 0;
+  //  left: 0;
+  //  right: 0;
+  //  bottom: 0;
+  height: 180px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+
+  box-shadow: 0 0 1px gray;
+
+  &:hover {
+    box-shadow: 0 0 8px gray;
+  }
+}
+
+/* excursions */
+.excursions-list {
+  padding-left: 1.5em;
+  padding-bottom: 1em;
+  .excursion {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    .toggle {
+      color: royalblue;
+      cursor: pointer;
+      border-bottom: dashed 1px;
+      &:hover {
+        color: black;
+      }
+
+    }
+    .description {
+      font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    }
+    h2 {
+      margin-bottom: 2px;
+      padding-left: 0;
+      margin-left: 0;
+    }
+    .price {
+      margin-top: 8px;
+    }
+
+    .price table {
+      border: 1px solid black;
+      border-bottom: none;
+      border-right: none;
+      border-collapse: separate;
+      /*font-size: 1e*/
+    }
+
+    .price th, .price td {
+      padding: 0.5em;
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+      background-color: white;
+      text-align: center;
+    }
+  }
+  .excursion-add {
+
+  }
+}
+
+/* end excursions */

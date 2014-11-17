@@ -1,0 +1,13 @@
+{% load static sekizai_tags %}
+{% if item.item_url and img_bootstrap_cols >= 0 %}
+    {% if img_bootstrap_cols > 0 %} <div class="col-sm-{{ img_bootstrap_cols }}"> {% endif %}
+    <img src="{{ item.item_url }}" id="view" class="main-page-image{% if not show_border %} borderless{% endif %}"/>
+    {% if img_bootstrap_cols > 0 %} </div> {% endif %}
+{% endif %}
+{% if description and img_bootstrap_cols < 12 %}
+     {% if img_bootstrap_cols > 0 %} <div class="col-sm-{{ desc_bootstrap_cols }}"> {% endif %}
+        <div class="main-page-description">
+            {{ description|safe }}
+        </div>
+    {% if img_bootstrap_cols > 0 %}</div> {% endif %}
+{% endif %}

@@ -1,0 +1,69 @@
+<div class="excursions-list">
+    {% for e in excursions %}
+        <div class="excursion">
+            <h2>{{ e.title }}</h2>
+
+            <div class="description">
+                {{ e.description }}
+            </div>
+            {% if e.priceList != "" %}
+                <span class="toggle" data-toggle="collapse" data-target="#price{{ c.pk }}">цены</span>
+                <div class="price collapse" id="price{{ c.pk }}">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Кол-во человек в группе</th>
+                            <td>1-6</td>
+                            <td>7-14</td>
+                            <td>15-19</td>
+                            <td>20-24</td>
+                            <td>25-29</td>
+                            <td>30-34</td>
+                            <td>35-39</td>
+                            <td>40-44</td>
+                            <td>45-47</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th>Цена в расчете на человека, руб.</th>
+                            <td>3500 на всех</td>
+                            <td>530</td>
+                            <td>380</td>
+                            <td>330</td>
+                            <td>280</td>
+                            <td>250</td>
+                            <td>260</td>
+                            <td>240</td>
+                            <td>230</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+        </div>
+
+    {% endfor %}
+    {% if user.is_authenticated %}
+        <hr>
+        <form role="form" method="post" action="{% url "excursions.views.excursion_save" %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="title">Название</label>
+                <input class="form-control" type="text" name="title">
+            </div>
+            <div class="form-group">
+                <label>Описание</label>
+                <textarea class="form-control" name="description"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Цены</label>
+                <textarea class="form-control" name="priceList"></textarea>
+            </div>
+            <input hidden="" name="category_id" value="{{ current_category.pk }}">
+            <button class="btn btn-primary pull-right">
+                <span class="glyphicon glyphicon-plus"> Добавить экскурсию</span>
+            </button>
+        </form>
+    {% endif %}
+</div>

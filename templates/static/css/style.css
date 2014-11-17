@@ -1,0 +1,24 @@
+body {
+  background-color: #e6e6e6;
+  padding: 1em;
+  font-family: serif; }
+  @media (max-width: 768px) {
+    body {
+      padding: 0; } }
+
+.container {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 0 4px silver;
+  padding: 0 1.5em;
+  padding-bottom: 1em; }
+  @media (max-width: 768px) {
+    .container {
+      border-radius: 0; } }
+
+#content {
+  background-color: white; }
+
+.menu .nav .selected a {
+  background-color: #337AB7;
+  color: #ffffff; }

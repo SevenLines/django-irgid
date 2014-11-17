@@ -1,0 +1,183 @@
+body {
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s; }
+
+.container {
+  box-shadow: 0px 4px 16px white; }
+
+#main-banner {
+  text-align: center; }
+  #main-banner img#preview {
+    max-height: 350px; }
+  #main-banner img#view {
+    max-height: 500px;
+    border-radius: 16px;
+    border: 6px solid #999999; }
+    #main-banner img#view.borderless {
+      box-shadow: none;
+      border-radius: 0;
+      border: none; }
+  #main-banner #editor-panel {
+    border: none; }
+    #main-banner #editor-panel > .panel-heading {
+      -webkit-transition: all ease-in-out 0.3s;
+      -moz-transition: all ease-in-out 0.3s;
+      -ms-transition: all ease-in-out 0.3s;
+      -o-transition: all ease-in-out 0.3s;
+      transition: all ease-in-out 0.3s;
+      background-color: white;
+      cursor: pointer; }
+      #main-banner #editor-panel > .panel-heading:hover {
+        background-color: white;
+        color: white; }
+    #main-banner #editor-panel > .panel-collapse > .panel-body {
+      padding: 0; }
+      #main-banner #editor-panel > .panel-collapse > .panel-body > form {
+        margin: 0;
+        padding: 0; }
+  #main-banner .left.authenticated {
+    clear: none;
+    margin-right: 220px; }
+  #main-banner .left .view {
+    margin: 0 auto; }
+    #main-banner .left .view img {
+      border: 2px solid #000000; }
+  #main-banner .right {
+    float: right;
+    width: 200px;
+    padding-left: 0.5em; }
+    #main-banner .right > ul {
+      -webkit-transition: all ease-in-out 0.2s;
+      -moz-transition: all ease-in-out 0.2s;
+      -ms-transition: all ease-in-out 0.2s;
+      -o-transition: all ease-in-out 0.2s;
+      transition: all ease-in-out 0.2s;
+      height: 500px;
+      border-radius: 8px;
+      padding: 0 1em;
+      overflow: scroll;
+      overflow-x: hidden;
+      list-style: none;
+      width: 100%; }
+      #main-banner .right > ul:hover {
+        box-shadow: 0 0 4px white; }
+      #main-banner .right > ul > li {
+        margin-top: 0.5em;
+        width: 100%; }
+        #main-banner .right > ul > li.item {
+          -webkit-transition: all 0.2s;
+          -moz-transition: all 0.2s;
+          -ms-transition: all 0.2s;
+          -o-transition: all 0.2s;
+          transition: all 0.2s;
+          border: 2px solid transparent;
+          border-radius: 8px;
+          position: relative;
+          padding: 0.5em; }
+          #main-banner .right > ul > li.item.active {
+            border-color: #dddddd;
+            box-shadow: 0px 0px 2px #dddddd; }
+          #main-banner .right > ul > li.item img {
+            max-height: 100px;
+            margin: 0 auto; }
+          #main-banner .right > ul > li.item:hover {
+            box-shadow: 0px 0px 8px grey; }
+          #main-banner .right > ul > li.item ul.mini-menu {
+            padding: 0;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            list-style: none; }
+            #main-banner .right > ul > li.item ul.mini-menu > li {
+              padding: 0.1em; }
+  #main-banner .main-page-message {
+    -webkit-transition: all ease-in-out 0.3s;
+    -moz-transition: all ease-in-out 0.3s;
+    -ms-transition: all ease-in-out 0.3s;
+    -o-transition: all ease-in-out 0.3s;
+    transition: all ease-in-out 0.3s;
+    padding: 1em;
+    border-radius: 8px;
+    -webkit-background-size: 40px 40px;
+    -moz-background-size: 40px 40px;
+    -ms-background-size: 40px 40px;
+    background-size: 40px 40px;
+    margin-bottom: 1em;
+    border: 1px solid #cccccc; }
+    @media (max-width: 750px) {
+      #main-banner .main-page-message {
+        margin-top: 1em; } }
+    #main-banner .main-page-message:hover {
+      box-shadow: 0 0 7px white; }
+    #main-banner .main-page-message.alert-info {
+      border: none;
+      box-shadow: 0 0 4px #9acfea;
+      color: black; }
+      #main-banner .main-page-message.alert-info:hover {
+        box-shadow: 0 0 7px #9acfea;
+        color: #134158;
+        background-image: linear-gradient(45deg, #cce7f4 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, #cce7f4 50%, #cce7f4 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
+        -webkit-animation: mainPageMessageAnimation 3s infinite linear;
+        -moz-animation: mainPageMessageAnimation 3s infinite linear;
+        -o-animation: mainPageMessageAnimation 3s infinite linear;
+        animation: mainPageMessageAnimation 3s infinite linear; }
+    #main-banner .main-page-message.alert-success {
+      border: none;
+      box-shadow: 0 0 4px #b2dba1;
+      color: black; }
+      #main-banner .main-page-message.alert-success:hover {
+        box-shadow: 0 0 7px #b2dba1;
+        color: #28471c;
+        background-image: linear-gradient(45deg, #d6eccd 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, #d6eccd 50%, #d6eccd 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
+        -webkit-animation: mainPageMessageAnimation 3s infinite linear;
+        -moz-animation: mainPageMessageAnimation 3s infinite linear;
+        -o-animation: mainPageMessageAnimation 3s infinite linear;
+        animation: mainPageMessageAnimation 3s infinite linear; }
+    #main-banner .main-page-message.alert-warning {
+      border: none;
+      box-shadow: 0 0 4px #f5e79e;
+      color: black; }
+      #main-banner .main-page-message.alert-warning:hover {
+        box-shadow: 0 0 7px #f5e79e;
+        color: #6e5e0c;
+        background-image: linear-gradient(45deg, #fbf5d5 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, #fbf5d5 50%, #fbf5d5 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
+        -webkit-animation: mainPageMessageAnimation 3s infinite linear;
+        -moz-animation: mainPageMessageAnimation 3s infinite linear;
+        -o-animation: mainPageMessageAnimation 3s infinite linear;
+        animation: mainPageMessageAnimation 3s infinite linear; }
+    #main-banner .main-page-message.alert-danger {
+      border: none;
+      box-shadow: 0 0 4px #dca7a7;
+      color: black; }
+      #main-banner .main-page-message.alert-danger:hover {
+        box-shadow: 0 0 7px #dca7a7;
+        color: #4d1e1e;
+        background-image: linear-gradient(45deg, #eed3d3 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, #eed3d3 50%, #eed3d3 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
+        -webkit-animation: mainPageMessageAnimation 3s infinite linear;
+        -moz-animation: mainPageMessageAnimation 3s infinite linear;
+        -o-animation: mainPageMessageAnimation 3s infinite linear;
+        animation: mainPageMessageAnimation 3s infinite linear; }
+
+@-webkit-keyframes mainPageMessageAnimation {
+  0% {
+    background-position: 0 0; }
+
+  100% {
+    background-position: 40px 0; } }
+
+@-moz-keyframes mainPageMessageAnimation {
+  0% {
+    background-position: 0 0; }
+
+  100% {
+    background-position: 40px 0; } }
+
+@keyframes mainPageMessageAnimation {
+  0% {
+    background-position: 0 0; }
+
+  100% {
+    background-position: 40px 0; } }

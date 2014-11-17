@@ -1,4 +1,4 @@
-{% load cms_tags sekizai_tags %}
+{% load cms_tags sekizai_tags menu_tags %}
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -9,34 +9,25 @@
     {% include "_/elements/scripts.html" %}
 
     {% render_block "css" %}
+    {% render_block "js" %}
+
 </head>
 <body>
-
-{% cms_toolbar %}
-{% render_block "js" %}
-
-
 <div class="container">
-    {#    <div class="header">#}
-    {#        <h1>ИРГИД</h1>#}
-    <nav class="navbar " role="navigation">
-{#        <div class="container-fluid">#}
-            <div class="navbar-header">
-                <a class="navbar-brand" href="/">Иргид</a>
-            </div>
-            <div class="navbar-collapse">
-                <ul class="nav nav-pills">
-                    <li role="presentation"><a href="#">Экскурсии</a></li>
-                </ul>
-            </div>
-{#        </div>#}
-    </nav>
-    {#    </div>#}
+    <div class="header">
+        <nav class="navbar menu">
+            <ul class="nav nav-pills pull-left" style="padding-top: 1em">
+                {% show_menu 0 100 100 100 %}
+            </ul>
+        </nav>
+    </div>
     <div id="content">
         {% block content %}
         {% endblock content %}
+    <div style="clear:both;"></div>
     </div>
 </div>
 
+{% cms_toolbar %}
 </body>
 </html>

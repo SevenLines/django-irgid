@@ -16,7 +16,8 @@ body {
   border-radius: 16px;
 //  border: 1px solid grey;
   box-shadow: 0 0 4px silver;
-  padding: 0 2em;
+  padding: 0 1.5em;
+  padding-bottom: 1em;
 
   @media (max-width: $width-medium) {
    border-radius: 0;

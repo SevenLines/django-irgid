@@ -1,0 +1,25 @@
+<div class="modal fade" id="modalSave" aria-hidden="true" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" data-bind="text: $root.modalSave.message()">
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <img id="preview">
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control" placeholder="title" data-bind="value: $root.new_item.title">
+                </div>
+                <div class="form-group">
+                    <textarea style="max-width: 100%;min-width: 100%" class="form-control"
+                              data-bind="value: $root.new_item.description"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" data-decline>Нет</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" data-confirm>Да</button>
+            </div>
+        </div>
+    </div>
+</div>
