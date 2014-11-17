@@ -7,6 +7,12 @@ class ExcursionCategory(Model):
     title = models.CharField(max_length=100, default='')
     description = models.TextField(default='')
 
+    def excursions(self, request):
+        if not request.user.is_authenticated():
+            return Excursion.objects.filter(category=self, published=True)
+        else:
+            return Excursion.objects.filter(category=self)
+
 
 class Excursion(Model):
     title = models.CharField(max_length=100)

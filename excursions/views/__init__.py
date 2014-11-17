@@ -7,25 +7,19 @@ from django.shortcuts import render, redirect
 from django.template.context import RequestContext
 from app.utils import require_in_POST
 from excursions.models import ExcursionCategory, Excursion
-
-
-def e_context():
-    categories = ExcursionCategory.objects.all()
-
-    return {
-        'categories': categories,
-    }
+from excursions.views import ajax
+from excursions.views.__base import _excursion_save, _excursion_context
 
 
 def index(request):
-    return render(request, "excursions/preview.html", RequestContext(request, e_context()))
+    return render(request, "excursions/preview.html", RequestContext(request, _excursion_context(request)))
 
 
 def category(request, id):
-    context = e_context()
+    context = _excursion_context(request)
     category = ExcursionCategory.objects.get(pk=id)
     context['current_category'] = category
-    context['excursions'] = Excursion.objects.filter(category=category)
+    context['excursions'] = category.excursions(request).order_by("title")
     return render(request, "excursions/preview-category.html", RequestContext(request, context))
 
 
@@ -58,7 +52,7 @@ def category_save(request):
 
 
 def excursion(request, id):
-    return render(request, "excursions/preview-excursion.html", RequestContext(request, e_context()))
+    return render(request, "excursions/preview-excursion.html", RequestContext(request, _excursion_context()))
 
 
 @login_required
@@ -72,11 +66,9 @@ def excursion_remove(request, id):
 
 
 @login_required
-@require_in_POST("title", "description", "category_id")
+@require_in_POST("category_id")
 def excursion_save(request):
-    e = Excursion()
-    e.title = request.POST['title']
-    e.category_id = request.POST['category_id']
-    e.description = request.POST['description']
-    e.save()
-    return HttpResponse(e.pk)
+
+    _excursion_save(request)
+
+    return redirect(request.META['HTTP_REFERER'])

@@ -22,3 +22,34 @@ body {
 .menu .nav .selected a {
   background-color: #337AB7;
   color: #ffffff; }
+
+#enter-button-area {
+  -webkit-transition: all ease-in-out 0.3s;
+  -moz-transition: all ease-in-out 0.3s;
+  -ms-transition: all ease-in-out 0.3s;
+  -o-transition: all ease-in-out 0.3s;
+  transition: all ease-in-out 0.3s;
+  position: fixed;
+  right: -2em;
+  top: 0;
+  padding: 40px;
+  padding-right: 0; }
+  #enter-button-area:hover {
+    right: 0; }
+    #enter-button-area:hover #enter-button {
+      background-color: rgba(255, 255, 255, 0.55);
+      color: silver; }
+
+#enter-button {
+  -webkit-transition: all ease-in-out 0.3s;
+  -moz-transition: all ease-in-out 0.3s;
+  -ms-transition: all ease-in-out 0.3s;
+  -o-transition: all ease-in-out 0.3s;
+  transition: all ease-in-out 0.3s;
+  padding: 1em;
+  cursor: pointer;
+  border-radius: 8px 0 0 8px;
+  color: white; }
+  @media (max-width: 800px) {
+    #enter-button {
+      display: none; } }

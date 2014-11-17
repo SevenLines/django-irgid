@@ -1,0 +1,58 @@
+<!-- login modal -->
+<div id="login-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Вход</h2>
+            </div>
+            <div class="modal-body">
+                <form role="form" method="POST" action="{% url "app.views.login_user" %}">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="username" value="">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="password" name="password" value="">
+                    </div>
+                    {% csrf_token %}
+
+                    <button type="submit" class="btn btn-info">
+                        <span class="glyphicon glyphicon-log-in"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- / login modal -->
+
+<div id="enter-button-area">
+    {% if user.is_authenticated %}
+        <a id="enter-button">
+            <span class="glyphicon glyphicon-log-out"></span>
+        </a>
+    {% else %}
+        <a id="enter-button" data-toggle="modal" data-target="#login-modal">
+            <span class="glyphicon glyphicon-log-in"></span>
+        </a>
+    {% endif %}
+</div>
+
+
+<script>
+
+    {% if user.is_authenticated %}
+        $("#enter-button").click(function () {
+            $.post("/admin/logout/", {
+                csrfmiddlewaretoken: "{{ csrf_token }}"
+            }).success(function () {
+                location.reload();
+            });
+        });
+    {% else %}
+        $("body").click(function (evt) {
+            if (evt.altKey && evt.ctrlKey && evt.shiftKey) {
+                $("#login-modal").modal('show');
+            }
+        });
+    {% endif %}
+</script>

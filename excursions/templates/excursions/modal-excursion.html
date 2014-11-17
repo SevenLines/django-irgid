@@ -1,0 +1,61 @@
+<div class="modal fade" id="modal-excursion-remove">
+    <div class="modal-dialog">
+        <form class="form" method="POST" action="">
+            <div class="modal-content">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <h3>Удалить экскурсию</h3> <br><h1><span class="placeholder-title"></span>?</h1>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-excursion-publish">
+    <div class="modal-dialog">
+        <form class="form" method="POST" action="">
+            <div class="modal-content">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <h3>Опубликовать экскурсию</h3> <br><h1><span class="placeholder-title"></span>?</h1>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Да</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Нет</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    $(".excursion").on('click', ".publish-button", function(e) {
+        var id = e.currentTarget.dataset.id;
+        var category_id = e.currentTarget.dataset.category_id;
+        var action = e.currentTarget.dataset.action;
+        var published = e.currentTarget.dataset.published;
+        $.post(action,  {
+            id: id,
+            category_id: category_id,
+            published: published=='True' ? 'False' : 'True',
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        }).done(function (response) {
+            $(e.currentTarget).parents(".excursion").html(response);
+        }).fail(function () {
+
+        });
+    });
+
+    $("#modal-excursion-remove").on('show.bs.modal', function(e) {
+        var title = e.relatedTarget.dataset.title;
+        var action = e.relatedTarget.dataset.action;
+        console.log(title);
+        $(e.currentTarget).find(".placeholder-title").html(title);
+        $(e.currentTarget).find("form")[0].action = action;
+    });
+</script>

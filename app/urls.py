@@ -11,6 +11,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^excursions/', include(excursions.urls)),
+    url(r'login/', "app.views.login_user"),
     url(r'^', include('cms.urls')),
 )
 
