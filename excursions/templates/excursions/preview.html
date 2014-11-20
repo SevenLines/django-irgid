@@ -9,31 +9,32 @@
                 <a class="e-class-description" href="{% url "excursions.views.category" c.pk %}">
                     <div class="e-class">
                         <h3>{{ c.title }}</h3>
-                        {% if page.is_draft %}
-                            <div class="e-class-menu">
-                                <button class="btn btn-danger"
-                                        data-toggle="modal"
-                                        data-target="#modal-category-remove"
-                                        data-id="{{ c.pk }}"
-                                        data-title="{{ c.title }}"
-                                        data-action="{% url "excursions.views.category_remove" c.pk %}">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                </button>
-                                <button class="btn btn-success"
-                                        data-toggle="modal"
-                                        data-target="#modal-category-edit"
-                                        data-id="{{ c.pk }}"
-                                        data-title="{{ c.title }}"
-                                        data-description="{{ c.description }}"
-                                        data-action="{% url "excursions.views.category_save" %}">
-                                    <span class="glyphicon glyphicon-edit"></span>
-                                </button>
-                                <button class="btn btn-info"><span class="glyphicon glyphicon-eye-open"></span></button>
-                            </div>
-                        {% endif %}
                     </div>
                 </a>
-
+                {% if user.is_authenticated %}
+                    <div class="e-class-menu">
+                        <div class="btn-group">
+                            <button class="btn btn-success"
+                                    data-toggle="modal"
+                                    data-target="#modal-category-edit"
+                                    data-id="{{ c.pk }}"
+                                    data-title="{{ c.title }}"
+                                    data-description="{{ c.description }}"
+                                    data-action="{% url "excursions.views.category_save" %}">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                            <button class="btn btn-info"><span class="glyphicon glyphicon-eye-open"></span></button>
+                        </div>
+                        <button class="btn btn-danger pull-right"
+                                data-toggle="modal"
+                                data-target="#modal-category-remove"
+                                data-id="{{ c.pk }}"
+                                data-title="{{ c.title }}"
+                                data-action="{% url "excursions.views.category_remove" c.pk %}">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </div>
+                {% endif %}
             </div>
         {% endfor %}
         {% if user.is_authenticated %}

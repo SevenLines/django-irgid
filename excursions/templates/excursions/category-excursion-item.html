@@ -1,9 +1,18 @@
-<h2>{{ e.title }}
-    {% if user.is_authenticated %}
-        <div class="form-inline pull-right">
-            <button class="btn btn-default" data-toggle="modal" data-target="">
-                <span class="glyphicon glyphicon-edit"></span>
-            </button>
+<a href="{% url "excursions.views.excursion" e.pk %}">
+    <div>
+        <h2>{{ e.title }}</h2>
+
+        <div class="description">
+            {{ e.description }}
+        </div>
+    </div>
+</a>
+{% if user.is_authenticated %}
+    <div class="e-excursion-item-menu">
+        <div class="form-inline">
+{#            <button class="btn btn-default" data-toggle="modal" data-target="">#}
+{#                <span class="glyphicon glyphicon-edit"></span>#}
+{#            </button>#}
             <button class="btn{% if e.published %} btn-success{% else %} btn-default{% endif %} publish-button"
                     data-title="{{ e.title }}"
                     data-category_id="{{ e.category_id }}"
@@ -20,11 +29,8 @@
                 <span class="glyphicon glyphicon-remove"></span>
             </button>
         </div>
-    {% endif %}
-</h2>
-<div class="description">
-    {{ e.description }}
-</div>
+    </div>
+{% endif %}
 
 {% if e.priceList != "" %}
     <span class="toggle" data-toggle="collapse" data-target="#price{{ c.pk }}">цены</span>

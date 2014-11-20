@@ -52,7 +52,8 @@ def category_save(request):
 
 
 def excursion(request, id):
-    return render(request, "excursions/preview-excursion.html", RequestContext(request, _excursion_context()))
+    return render(request, "excursions/preview-excursion.html",
+                  RequestContext(request, _excursion_context(request)))
 
 
 @login_required

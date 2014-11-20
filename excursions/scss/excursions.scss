@@ -9,24 +9,29 @@ $grid-gap: 8px;
 
 .e-class {
   @include transition(0.2s);
-  //  margin: $grid-gap;
   padding: 16px;
-  //  position: absolute;
-  //  top: 0;
-  //  left: 0;
-  //  right: 0;
-  //  bottom: 0;
   height: 240px;
   border-radius: 8px;
   cursor: pointer;
   text-align: center;
-  vertical-align: middle;
+  //  vertical-align: middle;
+
+  padding-top: 80px;
 
   box-shadow: 0 0 1px gray;
 
   &:hover {
     box-shadow: 0 0 8px gray;
   }
+
+  //  h3 {
+  //    position: absolute;
+  //    top: 90px;
+  //  }
+}
+
+.e-class-menu {
+  margin-top: 0.5em;
 }
 
 .e-class-container {
@@ -43,6 +48,13 @@ $grid-gap: 8px;
   //  height: 240px;
   padding: $grid-gap;
   position: relative;
+
+  .e-class-menu {
+    position: absolute;
+    bottom: 16px;
+    right: 24px;
+    left: 24px;
+  }
 }
 
 .e-ex-container {
@@ -83,26 +95,57 @@ $grid-gap: 8px;
 
 /* excursions */
 .excursions-list {
-  padding-left: 1.5em;
+  padding-left: 0.75em;
   padding-bottom: 1em;
+
   .excursion {
+    display: block;
+    cursor: pointer;
+    > a  {
+      text-decoration: none;
+      color: #000000;
+    }
+    position: relative;
+    @include transition(0.2s);
+    margin: 0.25em 0 2px;
+    &:first-child {
+
+    }
+
+    .e-excursion-item-menu {
+      position: absolute;
+      right: 0.5em;
+      top: 0.75em;
+    }
+
+    padding: 0.5em 0.75em;
+    border-radius: 8px;
+
     font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
     .toggle {
-      color: royalblue;
+      color: $common_color;
       cursor: pointer;
       border-bottom: dashed 1px;
       &:hover {
         color: black;
       }
-
     }
+
+    &:hover {
+      box-shadow: 0 0 2px $common_color;
+      color: $common_color;
+      //      box-shadow: 0 0 4px lighten($common_color, 35);
+      //      color: white;
+      //      background-color: lighten($common_color, 0);
+    }
+
     .description {
       font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
     }
     h2 {
-      margin-bottom: 2px;
+      margin: 0;
       padding-left: 0;
-      margin-left: 0;
+      padding-bottom: 4px;
     }
     .price {
       margin-top: 8px;

@@ -13,10 +13,13 @@
   border-radius: 8px;
   cursor: pointer;
   text-align: center;
-  vertical-align: middle;
+  padding-top: 80px;
   box-shadow: 0 0 1px gray; }
   .e-class:hover {
     box-shadow: 0 0 8px gray; }
+
+.e-class-menu {
+  margin-top: 0.5em; }
 
 .e-class-container {
   width: 33.3%;
@@ -29,6 +32,11 @@
   @media (max-width: 500px) {
     .e-class-container {
       width: 100%; } }
+  .e-class-container .e-class-menu {
+    position: absolute;
+    bottom: 16px;
+    right: 24px;
+    left: 24px; }
 
 .e-ex-container {
   width: 24%;
@@ -59,22 +67,43 @@
 
 /* excursions */
 .excursions-list {
-  padding-left: 1.5em;
+  padding-left: 0.75em;
   padding-bottom: 1em; }
   .excursions-list .excursion {
+    display: block;
+    cursor: pointer;
+    position: relative;
+    -webkit-transition: all ease-in-out 0.2s;
+    -moz-transition: all ease-in-out 0.2s;
+    -ms-transition: all ease-in-out 0.2s;
+    -o-transition: all ease-in-out 0.2s;
+    transition: all ease-in-out 0.2s;
+    margin: 0.25em 0 2px;
+    padding: 0.5em 0.75em;
+    border-radius: 8px;
     font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; }
+    .excursions-list .excursion > a {
+      text-decoration: none;
+      color: #000000; }
+    .excursions-list .excursion .e-excursion-item-menu {
+      position: absolute;
+      right: 0.5em;
+      top: 0.75em; }
     .excursions-list .excursion .toggle {
-      color: royalblue;
+      color: #2b679c;
       cursor: pointer;
       border-bottom: dashed 1px; }
       .excursions-list .excursion .toggle:hover {
         color: black; }
+    .excursions-list .excursion:hover {
+      box-shadow: 0 0 2px #2b679c;
+      color: #2b679c; }
     .excursions-list .excursion .description {
       font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; }
     .excursions-list .excursion h2 {
-      margin-bottom: 2px;
+      margin: 0;
       padding-left: 0;
-      margin-left: 0; }
+      padding-bottom: 4px; }
     .excursions-list .excursion .price {
       margin-top: 8px; }
     .excursions-list .excursion .price table {
