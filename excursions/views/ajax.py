@@ -6,7 +6,6 @@ from excursions.views.__base import _excursion_save, _excursion_context
 
 
 @login_required
-@require_in_POST("category_id")
 def excursion_save(request):
     _excursion_save(request)
     context = _excursion_context(request)

@@ -1,6 +1,7 @@
 
 
 INSTALLED_APPS = (
+
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -8,22 +9,19 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'djangocms_admin_style',
+    'cms',  # django CMS itself
+    'mptt',
+    'treebeard',  # utilities for implementing a tree using materialised paths
+    'menus',  # helper for model independent hierarchical website navigation
+    'sekizai',  # for javascript and css management
+    'djangocms_admin_style',  # for the admin skin. You **must** add 'djangocms_admin_style' in the list **before** 'django.contrib.admin'.
     'django.contrib.admin',
-
-    'cms',
-    'mptt',
-    'menus',
-    'south',
-    'sekizai',
-
     'filer',
-    'mptt',
     'easy_thumbnails',
 
     'excursions',
-    'main_page',
-    # 'utils',
+    'setup_irgid',
+    'utils',
 )
 
 # THUMBNAIL_DEBUG = True

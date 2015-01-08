@@ -1,0 +1,90 @@
+{% load static sekizai_tags %}
+{#<form id="excursion-save-form" method="post" action="{% url "excursions.views.ajax.excursion_save" %}">#}
+<div id="excursion-content">
+    {#    <div class="exursion-content-imagelist" style="width:200px;float: right">#}
+    {#        Cool#}
+    {#    </div>#}
+    <button style="margin-bottom: 0.5em" type="submit" class="excursion-content-submit btn btn-default pull-right"
+            data-action="{% url "excursions.views.ajax.excursion_save" %}">
+        <span class="glyphicon glyphicon-save"> Сохранить</span>
+    </button>
+    <div style="clear:right"></div>
+    <div class="" style="">
+        <table style="width: 100%;table-layout: fixed">
+            <tr>
+                <td style="width:66%;">
+                    <h2 contenteditable="true" id="excursion-title">{{ current_excursion.title|default:"..." }}</h2>
+
+                    <div id="excursion-short-description" contenteditable="true">
+                        {{ current_excursion.short_description|safe|default:"..." }}
+                    </div>
+                </td>
+                <td>
+                    <img src="" style="width:100%;height: 6em"/>
+                </td>
+            </tr>
+        </table>
+        {#        <h2 contenteditable="true" id="excursion-title">#}
+        {#            {{ current_excursion.title|default:"..." }}#}
+        {#        </h2>#}
+        {##}
+        {#        <h4 style="padding-top: 0;margin-top: 0">Короткое описание:</h4>#}
+        {##}
+        {#        <div contenteditable="true" id="excursion-short-description">#}
+        {#            {{ current_excursion.short_description|safe|default:"..." }}#}
+        {#        </div>#}
+
+        <img src="" style="padding: 1em 0;width:100%;height: 400px;"/>
+
+        <div contenteditable="true" contenteditable="true" id="excursion-description">
+            {{ current_excursion.description|safe|default:"..." }}
+        </div>
+
+        <h3>Цены:</h3>
+        <textarea style="max-width: 100%;min-width: 100%; min-height: 10em" class="form-control"
+                  id="excursion-price-list" name="priceList">{{ current_excursion.priceList|safe }}</textarea>
+    </div>
+
+    <hr>
+
+    <button type="submit" class="excursion-content-submit btn btn-default pull-right"
+            data-action="{% url "excursions.views.ajax.excursion_save" %}">
+        <span class="glyphicon glyphicon-save"> Сохранить</span>
+    </button>
+
+    {% addtoblock "footerjs" %}
+        <script src="{% static "bower/ckeditor/ckeditor.js" %}"></script>
+    {% endaddtoblock %}
+
+    {% addtoblock "footerjs" %}
+        <script>
+            var editor_config = {
+                enterMode: CKEDITOR.ENTER_BR,
+                extraPlugins: 'sourcedialog,showblocks,justify,colordialog,colorbutton,liststyle'
+            };
+
+            CKEDITOR.disableAutoInline = true;
+            CKEDITOR.inline('excursion-description', editor_config);
+            //CKEDITOR.inline('excursion-short-description', editor_config);
+
+            $(".excursion-content-submit").on("click", function () {
+                var title = $("#excursion-title").html();
+                var action = this.dataset.action;
+                var description = $("#excursion-description").html();
+                var short_description = $("#excursion-short-description").html();
+                var price_list = $("#excursion-price-list")[0].value;
+
+                $.post(action, {
+                    id: {{ current_excursion.id }},
+                    title: title.trim(),
+                    description: description.trim(),
+                    short_description: short_description.trim(),
+                    price_list: price_list.trim(),
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                }).done(function () {
+                    console.log("success");
+                })
+            })
+        </script>
+    {% endaddtoblock %}
+</div>

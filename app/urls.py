@@ -3,7 +3,7 @@ from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.conf import settings
 import excursions.urls
-import main_page.urls
+# import main_page.urls
 
 admin.autodiscover()
 

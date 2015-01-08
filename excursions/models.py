@@ -16,10 +16,22 @@ class ExcursionCategory(Model):
 
 class Excursion(Model):
     title = models.CharField(max_length=100)
-    description = models.TextField(blank=True)
+    description = models.TextField(default="")
+    short_description = models.TextField(default="")
     length = models.IntegerField(verbose_name="way length in meters", default=0)
     time_length = models.IntegerField(verbose_name="time takes in minutes", default=0)
     priceList = models.TextField(verbose_name="price list", default="")
 
+    # img_preview = models.ImageField(upload_to="excursions_previews", default=None)
+
     category = models.ForeignKey("ExcursionCategory", default=None, null=True)
     published = models.BooleanField("", default=False)
+
+    @property
+    def price_list_rendered(self):
+        out = []
+        price_lines = self.priceList.splitlines()
+        for p in price_lines:
+            values = p.split('|', 1)
+            out.append((values[0].strip(' \t\n\r'), values[1].strip(' \t\n\r')))
+        return out

@@ -1,11 +1,12 @@
-{% extends "_/base.html" %}
+{% extends "excursions/base.html" %}
 {% load static sekizai_tags %}
 
-{% block content %}
+{% block ex_content %}
     <div style="width: 200px;; float: left">
-        {% include "excursions/list-category.html" %}
+        {% include "excursions/list-category-excursions.html" %}
     </div>
-    <div style="padding-left: 200px; width: 100%">
+
+    <div style="padding-left: 210px; width: 100%">
         {% include "excursions/description-excursion.html" %}
     </div>
 

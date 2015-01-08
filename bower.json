@@ -6,6 +6,8 @@
   ],
   "description": "my site",
   "dependencies": {
-    "bootstrap": "~3"
+    "bootstrap": "~3",
+    "ckeditor": "~4.4.5",
+    "jquery": "~1"
   }
 }

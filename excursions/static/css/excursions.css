@@ -69,54 +69,89 @@
 .excursions-list {
   padding-left: 0.75em;
   padding-bottom: 1em; }
-  .excursions-list .excursion {
-    display: block;
+  .excursions-list .excursion:hover {
+    box-shadow: 0 0 2px #2b679c;
+    color: #2b679c; }
+
+.excursion {
+  display: block;
+  position: relative;
+  -webkit-transition: all ease-in-out 0.2s;
+  -moz-transition: all ease-in-out 0.2s;
+  -ms-transition: all ease-in-out 0.2s;
+  -o-transition: all ease-in-out 0.2s;
+  transition: all ease-in-out 0.2s;
+  margin: 0.25em 0 2px;
+  padding: 0.5em 0.75em;
+  border-radius: 8px;
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; }
+  .excursion > a {
+    text-decoration: none;
+    color: #000000; }
+  .excursion .e-excursion-item-menu {
+    position: absolute;
+    right: 0.5em;
+    top: 0.75em; }
+  .excursion .toggle {
+    color: #2b679c;
     cursor: pointer;
-    position: relative;
-    -webkit-transition: all ease-in-out 0.2s;
-    -moz-transition: all ease-in-out 0.2s;
-    -ms-transition: all ease-in-out 0.2s;
-    -o-transition: all ease-in-out 0.2s;
-    transition: all ease-in-out 0.2s;
-    margin: 0.25em 0 2px;
-    padding: 0.5em 0.75em;
-    border-radius: 8px;
+    border-bottom: dashed 1px; }
+    .excursion .toggle:hover {
+      color: black; }
+  .excursion .description {
     font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; }
-    .excursions-list .excursion > a {
-      text-decoration: none;
-      color: #000000; }
-    .excursions-list .excursion .e-excursion-item-menu {
+  .excursion h2 {
+    margin: 0;
+    padding-left: 0;
+    padding-bottom: 4px; }
+  .excursion .price {
+    margin-top: 8px; }
+  .excursion .price table {
+    border: 1px solid black;
+    border-bottom: none;
+    border-right: none;
+    border-collapse: separate;
+    /*font-size: 1e*/ }
+  .excursion .price th, .excursion .price td {
+    padding: 0.5em;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    background-color: white;
+    text-align: center; }
+
+.e-categories-excursion .e-category.active {
+  position: relative; }
+  .e-categories-excursion .e-category.active:after {
+    content: ' ';
+    position: absolute;
+    left: -0px;
+    top: 101%;
+    border-width: 4px 4px;
+    border-style: solid;
+    border-color: #204d74 #204d74 transparent transparent; }
+  .e-categories-excursion .e-category.active.without-excursions:after {
+    content: '';
+    border: none; }
+.e-categories-excursion .list-group-item-excursion {
+  -webkit-transition: all ease-in-out 0.2s;
+  -moz-transition: all ease-in-out 0.2s;
+  -ms-transition: all ease-in-out 0.2s;
+  -o-transition: all ease-in-out 0.2s;
+  transition: all ease-in-out 0.2s;
+  margin-left: 8px; }
+  .e-categories-excursion .list-group-item-excursion.first {
+    position: relative;
+    overflow: hidden; }
+    .e-categories-excursion .list-group-item-excursion.first:after {
       position: absolute;
-      right: 0.5em;
-      top: 0.75em; }
-    .excursions-list .excursion .toggle {
-      color: #2b679c;
-      cursor: pointer;
-      border-bottom: dashed 1px; }
-      .excursions-list .excursion .toggle:hover {
-        color: black; }
-    .excursions-list .excursion:hover {
-      box-shadow: 0 0 2px #2b679c;
-      color: #2b679c; }
-    .excursions-list .excursion .description {
-      font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; }
-    .excursions-list .excursion h2 {
-      margin: 0;
-      padding-left: 0;
-      padding-bottom: 4px; }
-    .excursions-list .excursion .price {
-      margin-top: 8px; }
-    .excursions-list .excursion .price table {
-      border: 1px solid black;
-      border-bottom: none;
-      border-right: none;
-      border-collapse: separate;
-      /*font-size: 1e*/ }
-    .excursions-list .excursion .price th, .excursions-list .excursion .price td {
-      padding: 0.5em;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
-      background-color: white;
-      text-align: center; }
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      margin-top: -1px;
+      content: ' ';
+      box-shadow: 0 0 3px 2px black; }
+  .e-categories-excursion .list-group-item-excursion.current {
+    margin-left: 4px; }
 
 /* end excursions */

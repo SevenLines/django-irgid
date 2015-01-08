@@ -1,12 +1,8 @@
 <div class="e-categories list-group">
-{#    {% for c in categories %}#}
-{#    <a class="e-category list-group-item" href="">{{ c.title }}</a>#}
-{#    {% endfor %}#}
-{#    {% if user.is_authenticated %}#}
-{#        <a class="e-category list-group-item">#}
-{#            <button class="btn btn-link"">#}
-{#                <span class="glyphicon glyphicon-plus"> Добавить</span>#}
-{#            </button>#}
-{#        </a>#}
-{#    {% endif %}#}
+    {% for c in categories %}
+        <a class="e-category list-group-item{% if c.pk == current_category.pk %} active{% endif %}"
+           {% if c.pk != current_category.pk %}href="{% url "excursions.views.category" c.pk %}{% endif %}" >
+            {{ c.title }}
+        </a>
+    {% endfor %}
 </div>

@@ -12,7 +12,8 @@ from excursions.views.__base import _excursion_save, _excursion_context
 
 
 def index(request):
-    return render(request, "excursions/preview.html", RequestContext(request, _excursion_context(request)))
+    context = _excursion_context(request)
+    return render(request, "excursions/preview.html", context)
 
 
 def category(request, id):
@@ -20,7 +21,7 @@ def category(request, id):
     category = ExcursionCategory.objects.get(pk=id)
     context['current_category'] = category
     context['excursions'] = category.excursions(request).order_by("title")
-    return render(request, "excursions/preview-category.html", RequestContext(request, context))
+    return render(request, "excursions/preview-category.html", context)
 
 
 @login_required
@@ -52,8 +53,13 @@ def category_save(request):
 
 
 def excursion(request, id):
-    return render(request, "excursions/preview-excursion.html",
-                  RequestContext(request, _excursion_context(request)))
+    context = _excursion_context(request)
+    context['current_excursion'] = Excursion.objects.get(pk=id)
+    category = context['current_excursion'].category
+    context['current_category'] = category
+    context['excursions'] = category.excursions(request).order_by("title")
+
+    return render(request, "excursions/preview-excursion.html", context)
 
 
 @login_required

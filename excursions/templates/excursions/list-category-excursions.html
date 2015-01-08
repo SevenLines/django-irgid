@@ -1,0 +1,24 @@
+<div class="e-categories-excursion list-group">
+    {% for c in categories %}
+        <a class="e-category list-group-item
+        {% if c.pk == current_category.pk %} active{% endif %}
+        {% if excursions|length == 1 and excursions.0.pk == current_excursion.pk %} without-excursions{% endif %}"
+           href="{% url "excursions.views.category" c.pk %}">
+            {{ c.title }}
+        </a>
+        {% if c.pk == current_category.pk %}
+            {% for e in excursions %}
+                {% if e.pk != current_excursion.pk %}
+                    <a href="{% url "excursions.views.excursion" e.pk %}"
+                       class="list-group-item list-group-item-success list-group-item-excursion">
+{#                       {% if forloop. %} first{% endif %}">#}
+                        {{ e.title }}
+                    </a>
+{#                {% else %}#}
+{#                    <a class="list-group-item  list-group-item-excursion current">{{ e.title }}</a>#}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+    {% endfor %}
+</div>

@@ -91,17 +91,16 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
 )
-
 MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'cms.middleware.page.CurrentPageMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.doc.XViewMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'cms.middleware.user.CurrentUserMiddleware',
+    'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
     'cms.middleware.language.LanguageCookieMiddleware',
 )
@@ -112,22 +111,26 @@ ROOT_URLCONF = 'app.urls'
 WSGI_APPLICATION = 'app.wsgi.application'
 
 TEMPLATE_DIRS = (
-    os.path.join(PROJECT_PATH, "templates")
+    os.path.join(PROJECT_PATH, "templates"),
 )
 
 CMS_TEMPLATES = (
     ('_/base.html', "base"),
 )
 
+MIGRATION_MODULES = {
+    'cms': 'cms.migrations_django',
+}
+
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
+    'django.contrib.messages.context_processors.messages',
     'django.core.context_processors.i18n',
     'django.core.context_processors.request',
     'django.core.context_processors.media',
     'django.core.context_processors.static',
-    'django.contrib.messages.context_processors.messages',
-    'cms.context_processors.media',
     'sekizai.context_processors.sekizai',
+    'cms.context_processors.cms_settings',
 )
 
 THUMBNAIL_PROCESSORS = (
