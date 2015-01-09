@@ -1,7 +1,8 @@
 @import "constants";
 
 body {
-  background-color: $background-color;
+//  background-color: $background-color;
+  background: url("images/eight_horns.png");
   padding: 1em;
 
   @include transition(0.3s);

@@ -4,13 +4,9 @@
 </h2>
 
 
-<div id="excursion-description">
-    {{ current_excursion.description|safe|default:"..." }}
-</div>
-<hr>
-
 {% if current_excursion.img_preview %}
-    <div class="excursion-preview-container" >
+    <hr>
+    <div class="excursion-preview-container">
         <a href="{{ current_excursion.img_preview.url }}">
             {% thumbnail current_excursion.img_preview 1024x400 as thumb %}
             <img class="lazy fadein" data-original="{{ thumb.url }}"/>
@@ -19,8 +15,13 @@
             </noscript>
         </a>
     </div>
+    <hr>
 {% endif %}
-<hr>
+
+<div id="excursion-description">
+    {{ current_excursion.description|safe|default:"..." }}
+</div>
+
 
 {% if current_excursion.priceList %}
     <h3>Цены:</h3>
@@ -46,8 +47,3 @@
     </div>
 {% endif %}
 
-
-{##}
-{#<div id="excursion-short-description">#}
-{#    {{ current_excursion.short_description|safe|default:"..." }}#}
-{#</div>#}
