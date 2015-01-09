@@ -22,12 +22,12 @@
             </tr>
         </table>
 
-        {% if e.priceList != "" %}
-            <span class="toggle" data-toggle="collapse" data-target="#price{{ c.pk }}">цены</span>
-            <div class="price collapse" id="price{{ c.pk }}">
-                {{ e.price_list_rendered|safe }}
-            </div>
-        {% endif %}
+{#        {% if e.priceList != "" %}#}
+{#            <span class="toggle" data-toggle="collapse" data-target="#price{{ c.pk }}">цены</span>#}
+{#            <div class="price collapse" id="price{{ c.pk }}">#}
+{#                {{ e.price_list_rendered|safe }}#}
+{#            </div>#}
+{#        {% endif %}#}
     </div>
 </a>
 {% if user.is_authenticated %}

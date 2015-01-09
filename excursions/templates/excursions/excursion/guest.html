@@ -1,11 +1,15 @@
+{% load thumbnail %}
 <h2 id="excursion-title">
     {{ current_excursion.title|default:"..." }}
 </h2>
 
-{% if current_excursion.image %}
+{% if current_excursion.img_preview %}
     <div style="text-align: center">
-        <img src="{{ current_excursion.image.url }}"
-             style=" padding: 1em 0;max-height: 400px;"/>
+        <a href="{{ current_excursion.img_preview.url }}">
+            {% thumbnail current_excursion.img_preview 1024x400 as thumb %}
+            <img src="{{ thumb.url }}"
+                 style=" margin: 1em 0;border: 4px solid #000000"/>
+        </a>
     </div>
 {% endif %}
 <div id="excursion-description">
