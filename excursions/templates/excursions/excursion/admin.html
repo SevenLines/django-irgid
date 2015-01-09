@@ -8,11 +8,6 @@
     {#        {% include "admin/filer/widgets/admin_file.html" %}#}
     {#    {% endwith %}#}
     <form class="excursion-form" action="{% url "excursions.views.ajax.excursion_save" %}">
-        <button style="margin-bottom: 0.5em" type="submit"
-                class="excursion-content-submit btn btn-default pull-right">
-            <span class="glyphicon glyphicon-save"> Сохранить</span>
-        </button>
-
         <div style="clear:right"></div>
 
         <div class="" style="">
@@ -61,23 +56,24 @@
             {#                </div>#}
             {#                <input type="file" name="big_image" class="image-selector" style="display: none;">#}
             {#            </div>#}
-
-            <div contenteditable="true" contenteditable="true" id="excursion-description">
+            <div style="float: right;width:200px;padding-left: 1em">
+                <h3 style="margin-top: 0">Цены:</h3>
+                <textarea rows="9" style="max-width: 100%;min-width: 100%;" class="form-control"
+                          id="excursion-price-list"
+                          name="priceList">{{ current_excursion.priceList|safe }}</textarea>
+                <button type="submit"
+                        style="margin-top: 1em"
+                        class="excursion-content-submit btn btn-default pull-right">
+                    <span class="glyphicon glyphicon-save"> Сохранить</span>
+                </button>
+            </div>
+            <div contenteditable="true" id="excursion-description"
+                 style="margin-right: 200px; padding-right: 1em; border-right: 1px solid #808080">
                 {{ current_excursion.description|safe|default:"..." }}
             </div>
 
-            <h3>Цены:</h3>
-            <textarea style="max-width: 100%;min-width: 100%; min-height: 10em" class="form-control"
-                      id="excursion-price-list"
-                      name="priceList">{{ current_excursion.priceList|safe }}</textarea>
         </div>
 
-        <hr>
-
-        <button type="submit" class="excursion-content-submit btn btn-default pull-right"
-                data-action="{% url "excursions.views.ajax.excursion_save" %}">
-            <span class="glyphicon glyphicon-save"> Сохранить</span>
-        </button>
     </form>
     {% addtoblock "footerjs" %}
         <script src="{% static "bower/ckeditor/ckeditor.js" %}"></script>

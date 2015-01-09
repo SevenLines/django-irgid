@@ -34,3 +34,37 @@ def deploy():
             run("python manage.py migrate")
             run("python manage.py collectstatic --noinput")
             run("touch django.wsgi")
+
+
+def backup(only_base=False):
+    local("ssh-add ~/.ssh/locum.ru")  # add ssh-key
+
+    # create backip_archive on server
+    with cd(app_dir):
+        run("./dump_db.sh")  # create database dump
+        if not only_base:
+            run("tar -czf media.tgz media")  # create media dump
+
+    # remove local old backup
+    local("rm -f dump.sql")
+    if not only_base:
+        local("rm -f media.tgz")
+
+    # download database backup from server
+    local("scp -C {user}@{host}:{app_dir}/dump.sql dump.sql".format(
+        user=env.user, host=env.hosts[0], app_dir=app_dir)
+    )
+    if not only_base:
+        # download media backup from server
+        local("scp -C {user}@{host}:{app_dir}/media.tgz media.tgz".format(
+            user=env.user, host=env.hosts[0], app_dir=app_dir)
+        )
+
+    # restore database
+    local("psql -U postgres -d irgid -f dump.sql")
+
+    if not only_base:
+        # restore media
+        local("rm -rf media")
+        local("mkdir media")
+        local("tar -xf media.tgz")

@@ -11,3 +11,5 @@ local_settings.py
 credentials.json
 env
 django.wsgi
+media.tgz
+dump.sql
