@@ -1,0 +1,25 @@
+{% load thumbnail %}
+<a href="{% url "excursions.views.excursion" e.pk %}">
+    <div>
+        <table style="width: 100%;table-layout: fixed">
+            <tr>
+                <td style="width:75%; padding-right: 1em">
+                    <h2>{{ e.title }} |
+                        <small><a>подробнее...</a></small>
+                    </h2>
+                    <div class="description">
+                        {{ e.short_description|safe }}
+                    </div>
+                </td>
+                {% if e.img_preview %}
+                    <td style="width: 25%;text-align: right">
+                        {% thumbnail e.img_preview 150x150 as thumb %}
+                        <a href="{{ e.img_preview.url }}">
+                            <img src="{{ thumb.url }}" style="max-width: 100%;border-radius: 0.25em;"/>
+                        </a>
+                    </td>
+                {% endif %}
+            </tr>
+        </table>
+    </div>
+</a>
