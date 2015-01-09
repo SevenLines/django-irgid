@@ -1,4 +1,6 @@
+from uuid import uuid4
 from django.contrib.auth.decorators import login_required
+from django.core.files.base import ContentFile
 from django.http.response import HttpResponseBadRequest
 from django.shortcuts import render
 from app.utils import require_in_POST
@@ -24,6 +26,18 @@ def _excursion_save(request):
             e = Excursion()
         else:
             return HttpResponseBadRequest("category_id is not defined")
+
+    if 'small_image' in request.FILES:
+        f = request.FILES['small_image']
+        ext = f.name.split('.')[-1]
+        e.img_preview.save('%s.%s' % (uuid4(), ext), ContentFile(f.read()))
+        e.save()
+
+    if 'big_image' in request.FILES:
+        f = request.FILES['big_image']
+        ext = f.name.split('.')[-1]
+        e.image.save('%s.%s' % (uuid4(), ext), ContentFile(f.read()))
+        e.save()
 
     if 'category_id' in request.POST and e.category_id != int(request.POST['category_id']):
         e.category_id = int(request.POST['category_id'])

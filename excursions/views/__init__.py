@@ -6,6 +6,7 @@ from django.http.response import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render, redirect
 from django.template.context import RequestContext
 from app.utils import require_in_POST
+from excursions.forms import ExcursionForm
 from excursions.models import ExcursionCategory, Excursion
 from excursions.views import ajax
 from excursions.views.__base import _excursion_save, _excursion_context
@@ -58,6 +59,7 @@ def excursion(request, id):
     category = context['current_excursion'].category
     context['current_category'] = category
     context['excursions'] = category.excursions(request).order_by("title")
+    # context['form'] = ExcursionForm()
 
     return render(request, "excursions/preview-excursion.html", context)
 

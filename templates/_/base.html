@@ -1,4 +1,4 @@
-{% load cms_tags sekizai_tags menu_tags %}
+{% load cms_tags sekizai_tags menu_tags static %}
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -24,8 +24,29 @@
     <div id="content">
         {% block content %}
         {% endblock content %}
-    <div style="clear:both;"></div>
+        <div style="clear:both;"></div>
     </div>
+
+</div>
+
+<div class="footer">
+    <table style="width: 100%">
+        <tr>
+            <td style="width:33%;text-align: left">
+
+                email: <a href="mailto:irgid@bk.ru">irgid@bk.ru</a><br>
+                тел.: 8-914-895-66-44, 8-914-937-25-98<br>
+            </td>
+            <td style="width:34%;">
+                <a href="/">
+                    <img src="{% static "images/icon.png" %}" style="height: 3em">
+                    Иргид</a>
+                | 2012–{% now "Y" %}
+            </td>
+            <td style="width:33%;text-align: right">
+            </td>
+        </tr>
+    </table>
 </div>
 
 {% render_block "footerjs" %}

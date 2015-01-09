@@ -120,6 +120,7 @@ CMS_TEMPLATES = (
 
 MIGRATION_MODULES = {
     'cms': 'cms.migrations_django',
+    'filer': 'filer.migrations_django',
 }
 
 TEMPLATE_CONTEXT_PROCESSORS = (

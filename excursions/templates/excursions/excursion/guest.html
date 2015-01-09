@@ -2,34 +2,36 @@
     {{ current_excursion.title|default:"..." }}
 </h2>
 
-<img src="" style="padding: 1em 0;width:100%;height: 400px;"/>
-
+{% if current_excursion.image %}
+    <img src="{{ current_excursion.image.url }}"
+         style=" padding: 1em 0;width:100%;height: 400px;"/>
+{% endif %}
 <div id="excursion-description">
     {{ current_excursion.description|safe|default:"..." }}
 </div>
 
 {% if current_excursion.priceList %}
-<h3>Цены:</h3>
-<div id="excursion-price-list">
-    <table class="table">
-        <thead>
-        <tr>
-            <td>Кол-во человек в группе</td>
-            {% for k, v in current_excursion.price_list_rendered %}
-                <td>{{ k }}</td>
-            {% endfor %}
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>Цена в расчете на человека, руб.</td>
-            {% for k, v in current_excursion.price_list_rendered %}
-                <td>{{ v }}</td>
-            {% endfor %}
-        </tr>
-        </tbody>
-    </table>
-</div>
+    <h3>Цены:</h3>
+    <div id="excursion-price-list">
+        <table class="table">
+            <thead>
+            <tr>
+                <td>Кол-во человек в группе</td>
+                {% for k, v in current_excursion.price_list_rendered %}
+                    <td>{{ k }}</td>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Цена в расчете на человека, руб.</td>
+                {% for k, v in current_excursion.price_list_rendered %}
+                    <td>{{ v }}</td>
+                {% endfor %}
+            </tr>
+            </tbody>
+        </table>
+    </div>
 {% endif %}
 
 {##}
