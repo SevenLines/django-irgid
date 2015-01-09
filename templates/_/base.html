@@ -44,6 +44,12 @@
                 | 2012–{% now "Y" %}
             </td>
             <td style="width:33%;text-align: right">
+                {% if user.is_authenticated %}
+                    Привет, <b>{{ request.user }}</b>
+                    {% if user.is_superuser %}
+                         | <a href="/admin">админка</a>
+                    {% endif %}
+                {% endif %}
             </td>
         </tr>
     </table>

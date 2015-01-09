@@ -1,5 +1,5 @@
 # coding=utf-8
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.http.response import HttpResponseBadRequest, HttpResponse
 from django.shortcuts import redirect
@@ -20,3 +20,4 @@ def login_user(request):
     else:
         messages.error(request, u"Неверная комбинация пользователь / пароль")
     return redirect(request.META['HTTP_REFERER'])
+

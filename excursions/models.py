@@ -1,3 +1,4 @@
+# coding=utf-8
 from cms.models.pluginmodel import CMSPlugin
 from django.db import models
 from django.db.models import Model
