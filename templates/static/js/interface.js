@@ -31,11 +31,11 @@ dismissRelatedImageLookupPopup = function (win, chosenId, chosenThumbnailUrl, ch
         var self = this;
 
         self.blink = function (color, delay) {
-            var bg = $('body');
+            var bg = $('#footer');
             var bg_css = bg.css("background");
             bg.css("background-color", color);
             setTimeout(function () {
-                $("body").css("background", bg_css);
+                $("#footer").css("background", bg_css);
             }, delay);
         };
 
