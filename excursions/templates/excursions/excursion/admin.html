@@ -1,7 +1,6 @@
 {% load static sekizai_tags thumbnail %}
 {#<form id="excursion-save-form" method="post" action="{% url "excursions.views.ajax.excursion_save" %}">#}
 <div id="excursion-content">
-
     <form class="excursion-form" action="{% url "excursions.views.ajax.excursion_save" %}">
         <div style="clear:right"></div>
 
@@ -40,13 +39,16 @@
             <div class="excursion-gallery">
                 {% for img in gallery %}
                     <div class="excursion-gallery-item">
-                        <div class="remove"
-                             data-action="{% url "excursions.views.ajax.excursion_image_remove" img.id %}">
-                            <button class="btn btn-danger btn-sm">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </button>
+                        <div>
+                            <div class="remove"
+                                 data-action="{% url "excursions.views.ajax.excursion_image_remove" img.id %}">
+                                <button class="btn btn-danger btn-sm">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </div>
+                            {% thumbnail img.image 0x150 as thumb %}
+                            <img class="lazy" data-original="{{ thumb.url }}"/>
                         </div>
-                        <img class="lazy" data-original="{{ img.image.url }}"/>
                     </div>
                 {% endfor %}
                 <div class="excursion-gallery-item">

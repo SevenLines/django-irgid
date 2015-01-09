@@ -268,21 +268,26 @@ $grid-gap: 8px;
   height: $height;
   //  border: 1px solid #000000;
   float: left;
-  padding: 0.25em;
-  img, .add-image {
+  padding: 0.5em;
+  overflow: hidden;
+  > div {
     width: 100%;
     height: 100%;
     border-radius: 8px;
-    @include transition(0.3s);
+    overflow: hidden;
     &:hover {
       box-shadow: 0 0 4px gray;
     }
+    @include transition(0.3s);
+  }
+  img, .add-image {
+    height: 100%;
   }
   .add-image {
     text-align: center;
     background-color: lightskyblue;
     color: #002b36;
-    font-size: $height/3;
+    font-size: $height/4;
     font-weight: bold;
     cursor: pointer;
     padding-top: $height/4;

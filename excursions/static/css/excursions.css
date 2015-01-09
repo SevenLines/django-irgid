@@ -177,7 +177,8 @@
   width: 20%;
   height: 150px;
   float: left;
-  padding: 0.25em; }
+  padding: 0.5em;
+  overflow: hidden; }
   @media (max-width: 990px) {
     .excursion-gallery-item {
       width: 25%; } }
@@ -187,22 +188,25 @@
   @media (max-width: 500px) {
     .excursion-gallery-item {
       width: 100%; } }
-  .excursion-gallery-item img, .excursion-gallery-item .add-image {
+  .excursion-gallery-item > div {
     width: 100%;
     height: 100%;
     border-radius: 8px;
+    overflow: hidden;
     -webkit-transition: all ease-in-out 0.3s;
     -moz-transition: all ease-in-out 0.3s;
     -ms-transition: all ease-in-out 0.3s;
     -o-transition: all ease-in-out 0.3s;
     transition: all ease-in-out 0.3s; }
-    .excursion-gallery-item img:hover, .excursion-gallery-item .add-image:hover {
+    .excursion-gallery-item > div:hover {
       box-shadow: 0 0 4px gray; }
+  .excursion-gallery-item img, .excursion-gallery-item .add-image {
+    height: 100%; }
   .excursion-gallery-item .add-image {
     text-align: center;
     background-color: lightskyblue;
     color: #002b36;
-    font-size: 50px;
+    font-size: 37.5px;
     font-weight: bold;
     cursor: pointer;
     padding-top: 37.5px; }
