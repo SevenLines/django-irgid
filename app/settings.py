@@ -1,8 +1,18 @@
 # Django settings for adpp project.
 
 import os
+import json
+
 gettext = lambda s: s
 PROJECT_PATH = os.path.split(os.path.abspath(os.path.dirname(__file__)))[0]
+
+try:
+    credentials_path = ""
+    credentials_path = os.path.join(PROJECT_PATH, "credentials.json")
+    credentials = json.load(open(credentials_path))
+except IOError as e:
+    print("check existance of %s" % credentials_path)
+    raise e
 
 try:
     from settings_debug import *
@@ -83,7 +93,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '*=xv5*k(d=qd$ds+pyhvsa4qlpvj9413j!si2r5y9%-q3t+84p'
+SECRET_KEY = credentials['SECRET_KEY']
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
