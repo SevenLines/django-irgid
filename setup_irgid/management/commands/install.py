@@ -11,7 +11,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         try:
-            page = cms.api.create_page(title="Галерея",
+            page = cms.api.create_page(title="Экскурсии",
                                        template="_/base.html",
                                        apphook="ExcursionsHook",
                                        in_navigation=True,
@@ -21,7 +21,7 @@ class Command(BaseCommand):
             self.stderr.write(e.message)
 
         c = ExcursionCategory(
-            title="По городу"
+            title="В музеи"
         )
         c.save()
 
@@ -31,11 +31,16 @@ class Command(BaseCommand):
         c.save()
 
         c = ExcursionCategory(
-            title="В музеи"
+            title="По городу"
         )
         c.save()
 
         c = ExcursionCategory(
             title="Пешие"
+        )
+        c.save()
+
+        c = ExcursionCategory(
+            title="Для школьников"
         )
         c.save()
