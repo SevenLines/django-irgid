@@ -3,14 +3,14 @@
 
         <table style="width: 100%;table-layout: fixed">
             <tr>
-                <td style="width:85%; padding-right: 1em">
+                <td style="width:75%; padding-right: 1em">
                     <h2>{{ e.title }} | <small><a>подробнее...</a></small></h2>
                     <div class="description">
                         {{ e.short_description|safe }}
                     </div>
                 </td>
                 {% if e.img_preview %}
-                    <td style="width: 15%;">
+                    <td style="width: 25%;">
                         <img src="{{ e.img_preview.url }}" style="max-width: 100%;border-radius: 0.25em"/>
                     </td>
                 {% endif %}
