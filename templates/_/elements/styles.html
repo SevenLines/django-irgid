@@ -1,17 +1,17 @@
 {% load sekizai_tags static assets %}
 
+{% addtoblock "css" %}
+    {% assets "main_css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}"/>
+    {% endassets %}
+{% endaddtoblock %}
+
+
+{##}
 {#{% addtoblock "css" %}#}
-{#    {% assets "main_css" %}#}
-{#        <link rel="stylesheet" href="{{ ASSET_URL }}"/>#}
-{#    {% endassets %}#}
+{#    <link rel="stylesheet" href="{% static "bower/bootstrap/dist/css/bootstrap.min.css" %}"/>#}
 {#{% endaddtoblock %}#}
-
-
-
-{% addtoblock "css" %}
-    <link rel="stylesheet" href="{% static "bower/bootstrap/dist/css/bootstrap.min.css" %}"/>
-{% endaddtoblock %}
-
-{% addtoblock "css" %}
-    <link rel="stylesheet" href="{% static "css/style.css" %}"/>
-{% endaddtoblock %}
+{##}
+{#{% addtoblock "css" %}#}
+{#    <link rel="stylesheet" href="{% static "css/style.css" %}"/>#}
+{#{% endaddtoblock %}#}

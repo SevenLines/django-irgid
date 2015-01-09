@@ -166,7 +166,7 @@ ASSETS_MODULES = [
 if not DEBUG:
     ASSETS_CACHE = False
     ASSETS_MANIFEST = False
-    # ASSETS_AUTO_BUILD = False
+    ASSETS_AUTO_BUILD = False
 
 ASSETS_ROOT = os.path.join(PROJECT_PATH, 'templates/static')
 

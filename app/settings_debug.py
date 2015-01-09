@@ -1,6 +1,6 @@
 from app.settings import credentials
 
-DEBUG = credentials['DEBUG']
+DEBUG = credentials['DEBUG'] == '1'
 TEMPLATE_DEBUG = DEBUG
 THUMBNAIL_DEBUG = True
 
