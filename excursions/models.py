@@ -1,6 +1,7 @@
 from cms.models.pluginmodel import CMSPlugin
 from django.db import models
 from django.db.models import Model
+from easy_thumbnails.fields import ThumbnailerImageField
 from filer.fields.image import FilerImageField
 
 
@@ -23,8 +24,8 @@ class Excursion(Model):
     time_length = models.IntegerField(verbose_name="time takes in minutes", default=0)
     priceList = models.TextField(verbose_name="price list", default="")
 
-    img_preview = models.ImageField(upload_to="excursions_img_preview", null=True, blank=True)
-    image = models.ImageField(upload_to="excursions_big_img_preview", null=True, blank=True)
+    img_preview = ThumbnailerImageField(upload_to="excursions_img_preview", null=True, blank=True)
+    # image = models.ThumbnailerImageField(upload_to="excursions_big_img_preview", null=True, blank=True)
 
     category = models.ForeignKey("ExcursionCategory", default=None, null=True)
     published = models.BooleanField("", default=False)
