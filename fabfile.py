@@ -7,7 +7,21 @@ env.activate = 'source /home/hosting_mmailm/projects/env-irgid/bin/activate'
 
 app_dir = "/home/hosting_mmailm/projects/django-irgid"
 
+
+def build_production():
+    local("git checkout master")
+    local("git merge -X theirs dev")
+    local("git merge --no-ff dev")
+    # minify()
+    # with settings(warn_only=True):
+    # local("git commit -a -m 'minify scripts and css'")
+    # local("git checkout production")
+    # local("git merge --no-edit master")
+    local("git checkout dev")
+
+
 def deploy():
+    build_production()
     local("ssh-add ~/.ssh/locum.ru")
     local("git push --all -u")
     with cd(app_dir):
