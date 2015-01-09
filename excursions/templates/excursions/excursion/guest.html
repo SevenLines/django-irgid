@@ -3,7 +3,7 @@
     {{ current_excursion.title|default:"..." }}
 </h2>
 
-
+{##}
 {% if current_excursion.img_preview %}
     <hr>
     <div class="excursion-preview-container">
@@ -17,6 +17,48 @@
     </div>
     <hr>
 {% endif %}
+
+{##}
+{#<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">#}
+    {#    <!-- Indicators -->#}
+    {#    <ol class="carousel-indicators">#}
+    {#        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>#}
+    {#        <li data-target="#carousel-example-generic" data-slide-to="1"></li>#}
+    {#        <li data-target="#carousel-example-generic" data-slide-to="2"></li>#}
+    {#    </ol>#}
+{##}
+{#    <!-- Wrapper for slides -->#}
+{#    <div class="carousel-inner" role="listbox">#}
+{#        <div class="item active">#}
+{#                <a href="{{ current_excursion.img_preview.url }}" style="height:400px;">#}
+{#                    {% thumbnail current_excursion.img_preview 1024x400 as thumb %}#}
+{#                    <img class="lazy fadein" data-original="{{ thumb.url }}"/>#}
+{#                    <noscript>#}
+{#                        <img src="{{ thumb.url }}"/>#}
+{#                    </noscript>#}
+{#                </a>#}
+{#        </div>#}
+{#        {% for img in gallery %}#}
+{#            <div class="item">#}
+{#                {% thumbnail img.image 1024x400 as thumb %}#}
+{#                <img src="{{ thumb.url }}"/>#}
+{#                <noscript>#}
+{#                    <img src="{{ thumb.url }}"/>#}
+{#                </noscript>#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#    </div>#}
+{##}
+{#    <!-- Controls -->#}
+{#    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">#}
+{#        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>#}
+{#        <span class="sr-only">Previous</span>#}
+{#    </a>#}
+{#    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">#}
+{#        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>#}
+{#        <span class="sr-only">Next</span>#}
+{#    </a>#}
+{#</div>#}
 
 <div id="excursion-description">
     {{ current_excursion.description|safe|default:"..." }}

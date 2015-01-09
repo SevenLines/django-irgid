@@ -89,12 +89,12 @@ window.ExcursionModel = function (data) {
                 $.post(this.dataset.action, {
                     csrfmiddlewaretoken: self.csrf
                 }).done(function () {
-                    $(that).parent().remove();
+                    $(that).parent().parent().remove();
                 }).fail(function () {
                     InterfaceAlerts.showFail();
                 })
             } else {
-                $(this).parent().remove();
+                $(this).parent().parent().remove();
             }
         });
 
@@ -105,15 +105,17 @@ window.ExcursionModel = function (data) {
 
             fileSelector.one("change", function () {
                 var newItem = $('<div class="excursion-gallery-item"></div>');
+                var newItemDiv = $('<div></div>');
                 var newImage = $('<img />');
 
                 $('<div class="remove">' +
                 '<button class="btn btn-danger btn-sm">' +
                 '<span class="glyphicon glyphicon-remove"></span>' +
                 '</button>' +
-                '</div>').appendTo(newItem);
+                '</div>').appendTo(newItemDiv);
 
-                newItem.append(newImage);
+                newItemDiv.append(newImage);
+                newItem.append(newItemDiv);
                 newItem.insertBefore(currentItem);
 
                 var file = this.files[0];
