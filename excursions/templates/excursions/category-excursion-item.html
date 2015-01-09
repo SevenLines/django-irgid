@@ -17,20 +17,17 @@
             </tr>
         </table>
 
-        {#        {% if e.priceList != "" %}#}
-        {#            <span class="toggle" data-toggle="collapse" data-target="#price{{ c.pk }}">цены</span>#}
-        {#            <div class="price collapse" id="price{{ c.pk }}">#}
-        {#                {{ e.price_list_rendered|safe }}#}
-        {#            </div>#}
-        {#        {% endif %}#}
+                {% if e.priceList != "" %}
+                    <span class="toggle" data-toggle="collapse" data-target="#price{{ c.pk }}">цены</span>
+                    <div class="price collapse" id="price{{ c.pk }}">
+                        {{ e.price_list_rendered|safe }}
+                    </div>
+                {% endif %}
     </div>
 </a>
 {% if user.is_authenticated %}
     <div class="e-excursion-item-menu">
         <div class="form-inline">
-            {#            <button class="btn btn-default" data-toggle="modal" data-target="">#}
-            {#                <span class="glyphicon glyphicon-edit"></span>#}
-            {#            </button>#}
             <button class="btn{% if e.published %} btn-success{% else %} btn-default{% endif %} publish-button"
                     data-title="{{ e.title }}"
                     data-category_id="{{ e.category_id }}"

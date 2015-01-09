@@ -30,12 +30,14 @@ def _excursion_save(request):
     if 'small_image' in request.FILES:
         f = request.FILES['small_image']
         ext = f.name.split('.')[-1]
+        e.img_preview.delete()
         e.img_preview.save('%s.%s' % (uuid4(), ext), ContentFile(f.read()))
         e.save()
 
     if 'big_image' in request.FILES:
         f = request.FILES['big_image']
         ext = f.name.split('.')[-1]
+        e.image.delete()
         e.image.save('%s.%s' % (uuid4(), ext), ContentFile(f.read()))
         e.save()
 

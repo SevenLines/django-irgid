@@ -1,4 +1,4 @@
-{% load static sekizai_tags  %}
+{% load static sekizai_tags %}
 {#<form id="excursion-save-form" method="post" action="{% url "excursions.views.ajax.excursion_save" %}">#}
 <div id="excursion-content">
     {#    <div class="exursion-content-imagelist" style="width:200px;float: right">#}
@@ -39,16 +39,27 @@
                 </tr>
             </table>
 
-            {#        <form name="big_image">#}
-            <div>
-                <img name="image"
-                     src="{% if current_excursion.image %}
-                            {{ current_excursion.image.url }}
-                        {% endif %}"
-                     style="padding: 1em 0;max-width:100%;max-height: 400px"/>
-                <input type="file" name="big_image" class="image-selector" style="display: none;">
+            <div class="excursion-gallery">
+                <div class="excursion-gallery-item"><img src=""></div>
+                <div class="excursion-gallery-item"><img src=""></div>
+                <div class="excursion-gallery-item"><img src=""></div>
+                <div class="excursion-gallery-item"><img src=""></div>
+                <div class="excursion-gallery-item"><img src=""></div>
             </div>
-            {#        </form>#}
+            <div style="clear:right"></div>
+            {#        <form name="big_image">#}
+{#            <div style="text-align: center;padding: 1em 0">#}
+{#                <img name="image"#}
+{#                     src="{% if current_excursion.image %}#}
+{#                            {{ current_excursion.image.url }}#}
+{#                        {% endif %}"#}
+{#                     style="max-width:100%;max-height: 400px"/>#}
+{##}
+{#                <div style="padding-top: 0.5em;font-style: italic" contenteditable="true">#}
+{#                    подпись#}
+{#                </div>#}
+{#                <input type="file" name="big_image" class="image-selector" style="display: none;">#}
+{#            </div>#}
 
             <div contenteditable="true" contenteditable="true" id="excursion-description">
                 {{ current_excursion.description|safe|default:"..." }}
@@ -80,28 +91,8 @@
 
             CKEDITOR.disableAutoInline = true;
             CKEDITOR.inline('excursion-description', editor_config);
-            //CKEDITOR.inline('excursion-short-description', editor_config);
 
-{#            $(".excursion-content-submit").on("click", function () {#}
-{#                var title = $("#excursion-title").html();#}
-{#                var action = this.dataset.action;#}
-{#                var description = $("#excursion-description").html();#}
-{#                var short_description = $("#excursion-short-description").html();#}
-{#                var price_list = $("#excursion-price-list")[0].value;#}
-{##}
-{##}
-{#                $.post(action, {#}
-{#                    id: {{ current_excursion.id }},#}
-{#                    title: title.trim(),#}
-{#                    description: description.trim(),#}
-{#                    short_description: short_description.trim(),#}
-{#                    price_list: price_list.trim(),#}
-{#                    csrfmiddlewaretoken: '{{ csrf_token }}'#}
-{#                }).done(function () {#}
-{#                    InterfaceAlerts.showSuccess();#}
-{#                })#}
-{#            });#}
-            $(".excursion-form").submit(function() {
+            $(".excursion-form").submit(function () {
                 var title = $("#excursion-title").html();
                 var description = $("#excursion-description").html();
                 var short_description = $("#excursion-short-description").html();
@@ -123,9 +114,9 @@
                     data: formData,
                     processData: false,
                     contentType: false
-                }).done(function() {
+                }).done(function () {
                     InterfaceAlerts.showSuccess();
-                }).fail(function() {
+                }).fail(function () {
                     InterfaceAlerts.showFail();
                 });
 
