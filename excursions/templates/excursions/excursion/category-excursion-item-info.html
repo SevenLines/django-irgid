@@ -10,14 +10,12 @@
                         {{ e.short_description|safe }}
                     </div>
                     <a>подробнее...</a>
-
                 </td>
                 {% if e.img_preview %}
                     <td style="width: 25%;text-align: right">
                         {% thumbnail e.img_preview 150x150 as thumb %}
-{#                        <a href="{{ e.img_preview.url }}">#}
-                            <img src="{{ thumb.url }}" style="max-width: 100%;border-radius: 0.25em;"/>
-{#                        </a>#}
+                        <img class="lazy img-preview" data-original="{{ thumb.url }}"/>
+                        <noscript> <img src="{{ thumb.url }}"/> </noscript>
                     </td>
                 {% endif %}
 

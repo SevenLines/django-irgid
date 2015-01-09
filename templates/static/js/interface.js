@@ -58,3 +58,12 @@ dismissRelatedImageLookupPopup = function (win, chosenId, chosenThumbnailUrl, ch
     window.TableEffects = new TableEffects();
     window.InterfaceAlerts = new InterfaceAlerts();
 }());
+
+
+$(function() {
+    $("img.lazy").lazyload({
+    });
+    $("img.lazy.fadein").lazyload({
+        effect : "fadeIn"
+    });
+});

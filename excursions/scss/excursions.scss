@@ -123,6 +123,14 @@ $grid-gap: 8px;
 
   }
 
+  img.img-preview {
+    max-width: 100%;
+    border-radius: 0.25em;
+    &[src] {
+      border: 1px solid #000000;
+    }
+  }
+
   .e-excursion-item-menu {
     position: absolute;
     right: 0.5em;
@@ -148,7 +156,7 @@ $grid-gap: 8px;
   h2 {
     margin: 0;
     padding-left: 0;
-//    padding-bottom: 4px;
+    //    padding-bottom: 4px;
   }
   .price {
     margin-top: 8px;
@@ -231,6 +239,14 @@ $grid-gap: 8px;
   margin: -0.5em;
   widows: 100%;
   overflow: hidden;
+}
+
+.excursion-preview-container {
+  text-align: center;
+  img {
+    max-width: 100%;
+    border: 4px solid #000000;
+  }
 }
 
 .excursion-gallery-item {

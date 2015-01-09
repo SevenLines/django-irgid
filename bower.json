@@ -8,6 +8,7 @@
   "dependencies": {
     "bootstrap": "~3",
     "ckeditor": "~4.4.5",
-    "jquery": "~1"
+    "jquery": "~1",
+    "jquery.lazyload": "~1.9.3"
   }
 }
