@@ -19,16 +19,22 @@ try:
 except ImportError:
     pass
 
+try:
+    from settings_db import *
+except ImportError:
+    pass
+
+try:
+    from settings_app import *
+except ImportError:
+    pass
+
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
 MANAGERS = ADMINS
-
-try:
-    from settings_db import *
-except ImportError:
-    pass
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -89,6 +95,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'django_assets.finders.AssetsFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
@@ -163,7 +170,3 @@ if not DEBUG:
 
 ASSETS_ROOT = os.path.join(PROJECT_PATH, 'templates/static')
 
-try:
-    from settings_app import *
-except ImportError:
-    pass
