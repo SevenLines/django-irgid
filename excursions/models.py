@@ -39,3 +39,9 @@ class Excursion(Model):
             values = p.split('|', 1)
             out.append((values[0].strip(' \t\n\r'), values[1].strip(' \t\n\r')))
         return out
+
+
+class ExcursionImage(Model):
+    excursion = models.ForeignKey(Excursion)
+    image = ThumbnailerImageField(upload_to="excursions_gallery")
+    actve = models.BooleanField(default=False)

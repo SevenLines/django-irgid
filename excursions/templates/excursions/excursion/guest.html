@@ -7,7 +7,7 @@
 {% if current_excursion.img_preview %}
     <hr>
     <div class="excursion-preview-container">
-        <a href="{{ current_excursion.img_preview.url }}">
+        <a href="{{ current_excursion.img_preview.url }}" style="height:400px;">
             {% thumbnail current_excursion.img_preview 1024x400 as thumb %}
             <img class="lazy fadein" data-original="{{ thumb.url }}"/>
             <noscript>

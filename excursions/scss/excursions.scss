@@ -235,17 +235,20 @@ $grid-gap: 8px;
 
 /* end excursions */
 .excursion-gallery {
-  padding: 1em 0;
+  padding-bottom: 1em;
   margin: -0.5em;
-  widows: 100%;
+  //  widows: 100%;
   overflow: hidden;
+  input[type=file] {
+    display: none;
+  }
 }
 
 .excursion-preview-container {
   text-align: center;
   img {
     max-width: 100%;
-    border: 4px solid #000000;
+    border: 1px solid #000000;
   }
 }
 
@@ -263,10 +266,24 @@ $grid-gap: 8px;
   height: 100px;
   //  border: 1px solid #000000;
   float: left;
-  padding: 0.5em;
-  img {
+  padding: 0.25em;
+  img, .add-image {
     background-color: #808080;
     width: 100%;
     height: 100%;
+    border-radius: 8px;
+    @include transition(0.3s);
+    &:hover {
+      box-shadow: 0 0 4px gray;
+    }
+  }
+  .add-image {
+    text-align: center;
+    background-color: lightskyblue;
+    color: #002b36;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    padding-top: 20px;
   }
 }

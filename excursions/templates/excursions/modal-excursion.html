@@ -54,7 +54,7 @@
     $("#modal-excursion-remove").on('show.bs.modal', function(e) {
         var title = e.relatedTarget.dataset.title;
         var action = e.relatedTarget.dataset.action;
-        console.log(title);
+        console.log(action);
         $(e.currentTarget).find(".placeholder-title").html(title);
         $(e.currentTarget).find("form")[0].action = action;
     });
