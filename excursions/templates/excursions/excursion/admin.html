@@ -100,7 +100,7 @@
 
                 var formData = new FormData();
                 formData.append("small_image", this.small_image.files[0]);
-                formData.append("big_image", this.big_image.files[0]);
+{#                formData.append("big_image", this.big_image.files[0]);#}
                 formData.append("id", {{ current_excursion.id }});
                 formData.append("csrfmiddlewaretoken", '{{ csrf_token }}');
                 formData.append("title", title.trim());
