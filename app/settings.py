@@ -152,6 +152,17 @@ THUMBNAIL_PROCESSORS = (
     'easy_thumbnails.processors.filters',
 )
 
+ASSETS_MODULES = [
+    'app.assets'
+]
+
+if not DEBUG:
+    ASSETS_CACHE = False
+    ASSETS_MANIFEST = False
+    ASSETS_AUTO_BUILD = False
+
+ASSETS_ROOT = os.path.join(PROJECT_PATH, 'templates/static')
+
 try:
     from settings_app import *
 except ImportError:

@@ -1,13 +1,19 @@
-{% load sekizai_tags static %}
+{% load sekizai_tags static assets %}
 
 {% addtoblock "js" %}
-    <script src="{% static "bower/jquery/dist/jquery.min.js" %}"></script>
+    {% assets "main_js" %}
+        <script type="text/javascript" src="{% static ASSET_URL %}"></script>
+    {% endassets %}
 {% endaddtoblock %}
 
-{% addtoblock "js" %}
-    <script src="{% static "bower/bootstrap/dist/js/bootstrap.min.js" %}"></script>
-{% endaddtoblock %}
-
-{% addtoblock "js" %}
-    <script src="{% static "js/interface.js" %}"></script>
-{% endaddtoblock %}
+{#{% addtoblock "js" %}#}
+{#    <script src="{% static "bower/jquery/dist/jquery.min.js" %}"></script>#}
+{#{% endaddtoblock %}#}
+{##}
+{#{% addtoblock "js" %}#}
+{#    <script src="{% static "bower/bootstrap/dist/js/bootstrap.min.js" %}"></script>#}
+{#{% endaddtoblock %}#}
+{##}
+{#{% addtoblock "js" %}#}
+{#    <script src="{% static "js/interface.js" %}"></script>#}
+{#{% endaddtoblock %}#}

@@ -13,3 +13,4 @@ env
 django.wsgi
 media.tgz
 dump.sql
+.webassets-cache

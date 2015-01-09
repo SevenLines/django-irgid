@@ -20,6 +20,7 @@ INSTALLED_APPS = (
     'easy_thumbnails',
 
     'excursions',
+    'django_assets',
     'setup_irgid',
     'ex_tags',
     'utils',

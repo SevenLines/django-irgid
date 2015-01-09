@@ -5,3 +5,4 @@ Pillow==2.4.0
 easy_thumbnails
 django-filer
 django-treebeard
+django-assets
