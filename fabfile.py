@@ -12,10 +12,10 @@ def deploy():
     local("git push --all -u")
     with cd(app_dir):
         with prefix(env.activate):
-            run("git stash")
+            # run("git stash")
             run("git pull")
             with settings(warn_only=True):
-                run("git stash apply")
+                # run("git stash apply")
                 run('pip-accel install -r requirements.txt')
             run("python manage.py migrate")
             run("python manage.py collectstatic --noinput")

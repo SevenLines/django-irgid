@@ -1,4 +1,4 @@
-{% load cms_tags sekizai_tags menu_tags static %}
+{% load cms_tags sekizai_tags menu_tags static ex_tags %}
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -34,7 +34,7 @@
         <tr>
             <td style="width:33%;text-align: left">
 
-                email: <a href="mailto:irgid@bk.ru">irgid@bk.ru</a><br>
+                email: {{ "irgid@bk.ru"|obfuscate_mailto }}<br>
                 тел.: 8-914-895-66-44, 8-914-937-25-98<br>
             </td>
             <td style="width:34%;">

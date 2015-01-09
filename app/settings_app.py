@@ -21,6 +21,7 @@ INSTALLED_APPS = (
 
     'excursions',
     'setup_irgid',
+    'ex_tags',
     'utils',
 )
 
