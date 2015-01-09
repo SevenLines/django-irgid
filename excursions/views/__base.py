@@ -4,7 +4,7 @@ from django.core.files.base import ContentFile
 from django.http.response import HttpResponseBadRequest
 from django.shortcuts import render
 from app.utils import require_in_POST
-from excursions.models import Excursion, ExcursionCategory
+from excursions.models import Excursion, ExcursionCategory, ExcursionImage
 
 
 def _excursion_context(request):
@@ -40,6 +40,16 @@ def _excursion_save(request):
         e.image.delete()
         e.image.save('%s.%s' % (uuid4(), ext), ContentFile(f.read()))
         e.save()
+
+    if 'gallery[]' in request.FILES:
+        for f in request.FILES.getlist('gallery[]'):
+            ext = f.name.split('.')[-1]
+            image = ExcursionImage()
+            image.excursion = e
+            image.image.save('%s.%s' % (uuid4(), ext), ContentFile(f.read()))
+            image.save()
+
+
 
     if 'category_id' in request.POST and e.category_id != int(request.POST['category_id']):
         e.category_id = int(request.POST['category_id'])

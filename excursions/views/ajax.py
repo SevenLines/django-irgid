@@ -29,5 +29,6 @@ def excursion_image_add(request):
     return HttpResponse()
 
 @login_required
-def excursion_image_remove(request):
-    pass
+def excursion_image_remove(request, id):
+    ExcursionImage.objects.get(id=id).delete()
+    return HttpResponse()

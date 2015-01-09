@@ -37,14 +37,23 @@
             <hr>
 
             <!-- ГАЛЕРЕЯ -->
-            <form>
-                <div class="excursion-gallery">
+            <div class="excursion-gallery">
+                {% for img in gallery %}
                     <div class="excursion-gallery-item">
-                        <div class="add-image">+</div>
+                        <div class="remove"
+                             data-action="{% url "excursions.views.ajax.excursion_image_remove" img.id %}">
+                            <button class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+                        <img class="lazy" data-original="{{ img.image.url }}"/>
                     </div>
-                    <input type="file" class="add-image-selector">
+                {% endfor %}
+                <div class="excursion-gallery-item">
+                    <div class="add-image">+</div>
                 </div>
-            </form>
+                <input type="file" class="add-image-selector">
+            </div>
             <div style="clear:right"></div>
             <!-- конец ГАЛЕРЕЯ -->
 
@@ -61,25 +70,25 @@
                 </button>
             </div>
             <!-- конец ЦЕНЫ -->
+
             <!-- ПОДРОБНОЕ ОПИСАНИЕ ЭКУСКУРСИИ -->
             <div contenteditable="true" id="excursion-description"
                  style="margin-right: 200px; padding-right: 1em; border-right: 1px solid #808080">
                 {{ current_excursion.description|safe|default:"..." }}
             </div>
             <!-- конец ПОДРОБНОЕ ОПИСАНИЕ ЭКУСКУРСИИ -->
-
         </div>
 
     </form>
     {% addtoblock "footerjs" %}
     {% endaddtoblock %}
-        <script src="{% static "bower/ckeditor/ckeditor.js" %}"></script>
+    <script src="{% static "bower/ckeditor/ckeditor.js" %}"></script>
 
     {% addtoblock "footerjs" %}
         <script>
             new ExcursionModel({
                 id: {{ current_excursion.id }},
-                csrf:  '{{ csrf_token }}'
+                csrf: '{{ csrf_token }}'
             });
         </script>
     {% endaddtoblock %}

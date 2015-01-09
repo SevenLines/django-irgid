@@ -12,6 +12,29 @@ window.ExcursionModel = function (data) {
         CKEDITOR.disableAutoInline = true;
         CKEDITOR.inline('excursion-description', editor_config);
 
+
+        $(".image-selector").on("change", function () {
+            var that = this;
+            if (that.files.length > 0) {
+                var file = that.files[0];
+                var fileReader = new FileReader();
+                fileReader.onload = function (e) {
+                    $(that).siblings("img")[0].src = e.target.result;
+                };
+                fileReader.readAsDataURL(file);
+            }
+            that.dataset['changed'] = 1;
+        }).each(function (i, item) {
+            var that = this;
+            $(that).parent().find("img").click(function () {
+                $(that).click();
+            });
+        });
+
+
+    }
+
+    function InitSaveAction() {
         $(".excursion-form").submit(function () {
             var title = $("#excursion-title").html();
             var description = $("#excursion-description").html();
@@ -19,10 +42,16 @@ window.ExcursionModel = function (data) {
             var price_list = $("#excursion-price-list")[0].value;
 
             var formData = new FormData();
-            console.log(this.small_image.dataset.changed);
             if (this.small_image.dataset.changed) {
                 formData.append("small_image", this.small_image.files[0]);
             }
+
+            var hasNewImageInGallery = false;
+            $(this).find(".excursion-gallery .excursion-gallery-item input[type=file]").each(function () {
+                formData.append("gallery[]", this.files[0]);
+                hasNewImageInGallery = true;
+            });
+
             formData.append("id", self.excursion_id);
             formData.append("csrfmiddlewaretoken", self.csrf);
             formData.append("title", title.trim());
@@ -38,6 +67,9 @@ window.ExcursionModel = function (data) {
                 contentType: false
             }).done(function () {
                 InterfaceAlerts.showSuccess();
+                if (hasNewImageInGallery) {
+                    location.reload();
+                }
             }).fail(function () {
                 InterfaceAlerts.showFail();
             });
@@ -46,51 +78,61 @@ window.ExcursionModel = function (data) {
         });
     }
 
+    function InitGallery() {
+        var galleryItem = $(".excursion-gallery");
+
+        // click on remove button
+        galleryItem.on('click', ".remove", function () {
+            console.log(this.dataset.action);
+            var that = this;
+            if (this.dataset.action) {
+                $.post(this.dataset.action, {
+                    csrfmiddlewaretoken: self.csrf
+                }).done(function () {
+                    $(that).parent().remove();
+                }).fail(function () {
+                    InterfaceAlerts.showFail();
+                })
+            } else {
+                $(this).parent().remove();
+            }
+        });
+
+        // click on add button
+        galleryItem.on("click", ".add-image", function () {
+            var currentItem = $(this).parent();
+            var fileSelector = galleryItem.find(".add-image-selector");
+
+            fileSelector.one("change", function () {
+                var newItem = $('<div class="excursion-gallery-item"></div>');
+                var newImage = $('<img />');
+
+                $('<div class="remove">' +
+                '<button class="btn btn-danger btn-sm">' +
+                '<span class="glyphicon glyphicon-remove"></span>' +
+                '</button>' +
+                '</div>').appendTo(newItem);
+
+                newItem.append(newImage);
+                newItem.insertBefore(currentItem);
+
+                var file = this.files[0];
+                var fileReader = new FileReader();
+                fileReader.onload = function (e) {
+                    newImage.attr("src", e.target.result);
+                };
+                fileReader.readAsDataURL(file);
+
+                $(this).removeClass("add-image-selector");
+                $(this).appendTo(newItem);
+
+                galleryItem.append('<input type="file" class="add-image-selector">');
+            });
+            fileSelector.click();
+        });
+    }
+
     Init();
+    InitSaveAction();
+    InitGallery();
 };
-
-$(function () {
-    $(".image-selector").on("change", function () {
-        var that = this;
-        if (that.files.length > 0) {
-            var file = that.files[0];
-            var fileReader = new FileReader();
-            fileReader.onload = function (e) {
-                $(that).siblings("img")[0].src = e.target.result;
-            };
-            fileReader.readAsDataURL(file);
-        }
-        that.dataset['changed'] = 1;
-    }).each(function (i, item) {
-        var that = this;
-        $(that).parent().find("img").click(function () {
-            $(that).click();
-        });
-    });
-
-    var galleryItem = $(".excursion-gallery");
-    galleryItem.on("click", ".add-image", function () {
-        var currentItem = $(this).parent();
-        var fileSelector = galleryItem.find(".add-image-selector");
-
-        fileSelector.one("change", function () {
-            var newItem = $('<div class="excursion-gallery-item"></div>');
-            var newImage = $('<img />');
-            newItem.append(newImage);
-            newItem.insertBefore(currentItem);
-
-            var file = this.files[0];
-            var fileReader = new FileReader();
-            fileReader.onload = function (e) {
-                newImage.attr("src", e.target.result);
-            };
-            fileReader.readAsDataURL(file);
-
-            $(this).removeClass("add-image-selector");
-            $(this).appendTo(newItem);
-
-            galleryItem.append('<input type="file" class="add-image-selector">');
-        });
-        fileSelector.click();
-    });
-});
