@@ -253,17 +253,32 @@ $grid-gap: 8px;
 }
 
 .excursion-gallery-item {
+  &.active {
+    > div {
+      box-shadow: 0 0 0 4px skyblue;
+      &:hover {
+        box-shadow: 0 0 0 4px skyblue;
+      }
+    }
+  }
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
   position: relative;
-  $height: 150px;
-  width: 20%;
+  $height: 90px;
+  width: 10%;
+  cursor: pointer;
   @media (max-width: $width-big) {
-    width: 25%;
+    width: 12.5%;
   }
   @media (max-width: $width-medium) {
-    width: 33%;
+    width: 16.5%;
   }
   @media (max-width: $width-small) {
-    width: 100%;
+    width: 50%;
   }
   height: $height;
   //  border: 1px solid #000000;
@@ -271,6 +286,7 @@ $grid-gap: 8px;
   padding: 0.5em;
   overflow: hidden;
   > div {
+    box-shadow: 0 0 2px gray;
     width: 100%;
     height: 100%;
     border-radius: 8px;

@@ -47,7 +47,9 @@
                                 </button>
                             </div>
                             {% thumbnail img.image 0x150 as thumb %}
-                            <img class="lazy" data-original="{{ thumb.url }}"/>
+                            <a href="{{ img.image.url }}">
+                                <img class="lazy" data-original="{{ thumb.url }}"/>
+                            </a>
                         </div>
                     </div>
                 {% endfor %}
