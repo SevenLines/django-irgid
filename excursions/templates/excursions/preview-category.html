@@ -2,19 +2,10 @@
 {% load static sekizai_tags %}
 
 {% block ex_content %}
-    <div style="width: 200px;; float: left">
-        {% include "excursions/list-category.html" %}
+    {% include "excursions/list-category.html" %}
+    <div class="excursion-or-category-content">
+        {% include "excursions/description-category.html" %}
     </div>
-    <div style="padding-left: 200px; width: 100%">
-{#        <div class="row">#}
-{#            <div class="col-md-8">#}
-                {% include "excursions/description-category.html" %}
-
-{#            </div>#}
-{#            <div class="col-md-4"></div>#}
-{#        </div>#}
-    </div>
-
 
     {% addtoblock 'css' %}
         <link rel="stylesheet" href="{% static "css/excursions.css" %}"/>

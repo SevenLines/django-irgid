@@ -30,29 +30,22 @@
 </div>
 
 <div id="footer">
-    <table style="width: 100%">
-        <tr>
-            <td style="width:33%;text-align: left">
-
-                email: {{ "irgid@bk.ru"|obfuscate_mailto }}<br>
-                тел.: 8-914-895-66-44, 8-914-937-25-98<br>
-            </td>
-            <td style="width:34%;">
-                <a href="/">
-                    <img src="{% static "images/icon.png" %}" style="height: 3em">
-                    Иргид</a>
-                | 2012–{% now "Y" %}
-            </td>
-            <td style="width:33%;text-align: right">
-                {% if user.is_authenticated %}
-                    Привет, <b>{{ request.user }}</b>
-                    {% if user.is_superuser %}
-                         | <a href="/admin">админка</a>
-                    {% endif %}
-                {% endif %}
-            </td>
-        </tr>
-    </table>
+    <div class="col-md-4">
+        email: {{ "irgid@bk.ru"|obfuscate_mailto }}<br>
+        тел.: 8-914-895-66-44, 8-914-937-25-98<br>
+    </div>
+    <div class="col-md-4  hidden-sm hidden-xs">
+        <a href="/">
+            <img src="{% static "images/icon.png" %}" style="height: 3em">
+            Иргид</a>
+        | 2012–{% now "Y" %}
+    </div>
+    <div class="col-md-4  hidden-sm hidden-xs">{% if user.is_authenticated %}
+        Привет, <b>{{ request.user }}</b>
+        {% if user.is_superuser %}
+            | <a href="/admin">админка</a>
+        {% endif %}
+    {% endif %}</div>
 </div>
 
 {% render_block "footerjs" %}

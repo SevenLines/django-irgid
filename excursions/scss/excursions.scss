@@ -9,25 +9,31 @@ $grid-gap: 8px;
 
 .e-class {
   @include transition(0.2s);
+
+  $height: 240px;
   padding: 16px;
-  height: 240px;
+  padding-top: $height/3;
+
+  height: $height;
   border-radius: 8px;
   cursor: pointer;
   text-align: center;
-  //  vertical-align: middle;
-
-  padding-top: 80px;
-
   box-shadow: 0 0 1px gray;
+
+  @media (max-width: $width-small) {
+    $height: 120px;
+    padding-top: $height/4;
+    height: $height;
+    h3 {
+      font-size: 1.4em;
+    }
+
+  }
 
   &:hover {
     box-shadow: 0 0 8px gray;
   }
 
-  //  h3 {
-  //    position: absolute;
-  //    top: 90px;
-  //  }
 }
 
 .e-class-menu {
@@ -95,7 +101,7 @@ $grid-gap: 8px;
 
 /* excursions */
 .excursions-list {
-  padding-left: 0.75em;
+  //  padding-left: 0.75em;
   padding-bottom: 1em;
 
   .excursion {
@@ -152,10 +158,16 @@ $grid-gap: 8px;
 
   .description {
     font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    @media(max-width: $width-small) {
+      display: none;
+    }
   }
   h2 {
     margin: 0;
     padding-left: 0;
+    @media (max-width: $width-small) {
+      font-size: 1.2em;
+    }
     //    padding-bottom: 4px;
   }
   .price {
@@ -226,11 +238,28 @@ $grid-gap: 8px;
     &.current {
       background-color: lighten(#337ab7, 15);
       color: white;
-//      margin-left: 4px;
+      //      margin-left: 4px;
       //      border: solid 4px white;
       //      border-right: none;
       //      border-radius: 8px 0 0 8px;
     }
+  }
+}
+
+.list-group-menu {
+  width: 200px;
+  float: left;
+  @media(max-width: $width-medium) {
+    width: 100%;
+    float: inherit;
+    display: none;
+  }
+}
+
+.excursion-or-category-content {
+  margin-left: 210px;
+  @media(max-width: $width-medium) {
+    margin-left: 0;
   }
 }
 
