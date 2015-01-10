@@ -27,6 +27,7 @@
 
 <script>
     var exMenu = $(".excursions-menu");
+    exMenu.scrollTop(0);
     var curItem = exMenu.find("a.current");
     exMenu.scrollTop(curItem.position().top - exMenu.position().top +1);
 </script>
