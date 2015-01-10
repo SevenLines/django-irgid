@@ -37,6 +37,10 @@ body {
   background-color: #f5f5f5;
   text-align: center;
   @include transition(0.3s);
+  
+  @media (max-width: $width-small) {
+    font-size: smaller;
+  }
 //  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 

@@ -10,8 +10,7 @@ app_dir = "/home/hosting_mmailm/projects/django-irgid"
 
 def build_production():
     local("git checkout master")
-    local("git merge -X theirs dev")
-    local("git merge --no-ff dev")
+    local("git merge -X theirs --no-ff dev")
     # minify()
     # with settings(warn_only=True):
     # local("git commit -a -m 'minify scripts and css'")

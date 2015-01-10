@@ -35,6 +35,9 @@ body {
   -ms-transition: all ease-in-out 0.3s;
   -o-transition: all ease-in-out 0.3s;
   transition: all ease-in-out 0.3s; }
+  @media (max-width: 500px) {
+    #footer {
+      font-size: smaller; } }
 
 #content {
   background-color: white; }

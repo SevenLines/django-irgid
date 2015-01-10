@@ -89,6 +89,7 @@ window.ExcursionModel = function (data) {
                 $.prompt("Удалить изображение?", {
                     title: 'Подтвердите',
                     buttons: {"Удалить": true, "Пока не надо": false},
+                    persistent: false,
                     submit: function (e, confirmed, m, f) {
                         if (confirmed) {
                             $.post(that.dataset.action, {
@@ -99,7 +100,10 @@ window.ExcursionModel = function (data) {
                                 InterfaceAlerts.showFail();
                             })
                         }
-                    }
+                    },
+                    overlayspeed: 'fast',
+                    promptspeed: 0,
+                    show: 'fadeIn',
                 });
             } else {
                 $(this).parent().parent().remove();
