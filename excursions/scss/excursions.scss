@@ -116,6 +116,10 @@ $grid-gap: 8px;
   }
 }
 
+#excursion-price-list {
+  overflow: scroll;
+}
+
 .excursion {
   display: block;
   > a {

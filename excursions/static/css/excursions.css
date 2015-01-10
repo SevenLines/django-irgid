@@ -78,6 +78,9 @@
     box-shadow: 0 0 2px #2b679c;
     color: #2b679c; }
 
+#excursion-price-list {
+  overflow: scroll; }
+
 .excursion {
   display: block;
   position: relative;
