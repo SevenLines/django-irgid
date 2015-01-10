@@ -10,6 +10,7 @@
     "ckeditor": "~4.4.5",
     "jquery": "~1",
     "jquery.lazyload": "~1.9.3",
-    "jquery.cookie": "~1.4.1"
+    "jquery.cookie": "~1.4.1",
+    "jquery-impromptu": "~6.0.0"
   }
 }

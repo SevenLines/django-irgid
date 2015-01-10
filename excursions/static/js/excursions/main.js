@@ -36,6 +36,7 @@ window.ExcursionModel = function (data) {
 
     function InitSaveAction() {
         $(".excursion-form").submit(function () {
+
             var title = $("#excursion-title").html();
             var description = $("#excursion-description").html();
             var short_description = $("#excursion-short-description").html();
@@ -83,16 +84,23 @@ window.ExcursionModel = function (data) {
 
         // click on remove button
         galleryItem.on('click', ".remove", function () {
-            console.log(this.dataset.action);
             var that = this;
             if (this.dataset.action) {
-                $.post(this.dataset.action, {
-                    csrfmiddlewaretoken: self.csrf
-                }).done(function () {
-                    $(that).parent().parent().remove();
-                }).fail(function () {
-                    InterfaceAlerts.showFail();
-                })
+                $.prompt("Удалить изображение?", {
+                    title: 'Подтвердите',
+                    buttons: {"Удалить": true, "Пока не надо": false},
+                    submit: function (e, confirmed, m, f) {
+                        if (confirmed) {
+                            $.post(that.dataset.action, {
+                                csrfmiddlewaretoken: self.csrf
+                            }).done(function () {
+                                $(that).parent().parent().remove();
+                            }).fail(function () {
+                                InterfaceAlerts.showFail();
+                            })
+                        }
+                    }
+                });
             } else {
                 $(this).parent().parent().remove();
             }

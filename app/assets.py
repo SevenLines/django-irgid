@@ -7,11 +7,13 @@ main_js = Bundle('bower/jquery/dist/jquery.min.js',
                  'bower/bootstrap/dist/js/bootstrap.min.js',
                  'bower/jquery.cookie/jquery.cookie.js',
                  'bower/jquery.lazyload/jquery.lazyload.min.js',
+                 'bower/jquery-impromptu/dist/jquery-impromptu.min.js',
                  'js/interface.js',
                  filters="yui_js",
                  output="js/main.min.js")
 
 main_css = Bundle('bower/bootstrap/dist/css/bootstrap.min.css',
+                  'bower/jquery-impromptu/dist/jquery-impromptu.min.css',
                   'css/style.css',
                   filters="cssmin",
                   output="css/main.min.css")
