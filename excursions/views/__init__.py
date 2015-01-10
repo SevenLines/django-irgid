@@ -14,6 +14,7 @@ from excursions.views.__base import _excursion_save, _excursion_context
 
 def index(request):
     context = _excursion_context(request)
+    context['title'] = 'Иргид - экскурсионное агентство'
     return render(request, "excursions/preview.html", context)
 
 
@@ -22,6 +23,7 @@ def category(request, id):
     category = ExcursionCategory.objects.get(pk=id)
     context['current_category'] = category
     context['excursions'] = category.excursions(request).order_by("title")
+    context['title'] = category.title
     return render(request, "excursions/preview-category.html", context)
 
 
@@ -55,11 +57,13 @@ def category_save(request):
 
 def excursion(request, id):
     context = _excursion_context(request)
-    context['current_excursion'] = Excursion.objects.get(pk=id)
-    category = context['current_excursion'].category
+    e = Excursion.objects.get(pk=id)
+    context['current_excursion'] = e
+    category = e.category
     context['current_category'] = category
     context['excursions'] = category.excursions(request).order_by("title")
     context['gallery'] = ExcursionImage.objects.filter(excursion_id=id)
+    context['title'] = e.title
     # context['form'] = ExcursionForm()
 
     return render(request, "excursions/preview-excursion.html", context)

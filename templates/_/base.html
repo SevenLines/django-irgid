@@ -3,8 +3,8 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
-
+    <title>{% if title %}{{ title }}{% else %}{% page_attribute "page_title" %}{% endif %}</title>
+    <link rel="shortcut icon" href="{% static "images/icon.png" %}"/>
     {% include "_/elements/styles.html" %}
     {% include "_/elements/scripts.html" %}
 
