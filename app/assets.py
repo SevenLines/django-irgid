@@ -5,6 +5,7 @@ get_env().append_path("templates/static")
 
 main_js = Bundle('bower/jquery/dist/jquery.min.js',
                  'bower/bootstrap/dist/js/bootstrap.min.js',
+                 'bower/jquery.cookie/jquery.cookie.js',
                  'bower/jquery.lazyload/jquery.lazyload.min.js',
                  'js/interface.js',
                  filters="yui_js",

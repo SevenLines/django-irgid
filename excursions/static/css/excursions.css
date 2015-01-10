@@ -156,7 +156,8 @@
       content: ' ';
       box-shadow: 0 0 3px 2px black; }
   .e-categories-excursion .list-group-item-excursion.current {
-    margin-left: 4px; }
+    background-color: #63a0d4;
+    color: white; }
 
 /* end excursions */
 .excursion-gallery {
@@ -224,3 +225,8 @@
     position: absolute;
     top: 0;
     right: 0; }
+
+.excursions-menu {
+  max-height: 300px;
+  overflow: scroll;
+  overflow-x: hidden; }

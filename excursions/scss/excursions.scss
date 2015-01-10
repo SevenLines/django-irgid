@@ -185,7 +185,6 @@ $grid-gap: 8px;
     //    text-align: center;
 
     &.active {
-
       position: relative;
       &:after {
         content: ' ';
@@ -225,7 +224,9 @@ $grid-gap: 8px;
       }
     }
     &.current {
-      margin-left: 4px;
+      background-color: lighten(#337ab7, 15);
+      color: white;
+//      margin-left: 4px;
       //      border: solid 4px white;
       //      border-right: none;
       //      border-radius: 8px 0 0 8px;
@@ -314,4 +315,10 @@ $grid-gap: 8px;
     top: 0;
     right: 0;
   }
+}
+
+.excursions-menu {
+  max-height: 300px;
+  overflow: scroll;
+  overflow-x: hidden;
 }

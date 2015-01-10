@@ -7,18 +7,26 @@
             {{ c.title }}
         </a>
         {% if c.pk == current_category.pk %}
-            {% for e in excursions %}
-                {% if e.pk != current_excursion.pk %}
-                    <a href="{% url "excursions.views.excursion" e.pk %}"
-                       class="list-group-item list-group-item-success list-group-item-excursion">
-{#                       {% if forloop. %} first{% endif %}">#}
-                        {{ e.title }}
-                    </a>
-{#                {% else %}#}
-{#                    <a class="list-group-item  list-group-item-excursion current">{{ e.title }}</a>#}
-                {% endif %}
-            {% endfor %}
+            <div class="excursions-menu">
+                {% for e in excursions %}
+                    {% if e.pk != current_excursion.pk %}
+                        <a href="{% url "excursions.views.excursion" e.pk %}"
+                           class="list-group-item list-group-item-excursion">
+                            {#                       {% if forloop. %} first{% endif %}">#}
+                            {{ e.title }}
+                        </a>
+                    {% else %}
+                        <a class="list-group-item list-group-item-excursion current">{{ e.title }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
         {% endif %}
-
     {% endfor %}
 </div>
+
+
+<script>
+    var exMenu = $(".excursions-menu");
+    var curItem = exMenu.find("a.current");
+    exMenu.scrollTop(curItem.position().top - exMenu.position().top +1);
+</script>
