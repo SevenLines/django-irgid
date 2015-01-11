@@ -96,6 +96,8 @@
   .excursion > a {
     text-decoration: none;
     color: #000000; }
+  .excursion hr {
+    margin: 12px 0; }
   .excursion img.img-preview {
     max-width: 100%;
     border-radius: 0.25em; }
@@ -150,26 +152,50 @@
       margin-left: 0; } }
 
 /* end excursions */
+.excursion-preview-container {
+  text-align: center;
+  margin-right: 310px;
+  height: 400px;
+  white-space: nowrap; }
+  .excursion-preview-container img {
+    max-width: 100%;
+    max-height: 400px;
+    border: 1px solid #000000;
+    vertical-align: middle; }
+  .excursion-preview-container .preview-container-helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle; }
+
 .excursion-gallery {
   padding-bottom: 1em;
-  margin: -0.5em;
-  overflow: hidden; }
+  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: auto; }
+  .excursion-gallery.guest {
+    width: 300px;
+    height: 400px;
+    float: right; }
+    .excursion-gallery.guest .excursion-gallery-item {
+      width: 33%; }
   .excursion-gallery input[type=file] {
     display: none; }
 
-.excursion-preview-container {
-  text-align: center; }
-  .excursion-preview-container img {
-    max-width: 100%;
-    border: 1px solid #000000; }
+@media (max-width: 1200px) {
+  .excursion-preview-container {
+    margin-right: 100px; }
 
+  .excursion-gallery.guest {
+    width: 100px; }
+    .excursion-gallery.guest .excursion-gallery-item {
+      width: 100%; } }
 .excursion-gallery-item {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   position: relative;
-  width: 10%;
+  width: 90px;
   cursor: pointer;
   height: 90px;
   float: left;
@@ -179,15 +205,6 @@
     box-shadow: 0 0 0 4px skyblue; }
     .excursion-gallery-item.active > div:hover {
       box-shadow: 0 0 0 4px skyblue; }
-  @media (max-width: 990px) {
-    .excursion-gallery-item {
-      width: 12.5%; } }
-  @media (max-width: 768px) {
-    .excursion-gallery-item {
-      width: 16.5%; } }
-  @media (max-width: 500px) {
-    .excursion-gallery-item {
-      width: 50%; } }
   .excursion-gallery-item > div {
     box-shadow: 0 0 2px gray;
     width: 100%;
