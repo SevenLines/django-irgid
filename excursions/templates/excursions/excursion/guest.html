@@ -1,7 +1,11 @@
 {% load thumbnail %}
-<a href="{% url "excursions.views.category" current_excursion.category.pk %}">
-    <button class="btn btn-sm btn-default" style="margin-bottom: 5px">{{ current_excursion.category.title}} </button>
-</a>
+<div>
+    <a class="hidden-lg hidden-md hidden-sm" href="{% url "excursions.views.category" current_excursion.category.pk %}">
+        <button class="btn btn-sm btn-default"
+                style="margin-bottom: 5px">{{ current_excursion.category.title }} </button>
+    </a>
+</div>
+
 <h2 id="excursion-title" style="margin-bottom: 0.25em">
     {{ current_excursion.title|default:"..." }}
 </h2>
@@ -16,7 +20,7 @@
         <div class="excursion-gallery-item active"
              data-thumb-src="{{ thumb_big.url }}" data-src="{{ current_excursion.img_preview.url }}">
             <div>
-                <img class="lazy" data-original="{{ thumb.url }}"/>
+                <img src="{{ thumb.url }}"/>
             </div>
         </div>
         {% for img in gallery %}
@@ -25,7 +29,7 @@
             <div class="excursion-gallery-item"
                  data-thumb-src="{{ thumb_big.url }}" data-src="{{ img.image.url }}">
                 <div>
-                    <img class="lazy active" data-original="{{ thumb.url }}"/>
+                    <img src="{{ thumb.url }}"/>
                 </div>
             </div>
         {% endfor %}
