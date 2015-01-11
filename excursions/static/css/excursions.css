@@ -201,9 +201,9 @@
     transition: all ease-in-out 0.3s; }
     .excursion-gallery-item > div:hover {
       box-shadow: 0 0 4px gray; }
-  .excursion-gallery-item img, .excursion-gallery-item .add-image {
+  .excursion-gallery-item img, .excursion-gallery-item #add-image {
     height: 100%; }
-  .excursion-gallery-item .add-image {
+  .excursion-gallery-item #add-image {
     text-align: center;
     background-color: lightskyblue;
     color: #002b36;

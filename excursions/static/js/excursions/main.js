@@ -103,54 +103,68 @@ window.ExcursionModel = function (data) {
                     },
                     overlayspeed: 'fast',
                     promptspeed: 0,
-                    show: 'fadeIn',
+                    show: 'fadeIn'
                 });
             } else {
                 $(this).parent().parent().remove();
             }
         });
 
-        var blocked = false;
-        // click on add button
-        galleryItem.on("click", ".add-image", function () {
-            if (blocked)
-                return;
 
-            console.log("add-image clicked");
-            var currentItem = $(this).parent();
-            var fileSelector = galleryItem.find(".add-image-selector");
-
-            fileSelector.one("change", function () {
-                console.log("file-selector-opened");
-                var newItem = $('<div class="excursion-gallery-item"></div>');
-                var newItemDiv = $('<div></div>');
-                var newImage = $('<img />');
-
-                $('<div class="remove">' +
-                '<button class="btn btn-danger btn-sm">' +
-                '<span class="glyphicon glyphicon-remove"></span>' +
-                '</button>' +
-                '</div>').appendTo(newItemDiv);
-
-                newItemDiv.append(newImage);
-                newItem.append(newItemDiv);
-                newItem.insertBefore(currentItem);
-
+        var template = $("#gallery-item-template").html();
+        var addItem = $("#add-image");
+        addItem.click(function () {
+            var item = $(template);
+            var selector = item.find("input[type=file]");
+            selector.one("change", function () {
                 var file = this.files[0];
                 var fileReader = new FileReader();
                 fileReader.onload = function (e) {
-                    newImage.attr("src", e.target.result);
+                    item.find("img").attr("src", e.target.result)
                 };
                 fileReader.readAsDataURL(file);
-
-                $(this).removeClass("add-image-selector");
-                $(this).appendTo(newItem);
-
-                galleryItem.append('<input type="file" class="add-image-selector" accept="image/*">');
+                item.insertBefore(addItem.parent());
             });
-            fileSelector.click();
-            blocked = false;
+            selector.click();
         });
+
+        // click on add button
+        /*galleryItem.on("click", ".add-image", function () {
+
+         console.log("add-image clicked");
+         var currentItem = $(this).parent();
+         var fileSelector = galleryItem.find(".add-image-selector");
+
+         fileSelector.on("change", function () {
+         console.log("file-selector-opened");
+         var newItem = $('<div class="excursion-gallery-item"></div>');
+         var newItemDiv = $('<div></div>');
+         var newImage = $('<img />');
+
+         $('<div class="remove">' +
+         '<button class="btn btn-danger btn-sm">' +
+         '<span class="glyphicon glyphicon-remove"></span>' +
+         '</button>' +
+         '</div>').appendTo(newItemDiv);
+
+         newItemDiv.append(newImage);
+         newItem.append(newItemDiv);
+         newItem.insertBefore(currentItem);
+
+         var file = this.files[0];
+         var fileReader = new FileReader();
+         fileReader.onload = function (e) {
+         newImage.attr("src", e.target.result);
+         };
+         fileReader.readAsDataURL(file);
+
+         $(this).removeClass("add-image-selector");
+         $(this).appendTo(newItem);
+
+         galleryItem.append('<input type="file" class="add-image-selector" accept="image/*">');
+         });
+         fileSelector.click();
+         });*/
     }
 
     Init();
