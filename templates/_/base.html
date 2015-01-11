@@ -2,15 +2,13 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <meta charset="UTF-8">
-    <title>{% if title %}{{ title }}{% else %}{% page_attribute "page_title" %}{% endif %}</title>
-    <link rel="shortcut icon" href="{% static "images/icon.png" %}"/>
-    {% include "_/elements/styles.html" %}
-    {% include "_/elements/scripts.html" %}
-
-    {% render_block "css" %}
-    {% render_block "js" %}
-
+{% include "_/elements/meta.html" %}
+<title>{% if title %}{{ title }}{% else %}{% page_attribute "page_title" %}{% endif %}</title>
+<link rel="shortcut icon" href="{% static "images/icon.png" %}"/>
+{% include "_/elements/styles.html" %}
+{% include "_/elements/scripts.html" %}
+{% render_block "css" %}
+{% render_block "js" %}
 </head>
 <body>
 <div class="container">

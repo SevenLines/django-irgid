@@ -202,16 +202,16 @@ $grid-gap: 8px;
 
     &.active {
       position: relative;
-      &:after {
-        content: ' ';
-        position: absolute;
-        left: -0px;
-        top: 101%;
-        border-width: 4px 4px;
-        border-style: solid;
-
-        border-color: $color $color transparent transparent;
-      }
+      //      &:after {
+      //        content: ' ';
+      //        position: absolute;
+      //        left: -0px;
+      //        top: 101%;
+      //        border-width: 4px 4px;
+      //        border-style: solid;
+      //
+      //        border-color: $color $color transparent transparent;
+      //      }
       &.without-excursions {
         &:after {
           content: '';
@@ -221,43 +221,6 @@ $grid-gap: 8px;
     }
   }
 
-  .list-group-item-excursion {
-    @include transition(0.2s);
-    margin-left: 8px;
-    &.first {
-      position: relative;
-      overflow: hidden;
-
-      &:after {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 1px;
-        margin-top: -1px;
-        content: ' ';
-        box-shadow: 0 0 3px 2px black;
-      }
-    }
-    &.current {
-      background-color: lighten(#337ab7, 15);
-      color: white;
-      //      margin-left: 4px;
-      //      border: solid 4px white;
-      //      border-right: none;
-      //      border-radius: 8px 0 0 8px;
-    }
-  }
-}
-
-.list-group-menu {
-  width: 200px;
-  float: left;
-  @media(max-width: $width-medium) {
-    width: 100%;
-    float: inherit;
-    display: none;
-  }
 }
 
 .excursion-or-category-content {
@@ -350,9 +313,81 @@ $grid-gap: 8px;
   }
 }
 
-.excursions-menu {
-  max-height: 300px;
-  overflow: scroll;
-  overflow-x: hidden;
-  overflow-y: auto;
+.list-group-menu {
+  width: 200px;
+  float: left;
+  @media(max-width: $width-medium) {
+    width: 100%;
+    float: inherit;
+    display: none;
+  }
+
+  .excursions-menu {
+    padding-left: 8px;
+    background-image: url("images/menu-angle.png");
+    background-position-x: -8px;
+    background-repeat: no-repeat;
+    .excursions-menu-container {
+      max-height: 300px;
+      overflow: scroll;
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      .list-group-item-excursion {
+        @include transition(0.2s);
+
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-top: none;
+        display: block;
+        padding: 10px 15px;
+        position: relative;
+
+        &.first {
+          position: relative;
+          overflow: hidden;
+        }
+        &:last-child {
+          border-bottom: none;
+        }
+        &.current {
+          background-color: lighten(#337ab7, 15);
+          border-color: lighten(#337ab7, 15);
+          color: white;
+        }
+      }
+
+    }
+    &:last-child {
+      .excursions-menu-container {
+        border-bottom: 1px solid #ddd;
+        border-radius: 0 0 0 8px;
+      }
+      .list-group-item-excursion:last-child {
+      }
+    }
+  }
+
+  .list-group-menu-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    display: block;
+    padding: 10px 15px;
+    position: relative;
+    border-bottom: none;
+    &:first-child {
+      border-radius: 4px 0 0 0;
+    }
+    &:last-child {
+      border-bottom: 1px solid #ddd;
+      border-radius: 0 0 0 4px ;
+    }
+    &.active {
+      background-color: #337ab7;
+      border-color: #337ab7;
+      color: white;
+    }
+  }
 }
+
+
