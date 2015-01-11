@@ -139,48 +139,9 @@
 
 .e-categories-excursion .e-category.active {
   position: relative; }
-  .e-categories-excursion .e-category.active:after {
-    content: ' ';
-    position: absolute;
-    left: -0px;
-    top: 101%;
-    border-width: 4px 4px;
-    border-style: solid;
-    border-color: #204d74 #204d74 transparent transparent; }
   .e-categories-excursion .e-category.active.without-excursions:after {
     content: '';
     border: none; }
-.e-categories-excursion .list-group-item-excursion {
-  -webkit-transition: all ease-in-out 0.2s;
-  -moz-transition: all ease-in-out 0.2s;
-  -ms-transition: all ease-in-out 0.2s;
-  -o-transition: all ease-in-out 0.2s;
-  transition: all ease-in-out 0.2s;
-  margin-left: 8px; }
-  .e-categories-excursion .list-group-item-excursion.first {
-    position: relative;
-    overflow: hidden; }
-    .e-categories-excursion .list-group-item-excursion.first:after {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      margin-top: -1px;
-      content: ' ';
-      box-shadow: 0 0 3px 2px black; }
-  .e-categories-excursion .list-group-item-excursion.current {
-    background-color: #63a0d4;
-    color: white; }
-
-.list-group-menu {
-  width: 200px;
-  float: left; }
-  @media (max-width: 768px) {
-    .list-group-menu {
-      width: 100%;
-      float: inherit;
-      display: none; } }
 
 .excursion-or-category-content {
   margin-left: 210px; }
@@ -255,8 +216,61 @@
     top: 0;
     right: 0; }
 
-.excursions-menu {
-  max-height: 300px;
-  overflow: scroll;
-  overflow-x: hidden;
-  overflow-y: auto; }
+.list-group-menu {
+  width: 200px;
+  float: left; }
+  @media (max-width: 768px) {
+    .list-group-menu {
+      width: 100%;
+      float: inherit;
+      display: none; } }
+  .list-group-menu .excursions-menu {
+    padding-left: 8px;
+    background-image: url("images/menu-angle.png");
+    background-position-x: -8px;
+    background-repeat: no-repeat; }
+    .list-group-menu .excursions-menu .excursions-menu-container {
+      max-height: 300px;
+      overflow: scroll;
+      overflow-x: hidden;
+      overflow-y: auto; }
+      .list-group-menu .excursions-menu .excursions-menu-container .list-group-item-excursion {
+        -webkit-transition: all ease-in-out 0.2s;
+        -moz-transition: all ease-in-out 0.2s;
+        -ms-transition: all ease-in-out 0.2s;
+        -o-transition: all ease-in-out 0.2s;
+        transition: all ease-in-out 0.2s;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-top: none;
+        display: block;
+        padding: 10px 15px;
+        position: relative; }
+        .list-group-menu .excursions-menu .excursions-menu-container .list-group-item-excursion.first {
+          position: relative;
+          overflow: hidden; }
+        .list-group-menu .excursions-menu .excursions-menu-container .list-group-item-excursion:last-child {
+          border-bottom: none; }
+        .list-group-menu .excursions-menu .excursions-menu-container .list-group-item-excursion.current {
+          background-color: #63a0d4;
+          border-color: #63a0d4;
+          color: white; }
+    .list-group-menu .excursions-menu:last-child .excursions-menu-container {
+      border-bottom: 1px solid #ddd;
+      border-radius: 0 0 0 8px; }
+  .list-group-menu .list-group-menu-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    display: block;
+    padding: 10px 15px;
+    position: relative;
+    border-bottom: none; }
+    .list-group-menu .list-group-menu-item:first-child {
+      border-radius: 4px 0 0 0; }
+    .list-group-menu .list-group-menu-item:last-child {
+      border-bottom: 1px solid #ddd;
+      border-radius: 0 0 0 4px; }
+    .list-group-menu .list-group-menu-item.active {
+      background-color: #337ab7;
+      border-color: #337ab7;
+      color: white; }
