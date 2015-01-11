@@ -293,10 +293,10 @@ $grid-gap: 8px;
     }
     @include transition(0.3s);
   }
-  img, .add-image {
+  img, #add-image {
     height: 100%;
   }
-  .add-image {
+  #add-image {
     text-align: center;
     background-color: lightskyblue;
     color: #002b36;
