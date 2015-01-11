@@ -5,7 +5,6 @@
 <hr>
 
 <!-- ГАЛЕРЕЯ -->
-<!-- КОНТЕЙНЕР С ИЗОБРАЖЕНИЕМ -->
 
 {% if gallery %}
     <div class="excursion-gallery guest">
@@ -30,21 +29,19 @@
     </div>
 {% endif %}
 
-
+<!-- КОНТЕЙНЕР С ИЗОБРАЖЕНИЕМ -->
 {% if current_excursion.img_preview %}
     <div class="excursion-preview-container">
-        <a href="{{ current_excursion.img_preview.url }}" style="height:400px;">
+{#        <span class="preview-container-helper"></span>#}
+        <a href="{{ current_excursion.img_preview.url }}">
             {% thumbnail current_excursion.img_preview 1024x400 as thumb %}
             <img class="lazy fadein main-image" data-original="{{ thumb.url }}"/>
         </a>
     </div>
-    {#        <hr>#}
 {% endif %}
 <!-- конец КОНТЕЙНЕР С ИЗОБРАЖЕНИЕМ -->
 <hr>
-    <div style="clear:right"></div>
-
-
+<div style="clear:right"></div>
 <!-- конец ГАЛЕРЕЯ -->
 
 <!-- ОПИСАНИЕ -->

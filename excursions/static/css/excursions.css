@@ -96,6 +96,8 @@
   .excursion > a {
     text-decoration: none;
     color: #000000; }
+  .excursion hr {
+    margin: 12px 0; }
   .excursion img.img-preview {
     max-width: 100%;
     border-radius: 0.25em; }
@@ -152,27 +154,41 @@
 /* end excursions */
 .excursion-preview-container {
   text-align: center;
-  margin-right: 300px;
-  height: 400px; }
+  margin-right: 310px;
+  height: 400px;
+  white-space: nowrap; }
   .excursion-preview-container img {
     max-width: 100%;
-    border: 1px solid #000000; }
+    max-height: 400px;
+    border: 1px solid #000000;
+    vertical-align: middle; }
+  .excursion-preview-container .preview-container-helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle; }
 
 .excursion-gallery {
   padding-bottom: 1em;
-  margin: -0.5em;
   overflow: scroll;
   overflow-x: hidden;
   overflow-y: auto; }
   .excursion-gallery.guest {
     width: 300px;
-    height: 410px;
+    height: 400px;
     float: right; }
     .excursion-gallery.guest .excursion-gallery-item {
       width: 33%; }
   .excursion-gallery input[type=file] {
     display: none; }
 
+@media (max-width: 1200px) {
+  .excursion-preview-container {
+    margin-right: 100px; }
+
+  .excursion-gallery.guest {
+    width: 100px; }
+    .excursion-gallery.guest .excursion-gallery-item {
+      width: 100%; } }
 .excursion-gallery-item {
   -webkit-user-select: none;
   -moz-user-select: none;
