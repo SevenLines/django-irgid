@@ -172,3 +172,25 @@ window.ExcursionModel = function (data) {
     InitGallery();
 };
 
+
+$(function () {
+    var menu = $($(".list-group-menu")[0]);
+    var top = menu.position().top;
+    var check = false;
+    var event = function () {
+        if (menu.height() < $(this).height() && $(this).scrollTop() > top) {
+            menu.css({
+                position: "fixed",
+                top: 10
+            });
+            check = true;
+        } else if (check) {
+            menu.css({
+                position: "",
+                top: ""
+            });
+            check = false;
+        }
+    };
+    $(window).scroll(event).resize(event);
+});

@@ -1,10 +1,8 @@
 {% load static sekizai_tags %}
 
-{% addtoblock "js" %}
-    <script src="{% static "js/excursions/main.js" %}"></script>
-{% endaddtoblock %}
 
-<div class="excursion" style="padding: 0">
+
+<div class="excursion" style="padding: 0 5px">
     {% if user.is_authenticated %}
         {% include "excursions/excursion/admin.html" %}
     {% else %}

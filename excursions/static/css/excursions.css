@@ -181,7 +181,9 @@
     color: #2b679c; }
 
 #excursion-price-list {
-  overflow: scroll; }
+  overflow: scroll;
+  overflow-y: hidden;
+  overflow-x: auto; }
 
 .excursion {
   display: block;
