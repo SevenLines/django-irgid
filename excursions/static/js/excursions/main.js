@@ -146,7 +146,7 @@ window.ExcursionModel = function (data) {
                 $(this).removeClass("add-image-selector");
                 $(this).appendTo(newItem);
 
-                galleryItem.append('<input type="file" class="add-image-selector">');
+                galleryItem.append('<input type="file" class="add-image-selector" accept="image/*">');
             });
             fileSelector.click();
             blocked = false;

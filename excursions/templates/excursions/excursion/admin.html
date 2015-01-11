@@ -27,7 +27,7 @@
                             <img name="image"
                                  src="{{ thumb.url }}"
                                  style="max-width: 150px;border-radius: 0.25em;cursor: pointer"/>
-                            <input type="file" name="small_image" class="image-selector" style="display: none;">
+                            <input type="file" name="small_image" accept="image/*" class="image-selector" style="display: none;">
                         </div>
                         <!-- конец ГЛАВНАЯ КАРТИНКА ЭКСКУРСИИ -->
                     </td>
@@ -56,7 +56,7 @@
                 <div class="excursion-gallery-item">
                     <div class="add-image">+</div>
                 </div>
-                <input type="file" class="add-image-selector">
+                <input type="file" class="add-image-selector" accept="image/*">
             </div>
             <div style="clear:right"></div>
             <!-- конец ГАЛЕРЕЯ -->
