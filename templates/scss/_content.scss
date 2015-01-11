@@ -1,7 +1,7 @@
 @import "constants";
 
 body {
-//  background-color: $background-color;
+  //  background-color: $background-color;
   background: url("images/eight_horns.png");
   padding: 1em;
 
@@ -17,14 +17,16 @@ body {
 .container {
   background-color: white;
   border-radius: 16px;
-//  border: 1px solid grey;
+  //  border: 1px solid grey;
   box-shadow: 0 0 4px silver;
   padding: 0 1.5em;
   padding-bottom: 1em;
   margin-bottom: 80px;
 
   @media (max-width: $width-medium) {
-   border-radius: 0;
+    border-radius: 0;
+    padding: 0;
+    margin-bottom: 0;
   }
 }
 
@@ -37,13 +39,17 @@ body {
   background-color: #f5f5f5;
   text-align: center;
   @include transition(0.3s);
-  
+
   @media (max-width: $width-small) {
     font-size: smaller;
   }
-//  font-family: Georgia, 'Times New Roman', Times, serif;
+  //  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 #content {
   background-color: white;
+  @media (max-width: $width-medium) {
+    padding: 10px;
+    padding-top: 60px;
+  }
 }
