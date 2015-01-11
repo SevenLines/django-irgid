@@ -7,7 +7,7 @@ body {
   -o-transition: all ease-in-out 0.3s;
   transition: all ease-in-out 0.3s;
   font-family: serif; }
-  @media (max-width: 768px) {
+  @media (max-width: 765px) {
     body {
       padding: 0; } }
 
@@ -18,9 +18,11 @@ body {
   padding: 0 1.5em;
   padding-bottom: 1em;
   margin-bottom: 80px; }
-  @media (max-width: 768px) {
+  @media (max-width: 765px) {
     .container {
-      border-radius: 0; } }
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0; } }
 
 #footer {
   position: fixed;
@@ -41,10 +43,28 @@ body {
 
 #content {
   background-color: white; }
+  @media (max-width: 765px) {
+    #content {
+      padding: 10px;
+      padding-top: 60px; } }
 
-.menu .nav .selected a {
-  background-color: #337AB7;
-  color: #ffffff; }
+.menu {
+  background-color: white;
+  z-index: 100;
+  padding-top: 10px; }
+  .menu .nav .selected a {
+    background-color: #337AB7;
+    color: #ffffff; }
+  @media (max-width: 500px) {
+    .menu .logo-info {
+      font-size: small; } }
+  @media (max-width: 765px) {
+    .menu {
+      position: fixed;
+      width: 100%;
+      padding-top: 10px;
+      padding-left: 10px;
+      padding-right: 10px; } }
 
 #enter-button-area {
   -webkit-transition: all ease-in-out 0.3s;

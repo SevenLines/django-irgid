@@ -238,9 +238,9 @@ $grid-gap: 8px;
 
 .excursion-preview-container {
   text-align: center;
-//  background-color: #c0c0c0;
+  //  background-color: #c0c0c0;
   margin-right: 310px;
-  height: 400px;
+  max-height: 400px;
   white-space: nowrap;
   img {
     max-width: 100%;
@@ -253,19 +253,22 @@ $grid-gap: 8px;
     height: 100%;
     vertical-align: middle;
   }
+  &.without-items {
+    margin-right: 0;
+  }
 }
 
 .excursion-gallery {
   &.guest {
     width: 300px;
-    height: 400px;
+    max-height: 400px;
     float: right;
     .excursion-gallery-item {
       width: 33%;
     }
   }
   padding-bottom: 1em;
-//  margin: 0 0.5em;
+  //  margin: 0 0.5em;
   overflow: scroll;
   overflow-x: hidden;
   overflow-y: auto;
@@ -280,10 +283,27 @@ $grid-gap: 8px;
   }
   .excursion-gallery {
     &.guest {
-      width: 100px;
+      width: 95px;
       .excursion-gallery-item {
         width: 100%;
       }
+    }
+  }
+}
+
+@media (max-width: $width-big) {
+  .excursion-preview-container {
+    margin-right: 0;
+    img {
+      max-height: 300px;
+    }
+  }
+  .excursion-gallery.guest {
+    width: 100%;
+    float: none;
+    .excursion-gallery-item {
+      width: 50px;
+      height: 50px;
     }
   }
 }
@@ -367,6 +387,11 @@ $grid-gap: 8px;
       .list-group-item-excursion {
         @include transition(0.2s);
 
+        &:hover {
+          text-decoration: none;
+          background-color: #eee;
+        }
+
         background-color: #fff;
         border: 1px solid #ddd;
         border-top: none;
@@ -406,6 +431,12 @@ $grid-gap: 8px;
     padding: 10px 15px;
     position: relative;
     border-bottom: none;
+    @include transition(0.3s);
+    &:hover {
+      text-decoration: none;
+      background-color: #eee;
+    }
+
     &:first-child {
       border-radius: 4px 0 0 0;
     }

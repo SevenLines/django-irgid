@@ -32,7 +32,7 @@
   float: left;
   padding: 8px;
   position: relative; }
-  @media (max-width: 768px) {
+  @media (max-width: 765px) {
     .e-class-container {
       width: 50%; } }
   @media (max-width: 500px) {
@@ -48,7 +48,7 @@
   width: 24%;
   float: left;
   position: relative; }
-  @media (max-width: 768px) {
+  @media (max-width: 765px) {
     .e-ex-container {
       width: 50%; } }
   @media (max-width: 500px) {
@@ -147,7 +147,7 @@
 
 .excursion-or-category-content {
   margin-left: 210px; }
-  @media (max-width: 768px) {
+  @media (max-width: 765px) {
     .excursion-or-category-content {
       margin-left: 0; } }
 
@@ -155,7 +155,7 @@
 .excursion-preview-container {
   text-align: center;
   margin-right: 310px;
-  height: 400px;
+  max-height: 400px;
   white-space: nowrap; }
   .excursion-preview-container img {
     max-width: 100%;
@@ -166,6 +166,8 @@
     display: inline-block;
     height: 100%;
     vertical-align: middle; }
+  .excursion-preview-container.without-items {
+    margin-right: 0; }
 
 .excursion-gallery {
   padding-bottom: 1em;
@@ -174,7 +176,7 @@
   overflow-y: auto; }
   .excursion-gallery.guest {
     width: 300px;
-    height: 400px;
+    max-height: 400px;
     float: right; }
     .excursion-gallery.guest .excursion-gallery-item {
       width: 33%; }
@@ -186,9 +188,21 @@
     margin-right: 100px; }
 
   .excursion-gallery.guest {
-    width: 100px; }
+    width: 95px; }
     .excursion-gallery.guest .excursion-gallery-item {
       width: 100%; } }
+@media (max-width: 990px) {
+  .excursion-preview-container {
+    margin-right: 0; }
+    .excursion-preview-container img {
+      max-height: 300px; }
+
+  .excursion-gallery.guest {
+    width: 100%;
+    float: none; }
+    .excursion-gallery.guest .excursion-gallery-item {
+      width: 50px;
+      height: 50px; } }
 .excursion-gallery-item {
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -236,7 +250,7 @@
 .list-group-menu {
   width: 200px;
   float: left; }
-  @media (max-width: 768px) {
+  @media (max-width: 765px) {
     .list-group-menu {
       width: 100%;
       float: inherit;
@@ -263,6 +277,9 @@
         display: block;
         padding: 10px 15px;
         position: relative; }
+        .list-group-menu .excursions-menu .excursions-menu-container .list-group-item-excursion:hover {
+          text-decoration: none;
+          background-color: #eee; }
         .list-group-menu .excursions-menu .excursions-menu-container .list-group-item-excursion.first {
           position: relative;
           overflow: hidden; }
@@ -281,7 +298,15 @@
     display: block;
     padding: 10px 15px;
     position: relative;
-    border-bottom: none; }
+    border-bottom: none;
+    -webkit-transition: all ease-in-out 0.3s;
+    -moz-transition: all ease-in-out 0.3s;
+    -ms-transition: all ease-in-out 0.3s;
+    -o-transition: all ease-in-out 0.3s;
+    transition: all ease-in-out 0.3s; }
+    .list-group-menu .list-group-menu-item:hover {
+      text-decoration: none;
+      background-color: #eee; }
     .list-group-menu .list-group-menu-item:first-child {
       border-radius: 4px 0 0 0; }
     .list-group-menu .list-group-menu-item:last-child {

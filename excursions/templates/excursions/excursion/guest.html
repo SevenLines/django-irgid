@@ -1,4 +1,7 @@
 {% load thumbnail %}
+<a href="{% url "excursions.views.category" current_excursion.category.pk %}">
+    <button class="btn btn-sm btn-default" style="margin-bottom: 5px">{{ current_excursion.category.title}} </button>
+</a>
 <h2 id="excursion-title" style="margin-bottom: 0.25em">
     {{ current_excursion.title|default:"..." }}
 </h2>
@@ -31,8 +34,8 @@
 
 <!-- КОНТЕЙНЕР С ИЗОБРАЖЕНИЕМ -->
 {% if current_excursion.img_preview %}
-    <div class="excursion-preview-container">
-{#        <span class="preview-container-helper"></span>#}
+    <div class="excursion-preview-container{% if not gallery %} without-items{% endif %}">
+        {#        <span class="preview-container-helper"></span>#}
         <a href="{{ current_excursion.img_preview.url }}">
             {% thumbnail current_excursion.img_preview 1024x400 as thumb %}
             <img class="lazy fadein main-image" data-original="{{ thumb.url }}"/>
@@ -40,8 +43,9 @@
     </div>
 {% endif %}
 <!-- конец КОНТЕЙНЕР С ИЗОБРАЖЕНИЕМ -->
-<hr>
 <div style="clear:right"></div>
+
+<hr>
 <!-- конец ГАЛЕРЕЯ -->
 
 <!-- ОПИСАНИЕ -->

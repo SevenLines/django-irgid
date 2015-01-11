@@ -1,13 +1,27 @@
 @import "constants";
 
 .menu {
-  .logo {
-
-  }
+  background-color: white;
+  z-index: 100;
+  padding-top: 10px;
   .nav {
     .selected a {
       background-color: #337AB7;
       color: #ffffff;
     }
+  }
+
+  @media (max-width: $width-small) {
+    .logo-info {
+      font-size: small;
+    }
+  }
+
+  @media (max-width: $width-medium) {
+    position: fixed;
+    width: 100%;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 }

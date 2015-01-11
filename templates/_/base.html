@@ -2,21 +2,32 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-{% include "_/elements/meta.html" %}
-<title>{% if title %}{{ title }}{% else %}{% page_attribute "page_title" %}{% endif %}</title>
-<link rel="shortcut icon" href="{% static "images/icon.png" %}"/>
-{% include "_/elements/styles.html" %}
-{% include "_/elements/scripts.html" %}
-{% render_block "css" %}
-{% render_block "js" %}
+    {% include "_/elements/meta.html" %}
+    <title>{% if title %}{{ title }}{% else %}{% page_attribute "page_title" %}{% endif %}</title>
+    <link rel="shortcut icon" href="{% static "images/icon.png" %}"/>
+    {% include "_/elements/styles.html" %}
+    {% include "_/elements/scripts.html" %}
+    {% render_block "css" %}
+    {% render_block "js" %}
 </head>
 <body>
 <div class="container">
     <div class="header">
         <nav class="navbar menu">
-            <ul class="nav nav-pills pull-left" style="padding-top: 1em">
+            <ul class="nav nav-pills pull-left">
                 {% show_menu 0 100 100 100 %}
             </ul>
+            <div class="logo-info pull-right">
+                <div style="width:100%;">
+                    <div class="pull-right">
+                        email: {{ "irgid@bk.ru"|obfuscate_mailto }}<br>
+                        тел.: 8-914-895-66-44
+                    </div>
+                    <div class="pull-right hidden-xs" style="padding-right: 0.5em">
+                        <img src="{% static "images/icon.png" %}" style="height: 3em;">
+                    </div>
+                </div>
+            </div>
         </nav>
     </div>
     <div id="content">
@@ -28,15 +39,8 @@
 </div>
 
 <div id="footer">
-    <div class="col-md-4">
-        email: {{ "irgid@bk.ru"|obfuscate_mailto }}<br>
-        тел.: 8-914-895-66-44, 8-914-937-25-98<br>
-    </div>
-    <div class="col-md-4  hidden-sm hidden-xs">
-        <a href="/">
-            <img src="{% static "images/icon.png" %}" style="height: 3em"> ИРГИД</a>
-        | 2012–{% now "Y" %}
-    </div>
+
+
     <div class="col-md-4  hidden-sm hidden-xs">{% if user.is_authenticated %}
         Привет, <b>{{ request.user }}</b>
         {% if user.is_superuser %}
