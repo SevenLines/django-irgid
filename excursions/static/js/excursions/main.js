@@ -171,3 +171,4 @@ window.ExcursionModel = function (data) {
     InitSaveAction();
     InitGallery();
 };
+

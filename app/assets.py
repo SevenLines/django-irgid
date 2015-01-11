@@ -9,6 +9,7 @@ main_js = Bundle('bower/jquery/dist/jquery.min.js',
                  'bower/jquery.lazyload/jquery.lazyload.min.js',
                  'bower/jquery-impromptu/dist/jquery-impromptu.min.js',
                  'js/interface.js',
+                 'js/jquery.fixer.js',
                  filters="yui_js",
                  output="js/main.min.js")
 
