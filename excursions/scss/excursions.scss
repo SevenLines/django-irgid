@@ -119,6 +119,8 @@ $grid-gap: 8px;
 
 #excursion-price-list {
   overflow: scroll;
+  overflow-y: hidden;
+  overflow-x: auto;
 }
 
 .excursion {
@@ -204,20 +206,9 @@ $grid-gap: 8px;
 .e-categories-excursion {
   $color: darken($common_color, 10);
   .e-category {
-    //    text-align: center;
 
     &.active {
       position: relative;
-      //      &:after {
-      //        content: ' ';
-      //        position: absolute;
-      //        left: -0px;
-      //        top: 101%;
-      //        border-width: 4px 4px;
-      //        border-style: solid;
-      //
-      //        border-color: $color $color transparent transparent;
-      //      }
       &.without-excursions {
         &:after {
           content: '';
