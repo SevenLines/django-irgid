@@ -110,12 +110,18 @@ window.ExcursionModel = function (data) {
             }
         });
 
+        var blocked = false;
         // click on add button
         galleryItem.on("click", ".add-image", function () {
+            if (blocked)
+                return;
+
+            console.log("add-image clicked");
             var currentItem = $(this).parent();
             var fileSelector = galleryItem.find(".add-image-selector");
 
             fileSelector.one("change", function () {
+                console.log("file-selector-opened");
                 var newItem = $('<div class="excursion-gallery-item"></div>');
                 var newItemDiv = $('<div></div>');
                 var newImage = $('<img />');
@@ -143,6 +149,7 @@ window.ExcursionModel = function (data) {
                 galleryItem.append('<input type="file" class="add-image-selector">');
             });
             fileSelector.click();
+            blocked = false;
         });
     }
 
