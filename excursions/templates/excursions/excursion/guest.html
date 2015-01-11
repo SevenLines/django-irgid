@@ -2,25 +2,17 @@
 <h2 id="excursion-title" style="margin-bottom: 0.25em">
     {{ current_excursion.title|default:"..." }}
 </h2>
+<hr>
 
 <!-- ГАЛЕРЕЯ -->
-{% if current_excursion.img_preview %}
-    <hr>
-    <div class="excursion-preview-container">
-        <a href="{{ current_excursion.img_preview.url }}" style="height:400px;">
-            {% thumbnail current_excursion.img_preview 1024x400 as thumb %}
-            <img class="lazy fadein main-image" data-original="{{ thumb.url }}"/>
-        </a>
-    </div>
-    <hr>
-{% endif %}
+<!-- КОНТЕЙНЕР С ИЗОБРАЖЕНИЕМ -->
 
 {% if gallery %}
-    <div class="excursion-gallery">
+    <div class="excursion-gallery guest">
         {% thumbnail current_excursion.img_preview 0x150 as thumb %}
         {% thumbnail current_excursion.img_preview 1024x400 as thumb_big %}
         <div class="excursion-gallery-item active"
-                data-thumb-src="{{ thumb_big.url }}" data-src="{{ current_excursion.img_preview.url }}">
+             data-thumb-src="{{ thumb_big.url }}" data-src="{{ current_excursion.img_preview.url }}">
             <div>
                 <img class="lazy" data-original="{{ thumb.url }}"/>
             </div>
@@ -36,8 +28,22 @@
             </div>
         {% endfor %}
     </div>
-    <div style="clear:right"></div>
 {% endif %}
+
+
+{% if current_excursion.img_preview %}
+    <div class="excursion-preview-container">
+        <a href="{{ current_excursion.img_preview.url }}" style="height:400px;">
+            {% thumbnail current_excursion.img_preview 1024x400 as thumb %}
+            <img class="lazy fadein main-image" data-original="{{ thumb.url }}"/>
+        </a>
+    </div>
+    {#        <hr>#}
+{% endif %}
+<!-- конец КОНТЕЙНЕР С ИЗОБРАЖЕНИЕМ -->
+<hr>
+    <div style="clear:right"></div>
+
 
 <!-- конец ГАЛЕРЕЯ -->
 
