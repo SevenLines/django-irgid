@@ -127,70 +127,9 @@ window.ExcursionModel = function (data) {
             });
             selector.click();
         });
-
-        // click on add button
-        /*galleryItem.on("click", ".add-image", function () {
-
-         console.log("add-image clicked");
-         var currentItem = $(this).parent();
-         var fileSelector = galleryItem.find(".add-image-selector");
-
-         fileSelector.on("change", function () {
-         console.log("file-selector-opened");
-         var newItem = $('<div class="excursion-gallery-item"></div>');
-         var newItemDiv = $('<div></div>');
-         var newImage = $('<img />');
-
-         $('<div class="remove">' +
-         '<button class="btn btn-danger btn-sm">' +
-         '<span class="glyphicon glyphicon-remove"></span>' +
-         '</button>' +
-         '</div>').appendTo(newItemDiv);
-
-         newItemDiv.append(newImage);
-         newItem.append(newItemDiv);
-         newItem.insertBefore(currentItem);
-
-         var file = this.files[0];
-         var fileReader = new FileReader();
-         fileReader.onload = function (e) {
-         newImage.attr("src", e.target.result);
-         };
-         fileReader.readAsDataURL(file);
-
-         $(this).removeClass("add-image-selector");
-         $(this).appendTo(newItem);
-
-         galleryItem.append('<input type="file" class="add-image-selector" accept="image/*">');
-         });
-         fileSelector.click();
-         });*/
     }
 
     Init();
     InitSaveAction();
     InitGallery();
 };
-
-
-$(function () {
-    var menu = $($(".list-group-menu")[0]);
-    var top = menu.position().top;
-    var check = false;
-    var event = function () {
-        if (menu.height() < $(this).height() && $(this).scrollTop() > top) {
-            menu.css({
-                position: "fixed",
-                top: 10
-            });
-            check = true;
-        } else if (check) {
-            menu.css({
-                position: "",
-                top: ""
-            });
-            check = false;
-        }
-    };
-    $(window).scroll(event).resize(event);
-});
