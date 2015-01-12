@@ -63,13 +63,13 @@
     <hr>
     <h3>Рассчитать цену:</h3>
     <form class="form-inline" id="price-calculator">
-        <div class="input-group">
+        <div class="input-group" style="margin-bottom: 5px; ">
             <span class="input-group-addon">Взрослых</span>
-            <input type="text" class="form-control" name="adults_count" placeholder="0" value="1"/>
+            <input type="text" class="form-control" name="adults_count" placeholder="0"/>
         </div>
-        <div class="input-group">
+        <div class="input-group" style="margin-bottom: 5px;">
             <span class="input-group-addon">Детей</span>
-            <input type="text" class="form-control" name="children_count" placeholder="0" value="12"/>
+            <input type="text" class="form-control" name="children_count" placeholder="0"/>
         </div>
         = <label id="priceOut">0</label> руб.
     </form>
@@ -104,6 +104,7 @@
 <!-- конец ЦЕНЫ -->
 
 <script>
+    // кликанье на элементы галереи
     var galleryItems = $(".excursion-gallery-item");
     galleryItems.on("click", function () {
         $(".main-image").attr("src", this.dataset.thumbSrc)
@@ -112,30 +113,8 @@
         $(this).addClass("active");
     });
 
-    var price_list = {{ price_list }};
-    var item, price;
-    var formPriceCalculator = document.forms['price-calculator'];
-    var compute_price = function () {
-        var adults_count = parseInt(formPriceCalculator.adults_count.value) || 0;
-        var children_count = parseInt(formPriceCalculator.children_count.value) || 0;
-        var ppl_count = adults_count + children_count;
-        for (var i = 0; i < price_list.length; ++i) {
-            item = price_list[i];
-            if (item[0] <= ppl_count && ppl_count <= item[1]) {
-                console.log(item);
-                price = adults_count * item[3] + children_count * item[2] + item[4];
-                $("#priceOut").text(price);
-                return;
-            }
-        }
-        item = price_list[price_list.length - 1];
-        price = adults_count * item[3] + children_count * item[2] + item[4];
-        $("#priceOut").text(price);
-    };
-
-    $(formPriceCalculator).find("input[type=text]").on("input change", compute_price);
-    compute_price();
-
+    // рассчет цены
+    new ExcursionPriceComputer({{ price_list }})
 
 </script>
 

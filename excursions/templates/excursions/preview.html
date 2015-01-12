@@ -50,11 +50,6 @@
         <div style="clear:both"></div>
     </div>
 
-
-    {% addtoblock 'css' %}
-        <link rel="stylesheet" href="{% static "css/excursions.css" %}"/>
-    {% endaddtoblock %}
-
     {% if user.is_authenticated %}
         {% include "excursions/modal-category.html" %}
     {% endif %}
