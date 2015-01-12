@@ -1,12 +1,10 @@
 # coding=utf-8
-from cms.models.pluginmodel import CMSPlugin
 from django.db import models
 from django.db.models import Model
 from easy_thumbnails.fields import ThumbnailerImageField
-from filer.fields.image import FilerImageField
 
 
-class ExcursionCategory(Model):
+class ExcursionCategory(models.Model):
     title = models.CharField(max_length=100, default='')
     description = models.TextField(default='')
 
@@ -17,7 +15,7 @@ class ExcursionCategory(Model):
             return Excursion.objects.filter(category=self)
 
 
-class Excursion(Model):
+class Excursion(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(default="")
     short_description = models.TextField(default="")
@@ -41,7 +39,7 @@ class Excursion(Model):
         return out
 
 
-class ExcursionImage(Model):
+class ExcursionImage(models.Model):
     excursion = models.ForeignKey(Excursion)
     image = ThumbnailerImageField(upload_to="excursions_gallery")
     actve = models.BooleanField(default=False)

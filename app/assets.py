@@ -2,6 +2,7 @@ from django_assets import Bundle, register
 from django_assets.env import get_env
 
 get_env().append_path("templates/static")
+get_env().append_path("excursions/static")
 
 main_js = Bundle('bower/jquery/dist/jquery.min.js',
                  'bower/bootstrap/dist/js/bootstrap.min.js',
@@ -9,12 +10,14 @@ main_js = Bundle('bower/jquery/dist/jquery.min.js',
                  'bower/jquery.lazyload/jquery.lazyload.min.js',
                  'bower/jquery-impromptu/dist/jquery-impromptu.min.js',
                  'js/interface.js',
+                 'js/excursions/main.guest.js',
                  filters="yui_js",
                  output="js/main.min.js")
 
 main_css = Bundle('bower/bootstrap/dist/css/bootstrap.min.css',
                   'bower/jquery-impromptu/dist/jquery-impromptu.min.css',
                   'css/style.css',
+                  'css/excursions.css',
                   filters="cssmin",
                   output="css/main.min.css")
 
