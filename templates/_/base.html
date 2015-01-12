@@ -9,6 +9,7 @@
     {% include "_/elements/scripts.html" %}
     {% render_block "css" %}
     {% render_block "js" %}
+
 </head>
 <body>
 <div class="container">
@@ -53,5 +54,12 @@
 {% cms_toolbar %}
 
 {% include "_/elements/login-form.html" %}
+
+
+<!--[if lt IE 9]>
+      <script type='text/javascript' src="{% static "bower/html5shiv/dist/html5shiv.min.js" %}"></script>
+      <script type='text/javascript' src="{% static "bower/respond/dest/respond.min.js" %}"></script>
+<![endif]-->
+
 </body>
 </html>

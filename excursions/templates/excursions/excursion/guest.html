@@ -107,8 +107,8 @@
     // кликанье на элементы галереи
     var galleryItems = $(".excursion-gallery-item");
     galleryItems.on("click", function () {
-        $(".main-image").attr("src", this.dataset.thumbSrc)
-                .parent().attr("href", this.dataset.src);
+        $(".main-image").attr("src", $(this).data("thumbSrc"))
+                .parent().attr("href", $(this).data("src"));
         galleryItems.removeClass("active");
         $(this).addClass("active");
     });
