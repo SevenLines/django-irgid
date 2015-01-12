@@ -26,7 +26,6 @@ def _excursion_save(request):
             e = Excursion()
         else:
             return HttpResponseBadRequest("category_id is not defined")
-
     if 'small_image' in request.FILES:
         f = request.FILES['small_image']
         ext = f.name.split('.')[-1]

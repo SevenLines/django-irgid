@@ -1,13 +1,13 @@
 # coding=utf-8
 # Create your views here.
+import json
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http.response import HttpResponse, HttpResponseBadRequest
+from django.http.response import HttpResponseBadRequest
 from django.shortcuts import render, redirect
-from django.template.context import RequestContext
 from app.utils import require_in_POST
-from excursions.forms import ExcursionForm
 from excursions.models import ExcursionCategory, Excursion, ExcursionImage
+from excursions.utils import get_price_list
 from excursions.views import ajax
 from excursions.views.__base import _excursion_save, _excursion_context
 
@@ -64,7 +64,8 @@ def excursion(request, id):
     context['excursions'] = category.excursions(request).order_by("title")
     context['gallery'] = ExcursionImage.objects.filter(excursion_id=id)
     context['title'] = e.title
-    # context['form'] = ExcursionForm()
+
+    context['price_list'] = json.dumps(get_price_list(e.priceList))
 
     return render(request, "excursions/preview-excursion.html", context)
 
