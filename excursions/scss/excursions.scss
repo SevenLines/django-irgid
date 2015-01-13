@@ -19,7 +19,8 @@ $grid-gap: 8px;
   border-radius: 8px;
   cursor: pointer;
   text-align: center;
-  box-shadow: 0 0 1px gray;
+  box-shadow: 0 0 1px $common_color;
+  color: $common_color;
 
   @media (max-width: $width-small) {
     $height: 120px;
@@ -32,7 +33,7 @@ $grid-gap: 8px;
   }
 
   &:hover {
-    box-shadow: 0 0 8px gray;
+    box-shadow: 0 0 8px $common_color;
   }
 
 }
@@ -80,13 +81,7 @@ $grid-gap: 8px;
 
 .e-ex {
   @include transition(0.2s);
-  //  margin: $grid-gap;
   padding: 16px;
-  //  position: absolute;
-  //  top: 0;
-  //  left: 0;
-  //  right: 0;
-  //  bottom: 0;
   height: 180px;
   border-radius: 8px;
   cursor: pointer;
@@ -102,18 +97,14 @@ $grid-gap: 8px;
 
 /* excursions */
 .excursions-list {
-  //  padding-left: 0.75em;
   padding-bottom: 1em;
-
   .excursion {
     &:hover {
       box-shadow: 0 0 2px $common_color;
       color: $common_color;
     }
   }
-
   .excursion-add {
-
   }
 }
 
@@ -203,23 +194,6 @@ $grid-gap: 8px;
   }
 }
 
-.e-categories-excursion {
-  $color: darken($common_color, 10);
-  .e-category {
-
-    &.active {
-      position: relative;
-      &.without-excursions {
-        &:after {
-          content: '';
-          border: none;
-        }
-      }
-    }
-  }
-
-}
-
 .excursion-or-category-content {
   margin-left: 210px;
   @media(max-width: $width-medium) {
@@ -241,7 +215,7 @@ $grid-gap: 8px;
   .excursions-menu {
     padding-left: 8px;
     background-image: url("images/menu-angle.png");
-    background-position-x: -8px;
+    //    background-position-x: -8px;
     background-repeat: no-repeat;
     .excursions-menu-container {
       max-height: 300px;
@@ -251,7 +225,7 @@ $grid-gap: 8px;
 
       .list-group-item-excursion {
         @include transition(0.2s);
-
+        color: $common_color;
         &:hover {
           text-decoration: none;
           background-color: #eee;
@@ -272,8 +246,8 @@ $grid-gap: 8px;
           border-bottom: none;
         }
         &.current {
-          background-color: lighten(#337ab7, 15);
-          border-color: lighten(#337ab7, 15);
+          background-color: lighten($common_color, 20);
+          border-color: lighten($common_color, 20);
           color: white;
         }
       }
@@ -296,6 +270,7 @@ $grid-gap: 8px;
     padding: 10px 15px;
     position: relative;
     border-bottom: none;
+    color: $common_color;
     @include transition(0.3s);
     &:hover {
       text-decoration: none;
@@ -310,8 +285,8 @@ $grid-gap: 8px;
       border-radius: 0 0 0 4px;
     }
     &.active {
-      background-color: #337ab7;
-      border-color: #337ab7;
+      background-color: $common_color;
+      border-color: $common_color;
       color: white;
     }
   }

@@ -39,9 +39,8 @@
 
 </div>
 
+{% if user.is_authenticated %}
 <div id="footer">
-
-
     <div class="col-md-4  hidden-sm hidden-xs">{% if user.is_authenticated %}
         Привет, <b>{{ request.user }}</b>
         {% if user.is_superuser %}
@@ -49,6 +48,7 @@
         {% endif %}
     {% endif %}</div>
 </div>
+{% endif %}
 
 {% render_block "footerjs" %}
 {% cms_toolbar %}
@@ -60,6 +60,13 @@
       <script type='text/javascript' src="{% static "bower/html5shiv/dist/html5shiv.min.js" %}"></script>
       <script type='text/javascript' src="{% static "bower/respond/dest/respond.min.js" %}"></script>
 <![endif]-->
+
+{% if not DEBUG and not DONT_USE_METRICS %}
+{#    {% include "_/elements/google-analytics.html" %}#}
+    {% include "_/elements/yandex-metrica.html" %}
+{% else %}
+    <!-- IN DEBUG VERSION yandex-metrica is not accessible -->
+{% endif %}
 
 </body>
 </html>

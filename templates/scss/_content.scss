@@ -1,8 +1,8 @@
 @import "constants";
 
 body {
-  //  background-color: $background-color;
-  background: url("images/eight_horns.png");
+  background-color: $background-color;
+  background-image: url("images/eight_horns_alpha.png");
   padding: 1em;
 
   @include transition(0.3s);
@@ -12,6 +12,10 @@ body {
   }
 
   font-family: serif;
+}
+
+a {
+  color: $common_color;
 }
 
 .container {

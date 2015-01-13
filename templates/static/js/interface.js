@@ -31,11 +31,11 @@ dismissRelatedImageLookupPopup = function (win, chosenId, chosenThumbnailUrl, ch
         var self = this;
 
         self.blink = function (color, delay) {
-            var bg = $('#footer');
+            var bg = $('body');
             var bg_css = bg.css("background");
             bg.css("background-color", color);
             setTimeout(function () {
-                $("#footer").css("background", bg_css);
+                $("body").css("background", bg_css);
             }, delay);
         };
 
@@ -47,23 +47,23 @@ dismissRelatedImageLookupPopup = function (win, chosenId, chosenThumbnailUrl, ch
         };
     }
 
-    function TableEffects() {
-        var self = this;
-        self.toggleColumnClass = function (td_target, class_name, toggle) {
-            var t = parseInt($(td_target).index()) + 1;
-            $('td:nth-child(' + t + ')').toggleClass(class_name, toggle);
-        }
-    }
-
-    window.TableEffects = new TableEffects();
     window.InterfaceAlerts = new InterfaceAlerts();
 }());
 
 
-$(function() {
-    $("img.lazy").lazyload({
-    });
+$(function () {
+    $("img.lazy").lazyload({});
     $("img.lazy.fadein").lazyload({
-        effect : "fadeIn"
+        effect: "fadeIn"
     });
 });
+
+window.input2base64 = function (input_element, output_image) {
+    var file = input_element.files[0];
+    var fileReader = new FileReader();
+    fileReader.onload = function (e) {
+        output_image.src = e.target.result;
+    };
+    fileReader.readAsDataURL(file);
+};
+
