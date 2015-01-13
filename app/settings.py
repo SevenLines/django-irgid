@@ -149,6 +149,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'sekizai.context_processors.sekizai',
     'cms.context_processors.cms_settings',
+    'app.context_processors.debug',
 )
 
 THUMBNAIL_PROCESSORS = (
@@ -169,4 +170,5 @@ if not DEBUG:
     ASSETS_AUTO_BUILD = False
 
 ASSETS_ROOT = os.path.join(PROJECT_PATH, 'templates/static')
+DONT_USE_METRICS = False
 

@@ -12,28 +12,39 @@
                     </div>
                 </a>
                 {% if user.is_authenticated %}
-                    <div class="e-class-menu">
-                        <div class="btn-group">
-                            <button class="btn btn-success"
+                    <form class="category-form">
+                        <div class="e-class-menu">
+                            <div class="btn-group">
+                                <button class="btn btn-success"
+                                        data-toggle="modal"
+                                        data-target="#modal-category-edit"
+                                        data-id="{{ c.pk }}"
+                                        data-title="{{ c.title }}"
+                                        data-description="{{ c.description }}"
+                                        data-action="{% url "excursions.views.category_save" %}">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </button>
+
+                                <button type="button" class="btn btn-info">
+                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                </button>
+                                <input type="file" name="category_image" style="display: none">
+
+                                <button type="button" class="btn btn-warning btn-image-selector">
+                                    <span class="glyphicon glyphicon-picture"></span>
+                                </button>
+                            </div>
+                            <button type="button" class="btn btn-danger pull-right"
                                     data-toggle="modal"
-                                    data-target="#modal-category-edit"
+                                    data-target="#modal-category-remove"
                                     data-id="{{ c.pk }}"
                                     data-title="{{ c.title }}"
-                                    data-description="{{ c.description }}"
-                                    data-action="{% url "excursions.views.category_save" %}">
-                                <span class="glyphicon glyphicon-edit"></span>
+                                    data-action="{% url "excursions.views.category_remove" c.pk %}">
+                                <span class="glyphicon glyphicon-remove"></span>
                             </button>
-                            <button class="btn btn-info"><span class="glyphicon glyphicon-eye-open"></span></button>
+
                         </div>
-                        <button class="btn btn-danger pull-right"
-                                data-toggle="modal"
-                                data-target="#modal-category-remove"
-                                data-id="{{ c.pk }}"
-                                data-title="{{ c.title }}"
-                                data-action="{% url "excursions.views.category_remove" c.pk %}">
-                            <span class="glyphicon glyphicon-remove"></span>
-                        </button>
-                    </div>
+                    </form>
                 {% endif %}
             </div>
         {% endfor %}
@@ -52,6 +63,17 @@
 
     {% if user.is_authenticated %}
         {% include "excursions/modal-category.html" %}
+    {% endif %}
+    {% if user.is_authenticated %}
+        <script>
+            $(".category-form .btn-image-selector").click(function () {
+                var form = $(this).closest("form")[0];
+                $(form.category_image).on("change", function () {
+{#                    input2base64(this, );#}
+                });
+                $(form.category_image).click();
+            });
+        </script>
     {% endif %}
 {% endblock %}
 

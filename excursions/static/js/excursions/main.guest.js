@@ -35,22 +35,24 @@ window.ExcursionPriceComputer = function (price_list) {
 // left menu fixed control
 $(function () {
     var menu = $($(".list-group-menu")[0]);
-    var top = menu.position().top - 10;
-    var check = false;
-    var event = function () {
-        if (menu.height() < $(this).height() && $(this).scrollTop() > top) {
-            menu.css({
-                position: "fixed",
-                top: 10
-            });
-            check = true;
-        } else if (check) {
-            menu.css({
-                position: "",
-                top: ""
-            });
-            check = false;
-        }
-    };
-    $(window).scroll(event).resize(event);
+    if (menu.length) {
+        var top = menu.position().top - 10;
+        var check = false;
+        var event = function () {
+            if (menu.height() < $(this).height() && $(this).scrollTop() > top) {
+                menu.css({
+                    position: "fixed",
+                    top: 10
+                });
+                check = true;
+            } else if (check) {
+                menu.css({
+                    position: "",
+                    top: ""
+                });
+                check = false;
+            }
+        };
+        $(window).scroll(event).resize(event);
+    }
 });

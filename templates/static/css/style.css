@@ -1,5 +1,6 @@
 body {
-  background: url("images/eight_horns.png");
+  background-color: #f8f8f8;
+  background-image: url("images/eight_horns_alpha.png");
   padding: 1em;
   -webkit-transition: all ease-in-out 0.3s;
   -moz-transition: all ease-in-out 0.3s;
@@ -10,6 +11,9 @@ body {
   @media (max-width: 765px) {
     body {
       padding: 0; } }
+
+a {
+  color: #2b679c; }
 
 .container {
   background-color: white;
@@ -53,7 +57,7 @@ body {
   z-index: 100;
   padding-top: 10px; }
   .menu .nav .selected a {
-    background-color: #337AB7;
+    background-color: #2b679c;
     color: #ffffff; }
   @media (max-width: 500px) {
     .menu .logo-info {

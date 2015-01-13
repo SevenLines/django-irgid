@@ -116,7 +116,8 @@
   border-radius: 8px;
   cursor: pointer;
   text-align: center;
-  box-shadow: 0 0 1px gray; }
+  box-shadow: 0 0 1px #2b679c;
+  color: #2b679c; }
   @media (max-width: 500px) {
     .e-class {
       padding-top: 30px;
@@ -124,7 +125,7 @@
       .e-class h3 {
         font-size: 1.4em; } }
   .e-class:hover {
-    box-shadow: 0 0 8px gray; }
+    box-shadow: 0 0 8px #2b679c; }
 
 .e-class-menu {
   margin-top: 0.5em; }
@@ -244,12 +245,6 @@
     background-color: white;
     text-align: center; }
 
-.e-categories-excursion .e-category.active {
-  position: relative; }
-  .e-categories-excursion .e-category.active.without-excursions:after {
-    content: '';
-    border: none; }
-
 .excursion-or-category-content {
   margin-left: 210px; }
   @media (max-width: 765px) {
@@ -268,7 +263,6 @@
   .list-group-menu .excursions-menu {
     padding-left: 8px;
     background-image: url("images/menu-angle.png");
-    background-position-x: -8px;
     background-repeat: no-repeat; }
     .list-group-menu .excursions-menu .excursions-menu-container {
       max-height: 300px;
@@ -281,6 +275,7 @@
         -ms-transition: all ease-in-out 0.2s;
         -o-transition: all ease-in-out 0.2s;
         transition: all ease-in-out 0.2s;
+        color: #2b679c;
         background-color: #fff;
         border: 1px solid #ddd;
         border-top: none;
@@ -296,8 +291,8 @@
         .list-group-menu .excursions-menu .excursions-menu-container .list-group-item-excursion:last-child {
           border-bottom: none; }
         .list-group-menu .excursions-menu .excursions-menu-container .list-group-item-excursion.current {
-          background-color: #63a0d4;
-          border-color: #63a0d4;
+          background-color: #5b9ad2;
+          border-color: #5b9ad2;
           color: white; }
     .list-group-menu .excursions-menu:last-child .excursions-menu-container {
       border-bottom: 1px solid #ddd;
@@ -309,6 +304,7 @@
     padding: 10px 15px;
     position: relative;
     border-bottom: none;
+    color: #2b679c;
     -webkit-transition: all ease-in-out 0.3s;
     -moz-transition: all ease-in-out 0.3s;
     -ms-transition: all ease-in-out 0.3s;
@@ -323,6 +319,6 @@
       border-bottom: 1px solid #ddd;
       border-radius: 0 0 0 4px; }
     .list-group-menu .list-group-menu-item.active {
-      background-color: #337ab7;
-      border-color: #337ab7;
+      background-color: #2b679c;
+      border-color: #2b679c;
       color: white; }
