@@ -9,7 +9,7 @@ from app.utils import require_in_POST
 from excursions.models import ExcursionCategory, Excursion, ExcursionImage
 from excursions.utils import get_price_list
 from excursions.views import ajax
-from excursions.views.__base import _excursion_save, _excursion_context
+from excursions.views.base import _excursion_save, _excursion_context
 
 
 def index(request):

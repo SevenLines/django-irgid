@@ -8,7 +8,7 @@ from excursions.models import Excursion, ExcursionCategory, ExcursionImage
 
 
 def _excursion_context(request):
-    categories = ExcursionCategory.objects.all()
+    categories = ExcursionCategory.objects.all().order_by("title")
 
     if not request.user.is_authenticated():
         categories = filter(lambda c: Excursion.objects.filter(category=c, published=True).count() > 0, categories)

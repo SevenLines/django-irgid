@@ -5,7 +5,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import render
 from app.utils import require_in_POST
 from excursions.models import Excursion, ExcursionImage
-from excursions.views.__base import _excursion_save, _excursion_context
+from excursions.views.base import _excursion_save, _excursion_context
 
 
 @login_required
