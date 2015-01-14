@@ -1,0 +1,37 @@
+{% load sekizai_tags static %}
+{% if user.is_authenticated %}
+    {% addtoblock "js" %}
+        <script src="{% static "bower/ckeditor/ckeditor.js" %}"></script>
+    {% endaddtoblock %}
+    <div contenteditable="true" id="page-content">{{ instance.text|safe }}</div>
+    <script>
+        var editor = CKEDITOR.inline("page-content", {
+            enterMode: CKEDITOR.ENTER_BR,
+            extraPlugins: 'sourcedialog,showblocks,justify,colordialog,colorbutton,liststyle'
+        });
+
+        editor.addCommand("save", { // create named command
+            exec: function (edt) {
+                $.post("{% url "textpage.views.save" %}", {
+                    text: edt.getData(),
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    id: {{ instance.id }}
+                }).done(function() {
+                    InterfaceAlerts.showSuccess();
+                }).fail(function () {
+                    InterfaceAlerts.showFail();
+                })
+            }
+        });
+
+        editor.ui.addButton('SaveButton', { // add new button and bind our command
+            label: "Save",
+            command: 'save',
+            toolbar: 'clipboard',
+            icon: '{% static "bower/ckeditor/plugins/save/icons/hidpi/save.png" %}'
+        });
+
+    </script>
+{% else %}
+    {{ instance.text|safe }}
+{% endif %}

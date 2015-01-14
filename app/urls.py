@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.conf import settings
 import excursions.urls
 # import main_page.urls
+import textpage.urls
 
 admin.autodiscover()
 
@@ -11,6 +12,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^excursions/', include(excursions.urls)),
+    url(r'^textpages/', include(textpage.urls)),
     url(r'login/', "app.views.login_user"),
     url(r'logout/', "django.contrib.auth.views.logout"),
     url(r'^', include('cms.urls')),
