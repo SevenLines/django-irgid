@@ -12,6 +12,9 @@
 
 </head>
 <body>
+
+{% cms_toolbar %}
+
 <div class="container">
     <div class="header">
         <nav class="navbar menu">
@@ -34,24 +37,24 @@
     <div id="content">
         {% block content %}
         {% endblock content %}
+        {% placeholder "plugins" %}
         <div style="clear:both;"></div>
     </div>
 
 </div>
 
 {% if user.is_authenticated %}
-<div id="footer">
-    <div class="col-md-4  hidden-sm hidden-xs">{% if user.is_authenticated %}
-        Привет, <b>{{ request.user }}</b>
-        {% if user.is_superuser %}
-            | <a href="/admin">админка</a>
-        {% endif %}
-    {% endif %}</div>
-</div>
+    <div id="footer">
+        <div class="col-md-4  hidden-sm hidden-xs">{% if user.is_authenticated %}
+            Привет, <b>{{ request.user }}</b>
+            {% if user.is_superuser %}
+                | <a href="/admin">админка</a>
+            {% endif %}
+        {% endif %}</div>
+    </div>
 {% endif %}
 
 {% render_block "footerjs" %}
-{% cms_toolbar %}
 
 {% include "_/elements/login-form.html" %}
 
@@ -62,7 +65,7 @@
 <![endif]-->
 
 {% if not DEBUG and not DONT_USE_METRICS %}
-{#    {% include "_/elements/google-analytics.html" %}#}
+    {#    {% include "_/elements/google-analytics.html" %}#}
     {% include "_/elements/yandex-metrica.html" %}
 {% else %}
     <!-- IN DEBUG VERSION yandex-metrica is not accessible -->
