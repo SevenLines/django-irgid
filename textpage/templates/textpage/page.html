@@ -9,56 +9,16 @@
         {% addtoblock "js" %}
             <script src="{% static "bower/ckeditor/ckeditor.js" %}"></script>
         {% endaddtoblock %}
+        {% addtoblock "js" %}
+            <script src="{% static "js/textpage/main.js" %}"></script>
+        {% endaddtoblock %}
         <div contenteditable="true" id="page-content">{{ instance.text|safe }}</div>
-        <form id="images-form">
-            <input name="images" type="file" style="display: none;">
-        </form>
+        <form id="images-form"></form>
         <script>
-            var editor = CKEDITOR.inline("page-content", {
-                enterMode: CKEDITOR.ENTER_BR,
-                extraPlugins: 'sourcedialog,showblocks,justify,colordialog,colorbutton,liststyle'
-            });
-
-            editor.addCommand("save", { // create named command
-                exec: function (edt) {
-                    $.post("{% url "textpage.views.save" %}", {
-                        text: edt.getData(),
-                        csrfmiddlewaretoken: '{{ csrf_token }}',
-                        id: {{ instance.id }}
-                    }).done(function () {
-                        InterfaceAlerts.showSuccess();
-                    }).fail(function () {
-                        InterfaceAlerts.showFail();
-                    })
-                }
-            });
-
-            editor.addCommand("add_image", { // create named command
-                exec: function (edt) {
-                    var input = $('<input type="file" style="display: none;">');
-                    input.on("change", function () {
-                        var el = edt.document.createElement("img");
-                        input2base64(input[0], el.$);
-                        edt.insertElement(el);
-                    });
-                    input.click();
-                }
-            });
-
-            editor.ui.addButton('SaveButton', { // add new button and bind our command
-                label: "Save",
-                command: 'save',
-                toolbar: 'clipboard',
-                icon: '{% static "bower/ckeditor/plugins/save/icons/hidpi/save.png" %}'
-            });
-
-            editor.ui.addButton('AddImageButton', { // add new button and bind our command
-                label: "Image",
-                command: 'add_image',
-                toolbar: 'insert',
-                icon: '{% static "bower/ckeditor/plugins/forms/icons/imagebutton.png" %}'
-            });
-
+            new TextPageModel("{% url "textpage.views.save" %}",
+                    '{% url "textpage.views.upload_image" %}',
+                    '{% url "textpage.views.remove_image" %}',
+                    {{ instance.id }});
 
         </script>
     {% else %}
