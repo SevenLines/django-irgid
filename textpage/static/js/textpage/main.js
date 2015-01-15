@@ -98,7 +98,7 @@ function TextPageModel(save_url, upload_image, remove_image, id) {
     var images_count = 0;
     editor.addCommand("add_image", { // create named command
         exec: function (edt) {
-            var input = $('<input type="file" style="display: none;">');
+            var input = $('<input type="file" style="display: none;" accept="image/*">');
             input.on("change", function () {
                 var num = ++images_count;
                 var el = edt.document.createElement("img");
