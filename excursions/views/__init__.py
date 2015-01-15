@@ -2,7 +2,7 @@
 # Create your views here.
 import json
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.http.response import HttpResponseBadRequest
 from django.shortcuts import render, redirect
 from app.utils import require_in_POST
@@ -28,6 +28,7 @@ def category(request, id):
 
 
 @login_required
+@permission_required("excursions.delete_excursioncategory")
 def category_remove(request, id):
     try:
         ExcursionCategory.objects.get(pk=id).delete()
@@ -39,6 +40,7 @@ def category_remove(request, id):
 
 @login_required
 @require_in_POST("title", "description")
+@permission_required("excursions.change_excursioncategory")
 def category_save(request):
     if len(request.POST['title']) == 0:
         return HttpResponseBadRequest("title should not be empty")
@@ -71,6 +73,7 @@ def excursion(request, id):
 
 
 @login_required
+@permission_required("excursions.delete_excursion")
 def excursion_remove(request, id):
     try:
         Excursion.objects.get(pk=id).delete()
@@ -81,6 +84,7 @@ def excursion_remove(request, id):
 
 
 @login_required
+@permission_required("excursions.change_excursion")
 @require_in_POST("category_id")
 def excursion_save(request):
 

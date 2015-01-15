@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.http.response import HttpResponse
 from django.shortcuts import render
 
@@ -8,11 +8,8 @@ from app.utils import require_in_POST
 from textpage.models import TextPage
 
 
-def index(request):
-    return render(request, "textpage/page.html", {})
-
-
 @login_required
+@permission_required("textpage.change_textpage")
 @require_in_POST("id")
 def save(request):
     p = TextPage.objects.get(id=request.POST['id'])
@@ -20,3 +17,7 @@ def save(request):
         p.text = request.POST['text']
     p.save()
     return HttpResponse()
+
+
+def index(request):
+    return render(request, "textpage/page.html", {})
