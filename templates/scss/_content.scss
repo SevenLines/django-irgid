@@ -50,6 +50,12 @@ a {
   //  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
+.nav.nav-pills {
+  li a {
+    @include transition(0.2s);
+  }
+}
+
 #content {
   background-color: white;
   @media (max-width: $width-medium) {

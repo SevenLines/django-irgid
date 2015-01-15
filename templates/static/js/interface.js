@@ -26,6 +26,7 @@ dismissRelatedImageLookupPopup = function (win, chosenId, chosenThumbnailUrl, ch
     win.close();
 };
 
+
 (function () {
     function InterfaceAlerts() {
         var self = this;

@@ -1,0 +1,22 @@
+.textpage-content {
+  img {
+    display: block;
+    border: 1px solid #000000;
+    max-width: 100%;
+    margin: 1em auto;
+    &:first-child {
+      margin-top: 0;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+    &[style*="float:left"], &[style*="float: left"] {
+      margin-right: 1em;
+      margin-left: 0;
+    }
+    &[style*="float:right"], &[style*="float: right"] {
+      margin-left: 1em;
+      margin-right: 0;
+    }
+  }
+}

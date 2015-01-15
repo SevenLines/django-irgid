@@ -1,37 +1,27 @@
 {% load sekizai_tags static %}
-{% if user.is_authenticated %}
-    {% addtoblock "js" %}
-        <script src="{% static "bower/ckeditor/ckeditor.js" %}"></script>
-    {% endaddtoblock %}
-    <div contenteditable="true" id="page-content">{{ instance.text|safe }}</div>
-    <script>
-        var editor = CKEDITOR.inline("page-content", {
-            enterMode: CKEDITOR.ENTER_BR,
-            extraPlugins: 'sourcedialog,showblocks,justify,colordialog,colorbutton,liststyle'
-        });
+{% addtoblock "css" %}
+    <link rel="stylesheet" href="{% static "css/textpage.css" %}"/>
+{% endaddtoblock %}
 
-        editor.addCommand("save", { // create named command
-            exec: function (edt) {
-                $.post("{% url "textpage.views.save" %}", {
-                    text: edt.getData(),
-                    csrfmiddlewaretoken: '{{ csrf_token }}',
-                    id: {{ instance.id }}
-                }).done(function() {
-                    InterfaceAlerts.showSuccess();
-                }).fail(function () {
-                    InterfaceAlerts.showFail();
-                })
-            }
-        });
+<div class="textpage-content">
+    {% if user.is_authenticated %}
 
-        editor.ui.addButton('SaveButton', { // add new button and bind our command
-            label: "Save",
-            command: 'save',
-            toolbar: 'clipboard',
-            icon: '{% static "bower/ckeditor/plugins/save/icons/hidpi/save.png" %}'
-        });
+        {% addtoblock "js" %}
+            <script src="{% static "bower/ckeditor/ckeditor.js" %}"></script>
+        {% endaddtoblock %}
+        {% addtoblock "js" %}
+            <script src="{% static "js/textpage/main.js" %}"></script>
+        {% endaddtoblock %}
+        <div contenteditable="true" id="page-content">{{ instance.text|safe }}</div>
+        <form id="images-form"></form>
+        <script>
+            new TextPageModel("{% url "textpage.views.save" %}",
+                    '{% url "textpage.views.upload_image" %}',
+                    '{% url "textpage.views.remove_image" %}',
+                    {{ instance.id }});
 
-    </script>
-{% else %}
-    {{ instance.text|safe }}
-{% endif %}
+        </script>
+    {% else %}
+        {{ instance.text|safe }}
+    {% endif %}
+</div>

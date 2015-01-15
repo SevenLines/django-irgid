@@ -45,6 +45,13 @@ a {
     #footer {
       font-size: smaller; } }
 
+.nav.nav-pills li a {
+  -webkit-transition: all ease-in-out 0.2s;
+  -moz-transition: all ease-in-out 0.2s;
+  -ms-transition: all ease-in-out 0.2s;
+  -o-transition: all ease-in-out 0.2s;
+  transition: all ease-in-out 0.2s; }
+
 #content {
   background-color: white; }
   @media (max-width: 765px) {
