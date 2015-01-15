@@ -35,5 +35,7 @@ def excursion_image_add(request):
 @login_required
 @permission_required("excursions.change_excursion")
 def excursion_image_remove(request, id):
-    ExcursionImage.objects.get(id=id).delete()
+    ei = ExcursionImage.objects.get(id=id)
+    ei.image.delete()
+    ei.delete()
     return HttpResponse()

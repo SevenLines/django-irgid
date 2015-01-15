@@ -1,6 +1,8 @@
 # coding=utf-8
 from django.db import models
 from django.db.models import Model
+from django.db.models.signals import pre_delete, post_delete
+from django.dispatch.dispatcher import receiver
 from easy_thumbnails.fields import ThumbnailerImageField
 
 
@@ -43,3 +45,8 @@ class ExcursionImage(models.Model):
     excursion = models.ForeignKey(Excursion)
     image = ThumbnailerImageField(upload_to="excursions_gallery")
     actve = models.BooleanField(default=False)
+
+@receiver(post_delete, sender=ExcursionImage)
+def mymodel_delete(sender, instance, **kwargs):
+    if instance.image:
+        instance.image.delete(False)

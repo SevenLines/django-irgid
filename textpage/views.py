@@ -37,7 +37,6 @@ def upload_image(request):
 @require_in_GET("id")
 def remove_image(request):
     im = TextPageImage.objects.get(pk=request.GET['id'])
-    im.image.delete()
     im.delete()
     return HttpResponse()
 
