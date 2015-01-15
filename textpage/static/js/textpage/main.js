@@ -3,6 +3,7 @@ function TextPageModel(save_url, upload_image, remove_image, id) {
     var editor = CKEDITOR.inline("page-content", {
         enterMode: CKEDITOR.ENTER_BR,
         extraPlugins: 'sourcedialog,showblocks,justify,colordialog,colorbutton,liststyle',
+        //removePlugins: 'image',
         extraAllowedContent: 'img[data-id]'
     });
 
@@ -45,6 +46,7 @@ function TextPageModel(save_url, upload_image, remove_image, id) {
                             var img = $("#image" + num);
                             $(that).remove();
                             img.attr("src", r.url);
+                            img.removeAttr("id");
                             img.attr("data-id", r.id);
                         }).always(function () {
                             ajaxesLeft--;
@@ -118,14 +120,14 @@ function TextPageModel(save_url, upload_image, remove_image, id) {
         label: "Save",
         command: 'save',
         toolbar: 'clipboard',
-        icon: '/static/bower/ckeditor/plugins/save/icons/save.png" %}'
+        icon: '/static/bower/ckeditor/plugins/save/icons/save.png'
     });
 
     editor.ui.addButton('AddImageButton', { // add new button and bind our command
         label: "Image",
         command: 'add_image',
         toolbar: 'insert',
-        icon: '/static/bower/ckeditor/plugins/forms/icons/imagebutton.png" %}'
+        icon: '/static/images/icon_picture.png'
     });
 
 }
