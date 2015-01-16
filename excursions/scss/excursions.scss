@@ -296,6 +296,9 @@ $grid-gap: 8px;
   width: 100%;
   > ymaps {
     height: 500px !important;
+    @media (max-width: $width-big) {
+      height: 300px !important;
+    }
   }
   box-shadow: 0 0 4px silver;
   overflow: hidden;

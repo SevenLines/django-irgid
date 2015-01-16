@@ -330,3 +330,6 @@
   border-radius: 4px; }
   .excursion-map > ymaps {
     height: 500px !important; }
+    @media (max-width: 990px) {
+      .excursion-map > ymaps {
+        height: 300px !important; } }
