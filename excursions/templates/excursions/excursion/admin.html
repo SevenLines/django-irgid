@@ -100,11 +100,11 @@
         <div class="input-group" id="yandex-map-holder" style="margin-bottom: 0.5em">
             {#            <span class="input-group-addon">Код из конструктора карт</span>#}
             <span class="input-group-btn">
-                <a href="https://tech.yandex.ru/maps/tools/constructor/" class="btn btn-default" type="button"
-                   target="_blank">Конструктор</a>
+                <a href="https://tech.yandex.ru/maps/tools/constructor/" class="btn btn-primary" type="button"
+                   target="_blank">Конструктор карты</a>
             </span>
             <input class="form-control" type="text" id="yandexmapscript-input" name="yandexmapscript"
-                   value="{{ current_excursion.yandex_map_script }}">
+                   placeholder="скопируй сгенерированный код сюда" value="{{ current_excursion.yandex_map_script }}">
             <span class="input-group-btn">
                 <button id="yandex-map-update-button" class="btn btn-success" type="button" onclick="location.reload()">
                     Обновить
