@@ -1,4 +1,6 @@
-<div class="excursion-map" id="yandexmapscript">
-    <script type="text/javascript" charset="utf-8"
-            src="//api-maps.yandex.ru/services/constructor/1.0/js/?sid={{ map_id }}"></script>
-</div>
+{% if map_id %}
+    <div class="excursion-map" id="yandexmapscript">
+        <script type="text/javascript" charset="utf-8"
+                src="//api-maps.yandex.ru/services/constructor/1.0/js/?sid={{ map_id }}"></script>
+    </div>
+{% endif %}
