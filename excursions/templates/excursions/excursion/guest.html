@@ -58,6 +58,15 @@
 </div>
 <!-- конец ОПИСАНИЕ -->
 
+{% if current_excursion.yandex_map_script %}
+<hr>
+    <!-- КАРТА -->
+    <div class="excursion-map">
+        {{ current_excursion.yandex_map_script|safe }}
+    </div>
+    <!-- конец КАРТЫ -->
+{% endif %}
+
 <!-- ЦЕНЫ -->
 {% if current_excursion.priceList %}
     <hr>

@@ -3,6 +3,8 @@ window.ExcursionModel = function (data) {
     self.excursion_id = data.id;
     self.csrf = data.csrf;
 
+    self.$excursionForm = $(".excursion-form");
+
     function Init() {
         var editor_config = {
             enterMode: CKEDITOR.ENTER_BR,
@@ -30,51 +32,56 @@ window.ExcursionModel = function (data) {
                 $(that).click();
             });
         });
-
-
     }
 
-    function InitSaveAction() {
-        $(".excursion-form").submit(function () {
+    self.Save = function (form, oncomplete) {
+        var title = $("#excursion-title").html();
+        var description = $("#excursion-description").html();
+        var short_description = $("#excursion-short-description").html();
+        var price_list = $("#excursion-price-list")[0].value;
+        var yandex_map_script = $("#yandexmapscript-input")[0].value;
 
-            var title = $("#excursion-title").html();
-            var description = $("#excursion-description").html();
-            var short_description = $("#excursion-short-description").html();
-            var price_list = $("#excursion-price-list")[0].value;
+        var formData = new FormData();
+        if (form.small_image.dataset.changed) {
+            formData.append("small_image", form.small_image.files[0]);
+        }
 
-            var formData = new FormData();
-            if (this.small_image.dataset.changed) {
-                formData.append("small_image", this.small_image.files[0]);
+        var hasNewImageInGallery = false;
+        $(form).find(".excursion-gallery .excursion-gallery-item input[type=file]").each(function () {
+            formData.append("gallery[]", this.files[0]);
+            hasNewImageInGallery = true;
+        });
+
+        formData.append("id", self.excursion_id);
+        formData.append("csrfmiddlewaretoken", self.csrf);
+        formData.append("title", title.trim());
+        formData.append("description", description.trim());
+        formData.append("short_description", short_description.trim());
+        formData.append("yandex_map_script", yandex_map_script.trim());
+        formData.append("price_list", price_list.trim());
+
+        $.ajax({
+            url: form.action,
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false
+        }).done(function () {
+            InterfaceAlerts.showSuccess();
+            if (oncomplete)
+                oncomplete();
+
+            if (hasNewImageInGallery) {
+                location.reload();
             }
+        }).fail(function () {
+            InterfaceAlerts.showFail();
+        });
+    };
 
-            var hasNewImageInGallery = false;
-            $(this).find(".excursion-gallery .excursion-gallery-item input[type=file]").each(function () {
-                formData.append("gallery[]", this.files[0]);
-                hasNewImageInGallery = true;
-            });
-
-            formData.append("id", self.excursion_id);
-            formData.append("csrfmiddlewaretoken", self.csrf);
-            formData.append("title", title.trim());
-            formData.append("description", description.trim());
-            formData.append("short_description", short_description.trim());
-            formData.append("price_list", price_list.trim());
-
-            $.ajax({
-                url: this.action,
-                type: "POST",
-                data: formData,
-                processData: false,
-                contentType: false
-            }).done(function () {
-                InterfaceAlerts.showSuccess();
-                if (hasNewImageInGallery) {
-                    location.reload();
-                }
-            }).fail(function () {
-                InterfaceAlerts.showFail();
-            });
-
+    function InitSaveAction() {
+        self.$excursionForm.submit(function () {
+            self.Save(this);
             return false;
         });
     }
@@ -129,7 +136,22 @@ window.ExcursionModel = function (data) {
         });
     }
 
+    function InitYandexMapControl() {
+        var input = $("#yandexmapscript-input");
+        var btn  = $("#yandex-map-update-button");
+        input.on("change", function () {
+            // убираем width и height теги
+            this.value = this.value.replace(/&(width|height)=(\d+)/g, "") ;
+        });
+        btn.on("click", function () {
+            self.Save(self.$excursionForm[0], function () {
+                location.reload();
+            })
+        })
+    }
+
     Init();
+    InitYandexMapControl();
     InitSaveAction();
     InitGallery();
 };

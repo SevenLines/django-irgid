@@ -96,6 +96,26 @@
             <!-- конец ПОДРОБНОЕ ОПИСАНИЕ ЭКУСКУРСИИ -->
         </div>
 
+        <hr>
+        <div class="input-group" id="yandex-map-holder" style="margin-bottom: 0.5em">
+            {#            <span class="input-group-addon">Код из конструктора карт</span>#}
+            <span class="input-group-btn">
+                <a href="https://tech.yandex.ru/maps/tools/constructor/" class="btn btn-default" type="button"
+                   target="_blank">Конструктор</a>
+            </span>
+            <input class="form-control" type="text" id="yandexmapscript-input" name="yandexmapscript"
+                   value="{{ current_excursion.yandex_map_script }}">
+            <span class="input-group-btn">
+                <button id="yandex-map-update-button" class="btn btn-success" type="button" onclick="location.reload()">
+                    Обновить
+                </button>
+            </span>
+        </div>
+        <div class="excursion-map" id="yandexmapscript">
+            {{ current_excursion.yandex_map_script|safe }}
+        </div>
+        <hr>
+
     </form>
     {% addtoblock "footerjs" %}
     {% endaddtoblock %}
