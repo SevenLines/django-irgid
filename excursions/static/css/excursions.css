@@ -322,3 +322,10 @@
       background-color: #2b679c;
       border-color: #2b679c;
       color: white; }
+
+.excursion-map {
+  width: 100%;
+  height: 500px;
+  box-shadow: 0 0 4px silver;
+  overflow: hidden;
+  border-radius: 4px; }

@@ -24,6 +24,7 @@ class Excursion(models.Model):
     length = models.IntegerField(verbose_name="way length in meters", default=0)
     time_length = models.IntegerField(verbose_name="time takes in minutes", default=0)
     priceList = models.TextField(verbose_name="price list", default="")
+    yandex_map_script = models.TextField(default="")
 
     img_preview = ThumbnailerImageField(upload_to="excursions_img_preview", null=True, blank=True)
     # image = models.ThumbnailerImageField(upload_to="excursions_big_img_preview", null=True, blank=True)

@@ -48,7 +48,8 @@ def _excursion_save(request):
             image.image.save('%s.%s' % (uuid4(), ext), ContentFile(f.read()))
             image.save()
 
-
+    if 'yandex_map_script' in request.POST:
+        e.yandex_map_script = request.POST['yandex_map_script']
 
     if 'category_id' in request.POST and e.category_id != int(request.POST['category_id']):
         e.category_id = int(request.POST['category_id'])
