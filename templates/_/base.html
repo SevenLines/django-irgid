@@ -20,6 +20,9 @@
         <nav class="navbar menu">
             <ul class="nav nav-pills pull-left">
                 {% show_menu 0 100 100 100 %}
+                <li style="padding-left: 1em;">
+                    {% include "_/elements/search-input.html" %}
+                </li>
             </ul>
             <div class="logo-info pull-right">
                 <div style="width:100%;">
@@ -32,6 +35,7 @@
                     </div>
                 </div>
             </div>
+
         </nav>
     </div>
     <div id="content">

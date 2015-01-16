@@ -6,3 +6,4 @@ easy_thumbnails
 django-filer
 django-treebeard
 django-assets
+djorm-ext-pgfulltext

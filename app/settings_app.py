@@ -1,5 +1,4 @@
 
-
 INSTALLED_APPS = (
 
     'django.contrib.auth',
@@ -19,12 +18,16 @@ INSTALLED_APPS = (
     'filer',
     'easy_thumbnails',
 
-    'excursions',
+    'djorm_pgfulltext',
     'django_assets',
+
+    'excursions',
     'setup_irgid',
     'ex_tags',
     'utils',
     'textpage',
+
 )
+
 
 # THUMBNAIL_DEBUG = True

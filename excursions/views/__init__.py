@@ -3,7 +3,7 @@
 import json
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
-from django.http.response import HttpResponseBadRequest
+from django.http.response import HttpResponseBadRequest, HttpResponse
 from django.shortcuts import render, redirect
 from app.utils import require_in_POST
 from excursions.models import ExcursionCategory, Excursion, ExcursionImage
@@ -70,6 +70,10 @@ def excursion(request, id):
     context['price_list'] = json.dumps(get_price_list(e.priceList))
 
     return render(request, "excursions/preview-excursion.html", context)
+
+def search(request):
+    r = Excursion.objects.search(request.GET['query'])
+    return HttpResponse(r)
 
 
 @login_required

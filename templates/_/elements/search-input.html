@@ -1,0 +1,15 @@
+<div class="input-group" style="padding-top: 4px">
+    <span class="input-group-addon">
+        <span class="glyphicon glyphicon-search"></span>
+    </span>
+    <input id="search-field" class="form-control" type="text" placeholder="введит">
+</div>
+
+<script>
+    $(function () {
+        var $field = $("#search-field");
+        $field.on("input", function () {
+            console.log(this);
+        })
+    });
+</script>

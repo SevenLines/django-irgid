@@ -3,6 +3,8 @@ from django.db import models
 from django.db.models import Model
 from django.db.models.signals import pre_delete, post_delete
 from django.dispatch.dispatcher import receiver
+from djorm_pgfulltext.fields import VectorField
+from djorm_pgfulltext.models import SearchManager
 from easy_thumbnails.fields import ThumbnailerImageField
 
 
@@ -27,6 +29,9 @@ class Excursion(models.Model):
     yandex_map_script = models.TextField(default="")
 
     img_preview = ThumbnailerImageField(upload_to="excursions_img_preview", null=True, blank=True)
+
+    search_index = VectorField()
+
     # image = models.ThumbnailerImageField(upload_to="excursions_big_img_preview", null=True, blank=True)
 
     category = models.ForeignKey("ExcursionCategory", default=None, null=True)
@@ -41,11 +46,19 @@ class Excursion(models.Model):
             out.append((values[0].strip(' \t\n\r'), values[1].strip(' \t\n\r')))
         return out
 
+    objects = SearchManager(
+        fields=('title', 'short_description', 'description'),
+        config="pg_catalog.russian",
+        search_field='search_index',
+        auto_update_search_field=True
+    )
+
 
 class ExcursionImage(models.Model):
     excursion = models.ForeignKey(Excursion)
     image = ThumbnailerImageField(upload_to="excursions_gallery")
     actve = models.BooleanField(default=False)
+
 
 @receiver(post_delete, sender=ExcursionImage)
 def mymodel_delete(sender, instance, **kwargs):
