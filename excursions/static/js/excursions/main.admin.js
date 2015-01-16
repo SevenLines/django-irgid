@@ -140,7 +140,7 @@ window.ExcursionModel = function (data) {
         var input = $("#yandexmapscript-input");
         var btn  = $("#yandex-map-update-button");
         input.on("change", function () {
-            var re = /\?sid=(\w+)/g;
+            var re = /\?sid=([\w-]+)?/g;
             var matches = re.exec(this.value);
             if (matches) {
                 this.value = matches[1];
