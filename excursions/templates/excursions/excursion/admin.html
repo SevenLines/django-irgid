@@ -111,9 +111,9 @@
                 </button>
             </span>
         </div>
-        <div class="excursion-map" id="yandexmapscript">
-            {{ current_excursion.yandex_map_script|safe }}
-        </div>
+        {% with current_excursion.yandex_map_script as map_id %}
+            {% include "excursions/excursion/map-element.html" %}
+        {% endwith %}
         <hr>
 
     </form>

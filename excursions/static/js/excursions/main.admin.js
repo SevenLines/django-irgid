@@ -140,8 +140,14 @@ window.ExcursionModel = function (data) {
         var input = $("#yandexmapscript-input");
         var btn  = $("#yandex-map-update-button");
         input.on("change", function () {
+            var re = /\?sid=(\w+)/g;
+            var matches = re.exec(this.value);
+            if (matches) {
+                this.value = matches[1];
+            }
+
             // убираем width и height теги
-            this.value = this.value.replace(/&(width|height)=(\d+)/g, "") ;
+            //this.value = this.value.replace(/&(width|height)=(\d+)/g, "") ;
         });
         btn.on("click", function () {
             self.Save(self.$excursionForm[0], function () {
