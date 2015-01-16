@@ -68,6 +68,7 @@ window.ExcursionModel = function (data) {
             contentType: false
         }).done(function () {
             InterfaceAlerts.showSuccess();
+            console.log("ajax done");
             if (oncomplete)
                 oncomplete();
 
