@@ -68,7 +68,6 @@ window.ExcursionModel = function (data) {
             contentType: false
         }).done(function () {
             InterfaceAlerts.showSuccess();
-            console.log("ajax done");
             if (oncomplete)
                 oncomplete();
 
@@ -152,7 +151,6 @@ window.ExcursionModel = function (data) {
         });
         btn.on("click", function () {
             self.Save(self.$excursionForm[0], function () {
-                console.log("form saved, about to reload");
                 location.reload();
             })
         })
