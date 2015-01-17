@@ -3,57 +3,33 @@
 
 {% block ex_content %}
     <div class="e-preview">
-        {% for c in categories %}
-            <div class="e-class-container">
-
-                <a class="e-class-description" href="{% url "excursions.views.category" c.pk %}">
-                    <div class="e-class">
-                        <h3>{{ c.title }}</h3>
-                    </div>
-                </a>
-                {% if user.is_authenticated %}
-                    <form class="category-form">
-                        <div class="e-class-menu">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-success"
-                                        data-toggle="modal"
-                                        data-target="#modal-category-edit"
-                                        data-id="{{ c.pk }}"
-                                        data-title="{{ c.title }}"
-                                        data-description="{{ c.description }}"
-                                        data-action="{% url "excursions.views.category_save" %}">
-                                    <span class="glyphicon glyphicon-edit"></span>
-                                </button>
-
-                                <button type="button" class="btn btn-info">
-                                    <span class="glyphicon glyphicon-eye-open"></span>
-                                </button>
-                                <input type="file" name="category_image" style="display: none">
-
-                                <button type="button" class="btn btn-warning btn-image-selector">
-                                    <span class="glyphicon glyphicon-picture"></span>
-                                </button>
-                            </div>
-                            <button type="button" class="btn btn-danger pull-right"
-                                    data-toggle="modal"
-                                    data-target="#modal-category-remove"
-                                    data-id="{{ c.pk }}"
-                                    data-title="{{ c.title }}"
-                                    data-action="{% url "excursions.views.category_remove" c.pk %}">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </button>
-
+        <div id="categories-list">
+            {% for c in categories %}
+                <div class="category-element" {% if user.is_authenticated %}data-id="{{ c.pk }}"{% endif %}>
+                    <a class="e-class-description" href="{% url "excursions.views.category" c.pk %}">
+                        <div class="e-class">
+                            <h3>{{ c.title }}</h3>
                         </div>
-                    </form>
-                {% endif %}
-            </div>
-        {% endfor %}
+                    </a>
+                    {% if user.is_authenticated %}
+                        {% include "excursions/main-page/category-menu.html" %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
         {% if user.is_authenticated %}
-            <div class="e-class-container" data-toggle="modal" data-target="#modal-category-edit"
+            <div class="category-element" data-toggle="modal" data-target="#modal-category-edit"
                  data-action="{% url "excursions.views.category_save" %}">
                 <div class="e-class alert-info">
                     <div class="e-class-description">
                         <h1 class="glyphicon glyphicon-plus"></h1>
+                    </div>
+                </div>
+            </div>
+            <div class="category-element">
+                <div class="e-class alert-success" id="save-categories-btn">
+                    <div class="e-class-description">
+                        <h1 class="glyphicon glyphicon-save"></h1>
                     </div>
                 </div>
             </div>
@@ -64,15 +40,60 @@
     {% if user.is_authenticated %}
         {% include "excursions/main-page/modal-category.html" %}
     {% endif %}
+
+    {% if user.is_authenticated %}
+        {% addtoblock "js" %}
+            <script src="{% static "bower/Sortable/Sortable.min.js" %}"></script>
+        {% endaddtoblock %}
+    {% endif %}
+
+
     {% if user.is_authenticated %}
         <script>
             $(".category-form .btn-image-selector").click(function () {
                 var form = $(this).closest("form")[0];
                 $(form.category_image).on("change", function () {
-{#                    input2base64(this, );#}
                 });
                 $(form.category_image).click();
             });
+
+            $(function () {
+                function get_order() {
+                    var _order = {};
+                    $("#categories-list .category-element").each(function (i, item) {
+                        _order[$(this).data('id')] = i;
+                    });
+                    return JSON.stringify(_order);
+                }
+
+                function check_order() {
+                    var order = get_order();
+                    $("#save-categories-btn").toggle(order != init_order);
+                }
+
+                var init_order = get_order();
+
+                var list = document.getElementById("categories-list");
+                var sort = new Sortable(list, {
+                    animation: 300,
+                    onUpdate: check_order
+                });
+
+                $("#save-categories-btn").click(function () {
+                    $.post('{% url "excursions.views.ajax.set_categories_order" %}', {
+                        order: get_order(),
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    }).done(function () {
+                        InterfaceAlerts.showSuccess();
+                        init_order = get_order();
+                        check_order();
+                    });
+                });
+
+                check_order();
+            });
+
+
         </script>
     {% endif %}
 {% endblock %}

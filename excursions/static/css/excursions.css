@@ -130,18 +130,18 @@
 .e-class-menu {
   margin-top: 0.5em; }
 
-.e-class-container {
+.category-element {
   width: 33.3%;
   float: left;
   padding: 8px;
   position: relative; }
   @media (max-width: 765px) {
-    .e-class-container {
+    .category-element {
       width: 50%; } }
   @media (max-width: 500px) {
-    .e-class-container {
+    .category-element {
       width: 100%; } }
-  .e-class-container .e-class-menu {
+  .category-element .e-class-menu {
     position: absolute;
     bottom: 16px;
     right: 24px;

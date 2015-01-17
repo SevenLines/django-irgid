@@ -13,6 +13,7 @@
     "jquery.cookie": "~1.4.1",
     "jquery-impromptu": "~6.0.0",
     "respond": "~1.4.2",
-    "html5shiv": "~3.7.2"
+    "html5shiv": "~3.7.2",
+    "Sortable": "~1.0.0"
   }
 }

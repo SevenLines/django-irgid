@@ -1,10 +1,12 @@
+import json
 from uuid import uuid4
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.files.base import ContentFile
+from django.db.transaction import atomic
 from django.http.response import HttpResponse
 from django.shortcuts import render
 from app.utils import require_in_POST
-from excursions.models import Excursion, ExcursionImage
+from excursions.models import Excursion, ExcursionImage, ExcursionCategory
 from excursions.views.base import _excursion_save, _excursion_context
 
 
@@ -29,6 +31,17 @@ def excursion_image_add(request):
         image.excursion = e
         image.image.save('%s.%s' % (uuid4(), ext), ContentFile(f.read()))
         image.save()
+    return HttpResponse()
+
+
+@login_required
+@atomic
+def set_categories_order(request):
+    order = request.POST['order']
+    order = json.loads(order)
+    for ec in ExcursionCategory.objects.filter(id__in=order.keys()):
+        ec.order = order[unicode(ec.id)]
+        ec.save()
     return HttpResponse()
 
 

@@ -1,0 +1,45 @@
+
+
+<form class="category-form">
+    <div class="e-class-menu">
+        <div class="btn-group">
+            <button type="button" class="btn btn-success"
+                    data-toggle="modal"
+                    data-target="#modal-category-edit"
+                    data-id="{{ c.pk }}"
+                    data-title="{{ c.title }}"
+                    data-description="{{ c.description }}"
+                    data-action="{% url "excursions.views.category_save" %}">
+                <span class="glyphicon glyphicon-edit"></span>
+            </button>
+
+            <button type="button" class="btn btn-info">
+                <span class="glyphicon glyphicon-eye-open"></span>
+            </button>
+            <input type="file" name="category_image" style="display: none">
+
+            <button type="button" class="btn btn-warning btn-image-selector">
+                <span class="glyphicon glyphicon-picture"></span>
+            </button>
+        </div>
+        <button type="button" class="btn btn-danger pull-right"
+                data-toggle="modal"
+                data-target="#modal-category-remove"
+                data-id="{{ c.pk }}"
+                data-title="{{ c.title }}"
+                data-action="{% url "excursions.views.category_remove" c.pk %}">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+
+    </div>
+{#    <div style="position: absolute; top:1em; left: 1em">#}
+{#        <button type="button" class="btn btn-sm">#}
+{#            <span class="glyphicon glyphicon-arrow-left"></span>#}
+{#        </button>#}
+{#    </div>#}
+{#    <div style="position: absolute; top:1em; right: 1em">#}
+{#        <button type="button" class="btn btn-sm">#}
+{#            <span class="glyphicon glyphicon-arrow-right"></span>#}
+{#        </button>#}
+{#    </div>#}
+</form>
