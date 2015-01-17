@@ -2,22 +2,22 @@
 
     {% if user.is_authenticated %}
         <hr>
-        {% include "excursions/add-excursion-form.html" %}
+        {% include "excursions/category/add-excursion-form.html" %}
         <hr>
     {% endif %}
 
     {% for e in excursions %}
         <div class="excursion">
-            {% include "excursions/category-excursion-item.html" %}
+            {% include "excursions/category/category-excursion-item.html" %}
         </div>
     {% endfor %}
     {% if user.is_authenticated %}
         <hr>
-        {% include "excursions/add-excursion-form.html" %}
+        {% include "excursions/category/add-excursion-form.html" %}
     {% endif %}
 
 </div>
 
 {% if user.is_authenticated %}
-    {% include "excursions/modal-excursion.html" %}
+    {% include "excursions/category/modal-excursion.html" %}
 {% endif %}
