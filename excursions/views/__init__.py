@@ -71,9 +71,6 @@ def excursion(request, id):
 
     return render(request, "excursions/preview-excursion.html", context)
 
-def search(request):
-    r = Excursion.objects.search(request.GET['query'])
-    return HttpResponse(r)
 
 
 @login_required

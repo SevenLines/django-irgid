@@ -30,12 +30,20 @@ class Excursion(models.Model):
 
     img_preview = ThumbnailerImageField(upload_to="excursions_img_preview", null=True, blank=True)
 
-    search_index = VectorField()
 
     # image = models.ThumbnailerImageField(upload_to="excursions_big_img_preview", null=True, blank=True)
 
     category = models.ForeignKey("ExcursionCategory", default=None, null=True)
     published = models.BooleanField("", default=False)
+
+    # search_index = VectorField()
+    # objects = SearchManager(
+    #     fields=('title', 'short_description', 'description'),
+    #     config="pg_catalog.russian",
+    #     search_field='search_index',
+    #     auto_update_search_field=True
+    # )
+
 
     @property
     def price_list_rendered(self):
@@ -45,13 +53,6 @@ class Excursion(models.Model):
             values = p.split('|', 1)
             out.append((values[0].strip(' \t\n\r'), values[1].strip(' \t\n\r')))
         return out
-
-    objects = SearchManager(
-        fields=('title', 'short_description', 'description'),
-        config="pg_catalog.russian",
-        search_field='search_index',
-        auto_update_search_field=True
-    )
 
 
 class ExcursionImage(models.Model):

@@ -1,3 +1,4 @@
+import json
 from uuid import uuid4
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.files.base import ContentFile
@@ -6,6 +7,11 @@ from django.shortcuts import render
 from app.utils import require_in_POST
 from excursions.models import Excursion, ExcursionImage
 from excursions.views.base import _excursion_save, _excursion_context
+
+
+def search(request):
+    r = list(Excursion.objects.search(request.GET['query']).values_list("title"))
+    return HttpResponse(json.dumps(r), content_type='json')
 
 
 @login_required
