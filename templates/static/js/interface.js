@@ -59,12 +59,19 @@ $(function () {
     });
 });
 
-window.input2base64 = function (input_element, output_image) {
+
+window.input2base64f = function(input_element, callback) {
     var file = input_element.files[0];
     var fileReader = new FileReader();
     fileReader.onload = function (e) {
-        output_image.src = e.target.result;
+        if (callback) callback(e);
     };
     fileReader.readAsDataURL(file);
+};
+
+window.input2base64 = function (input_element, output_image) {
+    input2base64f(input_element, function (r) {
+        output_image.src = e.target.result;
+    });
 };
 
