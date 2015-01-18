@@ -1,5 +1,5 @@
-Django==1.7
-django-cms>=3.0
+Django==1.7.3
+django-cms>=3.0.9
 psycopg2
 Pillow==2.4.0
 easy_thumbnails

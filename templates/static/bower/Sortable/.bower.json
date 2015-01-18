@@ -31,7 +31,6 @@
     "commit": "65867bd36f5951c7f72c11334f1d55ad423d3357"
   },
   "_source": "git://github.com/RubaXa/Sortable.git",
-  "_target": "~1.0.0",
-  "_originalSource": "Sortable",
-  "_direct": true
+  "_target": "~1",
+  "_originalSource": "Sortable"
 }
