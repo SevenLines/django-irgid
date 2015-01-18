@@ -15,7 +15,7 @@ from excursions.views.base import _excursion_save, _excursion_context
 def index(request):
     context = _excursion_context(request)
     context['title'] = 'Иргид - экскурсионное агентство'
-    return render(request, "excursions/preview.html", context)
+    return render(request, "excursions/main-page/index.html", context)
 
 
 def category(request, id):
@@ -24,7 +24,7 @@ def category(request, id):
     context['current_category'] = category
     context['excursions'] = category.excursions(request).order_by("title")
     context['title'] = category.title
-    return render(request, "excursions/preview-category.html", context)
+    return render(request, "excursions/category/index.html", context)
 
 
 @login_required
@@ -69,7 +69,7 @@ def excursion(request, id):
 
     context['price_list'] = json.dumps(get_price_list(e.priceList))
 
-    return render(request, "excursions/preview-excursion.html", context)
+    return render(request, "excursions/excursion/index.html", context)
 
 
 @login_required

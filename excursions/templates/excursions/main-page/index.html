@@ -1,0 +1,13 @@
+{% extends "excursions/base.html" %}
+{% load static sekizai_tags %}
+
+{% block ex_content %}
+    <div class="e-preview">
+        {% if user.is_authenticated %}
+            {% include "excursions/main-page/index-admin.html" %}
+        {% else %}
+            {% include "excursions/main-page/index-guest.html" %}
+        {% endif %}
+    </div>
+{% endblock %}
+

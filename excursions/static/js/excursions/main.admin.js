@@ -138,7 +138,7 @@ window.ExcursionModel = function (data) {
 
     function InitYandexMapControl() {
         var input = $("#yandexmapscript-input");
-        var btn  = $("#yandex-map-update-button");
+        var btn = $("#yandex-map-update-button");
         input.on("change", function () {
             var re = /\?sid=([\w-]+)?/g;
             var matches = re.exec(this.value);
@@ -161,3 +161,160 @@ window.ExcursionModel = function (data) {
     InitSaveAction();
     InitGallery();
 };
+
+
+function ExcursionCategoryModel(form, data) {
+    var self = this;
+
+    self.url = {
+        set_image: data.url.set_image,
+        rmv_image: data.url.rmv_image
+    };
+    self.csrf = data.csrf;
+
+    self.id = $(form).data('id');
+
+    self.imageUrl = ko.observable($(form).data('image-url'));
+    self.old_imageUrl = ko.observable(self.imageUrl());
+
+    self.changed = ko.computed(function () {
+        return self.old_imageUrl() != self.imageUrl()
+    });
+
+    function Init() {
+        $(form.category_image_input).change(function () {
+            input2base64f(this, function (e) {
+                self.imageUrl(e.target.result);
+            });
+        });
+    }
+
+    self.removeImage = function () {
+        if (!self.old_imageUrl()) {
+            self.imageUrl(null);
+            return;
+        }
+
+        if (self.old_imageUrl() != self.imageUrl()) {
+            self.imageUrl(self.old_imageUrl());
+            return;
+        }
+
+        $.prompt("Удалить изображение?", {
+            title: 'Подтвердите',
+            buttons: {"Удалить": true, "Пока не надо": false},
+            persistent: false,
+            submit: function (e, confirmed) {
+                if (confirmed) {
+                    $.get(self.url.rmv_image, {
+                        id: self.id
+                    }).done(function () {
+                        self.old_imageUrl(null);
+                        self.imageUrl(null);
+                        InterfaceAlerts.showSuccess();
+                    }).fail(InterfaceAlerts.showFail);
+                }
+            }
+        });
+    };
+
+    self.selectImage = function () {
+        form.category_image_input.click();
+    };
+
+    self.save = function () {
+        var formData = new FormData();
+
+        formData.append("image", form.category_image_input.files[0]);
+        formData.append("id", self.id);
+        formData.append("csrfmiddlewaretoken", self.csrf);
+        $.ajax({
+            url: self.url.set_image,
+            data: formData,
+            type: "POST",
+            contentType: false,
+            processData: false
+        }).done(function (r) {
+            self.imageUrl(r);
+            self.old_imageUrl(self.imageUrl());
+        })
+    };
+
+    Init();
+}
+
+function SaveCategoriesButtonModel(data) {
+    var self = this;
+
+    self.url = {
+        set_order: data.url.set_order,
+        set_image: data.url.set_image,
+        rmv_image: data.url.rmv_image
+    };
+    self.csrf = data.csrf;
+
+    self.items = ko.observableArray();
+
+    self.init_order = ko.observable("");
+    self.order = ko.observable("");
+
+    self.visible = ko.computed(function () {
+        for (var i = 0; i < self.items().length; ++i) {
+            if (self.items()[i].changed()) {
+                return true;
+            }
+        }
+        return self.init_order() != self.order();
+    });
+
+    function get_order() {
+        var _order = {};
+        $("#categories-list .category-form").each(function (i, item) {
+            _order[$(this).data('id')] = i;
+        });
+        return JSON.stringify(_order);
+    }
+
+    function Init() {
+        $("#categories-list .category-element .category-form").each(function (i, item) {
+            var model = new ExcursionCategoryModel(this, {
+                url: {
+                    set_image: self.url.set_image,
+                    rmv_image: self.url.rmv_image
+                },
+                csrf: self.csrf
+            });
+            self.items.push(model);
+            ko.applyBindings(model, this)
+        });
+        self.init_order(get_order());
+        self.order(self.init_order());
+
+        new Sortable(document.getElementById("categories-list"), {
+            animation: 300,
+            onUpdate: function () {
+                self.order(get_order());
+            }
+        });
+    }
+
+    self.save = function () {
+        $.post(self.url.set_order, {
+            order: get_order(),
+            csrfmiddlewaretoken: self.csrf
+        }).done(function () {
+            InterfaceAlerts.showSuccess();
+            self.init_order(self.order());
+        });
+
+        ko.utils.arrayForEach(this.items(), function (i) {
+            if (i.changed()) {
+                i.save();
+            }
+        })
+    };
+
+    Init();
+}
+
+window.SaveCategoriesButtonModel = SaveCategoriesButtonModel;

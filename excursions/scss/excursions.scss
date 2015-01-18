@@ -12,19 +12,64 @@ $grid-gap: 8px;
   @include transition(0.2s);
 
   $height: 240px;
-  padding: 16px;
-  padding-top: $height/3;
+  overflow: hidden;
+  position: relative;
+
+  &.add-button, &.save-button {
+    > div {
+      background-color: unset !important;
+      h1 {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+
+  &:hover {
+    > div {
+        background-color: rgba(255,255,255,1);
+    }
+  }
+
+  > div {
+    padding: 16px;
+    text-align: center;
+    margin-top: $height/2.7;
+    position: absolute;
+    width: 100%;
+    background-color: rgba(255,255,255,0.95);
+    @include transition(0.3s);
+  }
+
+  h3 {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    margin: 0;
+  }
+
+  img {
+    height: 100%;
+    position: absolute;
+  }
 
   height: $height;
   border-radius: 8px;
   cursor: pointer;
-  text-align: center;
   box-shadow: 0 0 1px $common_color;
   color: $common_color;
 
   @media (max-width: $width-small) {
     $height: 120px;
-    padding-top: $height/4;
+    > div {
+      margin-top: 0;
+    }
+    img {
+      width: 100%;
+      height: auto;
+    }
     height: $height;
     h3 {
       font-size: 1.4em;
@@ -42,7 +87,7 @@ $grid-gap: 8px;
   margin-top: 0.5em;
 }
 
-.e-class-container {
+.category-element {
 
   width: 33.3%;
   @media (max-width: $width-medium) {

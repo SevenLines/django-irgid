@@ -1,0 +1,14 @@
+<div id="categories-list">
+    {% for c in categories %}
+        <div class="category-element">
+            <a class="e-class-description" href="{% url "excursions.views.category" c.pk %}">
+                <div class="e-class">
+                    <img id="image{{ c.pk }}" {% if c.image %}src="{{ c.image.url }}"{% endif %}>
+                    <div>
+                        <h3>{{ c.title }}</h3>
+                    </div>
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+</div>

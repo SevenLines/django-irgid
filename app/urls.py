@@ -11,8 +11,8 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^excursions/', include(excursions.urls)),
-    url(r'^textpages/', include(textpage.urls)),
+    url(r'^excursions-app/', include(excursions.urls)),
+    url(r'^textpages-app/', include(textpage.urls)),
     url(r'login/', "app.views.login_user"),
     url(r'logout/', "django.contrib.auth.views.logout"),
     url(r'^', include('cms.urls')),

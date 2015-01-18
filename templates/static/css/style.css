@@ -62,7 +62,13 @@ a {
 .menu {
   background-color: white;
   z-index: 100;
-  padding-top: 10px; }
+  padding-top: 10px;
+  white-space: nowrap;
+  max-height: 60px; }
+  .menu .logo-info {
+    float: right; }
+  .menu .logo-info, .menu .nav {
+    display: inline-block !important; }
   .menu .nav .selected a {
     background-color: #2b679c;
     color: #ffffff; }

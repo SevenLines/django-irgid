@@ -1,0 +1,57 @@
+{% load sekizai_tags static assets%}
+
+<div id="categories-list">
+    {% for c in categories %}
+        <div class="category-element">
+            <form class="category-form"
+                  data-id="{{ c.pk }}"
+                  data-order="{{ forloop.counter0 }}"
+                  {% if c.image %}data-image-url="{{ c.image.url }}"{% endif %}>
+
+                <a class="e-class-description" href="{% url "excursions.views.category" c.pk %}">
+                    <div class="e-class">
+                        <img data-bind="attr: { src: imageUrl }">
+
+                        <div>
+                            <h3>{{ c.title }}</h3>
+                        </div>
+                    </div>
+                </a>
+                {% include "excursions/main-page/category-menu.html" %}
+            </form>
+        </div>
+    {% endfor %}
+</div>
+
+<div class="category-element" data-toggle="modal" data-target="#modal-category-edit"
+     data-action="{% url "excursions.views.category_save" %}">
+    <div class="e-class alert-info add-button">
+        <div class="e-class-description">
+            <h1 class="glyphicon glyphicon-plus"></h1>
+        </div>
+    </div>
+</div>
+
+<div class="category-element">
+    <div class="e-class alert-success save-button" id="save-categories-btn"
+         data-bind="visible: visible, click: save">
+        <div class="e-class-description">
+            <h1 class="glyphicon glyphicon-save"></h1>
+        </div>
+    </div>
+</div>
+
+<div style="clear:both"></div>
+
+{% include "excursions/main-page/modal-category.html" %}
+
+<script>
+    ko.applyBindings(new SaveCategoriesButtonModel({
+        url: {
+            set_order: '{% url "excursions.views.ajax.set_categories_order" %}',
+            set_image: '{% url "excursions.views.ajax.set_category_image" %}',
+            rmv_image: '{% url "excursions.views.ajax.remove_category_image" %}',
+        },
+        csrf: '{{ csrf_token }}'
+    }), document.getElementById("save-categories-btn"));
+</script>

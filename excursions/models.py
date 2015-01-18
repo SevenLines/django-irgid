@@ -9,6 +9,8 @@ from easy_thumbnails.fields import ThumbnailerImageField
 class ExcursionCategory(models.Model):
     title = models.CharField(max_length=100, default='')
     description = models.TextField(default='')
+    order = models.SmallIntegerField(default=0)
+    image = ThumbnailerImageField(upload_to="excursions_category_img_preview", null=True, blank=True)
 
     def excursions(self, request):
         if not request.user.is_authenticated():

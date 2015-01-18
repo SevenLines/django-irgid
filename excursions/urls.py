@@ -15,6 +15,9 @@ urlpatterns = i18n_patterns('excursions.views',
     url(r'category/(\d+)/remove/$', 'category_remove'),
     url(r'category/(\d+)/$', 'category'),
     url(r'category/save/$', 'category_save'),
+    url(r'category/set-order/$', 'ajax.set_categories_order'),
+    url(r'category/set-image/$', 'ajax.set_category_image'),
+    url(r'category/remove-image/$', 'ajax.remove_category_image'),
 
 
     url(r'$', 'index'),
