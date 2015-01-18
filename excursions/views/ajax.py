@@ -16,7 +16,7 @@ def excursion_save(request):
     _excursion_save(request)
     context = _excursion_context(request)
     context['e'] = Excursion.objects.get(pk=request.POST['id'])
-    return render(request, "excursions/category-excursion-item.html", context)
+    return render(request, "excursions/category/category-excursion-item.html", context)
 
 
 @login_required
