@@ -6,12 +6,12 @@
             <form class="category-form"
                   data-id="{{ c.pk }}"
                   data-order="{{ forloop.counter0 }}"
+                  data-visible="{{ c.visible|yesno:"true,false" }}"
                   {% if c.image %}data-image-url="{{ c.image.url }}"{% endif %}>
 
                 <a class="e-class-description" href="{% url "excursions.views.category" c.pk %}">
                     <div class="e-class">
                         <img data-bind="attr: { src: imageUrl }">
-
                         <div>
                             <h3>{{ c.title }}</h3>
                         </div>
@@ -49,7 +49,8 @@
         url: {
             set_order: '{% url "excursions.views.ajax.set_categories_order" %}',
             set_image: '{% url "excursions.views.ajax.set_category_image" %}',
-            rmv_image: '{% url "excursions.views.ajax.remove_category_image" %}',
+            set_visible: '{% url "excursions.views.ajax.toggle_category" %}',
+            rmv_image: '{% url "excursions.views.ajax.remove_category_image" %}'
         },
         csrf: '{{ csrf_token }}'
     }), document.getElementById("save-categories-btn"));
