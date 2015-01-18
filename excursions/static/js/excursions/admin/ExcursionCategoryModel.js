@@ -86,7 +86,7 @@
             }).done(function (r) {
                 self.visible(!self.visible());
                 InterfaceAlerts.showSuccess();
-            }).fail(InterfaceAlerts.showFail());
+            }).fail(InterfaceAlerts.showFail);
         };
 
         Init();
