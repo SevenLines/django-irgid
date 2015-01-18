@@ -55,6 +55,7 @@ def set_category_image(request):
     if c and 'image' in request.FILES:
         f = request.FILES['image']
         ext = f.name.split('.')[-1]
+        c.image.delete()
         c.image.save('%s.%s' % (uuid4(), ext), ContentFile(f.read()))
         c.save()
     return HttpResponse(c.image.url)
