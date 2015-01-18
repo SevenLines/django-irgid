@@ -365,3 +365,6 @@
     @media (max-width: 990px) {
       .excursion-map > ymaps {
         height: 300px !important; } }
+
+#price-calculator .input-group-addon {
+  width: 100px; }

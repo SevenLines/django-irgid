@@ -68,48 +68,7 @@
 {% endif %}
 
 <!-- ЦЕНЫ -->
-{% if current_excursion.priceList %}
-    <hr>
-    <h3>Рассчитать цену:</h3>
-    <form class="form-inline" id="price-calculator">
-        <div class="input-group" style="margin-bottom: 5px; ">
-            <span class="input-group-addon">Взрослых</span>
-            <input type="text" class="form-control" name="adults_count" placeholder="0"/>
-        </div>
-        <div class="input-group" style="margin-bottom: 5px;">
-            <span class="input-group-addon">Детей</span>
-            <input type="text" class="form-control" name="children_count" placeholder="0"/>
-        </div>
-        = <label id="priceOut">0</label> руб.
-    </form>
-    <hr>
-    {#    <noscript>#}
-    <div class="hidden-sm hidden-xs hidden-md">
-        <h3>Цены:</h3>
-
-        <div id="excursion-price-list">
-            <table class="table">
-                <thead>
-                <tr>
-                    <td>Кол-во человек в группе</td>
-                    {% for k, v in current_excursion.price_list_rendered %}
-                        <td>{{ k }}</td>
-                    {% endfor %}
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Цена в расчете на человека, руб.</td>
-                    {% for k, v in current_excursion.price_list_rendered %}
-                        <td>{{ v }}</td>
-                    {% endfor %}
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    {#    </noscript>#}
-{% endif %}
+{% include "excursions/excursion/price.html" %}
 <!-- конец ЦЕНЫ -->
 
 <script>

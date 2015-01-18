@@ -350,3 +350,8 @@ $grid-gap: 8px;
   border-radius: 4px;
 }
 
+#price-calculator {
+  .input-group-addon {
+    width: 100px;
+  }
+}

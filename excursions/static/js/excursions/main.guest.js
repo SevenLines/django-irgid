@@ -17,6 +17,13 @@ window.ExcursionPriceComputer = function (price_list) {
                 console.log(item);
                 price = adults_count * item[3] + children_count * item[2] + item[4];
                 $("#priceOut").text(price);
+                if (item[4] && !item[3] && !item[2]) {
+                    $("#priceAdult").text(~~(item[4] / ppl_count));
+                    $("#priceChildren").text(~~(item[4] / ppl_count));
+                } else {
+                    $("#priceAdult").text(item[3]);
+                    $("#priceChildren").text(item[2]);
+                }
                 return;
             }
         }
