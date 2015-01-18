@@ -20,10 +20,10 @@ def index(request):
 
 def category(request, id):
     context = _excursion_context(request)
-    category = ExcursionCategory.objects.get(pk=id)
-    context['current_category'] = category
-    context['excursions'] = category.excursions(request).order_by("title")
-    context['title'] = category.title
+    c = ExcursionCategory.objects.get(pk=id)
+    context['current_category'] = c
+    context['excursions'] = c.excursions(request).order_by("title")
+    context['title'] = c.title
     return render(request, "excursions/category/index.html", context)
 
 

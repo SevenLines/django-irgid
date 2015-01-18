@@ -1,4 +1,5 @@
 # coding=utf-8
+from cms.models.pluginmodel import CMSPlugin
 from django.db import models
 from django.db.models import Model
 from django.db.models.signals import pre_delete, post_delete
@@ -9,14 +10,25 @@ from easy_thumbnails.fields import ThumbnailerImageField
 class ExcursionCategory(models.Model):
     title = models.CharField(max_length=100, default='')
     description = models.TextField(default='')
+    visible = models.BooleanField(default=True)
     order = models.SmallIntegerField(default=0)
     image = ThumbnailerImageField(upload_to="excursions_category_img_preview", null=True, blank=True)
+
+    def __unicode__(self):
+        return self.title
 
     def excursions(self, request):
         if not request.user.is_authenticated():
             return Excursion.objects.filter(category=self, published=True)
         else:
             return Excursion.objects.filter(category=self)
+
+
+class ExcursionCategoryPluginModel(CMSPlugin):
+    category = models.ForeignKey("ExcursionCategory")
+
+    def __unicode__(self):
+        return self.category.title if self.category else ""
 
 
 class Excursion(models.Model):

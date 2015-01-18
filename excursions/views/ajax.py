@@ -48,6 +48,16 @@ def set_categories_order(request):
 
 
 @login_required
+@permission_required("excursions.change_excursion")
+@require_in_GET("visible", "id")
+def toggle_category(request):
+    c = ExcursionCategory.objects.get(pk=request.GET['id'])
+    c.visible = request.GET['visible'] == "true"
+    c.save()
+    return HttpResponse(c.visible)
+
+
+@login_required
 @require_in_POST("id")
 @permission_required("excursions.change_excursion")
 def set_category_image(request):
