@@ -30,7 +30,6 @@
     "commit": "678f364fe253e25a78cd91234ea82d34cd1b6990"
   },
   "_source": "git://github.com/SteveSanderson/knockout.git",
-  "_target": "~3.2.0",
-  "_originalSource": "knockout",
-  "_direct": true
+  "_target": "~3",
+  "_originalSource": "knockout"
 }

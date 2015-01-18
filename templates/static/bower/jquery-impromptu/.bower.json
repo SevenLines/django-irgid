@@ -28,7 +28,6 @@
     "commit": "00353fcad1902038437cf194f67a43e045c36045"
   },
   "_source": "git://github.com/trentrichardson/jQuery-Impromptu.git",
-  "_target": "~6.0.0",
-  "_originalSource": "jquery-impromptu",
-  "_direct": true
+  "_target": "~6",
+  "_originalSource": "jquery-impromptu"
 }

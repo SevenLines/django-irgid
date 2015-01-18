@@ -7,15 +7,15 @@
   "description": "my site",
   "dependencies": {
     "bootstrap": "~3",
-    "ckeditor": "~4.4.5",
+    "ckeditor": "~4",
     "jquery": "~1",
-    "jquery.lazyload": "~1.9.3",
-    "jquery.cookie": "~1.4.1",
-    "jquery-impromptu": "~6.0.0",
-    "respond": "~1.4.2",
-    "html5shiv": "~3.7.2",
-    "Sortable": "~1.0.0",
-    "knockout": "~3.2.0",
-    "requirejs": "~2.1.15"
+    "jquery.lazyload": "~1",
+    "jquery.cookie": "~1",
+    "jquery-impromptu": "~6",
+    "respond": "~1",
+    "html5shiv": "~3",
+    "Sortable": "~1",
+    "knockout": "~3",
+    "requirejs": "~2"
   }
 }
