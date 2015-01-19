@@ -75,3 +75,4 @@ window.input2base64 = function (input_element, output_image) {
     });
 };
 
+

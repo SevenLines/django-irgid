@@ -63,3 +63,7 @@ $(function () {
         $(window).scroll(event).resize(event);
     }
 });
+
+$(function () {
+    $('#excursion-description, .description').hyphenate('ru');
+});
