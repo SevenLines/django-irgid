@@ -13,6 +13,7 @@ $grid-gap: 8px;
 
   $height: 240px;
   overflow: hidden;
+  border: 1px solid $common_color;
   position: relative;
 
   &.add-button, &.save-button {
@@ -34,7 +35,8 @@ $grid-gap: 8px;
   > div {
     padding: 16px;
     text-align: center;
-    margin-top: $height/2.7;
+//    bottom: ;
+//    margin-top: $height/2.7;
     position: absolute;
     width: 100%;
     text-shadow: 0 0 1px white;
@@ -44,7 +46,7 @@ $grid-gap: 8px;
 
   h3 {
     left: 0;
-    top: 0;
+    bottom: 0;
     width: 100%;
     height: 100%;
     z-index: 10;
