@@ -27,7 +27,7 @@ $grid-gap: 8px;
 
   &:hover {
     > div {
-        background-color: rgba(255,255,255,1);
+        background-color: rgba(white, 1);
     }
   }
 
@@ -37,7 +37,8 @@ $grid-gap: 8px;
     margin-top: $height/2.7;
     position: absolute;
     width: 100%;
-    background-color: rgba(255,255,255,0.95);
+    text-shadow: 0 0 1px white;
+    background-color: rgba(white, 0.85);
     @include transition(0.3s);
   }
 

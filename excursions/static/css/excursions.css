@@ -130,7 +130,8 @@
     margin-top: 88.88889px;
     position: absolute;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 0 1px white;
+    background-color: rgba(255, 255, 255, 0.85);
     -webkit-transition: all ease-in-out 0.3s;
     -moz-transition: all ease-in-out 0.3s;
     -ms-transition: all ease-in-out 0.3s;
