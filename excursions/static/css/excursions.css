@@ -111,6 +111,7 @@
   -o-transition: all ease-in-out 0.2s;
   transition: all ease-in-out 0.2s;
   overflow: hidden;
+  border: 1px solid #2b679c;
   position: relative;
   height: 240px;
   border-radius: 8px;
@@ -127,7 +128,6 @@
   .e-class > div {
     padding: 16px;
     text-align: center;
-    margin-top: 88.88889px;
     position: absolute;
     width: 100%;
     text-shadow: 0 0 1px white;
@@ -139,7 +139,7 @@
     transition: all ease-in-out 0.3s; }
   .e-class h3 {
     left: 0;
-    top: 0;
+    bottom: 0;
     width: 100%;
     height: 100%;
     z-index: 10;
