@@ -1,4 +1,4 @@
-{% load sekizai_tags static assets%}
+{% load sekizai_tags static assets thumbnail %}
 
 <div id="categories-list">
     {% for c in categories %}
@@ -7,7 +7,7 @@
                   data-id="{{ c.pk }}"
                   data-order="{{ forloop.counter0 }}"
                   data-visible="{{ c.visible|yesno:"true,false" }}"
-                  {% if c.image %}data-image-url="{{ c.image.url }}"{% endif %}>
+                  {% if c.image %}data-image-url="{% thumbnail c.image 0x300 %}"{% endif %}>
 
                 <a class="e-class-description" href="{% url "excursions.views.category" c.pk %}">
                     <div class="e-class">

@@ -1,9 +1,10 @@
+{% load thumbnail %}
 <div id="categories-list">
     {% for c in categories %}
         <div class="category-element">
             <a class="e-class-description" href="{% url "excursions.views.category" c.pk %}">
                 <div class="e-class">
-                    {% if c.image %}<img src="{{ c.image.url }}">{% endif %}
+                    {% if c.image %}<img src="{% thumbnail c.image 0x300 %}">{% endif %}
                     <div>
                         <h3>{{ c.title }}</h3>
                     </div>
