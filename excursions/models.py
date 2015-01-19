@@ -1,5 +1,7 @@
 # coding=utf-8
 from cms.models.pluginmodel import CMSPlugin
+from django.contrib.sitemaps import Sitemap
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Model
 from django.db.models.signals import pre_delete, post_delete
@@ -14,6 +16,9 @@ class ExcursionCategory(models.Model):
     order = models.SmallIntegerField(default=0)
     image = ThumbnailerImageField(upload_to="excursions_category_img_preview", null=True, blank=True)
 
+    update_date = models.DateTimeField(auto_now=True)
+    create_date = models.DateTimeField(auto_now_add=True)
+
     def __unicode__(self):
         return self.title
 
@@ -22,6 +27,9 @@ class ExcursionCategory(models.Model):
             return Excursion.objects.filter(category=self, published=True)
         else:
             return Excursion.objects.filter(category=self)
+
+    def get_absolute_url(self):
+        return reverse("excursions.views.category", args=[self.pk])
 
 
 class ExcursionCategoryPluginModel(CMSPlugin):
@@ -40,6 +48,9 @@ class Excursion(models.Model):
     priceList = models.TextField(verbose_name="price list", default="")
     yandex_map_script = models.TextField(default="")
 
+    update_date = models.DateTimeField(auto_now=True)
+    create_date = models.DateTimeField(auto_now_add=True)
+
     img_preview = ThumbnailerImageField(upload_to="excursions_img_preview", null=True, blank=True)
     # image = models.ThumbnailerImageField(upload_to="excursions_big_img_preview", null=True, blank=True)
 
@@ -55,11 +66,15 @@ class Excursion(models.Model):
             out.append((values[0].strip(' \t\n\r'), values[1].strip(' \t\n\r')))
         return out
 
+    def get_absolute_url(self):
+        return reverse("excursions.views.excursion", args=[self.pk])
+
 
 class ExcursionImage(models.Model):
     excursion = models.ForeignKey(Excursion)
     image = ThumbnailerImageField(upload_to="excursions_gallery")
     actve = models.BooleanField(default=False)
+
 
 @receiver(post_delete, sender=ExcursionImage)
 def mymodel_delete(sender, instance, **kwargs):
