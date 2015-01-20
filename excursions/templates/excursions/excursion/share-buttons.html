@@ -1,5 +1,5 @@
 <div class="yashare-auto-init pull-right"
-     data-yashareImage="{{ current_excursion.img_preview.url }}"
+     data-yashareImage="http://{{ request.get_host }}{{ current_excursion.img_preview.url }}"
      data-yashareDescription="{{ current_excursion.short_description }}"
      data-yashareL10n="ru"
      data-yashareType="small"
