@@ -210,6 +210,7 @@ $grid-gap: 8px;
   }
 
   .description {
+    text-align: justify;
     font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
     @media(max-width: $width-small) {
       display: none;
@@ -340,6 +341,10 @@ $grid-gap: 8px;
       color: white;
     }
   }
+}
+
+#excursion-description {
+  text-align: justify;
 }
 
 .excursion-map {

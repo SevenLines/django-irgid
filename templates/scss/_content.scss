@@ -23,6 +23,10 @@ a {
   .container-content {
     padding: 0 1.5em;
     padding-bottom: 1em;
+    @media (max-width: $width-medium) {
+      padding: 0;
+      margin-bottom: 0;
+    }
   }
   background-color: white;
   border-radius: 16px;
@@ -42,13 +46,13 @@ a {
 #footer {
   border-top: 1px solid #c0c0c0;
   padding: 1em 1.5em;
-//  background-color: lighten($common_color, 0);
-//  color: white;
-//  a {
-//    color: white;
-//    text-decoration: underline;
-//  }
-//  text-align: center;
+  //  background-color: lighten($common_color, 0);
+  //  color: white;
+  //  a {
+  //    color: white;
+  //    text-decoration: underline;
+  //  }
+  //  text-align: center;
   overflow: hidden;
   @include transition(0.3s);
 

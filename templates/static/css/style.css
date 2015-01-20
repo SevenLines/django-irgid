@@ -25,6 +25,10 @@ a {
   .container .container-content {
     padding: 0 1.5em;
     padding-bottom: 1em; }
+    @media (max-width: 765px) {
+      .container .container-content {
+        padding: 0;
+        margin-bottom: 0; } }
   @media (max-width: 765px) {
     .container {
       border-radius: 0;
