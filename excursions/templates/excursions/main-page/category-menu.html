@@ -1,11 +1,12 @@
 <div class="e-class-menu">
     <div class="btn-group">
-        <button type="button" class="btn btn-success"
-                data-toggle="modal"
-                data-target="#modal-category-edit"
+        <button type="button btn-edit" class="btn btn-success"
+{#                data-toggle="modal"#}
+{#                data-target="#modal-category-edit"#}
                 data-id="{{ c.pk }}"
                 data-title="{{ c.title }}"
                 data-description="{{ c.description }}"
+                data-bind="click: edit"
                 data-action="{% url "excursions.views.category_save" %}">
             <span class="glyphicon glyphicon-edit"></span>
         </button>

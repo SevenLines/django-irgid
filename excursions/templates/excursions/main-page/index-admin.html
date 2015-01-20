@@ -5,6 +5,8 @@
         <div class="category-element">
             <form class="category-form"
                   data-id="{{ c.pk }}"
+                  data-title="{{ c.title }}"
+                  data-description="{{ c.description }}"
                   data-order="{{ forloop.counter0 }}"
                   data-visible="{{ c.visible|yesno:"true,false" }}"
                   {% if c.image %}data-image-url="{% thumbnail c.image 0x300 %}"{% endif %}>
@@ -12,8 +14,9 @@
                 <a class="e-class-description" href="{% url "excursions.views.category" c.pk %}">
                     <div class="e-class">
                         <img data-bind="attr: { src: imageUrl }">
+
                         <div>
-                            <h3>{{ c.title }}</h3>
+                            <h3 data-bind="text: title">{{ c.title }}</h3>
                         </div>
                     </div>
                 </a>
@@ -38,11 +41,21 @@
         <div class="e-class-description">
             <h1 class="glyphicon glyphicon-save"></h1>
         </div>
+        <div id="edit-template" style="display: none;">
+            <div>
+                <div class="input-group">
+                    <span class="input-group-addon">Название</span>
+                    <input class="form-control" type="text" data-bind="textInput: currentItemTitle()">
+                </div>
+                <textarea class="form-control" data-bind="textInput: currentItemDescription()"></textarea>
+            </div>
+        </div>
     </div>
 </div>
 
 <div style="clear:both"></div>
 {% include "excursions/main-page/modal-category.html" %}
+
 
 <script>
     ko.applyBindings(new SaveCategoriesButtonModel({

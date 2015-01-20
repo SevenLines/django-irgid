@@ -1,7 +1,7 @@
 (function () {
     function ExcursionCategoryModel(form, data) {
         var self = this;
-
+        self.model = data.model;
         self.url = {
             set_image: data.url.set_image,
             rmv_image: data.url.rmv_image,
@@ -11,14 +11,27 @@
 
         self.id = $(form).data('id');
 
+        self.title = ko.observable($(form).data('title'));
+        self.old_title = ko.observable($(form).data('title'));
+        self.description = ko.observable($(form).data('description'));
+        self.old_description = ko.observable($(form).data('description'));
+
         self.visible = ko.observable($(form).data('visible'));
 
         self.imageUrl = ko.observable($(form).data('image-url'));
         self.old_imageUrl = ko.observable(self.imageUrl());
 
         self.changed = ko.computed(function () {
-            return self.old_imageUrl() != self.imageUrl()
+            return self.old_imageUrl() != self.imageUrl() ||
+                    self.old_title() != self.title() ||
+                    self.old_description() != self.description()
         });
+
+        function Reset() {
+            self.old_title(self.title());
+            self.old_description(self.description());
+            self.old_imageUrl(self.imageUrl());
+        }
 
         function Init() {
             $(form.category_image_input).change(function () {
@@ -66,6 +79,8 @@
 
             formData.append("image", form.category_image_input.files[0]);
             formData.append("id", self.id);
+            formData.append("title", self.title);
+            formData.append("description", self.description);
             formData.append("csrfmiddlewaretoken", self.csrf);
             $.ajax({
                 url: self.url.set_image,
@@ -75,8 +90,33 @@
                 processData: false
             }).done(function (r) {
                 self.imageUrl(r);
-                self.old_imageUrl(self.imageUrl());
+                Reset();
             })
+        };
+
+        var $edit_template = $("#edit-template");
+        var $edit_template_content = $($edit_template.children()[0]);
+        self.edit = function () {
+            self.model.currentItem(self);
+            console.log(self.title());
+            $.prompt("Экскурсия", {
+                title: 'Редактировать',
+                persistent: false,
+                submit: function (e, confirmed) {
+                    if (confirmed) {
+
+                    }
+                },
+                close: function () {
+                    $edit_template_content.appendTo($edit_template);
+                },
+                loaded: function () {
+                    var $msg = $(this).find(".jqimessage");
+                    $msg.html("");
+                    $edit_template_content.appendTo($msg);
+                },
+                promptspeed: 0
+            });
         };
 
         self.toggle = function () {

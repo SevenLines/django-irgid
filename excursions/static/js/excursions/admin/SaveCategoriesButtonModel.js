@@ -9,11 +9,26 @@
             set_visible: data.url.set_visible
         };
         self.csrf = data.csrf;
+        self.currentItem = ko.observable();
 
         self.items = ko.observableArray();
 
         self.init_order = ko.observable("");
         self.order = ko.observable("");
+
+        self.currentItemTitle = ko.computed(function () {
+            if (self.currentItem()) {
+                return self.currentItem().title;
+            }
+            return "";
+        });
+
+        self.currentItemDescription = ko.computed(function () {
+            if (self.currentItem()) {
+                return self.currentItem().description;
+            }
+            return null;
+        });
 
         self.visible = ko.computed(function () {
             for (var i = 0; i < self.items().length; ++i) {
@@ -40,8 +55,10 @@
                         rmv_image: self.url.rmv_image,
                         set_visible: self.url.set_visible
                     },
-                    csrf: self.csrf
+                    csrf: self.csrf,
+                    model: self
                 });
+                self.currentItem(model);
                 self.items.push(model);
                 ko.applyBindings(model, this)
             });
