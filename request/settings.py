@@ -26,7 +26,7 @@ REQUEST_PLUGINS = getattr(settings, 'REQUEST_PLUGINS', (
     'request.plugins.TopPaths',
     'request.plugins.TopErrorPaths',
     'request.plugins.TopReferrers',
-    'request.plugins.TopSearchPhrases',
+    # 'request.plugins.TopSearchPhrases',
     'request.plugins.TopBrowsers',
 ))
 

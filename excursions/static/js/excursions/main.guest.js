@@ -41,25 +41,24 @@ window.ExcursionPriceComputer = function (price_list) {
 // left menu fixed control
 $(function () {
     var lastContentHeight = $("#content").height();
-    $(document).scroll(function () {
+    var eventFunc = function () {
         var newContentHeight = $("#content").height();
         if (newContentHeight != lastContentHeight) {
-            console.log("init");
             $(".list-group-menu").scrollChaser({
                 wrapper: "#content",
                 offsetTop: 10
             });
         }
         lastContentHeight = newContentHeight;
-    });
-
+    };
+    $(document).scroll(eventFunc).resize(eventFunc);
 
 });
 
 // переносы
 $(function () {
     if (!$("html").is(".lt-ie9, .lt-ie8, .lt-ie7")) {
-        $('#excursion-description, .description').hyphenate('ru');
+        $('#excursion-description, .description, #excursion-short-description').hyphenate('ru');
     }
 });
 
