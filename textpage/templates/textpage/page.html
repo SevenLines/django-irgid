@@ -25,3 +25,8 @@
         {{ instance.text|safe }}
     {% endif %}
 </div>
+<script>
+    if (!$("html").is(".lt-ie9, .lt-ie8, .lt-ie7")) {
+        $('.textpage-content').hyphenate('ru');
+    }
+</script>
