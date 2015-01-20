@@ -24,6 +24,9 @@ def category(request, id):
     context['current_category'] = c
     context['excursions'] = c.excursions(request).order_by("title")
     context['title'] = c.title
+    context['meta'] = {
+        'description': u"Категория экскурсий: %s; Всего: %s экскурсий; %s" % (c.title, c.excursions(request).count(), c.description.strip())
+    }
     return render(request, "excursions/category/index.html", context)
 
 
@@ -66,7 +69,9 @@ def excursion(request, id):
     context['excursions'] = category.excursions(request).order_by("title")
     context['gallery'] = ExcursionImage.objects.filter(excursion_id=id)
     context['title'] = e.title
-
+    context['meta'] = {
+        'description': u"Экскурсия: %s; Описание: %s" % (e.title, e.short_description)
+    }
     context['price_list'] = json.dumps(get_price_list(e.priceList))
 
     return render(request, "excursions/excursion/index.html", context)
