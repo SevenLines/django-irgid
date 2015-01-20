@@ -1,4 +1,5 @@
-<div class="yashare-auto-init"
+<div id="yashare" class="yashare-auto-init"
+     data-host="http://{{ request.get_host }}"
      data-yashareImage="http://{{ request.get_host }}{{ current_excursion.img_preview.url }}"
      data-yashareDescription="{{ current_excursion.short_description }}"
      data-yashareL10n="ru"

@@ -73,17 +73,7 @@
 <!-- конец ЦЕНЫ -->
 
 <script>
-    // кликанье на элементы галереи
-    var galleryItems = $(".excursion-gallery-item");
-    galleryItems.on("click", function () {
-        $(".main-image").attr("src", $(this).data("thumbSrc"))
-                .parent().attr("href", $(this).data("src"));
-        galleryItems.removeClass("active");
-        $(this).addClass("active");
-    });
-
     // рассчет цены
     new ExcursionPriceComputer({{ price_list }})
-
 </script>
 

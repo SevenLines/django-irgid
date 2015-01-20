@@ -1,6 +1,6 @@
 {% load static sekizai_tags thumbnail %}
 {#<form id="excursion-save-form" method="post" action="{% url "excursions.views.ajax.excursion_save" %}">#}
-<div id="excursion-content">
+<div id="excursion-content" xmlns="http://www.w3.org/1999/html">
     <form class="excursion-form" action="{% url "excursions.views.ajax.excursion_save" %}">
         <div style="clear:right"></div>
 
@@ -34,6 +34,8 @@
                     </td>
                 </tr>
             </table>
+            <span class="label label-default">Создано: {{ current_excursion.update_date }}</span>
+            <span class="label label-success">Обновлено: {{ current_excursion.create_date }}</span>
             <hr>
 
             <!-- ГАЛЕРЕЯ -->
