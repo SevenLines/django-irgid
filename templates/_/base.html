@@ -3,7 +3,8 @@
 <!--[if lt IE 7]><html class="lt-ie9 lt-ie8 lt-ie7"><![endif]-->
 <!--[if IE 7]><html class="lt-ie9 lt-ie8"><![endif]-->
 <!--[if IE 8]><html class="lt-ie9"><![endif]-->
-<!--[if gt IE 8]><!--><html><!--<![endif]-->
+<!--[if gt IE 8]><!-->
+<html><!--<![endif]-->
 <head lang="ru">
     {% include "_/elements/meta.html" %}
     <title>{% if title %}{{ title }}{% else %}{% page_attribute "page_title" %}{% endif %}</title>
@@ -25,6 +26,15 @@
                 <ul class="nav nav-pills pull-left">
                     {% show_menu 0 100 100 100 %}
                 </ul>
+                {% if user.is_authenticated %}
+                    <div class="pull-right hidden-sm hidden-xs" style="padding-top: 0.5em">
+                        привет, <b>{{ request.user }}</b>
+                        {% if user.is_superuser %}
+                            | <a href="/admin">админка</a>
+                            | <a href="/admin/request/request/overview/">статистика</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
             </nav>
         </div>
         <div id="content">
@@ -67,17 +77,6 @@
         </div>
     </div>
 </div>
-
-{% if user.is_authenticated %}
-    <div id="footer">
-        <div class="col-md-4  hidden-sm hidden-xs">{% if user.is_authenticated %}
-            Привет, <b>{{ request.user }}</b>
-            {% if user.is_superuser %}
-                | <a href="/admin">админка</a>
-            {% endif %}
-        {% endif %}</div>
-    </div>
-{% endif %}
 
 {% render_block "footerjs" %}
 
