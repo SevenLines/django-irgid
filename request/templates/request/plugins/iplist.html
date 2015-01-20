@@ -1,0 +1,21 @@
+{% extends "request/plugins/table.html" %}
+{% load i18n %}
+{% load request_admin %}
+
+{% block table %}
+    <tr>
+        <th>{% trans "Ip" %}</th>
+        <th>{% trans "Agent" %}</th>
+        <th>{% trans "Last visit time" %}</th>
+        <th>{% trans "Visits" %}</th>
+    </tr>
+    
+  {% for v in visitors %}
+    <tr>
+        <td>{{ v.ip }}</td>
+        <td>{{ v.user_agent }}</td>
+        <td>{{ v.last_time }}</td>
+        <td>{{ v.visits }}</td>
+    </tr>
+  {% endfor %}
+{% endblock %}

@@ -40,7 +40,7 @@ $(document).ready(function(){
 {% endblock %}
 
 {% block content %}
-<div style="width:900px;">
+<div style="width:100%;">
 {#    <div class="module" style="clear: both;">#}
 {#        <table style="width: 100%;">#}
 {#            <caption>{% trans "Traffic graph" %} ( <a href="javascript:loadTrafficGraph(7);">{% trans "Week" %}</a> | <a href="javascript:loadTrafficGraph(30);">{% trans "Month" %}</a> | <a href="javascript:loadTrafficGraph(365);">{% trans "Year" %}</a> )</caption>#}
@@ -52,7 +52,7 @@ $(document).ready(function(){
 {#    </div>#}
     
     {% for plugin in plugins %}
-      <div class="module" style="float: left; width: 450px;">
+      <div class="module" style="float: left; width: 100%;{{ plugin.style }}">
          {{ plugin.render }}
       </div>
     {% endfor %}
