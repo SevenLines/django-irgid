@@ -1,6 +1,9 @@
 {% load cms_tags sekizai_tags menu_tags static ex_tags %}
 <!DOCTYPE html>
-<html>
+<!--[if lt IE 7]><html class="lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="lt-ie9 lt-ie8"><![endif]-->
+<!--[if IE 8]><html class="lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!--><html><!--<![endif]-->
 <head lang="ru">
     {% include "_/elements/meta.html" %}
     <title>{% if title %}{{ title }}{% else %}{% page_attribute "page_title" %}{% endif %}</title>
@@ -16,31 +19,53 @@
 {% cms_toolbar %}
 
 <div class="container">
-    <div class="header">
-        <nav class="navbar menu">
-            <ul class="nav nav-pills pull-left">
-                {% show_menu 0 100 100 100 %}
-            </ul>
-            <div class="logo-info">
-                <div style="width:100%;">
-                    <div class="pull-right">
-                        email: {{ "irgid@bk.ru"|obfuscate_mailto }}<br>
-                        тел.: 8-914-895-66-44
-                    </div>
-                    <div class="pull-right hidden-xs" style="padding-right: 0.5em">
-                        <img src="{% static "images/icon.png" %}" style="height: 3em;">
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </div>
-    <div id="content">
-        {% block content %}
-        {% endblock content %}
-        {% placeholder "plugins" %}
-        <div style="clear:both;"></div>
-    </div>
+    <div class="container-content">
+        <div class="header">
+            <nav class="navbar menu">
+                <ul class="nav nav-pills pull-left">
+                    {% show_menu 0 100 100 100 %}
+                </ul>
+            </nav>
+        </div>
+        <div id="content">
+            {% block content %}
+            {% endblock content %}
+            {% placeholder "plugins" %}
+            <div style="clear:both;"></div>
+        </div>
 
+    </div>
+    <div id="footer">
+        <div class="logo-info" style="margin: 0 auto">
+            <table style="width:100%;table-layout: fixed">
+                <tr>
+                    <td style="width:33%;">
+                        {#                        Иркутск, ул. Байкальская, д.256<br>#}
+                        тел.: +7 (3952) 35-55-87, +7 (914) 895-66-44<br>
+                        email: {{ "irgid@bk.ru"|obfuscate_mailto }}
+                    </td>
+                    <td style="width:34%;text-align: center;">
+                        <span style="display: inline-block;">
+                            © 2015 Экскурсионное агентство «Иргид».<br>Все права защищены.
+                        </span>
+                    </td>
+                    <td style="width:33%;text-align: right">
+                        {#                        <img src="{% static "images/logo3.png" %}" style="height: 48px; margin: -0.5em"/>#}
+                    </td>
+                </tr>
+            </table>
+            {#            <div style="width:100%;">#}
+            {#                <div>#}
+            {#                    Иркутск, ул. Байкальская, д.256<br>#}
+            {#                    тел.: +7 (3952) 35-55-87, +7 (914) 895-66-44<br>#}
+            {#                    email: {{ "irgid@bk.ru"|obfuscate_mailto }}#}
+            {#                </div>#}
+            {#                <div style="padding-right: 0.5em">#}
+            {#                    <span>© 2015 Экскурсионное агентство «Иргид».<br>Все права защищены.</span>#}
+            {#                    <img src="{% static "images/logo2.png" %}" style="height: 64px;">#}
+            {#                </div>#}
+        </div>
+    </div>
 </div>
 
 {% if user.is_authenticated %}

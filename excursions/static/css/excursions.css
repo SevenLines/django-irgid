@@ -128,6 +128,7 @@
   .e-class > div {
     padding: 16px;
     text-align: center;
+    border-bottom: 1px solid #2b679c;
     position: absolute;
     width: 100%;
     text-shadow: 0 0 1px white;
@@ -253,6 +254,7 @@
     .excursion .toggle:hover {
       color: black; }
   .excursion .description {
+    text-align: justify;
     font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; }
     @media (max-width: 500px) {
       .excursion .description {
@@ -355,6 +357,9 @@
       background-color: #2b679c;
       border-color: #2b679c;
       color: white; }
+
+#excursion-description {
+  text-align: justify; }
 
 .excursion-map {
   width: 100%;

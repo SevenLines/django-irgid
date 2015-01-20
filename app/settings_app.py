@@ -25,6 +25,7 @@ INSTALLED_APPS = (
     'setup_irgid',
     'ex_tags',
     'utils',
+    'request',
     'textpage',
 )
 

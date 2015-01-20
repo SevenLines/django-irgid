@@ -120,6 +120,7 @@ MIDDLEWARE_CLASSES = (
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
     'cms.middleware.language.LanguageCookieMiddleware',
+    'request.middleware.RequestMiddleware',
 )
 
 ROOT_URLCONF = 'app.urls'

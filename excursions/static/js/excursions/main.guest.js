@@ -41,19 +41,20 @@ window.ExcursionPriceComputer = function (price_list) {
 
 // left menu fixed control
 $(function () {
-    var menu = $($(".list-group-menu")[0]);
-    if (menu.length) {
-        var top = menu.position().top - 10;
+    var $menu = $(".list-group-menu").first();
+    var $parent = $(".container-content").first();
+    if ($menu.length) {
+        var top = $menu.position().top - 10;
         var check = false;
         var event = function () {
-            if (menu.height() < $(this).height() && $(this).scrollTop() > top) {
-                menu.css({
+            if ($menu.height() < $(this).height() && $(this).scrollTop() > top) {
+                $menu.css({
                     position: "fixed",
                     top: 10
                 });
                 check = true;
             } else if (check) {
-                menu.css({
+                $menu.css({
                     position: "",
                     top: ""
                 });
@@ -65,5 +66,7 @@ $(function () {
 });
 
 $(function () {
-    $('#excursion-description, .description').hyphenate('ru');
+    if (!$("html").is(".lt-ie9, .lt-ie8, .lt-ie7")) {
+        $('#excursion-description, .description').hyphenate('ru');
+    }
 });
