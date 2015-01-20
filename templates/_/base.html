@@ -26,6 +26,7 @@
                 <ul class="nav nav-pills pull-left">
                     {% show_menu 0 100 100 100 %}
                 </ul>
+                {% include "_/elements/weather-snippet.html" %}
                 {% if user.is_authenticated %}
                     <div class="pull-right hidden-sm hidden-xs" style="padding-top: 0.5em">
                         привет, <b>{{ request.user }}</b>
