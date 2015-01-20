@@ -20,10 +20,11 @@ REQUEST_TRAFFIC_MODULES = getattr(settings, 'REQUEST_TRAFFIC_MODULES', (
 ))
 
 REQUEST_PLUGINS = getattr(settings, 'REQUEST_PLUGINS', (
+    'request.plugins.IpList',
+    'request.plugins.TopPaths',
     'request.plugins.TrafficInformation',
     'request.plugins.LatestRequests',
 
-    'request.plugins.TopPaths',
     'request.plugins.TopErrorPaths',
     'request.plugins.TopReferrers',
     # 'request.plugins.TopSearchPhrases',

@@ -1,8 +1,10 @@
 import re
+from django.db import connection
 
 from django.db.models import Count
 from django.utils.translation import string_concat, ugettext, ugettext_lazy as _
 from django.template.loader import render_to_string
+from app.utils import dictfetchall
 
 from request import settings
 from request.models import Request
@@ -58,7 +60,8 @@ class Plugins(object):
             try:
                 plugin_class = getattr(mod, plugin_classname)
             except AttributeError:
-                raise exceptions.ImproperlyConfigured, 'Plugin "%s" does not define a "%s" class' % (plugin, plugin_classname)
+                raise exceptions.ImproperlyConfigured, 'Plugin "%s" does not define a "%s" class' % (
+                plugin, plugin_classname)
 
             self._plugins.append(plugin_class())
 
@@ -66,7 +69,9 @@ class Plugins(object):
         if not hasattr(self, '_plugins'):
             self.load()
         return self._plugins
+
     plugins = property(plugins)
+
 
 plugins = Plugins()
 
@@ -150,6 +155,26 @@ class TopBrowsers(Plugin):
         return {
             'browsers': set_count(self.qs.only('user_agent').attr_list('browser'))[:5]
         }
+
+
+class IpList(Plugin):
+    def template_context(self):
+        cursor = connection.cursor()
+        cursor.execute("""
+SELECT DISTINCT ip, user_agent, max(time) as last_time, count(path) as visits
+FROM request_request
+  GROUP BY ip, user_agent
+ORDER BY max(time) DESC
+LIMIT 30
+ """)
+        visitors = dictfetchall(cursor)
+        return {
+            'visitors': visitors
+        }
+
+    # @property
+    # def style(self):
+    #     return "max-height:600px;overflow:scroll;"
 
 
 class ActiveUsers(Plugin):
