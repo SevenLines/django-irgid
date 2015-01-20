@@ -41,17 +41,17 @@ window.ExcursionPriceComputer = function (price_list) {
 // left menu fixed control
 $(function () {
     var lastContentHeight = $("#content").height();
-    $(document).scroll(function () {
+    var eventFunc = function () {
         var newContentHeight = $("#content").height();
         if (newContentHeight != lastContentHeight) {
-            console.log("init");
             $(".list-group-menu").scrollChaser({
                 wrapper: "#content",
                 offsetTop: 10
             });
         }
         lastContentHeight = newContentHeight;
-    });
+    };
+    $(document).scroll(eventFunc).resize(eventFunc);
 
 
 });
