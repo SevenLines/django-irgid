@@ -6,7 +6,9 @@
             set_order: data.url.set_order,
             set_image: data.url.set_image,
             rmv_image: data.url.rmv_image,
-            set_visible: data.url.set_visible
+            set_visible: data.url.set_visible,
+            rmv_category: data.url.rmv_category,
+            save_category: data.url.save_category
         };
         self.csrf = data.csrf;
         self.currentItem = ko.observable();
@@ -49,18 +51,7 @@
 
         function Init() {
             $("#categories-list .category-element .category-form").each(function (i, item) {
-                var model = new ExcursionCategoryModel(this, {
-                    url: {
-                        set_image: self.url.set_image,
-                        rmv_image: self.url.rmv_image,
-                        set_visible: self.url.set_visible
-                    },
-                    csrf: self.csrf,
-                    model: self
-                });
-                self.currentItem(model);
-                self.items.push(model);
-                ko.applyBindings(model, this)
+                self.AddCategory(this);
             });
             self.init_order(get_order());
             self.order(self.init_order());
@@ -73,20 +64,40 @@
             });
         }
 
+        self.AddCategory = function (formElement) {
+            var model = new ExcursionCategoryModel(formElement, {
+                url: {
+                    set_image: self.url.set_image,
+                    rmv_image: self.url.rmv_image,
+                    set_visible: self.url.set_visible,
+                    rmv_category: self.url.rmv_category,
+                    save_category: self.url.save_category
+                },
+                csrf: self.csrf,
+                model: self
+            });
+            self.currentItem(model);
+            self.items.push(model);
+            ko.applyBindings(model, formElement)
+        };
+
         self.save = function () {
+            var that = this;
             $.post(self.url.set_order, {
                 order: get_order(),
                 csrfmiddlewaretoken: self.csrf
             }).done(function () {
                 InterfaceAlerts.showSuccess();
                 self.init_order(self.order());
+            }).always(function () {
+                ko.utils.arrayForEach(that.items(), function (i) {
+                    if (i.changed()) {
+                        i.save();
+                    }
+                })
             });
 
-            ko.utils.arrayForEach(this.items(), function (i) {
-                if (i.changed()) {
-                    i.save();
-                }
-            })
+
         };
 
         Init();
