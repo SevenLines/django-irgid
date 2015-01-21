@@ -1,12 +1,6 @@
 <div class="e-class-menu">
     <div class="btn-group">
-        <button type="button" class="btn btn-success"
-                data-toggle="modal"
-                data-target="#modal-category-edit"
-                data-id="{{ c.pk }}"
-                data-title="{{ c.title }}"
-                data-description="{{ c.description }}"
-                data-action="{% url "excursions.views.category_save" %}">
+        <button type="button btn-edit" class="btn btn-success" data-bind="click: edit">
             <span class="glyphicon glyphicon-edit"></span>
         </button>
          <button type="button" class="btn btn-image-toggle"
@@ -25,12 +19,7 @@
         </button>
         <!-- /ko -->
     </div>
-    <button type="button" class="btn btn-danger pull-right"
-            data-toggle="modal"
-            data-target="#modal-category-remove"
-            data-id="{{ c.pk }}"
-            data-title="{{ c.title }}"
-            data-action="{% url "excursions.views.category_remove" c.pk %}">
+    <button type="button" class="btn btn-danger pull-right" data-bind="click: remove">
         <span class="glyphicon glyphicon-remove"></span>
     </button>
     <input type="file" name="category_image_input" style="display: none">
