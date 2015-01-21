@@ -40,19 +40,24 @@ window.ExcursionPriceComputer = function (price_list) {
 
 // left menu fixed control
 $(function () {
-    var lastContentHeight = $("#content").height();
+    var $content = $("#content");
+    var $menu = $('.list-group-menu');
+    var lastContentHeight = $content.height();
     var eventFunc = function () {
         var newContentHeight = $("#content").height();
-        if (newContentHeight != lastContentHeight) {
-            $(".list-group-menu").scrollChaser({
-                wrapper: "#content",
-                offsetTop: 10
-            });
-        }
+            if (newContentHeight != lastContentHeight) {
+                $(".list-group-menu, #price-edit").scrollChaser({
+                    wrapper: "#content",
+                    offsetTop: 10
+                });
+            }
+        //$menu.scrollToFixed({
+        //    marginTop: 10,
+        //    limit: $content.outerHeight() - $menu.outerHeight()
+        //});
         lastContentHeight = newContentHeight;
     };
     $(document).scroll(eventFunc).resize(eventFunc);
-
 });
 
 // переносы

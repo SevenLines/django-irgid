@@ -1,10 +1,49 @@
 {% load sekizai_tags static assets thumbnail %}
 
+<div class="category-element">
+    <div class="alert-info add-button">
+        <div class="e-class-description">
+            <form method="post" action="{% url "excursions.views.category_save" %}">
+                <div class="input-group">
+                    <input name="title" class="form-control" type="text" placeholder="название новой категории">
+                    {% csrf_token %}
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="submit">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="category-element">
+    <div class="save-button" id="save-categories-btn" data-bind="visible: visible, click: save">
+        <div class="btn btn-success" style="width: 100%">
+            <span class="glyphicon glyphicon-save"></span>
+        </div>
+        <div id="edit-template" style="display: none;">
+            <div>
+                <div class="input-group">
+                    <span class="input-group-addon">Название</span>
+                    <input class="form-control" type="text" data-bind="textInput: currentItemTitle()">
+                </div>
+                <textarea class="form-control" data-bind="textInput: currentItemDescription()"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="clear:both"></div>
+
 <div id="categories-list">
+
+
     {% for c in categories %}
         <div class="category-element">
             <form class="category-form"
                   data-id="{{ c.pk }}"
+                  data-title="{{ c.title }}"
+                  data-description="{{ c.description }}"
                   data-order="{{ forloop.counter0 }}"
                   data-visible="{{ c.visible|yesno:"true,false" }}"
                   {% if c.image %}data-image-url="{% thumbnail c.image 0x300 %}"{% endif %}>
@@ -12,8 +51,9 @@
                 <a class="e-class-description" href="{% url "excursions.views.category" c.pk %}">
                     <div class="e-class">
                         <img data-bind="attr: { src: imageUrl }">
+
                         <div>
-                            <h3>{{ c.title }}</h3>
+                            <h3 data-bind="text: title">{{ c.title }}</h3>
                         </div>
                     </div>
                 </a>
@@ -23,26 +63,7 @@
     {% endfor %}
 </div>
 
-<div class="category-element" data-toggle="modal" data-target="#modal-category-edit"
-     data-action="{% url "excursions.views.category_save" %}">
-    <div class="e-class alert-info add-button">
-        <div class="e-class-description">
-            <h1 class="glyphicon glyphicon-plus"></h1>
-        </div>
-    </div>
-</div>
-
-<div class="category-element">
-    <div class="e-class alert-success save-button" id="save-categories-btn"
-         data-bind="visible: visible, click: save">
-        <div class="e-class-description">
-            <h1 class="glyphicon glyphicon-save"></h1>
-        </div>
-    </div>
-</div>
-
 <div style="clear:both"></div>
-{% include "excursions/main-page/modal-category.html" %}
 
 <script>
     ko.applyBindings(new SaveCategoriesButtonModel({
@@ -50,7 +71,9 @@
             set_order: '{% url "excursions.views.ajax.set_categories_order" %}',
             set_image: '{% url "excursions.views.ajax.set_category_image" %}',
             set_visible: '{% url "excursions.views.ajax.toggle_category" %}',
-            rmv_image: '{% url "excursions.views.ajax.remove_category_image" %}'
+            rmv_image: '{% url "excursions.views.ajax.remove_category_image" %}',
+            rmv_category: '{% url "excursions.views.ajax.category_remove" %}',
+            save_category: '{% url "excursions.views.ajax.category_save" %}'
         },
         csrf: '{{ csrf_token }}'
     }), document.getElementById("save-categories-btn"));

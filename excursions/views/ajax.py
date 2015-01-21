@@ -1,9 +1,10 @@
 import json
 from uuid import uuid4
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.files.base import ContentFile
 from django.db.transaction import atomic
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render
 from app.utils import require_in_POST, require_in_GET
 from excursions.models import Excursion, ExcursionImage, ExcursionCategory
@@ -58,6 +59,48 @@ def toggle_category(request):
 
 
 @login_required
+@require_in_POST("title")
+@permission_required("excursions.change_excursioncategory")
+def category_save(request):
+    # if len(request.POST['title']) == 0:
+    # return HttpResponseBadRequest("title should not be empty")
+
+    if 'id' in request.POST and request.POST['id'] != '':
+        e = ExcursionCategory.objects.get(id=request.POST['id'])
+    else:
+        e = ExcursionCategory()
+
+    if 'title' in request.POST:
+        e.title = request.POST['title']
+
+    if 'description' in request.POST:
+        e.description = request.POST['description']
+
+    if 'visible' in request.POST:
+        e.visible = request.POST['visible'] == "true"
+
+    if 'image' in request.FILES:
+        f = request.FILES['image']
+        ext = f.name.split('.')[-1]
+        e.image.delete()
+        e.image.save('%s.%s' % (uuid4(), ext), ContentFile(f.read()))
+
+    e.save()
+
+    return HttpResponse()
+
+@login_required
+@permission_required("excursions.delete_excursioncategory")
+def category_remove(request):
+    id = request.GET["id"]
+    try:
+        ExcursionCategory.objects.get(pk=id).delete()
+    except Exception as e:
+        messages.warning(request, e.message)
+
+    return HttpResponse()
+
+@login_required
 @require_in_POST("id")
 @permission_required("excursions.change_excursion")
 def set_category_image(request):
@@ -80,6 +123,7 @@ def remove_category_image(request):
         assert isinstance(c, ExcursionCategory)
         c.image.delete()
     return HttpResponse()
+
 
 @login_required
 @permission_required("excursions.change_excursion")

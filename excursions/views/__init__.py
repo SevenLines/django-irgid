@@ -25,7 +25,8 @@ def category(request, id):
     context['excursions'] = c.excursions(request).order_by("title")
     context['title'] = c.title
     context['meta'] = {
-        'description': u"Категория экскурсий: %s; Всего: %s экскурсий; %s" % (c.title, c.excursions(request).count(), c.description.strip())
+        'description': u"Категория: %s; Описание: %s"
+                       % (c.title, c.description.strip())
     }
     return render(request, "excursions/category/index.html", context)
 
@@ -37,25 +38,6 @@ def category_remove(request, id):
         ExcursionCategory.objects.get(pk=id).delete()
     except Exception as e:
         messages.warning(request, e.message)
-
-    return redirect(request.META['HTTP_REFERER'])
-
-
-@login_required
-@require_in_POST("title", "description")
-@permission_required("excursions.change_excursioncategory")
-def category_save(request):
-    if len(request.POST['title']) == 0:
-        return HttpResponseBadRequest("title should not be empty")
-
-    if 'id' in request.POST and request.POST['id'] != '':
-        e = ExcursionCategory.objects.get(id=request.POST['id'])
-    else:
-        e = ExcursionCategory()
-
-    e.title = request.POST['title']
-    e.description = request.POST['description']
-    e.save()
 
     return redirect(request.META['HTTP_REFERER'])
 
@@ -92,7 +74,13 @@ def excursion_remove(request, id):
 @permission_required("excursions.change_excursion")
 @require_in_POST("category_id")
 def excursion_save(request):
-
     _excursion_save(request)
+    return redirect(request.META['HTTP_REFERER'])
 
+
+@login_required
+@require_in_POST("title")
+@permission_required("excursions.change_excursioncategory")
+def category_save(request):
+    ajax.category_save(request)
     return redirect(request.META['HTTP_REFERER'])
