@@ -46,7 +46,7 @@ $(function () {
     var eventFunc = function () {
         var newContentHeight = $("#content").height();
             if (newContentHeight != lastContentHeight) {
-                $(".list-group-menu, #price-edit").scrollChaser({
+                $(".list-group-menu").scrollChaser({
                     wrapper: "#content",
                     offsetTop: 10
                 });
