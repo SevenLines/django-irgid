@@ -49,7 +49,7 @@ def excursion(request, id):
     category = e.category
     context['current_category'] = category
     context['excursions'] = category.excursions(request).order_by("title")
-    context['gallery'] = ExcursionImage.objects.filter(excursion_id=id)
+    context['gallery'] = ExcursionImage.objects.filter(excursion_id=id).order_by("order")
     context['title'] = e.title
     context['meta'] = {
         'description': u"Экскурсия: %s; Описание: %s" % (e.title, e.short_description)
