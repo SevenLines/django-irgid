@@ -38,6 +38,11 @@
 
             <span class="label label-success">Добавлено: {{ current_excursion.create_date }}</span>
             <span class="label label-default">Обновлено: {{ current_excursion.update_date }}</span>
+            <span class="pull-right">
+            {% include "excursions/excursion/save-button.html" %}
+            </span>
+
+            <div style="clear:right"></div>
             <hr>
             <div class="form-inline">
                 <div class="input-group  input-group-sm">
@@ -69,22 +74,22 @@
             </div>
             <div class="excursion-gallery">
                 <div class="images">
-                {% for img in gallery %}
-                    <div class="excursion-gallery-item" data-id="{{ img.id }}">
-                        <div>
-                            <div class="remove"
-                                 data-action="{% url "excursions.views.ajax.excursion_image_remove" img.id %}">
-                                <div class="btn btn-danger btn-sm">
-                                    <span class="glyphicon glyphicon-remove"></span>
+                    {% for img in gallery %}
+                        <div class="excursion-gallery-item" data-id="{{ img.id }}">
+                            <div>
+                                <div class="remove"
+                                     data-action="{% url "excursions.views.ajax.excursion_image_remove" img.id %}">
+                                    <div class="btn btn-danger btn-sm">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </div>
                                 </div>
+                                {% thumbnail img.image 0x150 as thumb %}
+                                <a href="{{ img.image.url }}">
+                                    <img class="lazy" data-original="{{ thumb.url }}"/>
+                                </a>
                             </div>
-                            {% thumbnail img.image 0x150 as thumb %}
-                            <a href="{{ img.image.url }}">
-                                <img class="lazy" data-original="{{ thumb.url }}"/>
-                            </a>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
                 </div>
                 <div class="excursion-gallery-item">
                     <div id="add-image">+</div>
@@ -99,11 +104,10 @@
                 <textarea rows="9" style="max-width: 100%;min-width: 100%;" class="form-control"
                           id="excursion-price-list"
                           name="priceList">{{ current_excursion.priceList|safe }}</textarea>
-                <button type="submit"
-                        style="margin-top: 1em"
-                        class="excursion-content-submit btn btn-success pull-right">
-                    <span class="glyphicon glyphicon-save"> Сохранить</span>
-                </button>
+
+                <div style="float: right;margin-top: 1em">
+                    {% include "excursions/excursion/save-button.html" %}
+                </div>
             </div>
             <!-- конец ЦЕНЫ -->
 
@@ -112,6 +116,8 @@
                  style="margin-right: 200px; padding-right: 1em; border-right: 1px solid #808080">
                 {{ current_excursion.description|safe|default:"..." }}
             </div>
+            <hr>
+            {% include "excursions/excursion/save-button.html" %}
             <!-- конец ПОДРОБНОЕ ОПИСАНИЕ ЭКУСКУРСИИ -->
         </div>
         <div style="clear:right"></div>
