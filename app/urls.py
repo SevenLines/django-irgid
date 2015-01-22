@@ -8,6 +8,7 @@ from django.contrib.sitemaps.views import sitemap
 from excursions.models import Excursion, ExcursionCategory
 import excursions.urls
 # import main_page.urls
+import sharedcontroll.urls
 import textpage.urls
 
 admin.autodiscover()
@@ -32,6 +33,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^excursions-app/', include(excursions.urls)),
     url(r'^textpages-app/', include(textpage.urls)),
+    url(r'^sharedcontroll-app/', include(sharedcontroll.urls)),
     url(r'login/', "app.views.login_user"),
     url(r'logout/', "django.contrib.auth.views.logout"),
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),

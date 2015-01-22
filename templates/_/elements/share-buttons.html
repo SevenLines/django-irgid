@@ -2,5 +2,15 @@
 <!-- SHARE BUTTONS -->
 {% addtoblock "footerjs" %}
     <script type="text/javascript" src="//yastatic.net/share/share.js" charset="utf-8"></script>
+    <script>
+        $(function () {
+            $("#yashare").on("click", ".b-share__link", function () {
+                var service = $(this).data("service");
+                $.get("{% url "sharedcontroll.views.share" %}", {
+                    service: service
+                })
+            })
+        });
+    </script>
 {% endaddtoblock %}
 <!-- конец SHARE BUTTONS -->

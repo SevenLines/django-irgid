@@ -21,3 +21,5 @@ def login_user(request):
         messages.error(request, u"Неверная комбинация пользователь / пароль")
     return redirect(request.META['HTTP_REFERER'])
 
+
+
