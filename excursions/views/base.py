@@ -1,14 +1,12 @@
+import json
 from uuid import uuid4
-from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
+from django.db.transaction import atomic
 from django.http.response import HttpResponseBadRequest
-from django.shortcuts import render
-from app.utils import require_in_POST
 from excursions.models import Excursion, ExcursionCategory, ExcursionImage
 
 
 def _excursion_context(request):
-
     categories = ExcursionCategory.objects.all()
     if not request.user.has_perm("excursions.change_excursion"):
         categories = categories.filter(visible=True)
@@ -20,6 +18,15 @@ def _excursion_context(request):
     return {
         'categories': categories
     }
+
+
+@atomic
+def _save_excursions_galley_images_order(request):
+    order = request.POST['order']
+    order = json.loads(order)
+    for ec in ExcursionImage.objects.filter(id__in=order.keys()):
+        ec.order = order[unicode(ec.id)]
+        ec.save()
 
 
 def _excursion_save(request):
@@ -54,6 +61,9 @@ def _excursion_save(request):
 
     if 'yandex_map_script' in request.POST:
         e.yandex_map_script = request.POST['yandex_map_script']
+
+    if 'order' in request.POST:
+        _save_excursions_galley_images_order(request)
 
     if 'category_id' in request.POST and e.category_id != int(request.POST['category_id']):
         e.category_id = int(request.POST['category_id'])

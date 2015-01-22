@@ -5,6 +5,7 @@
         self.csrf = data.csrf;
 
         self.$excursionForm = $(".excursion-form");
+        self.init_order = "";
 
         function Init() {
             var editor_config = {
@@ -33,7 +34,23 @@
                     $(that).click();
                 });
             });
+
+            self.init_order = self.get_order(self.$excursionForm[0]);
         }
+
+        self.get_order = function (form) {
+            var items = $(form).find(".excursion-gallery .images .excursion-gallery-item");
+            var order = {};
+            items.each(function(i, item) {
+                var id = $(item).data("id");
+                order[id] = i + 1;
+            });
+            return order;
+        };
+
+        self.Reset = function () {
+            self.init_order =self.get_order(self.$excursionForm[0]);
+        };
 
         self.Save = function (form, oncomplete) {
             var title = $("#excursion-title").html();
@@ -65,6 +82,11 @@
             formData.append("time_length", time_length);
             formData.append("min_age", min_age);
 
+            var order = self.get_order(form);
+            if (order != self.init_order) {
+                formData.append("order", JSON.stringify(order));
+            }
+
             $.ajax({
                 url: form.action,
                 type: "POST",
@@ -78,6 +100,7 @@
                 if (hasNewImageInGallery) {
                     location.reload();
                 }
+                self.Reset();
             }).fail(function () {
                 InterfaceAlerts.showFail();
             });
@@ -91,7 +114,7 @@
         }
 
         function InitGallery() {
-            var galleryItem = $(".excursion-gallery");
+            var galleryItem = $(".excursion-gallery .images");
 
             // click on remove button
             galleryItem.on('click', ".remove", function () {
@@ -134,7 +157,8 @@
                         item.find("img").attr("src", e.target.result)
                     };
                     fileReader.readAsDataURL(file);
-                    item.insertBefore(addItem.parent());
+                    galleryItem.append(item);
+                    //item.insertBefore(addItem.parent());
                 });
                 selector.click();
             });
