@@ -75,9 +75,7 @@
 
 <!-- ОПИСАНИЕ -->
 <div id="excursion-description">
-    <span itemprop="articleBody">
-        {{ current_excursion.description|safe|default:"..." }}
-    </span>
+    <span itemprop="articleBody">{{ current_excursion.description|safe|default:"" }}</span>
 </div>
 <!-- конец ОПИСАНИЕ -->
 
