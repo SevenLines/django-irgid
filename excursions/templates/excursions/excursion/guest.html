@@ -1,4 +1,4 @@
-{% load thumbnail static %}
+{% load thumbnail static excursions_tags %}
 <div>
     <a class="hidden-lg hidden-md hidden-sm" href="{% url "excursions.views.category" current_excursion.category.pk %}">
         <button class="btn btn-sm btn-default"
@@ -8,8 +8,27 @@
 
 <h2 id="excursion-title" style="margin-bottom: 0.25em">
     {{ current_excursion.title|default:"..." }}
+
 </h2>
-{% include "excursions/excursion/share-buttons.html" %}
+<div style="clear:right"></div>
+{% if current_excursion.time_length or current_excursion.min_age %}
+    <div style="float:left;">
+        {% if current_excursion.time_length %}
+            <span class="label label-success">({{ current_excursion.time_length|min_to_hours }}ч.)</span>
+        {% endif %}
+        {% if current_excursion.min_age %}
+            <span class="label label-danger">
+                                {{ current_excursion.min_age }}+
+                        </span>
+        {% endif %}
+    </div>
+    <div style="float: right">
+        {% include "excursions/excursion/share-buttons.html" %}
+    </div>
+{% else %}
+    {% include "excursions/excursion/share-buttons.html" %}
+{% endif %}
+<div style="clear:right"></div>
 <hr>
 
 <!-- ГАЛЕРЕЯ -->
@@ -71,7 +90,10 @@
 <!-- ЦЕНЫ -->
 {% include "excursions/excursion/price.html" %}
 <!-- конец ЦЕНЫ -->
-
+<hr>
+<div style="float: right;">
+    {% include "excursions/excursion/share-buttons.html" %}
+</div>
 <script>
     // рассчет цены
     new ExcursionPriceComputer({{ price_list }})

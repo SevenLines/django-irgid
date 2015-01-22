@@ -39,6 +39,19 @@
             <span class="label label-success">Добавлено: {{ current_excursion.create_date }}</span>
             <span class="label label-default">Обновлено: {{ current_excursion.update_date }}</span>
             <hr>
+            <div class="form-inline">
+                <div class="input-group  input-group-sm">
+                    <span class="input-group-addon">Продолжительность</span>
+                    <input class="form-control" type="number" name="time_length"
+                           value="{{ current_excursion.time_length }}">
+                    <span class="input-group-addon">минут</span>
+                </div>
+                <div class="input-group  input-group-sm">
+                    <span class="input-group-addon">Ограничение по возрасту</span>
+                    <input class="form-control" type="number" name="min_age" value="{{ current_excursion.min_age }}">
+                </div>
+            </div>
+            <hr>
 
             <!-- ГАЛЕРЕЯ -->
             <div id="gallery-item-template" style="display: none;">
@@ -86,7 +99,7 @@
                           name="priceList">{{ current_excursion.priceList|safe }}</textarea>
                 <button type="submit"
                         style="margin-top: 1em"
-                        class="excursion-content-submit btn btn-default pull-right">
+                        class="excursion-content-submit btn btn-success pull-right">
                     <span class="glyphicon glyphicon-save"> Сохранить</span>
                 </button>
             </div>

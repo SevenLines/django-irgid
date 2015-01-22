@@ -64,6 +64,12 @@ def _excursion_save(request):
     if 'price_list' in request.POST:
         e.priceList = request.POST['price_list']
 
+    if 'time_length' in request.POST:
+        e.time_length = request.POST['time_length']
+
+    if 'min_age' in request.POST:
+        e.min_age = request.POST['min_age']
+
     if 'description' in request.POST:
         e.description = request.POST['description']
 
