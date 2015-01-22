@@ -1,9 +1,6 @@
 # coding=utf-8
-from django.core.urlresolvers import reverse
 from django.template.defaultfilters import stringfilter
-from django.template.loader import render_to_string
 from django import template
-from django.conf import settings
 from django.utils.safestring import mark_safe
 
 register = template.Library()
