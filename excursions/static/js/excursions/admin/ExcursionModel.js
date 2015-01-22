@@ -41,6 +41,8 @@
             var short_description = $("#excursion-short-description").html();
             var price_list = $("#excursion-price-list")[0].value;
             var yandex_map_script = $("#yandexmapscript-input")[0].value;
+            var time_length = self.$excursionForm[0].time_length.value;
+            var min_age = self.$excursionForm[0].min_age.value;
 
             var formData = new FormData();
             if (form.small_image.dataset.changed) {
@@ -60,6 +62,8 @@
             formData.append("short_description", short_description.trim());
             formData.append("yandex_map_script", yandex_map_script.trim());
             formData.append("price_list", price_list.trim());
+            formData.append("time_length", time_length);
+            formData.append("min_age", min_age);
 
             $.ajax({
                 url: form.action,
@@ -71,7 +75,6 @@
                 InterfaceAlerts.showSuccess();
                 if (oncomplete)
                     oncomplete();
-
                 if (hasNewImageInGallery) {
                     location.reload();
                 }
