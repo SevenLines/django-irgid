@@ -90,7 +90,10 @@
 <!-- ЦЕНЫ -->
 {% include "excursions/excursion/price.html" %}
 <!-- конец ЦЕНЫ -->
-
+<hr>
+<div style="float: right;">
+    {% include "excursions/excursion/share-buttons.html" %}
+</div>
 <script>
     // рассчет цены
     new ExcursionPriceComputer({{ price_list }})
