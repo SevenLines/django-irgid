@@ -6,7 +6,7 @@
     </a>
 </div>
 
-<h2 id="excursion-title" style="margin-bottom: 0.25em">
+<h2 itemprop="name" id="excursion-title" style="margin-bottom: 0.25em">
     {{ current_excursion.title|default:"..." }}
 
 </h2>
@@ -14,7 +14,8 @@
 {% if current_excursion.time_length or current_excursion.min_age %}
     <div style="float:left;">
         {% if current_excursion.time_length %}
-            <span class="label label-success" style="display: inline-block">({{ current_excursion.time_length|min_to_hours }}ч.)</span>
+            <span class="label label-success"
+                  style="display: inline-block">({{ current_excursion.time_length|min_to_hours }}ч.)</span>
         {% endif %}
         {% if current_excursion.min_age %}
             <span class="label label-danger" style="display: inline-block">
@@ -40,7 +41,7 @@
         <div class="excursion-gallery-item active"
              data-thumb-src="{{ thumb_big.url }}" data-src="{{ current_excursion.img_preview.url }}">
             <div>
-                <img src="{{ thumb.url }}"/>
+                <img itemprop="image" src="{{ thumb.url }}"/>
             </div>
         </div>
         {% for img in gallery %}
@@ -49,7 +50,7 @@
             <div class="excursion-gallery-item"
                  data-thumb-src="{{ thumb_big.url }}" data-src="{{ img.image.url }}">
                 <div>
-                    <img src="{{ thumb.url }}"/>
+                    <img itemprop="image" src="{{ thumb.url }}"/>
                 </div>
             </div>
         {% endfor %}
@@ -61,7 +62,7 @@
     <div class="excursion-preview-container{% if not gallery %} without-items{% endif %}">
         <a href="{{ current_excursion.img_preview.url }}">
             {% thumbnail current_excursion.img_preview 1024x400 as thumb %}
-            <img class="lazy fadein main-image" data-original="{{ thumb.url }}"/>
+            <img itemprop="image" class="lazy fadein main-image" data-original="{{ thumb.url }}"/>
 
         </a>
     </div>
@@ -74,7 +75,9 @@
 
 <!-- ОПИСАНИЕ -->
 <div id="excursion-description">
-    {{ current_excursion.description|safe|default:"..." }}
+    <span itemprop="articleBody">
+        {{ current_excursion.description|safe|default:"..." }}
+    </span>
 </div>
 <!-- конец ОПИСАНИЕ -->
 
