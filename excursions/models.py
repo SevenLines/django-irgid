@@ -45,6 +45,7 @@ class Excursion(models.Model):
     short_description = models.TextField(default="")
     length = models.IntegerField(verbose_name="way length in meters", default=0)
     time_length = models.IntegerField(verbose_name="time takes in minutes", default=0)
+    min_age = models.SmallIntegerField(verbose_name="минимальный возраст", default=0)
     priceList = models.TextField(verbose_name="price list", default="")
     yandex_map_script = models.TextField(default="")
 

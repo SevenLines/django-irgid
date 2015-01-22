@@ -165,6 +165,8 @@ ASSETS_MODULES = [
     'app.assets'
 ]
 
+THUMBNAIL_DEBUG = False
+
 if not DEBUG:
     ASSETS_CACHE = False
     ASSETS_MANIFEST = False
