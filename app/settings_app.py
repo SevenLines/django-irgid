@@ -27,6 +27,7 @@ INSTALLED_APPS = (
     'utils',
     'request',
     'textpage',
+    'sharedcontroll',
 )
 
 # THUMBNAIL_DEBUG = True
