@@ -9,10 +9,10 @@
                     </h2>
                     <small>
                         {% if e.time_length %}
-                            <span class="label label-success">({{ e.time_length|min_to_hours }}ч.)</span>
+                            <span class="label label-success" data-toggle="tooltip" data-placement="top" title="продолжительность экскурсии">({{ e.time_length|min_to_hours }}ч.)</span>
                         {% endif %}
                         {% if e.min_age %}
-                            <span class="label label-danger">
+                            <span class="label label-danger" data-toggle="tooltip" data-placement="top" title="рекомендуемый возраст">
                                 {{ e.min_age }}+
                         </span>
                         {% endif %}

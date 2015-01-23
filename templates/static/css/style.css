@@ -62,6 +62,13 @@ a {
       padding: 10px;
       padding-top: 60px; } }
 
+.tooltip .tooltip-inner {
+  color: #000000;
+  background-color: #ffffff;
+  border: 1px solid #15324c; }
+.tooltip.top .tooltip-arrow {
+  border-top-color: #15324c; }
+
 .menu {
   background-color: white;
   z-index: 100;

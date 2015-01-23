@@ -75,3 +75,16 @@ a {
     padding-top: 60px;
   }
 }
+
+.tooltip {
+  .tooltip-inner {
+    color: #000000;
+    background-color: #ffffff;
+    border: 1px solid darken($common_color, 20);
+  }
+  &.top {
+    .tooltip-arrow {
+      border-top-color: darken($common_color, 20);
+    }
+  }
+}
