@@ -11,6 +11,8 @@ from request.models import Request
 from request.traffic import modules
 
 # Calculate the verbose_name by converting from InitialCaps to "lowercase with spaces".
+from sharedcontroll.models import SharedURL
+
 get_verbose_name = lambda class_name: re.sub('(((?<=[a-z])[A-Z])|([A-Z](?![A-Z]|$)))', ' \\1', class_name).strip()
 
 
@@ -156,6 +158,12 @@ class TopBrowsers(Plugin):
             'browsers': set_count(self.qs.only('user_agent').attr_list('browser'))[:5]
         }
 
+
+class SharedItems(Plugin):
+    def template_context(self):
+        return {
+            'shareditems': SharedURL.objects.all()[:10]
+        }
 
 class IpList(Plugin):
     def template_context(self):
