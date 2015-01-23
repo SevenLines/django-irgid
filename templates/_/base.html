@@ -90,7 +90,7 @@
 <![endif]-->
 
 {% if not DEBUG and not DONT_USE_METRICS %}
-    {#    {% include "_/elements/google-analytics.html" %}#}
+        {% include "_/elements/google-analytics.html" %}
     {% include "_/elements/yandex-metrica.html" %}
 {% else %}
     <!-- IN DEBUG VERSION yandex-metrica is not accessible -->
