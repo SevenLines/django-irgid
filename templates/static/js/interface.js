@@ -59,6 +59,9 @@ $(function () {
     });
 });
 
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
 
 window.input2base64f = function(input_element, callback) {
     var file = input_element.files[0];
