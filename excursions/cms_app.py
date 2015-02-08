@@ -6,7 +6,13 @@ __author__ = 'm'
 
 class ExcursionsHook(CMSApp):
     name = 'excursion'
-    urls = ["excursions.urls"]
+    urls = ["excursions.urls.excursions"]
+
+
+class ExcursionsGalleryHook(CMSApp):
+    name = 'excursion-gallery'
+    urls = ["excursions.urls.gallery"]
 
 
 apphook_pool.register(ExcursionsHook)
+apphook_pool.register(ExcursionsGalleryHook)

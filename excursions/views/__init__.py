@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http.response import HttpResponseBadRequest
 from django.shortcuts import render, redirect
+from django.template.context import RequestContext
 from app.utils import require_in_POST
 from excursions.models import ExcursionCategory, Excursion, ExcursionImage
 from excursions.utils import get_price_list
@@ -84,3 +85,28 @@ def excursion_save(request):
 def category_save(request):
     ajax.category_save(request)
     return redirect(request.META['HTTP_REFERER'])
+
+
+def excursion_gallery_index(request):
+    context = {}
+    c = ExcursionCategory.objects.last()
+    context['excursions'] = c.excursions(request)
+    context['current_category'] = c
+    return  render(request, "excursions/gallery/index.html", context)
+
+
+def excursion_gallery_item(request, id):
+    context = _excursion_context(request)
+    e = Excursion.objects.get(pk=id)
+    context['current_excursion'] = e
+    category = e.category
+    context['current_category'] = category
+    context['excursions'] = category.excursions(request).order_by("title")
+    context['gallery'] = ExcursionImage.objects.filter(excursion_id=id).order_by("order")
+    context['title'] = e.title
+    context['meta'] = {
+        'description': u"Экскурсия: %s; Описание: %s" % (e.title, e.short_description)
+    }
+    context['price_list'] = json.dumps(get_price_list(e.priceList))
+
+    return render(request, "excursions/gallery/excursion/index.html", context)
