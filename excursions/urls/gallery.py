@@ -5,7 +5,7 @@ __author__ = 'm'
 
 urlpatterns = i18n_patterns('excursions.views',
 
-    url(r'excursion/gallery/(\d+)/$', 'excursion_gallery_item'),
+    url(r'(\d+)/$', 'excursion_gallery_item'),
 
 
     url(r'$', 'excursion_gallery_index'),
