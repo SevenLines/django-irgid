@@ -79,9 +79,17 @@ a {
     float: right; }
   .menu .logo-info, .menu .nav {
     display: inline-block !important; }
-  .menu .nav .selected a {
-    background-color: #2b679c;
-    color: #ffffff; }
+  .menu .nav {
+    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap; }
+    .menu .nav > li {
+      float: none;
+      display: inline-block; }
+    .menu .nav .selected a {
+      background-color: #2b679c;
+      color: #ffffff; }
   @media (max-width: 500px) {
     .menu .logo-info {
       font-size: small; } }
