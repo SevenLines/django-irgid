@@ -118,6 +118,44 @@
     top: 0;
     right: 0; }
 
+.gallery-item-element {
+  width: 25%;
+  float: left;
+  padding: 8px;
+  position: relative; }
+  @media (max-width: 765px) {
+    .gallery-item-element {
+      width: 33.3%; } }
+  @media (max-width: 500px) {
+    .gallery-item-element {
+      width: 50%; } }
+  .gallery-item-element .e-class {
+    height: 210px; }
+    .gallery-item-element .e-class > div h3 {
+      font-size: 1.2em; }
+  .gallery-item-element .e-class-menu {
+    position: absolute;
+    bottom: 16px;
+    right: 24px;
+    left: 24px; }
+
+.list-group-menu .excursions-menu.without-angle {
+  background-image: none; }
+.list-group-menu .excursions-menu .excursions-menu-container .list-group-gallery-item {
+  position: relative; }
+  .list-group-menu .excursions-menu .excursions-menu-container .list-group-gallery-item .description {
+    -webkit-transition: all ease-in-out 0.3s;
+    -moz-transition: all ease-in-out 0.3s;
+    -ms-transition: all ease-in-out 0.3s;
+    -o-transition: all ease-in-out 0.3s;
+    transition: all ease-in-out 0.3s;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.95);
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center; }
+
 .e-preview {
   margin-left: -8px;
   margin-right: -8px; }

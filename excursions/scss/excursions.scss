@@ -1,5 +1,6 @@
 @import "constants";
 @import "gallery";
+@import "gallery-plugin";
 
 $grid-gap: 8px;
 
@@ -266,6 +267,7 @@ $grid-gap: 8px;
   .excursions-menu {
     padding-left: 8px;
     background-image: url("images/menu-angle.png");
+
     //    background-position-x: -8px;
     background-repeat: no-repeat;
     .excursions-menu-container {

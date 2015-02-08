@@ -1,3 +1,4 @@
+# coding=utf-8
 from cms.plugin_pool import plugin_pool
 from cms.plugin_base import CMSPluginBase
 from excursions.models import Excursion, ExcursionCategoryPluginModel
@@ -15,4 +16,19 @@ class ExcursionCategoryPlugin(CMSPluginBase):
         context['current_category'] = instance.category
         return context
 
+
+# class ExcursionCategoryGalleryPlugin(CMSPluginBase):
+#     name = u"Категория экскурсии в виде галереи"
+#     render_template = "excursions/gallery/index.html"
+#     text_enabled = False
+#     model = ExcursionCategoryPluginModel
+#     cache = False
+#
+#     def render(self, context, instance, placeholder):
+#         # context['excursions'] = instance.category.excursions(context['request'])
+#         # context['current_category'] = instance.category
+#         return context
+
+
 plugin_pool.register_plugin(ExcursionCategoryPlugin)
+# plugin_pool.register_plugin(ExcursionCategoryGalleryPlugin)

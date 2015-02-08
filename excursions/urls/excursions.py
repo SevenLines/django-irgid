@@ -7,6 +7,8 @@ urlpatterns = i18n_patterns('excursions.views',
 
     url(r'excursion/(\d+)/remove/$', 'excursion_remove'),
     url(r'excursion/(\d+)/$', 'excursion'),
+    url(r'excursion/gallery/(\d+)/$', 'excursion_gallery_item'),
+    url(r'excursion/gallery$', 'excursion_gallery_index'),
     url(r'excursion/save/$', 'excursion_save'),
     url(r'excursion/ajax/save$', 'ajax.excursion_save'),
     url(r'excursion/image/add', 'ajax.excursion_image_add'),

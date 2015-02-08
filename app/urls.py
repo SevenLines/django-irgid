@@ -6,8 +6,8 @@ from django.conf import settings
 from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
 from django.contrib.sitemaps.views import sitemap
 from excursions.models import Excursion, ExcursionCategory
-import excursions.urls
-# import main_page.urls
+import excursions.urls.excursions
+import excursions.urls.gallery
 import sharedcontroll.urls
 import textpage.urls
 
@@ -31,7 +31,8 @@ sitemaps = {
 
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^excursions-app/', include(excursions.urls)),
+    url(r'^excursions-app/', include(excursions.urls.excursions)),
+    url(r'^gallery-app/', include(excursions.urls.gallery)),
     url(r'^textpages-app/', include(textpage.urls)),
     url(r'^sharedcontroll-app/', include(sharedcontroll.urls)),
     url(r'login/', "app.views.login_user"),

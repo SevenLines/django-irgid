@@ -1,0 +1,34 @@
+{% load static thumbnail cms_tags %}
+<div class="e-categories-excursion list-group-menu">
+    <a class="e-category list-group-menu-item active"
+       href="{% url "excursions.views.excursion_gallery_index" %}">
+        {{ current_category.title }}
+    </a>
+
+    <div class="excursions-menu">
+        <div class="excursions-menu-container" style="max-height: 600px">
+            {% for e in excursions %}
+                {% if e.pk != current_excursion.pk %}
+                    <a href="{% url  "excursions.views.excursion_gallery_item" e.pk %}"
+                       class="list-group-item-excursion list-group-gallery-item">
+                        <div>
+                                <img style="max-width: 100%;" src="{% thumbnail e.img_preview 0x300 %}" alt=""/>
+{#                            <img class="lazy fadein" style="max-width: 100%;" data-original="{% thumbnail e.img_preview 0x300 %}" alt=""/>#}
+                            <div class="description" style=""><h5>{{ e.title }}</h5></div>
+                        </div>
+                    </a>
+                {% else %}
+                    <a class="list-group-item-excursion current">{{ e.title }}</a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var exMenu = $(".excursions-menu-container");
+    exMenu.scrollTop(0);
+    var curItem = exMenu.find("a.current");
+    exMenu.scrollTop(curItem.position().top - exMenu.position().top + 1);
+</script>
