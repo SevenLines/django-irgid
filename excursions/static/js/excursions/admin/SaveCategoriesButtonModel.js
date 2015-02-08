@@ -96,8 +96,16 @@
                     }
                 })
             });
+        };
 
-
+        self.setAsGallery = function (item) {
+            for (var i = 0; i < self.items().length; ++i) {
+                if (self.items()[i] == item) {
+                    item.is_gallery(!item.is_gallery());
+                } else {
+                    self.items()[i].is_gallery(false);
+                }
+            }
         };
 
         Init();

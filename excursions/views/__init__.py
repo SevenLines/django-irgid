@@ -89,10 +89,11 @@ def category_save(request):
 
 def excursion_gallery_index(request):
     context = {}
-    c = ExcursionCategory.objects.last()
-    context['excursions'] = c.excursions(request)
+    c = ExcursionCategory.objects.filter(is_gallery=True).last()
+
+    context['excursions'] = c.excursions(request) if c else []
     context['current_category'] = c
-    return  render(request, "excursions/gallery/index.html", context)
+    return render(request, "excursions/gallery/index.html", context)
 
 
 def excursion_gallery_item(request, id):

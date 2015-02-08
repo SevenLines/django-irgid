@@ -2,7 +2,7 @@
 <div id="categories-list">
     {% for c in categories %}
         <div class="category-element">
-            <a class="e-class-description" href="{% url "excursions.views.category" c.pk %}">
+            <a class="e-class-description" href="{% if c.is_gallery %}{% url "excursions.views.excursion_gallery_index" %}{% else %}{% url "excursions.views.category" c.pk %}{% endif %}">
                 <div class="e-class">
                     {% if c.image %}<img src="{% thumbnail c.image 0x300 %}">{% endif %}
                     <div>
