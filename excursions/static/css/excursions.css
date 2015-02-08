@@ -125,12 +125,15 @@
   position: relative; }
   @media (max-width: 765px) {
     .gallery-item-element {
-      width: 33.3%; } }
+      width: 50%; } }
   @media (max-width: 500px) {
     .gallery-item-element {
-      width: 50%; } }
+      width: 100%; } }
   .gallery-item-element .e-class {
     height: 210px; }
+    @media (max-width: 500px) {
+      .gallery-item-element .e-class {
+        height: 120px; } }
     .gallery-item-element .e-class > div h3 {
       font-size: 1.2em; }
   .gallery-item-element .e-class-menu {

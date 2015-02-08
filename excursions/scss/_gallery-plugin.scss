@@ -4,14 +4,17 @@
 
   width: 25%;
   @media (max-width: $width-medium) {
-    width: 33.3%;
+    width: 50%;
   }
   @media (max-width: $width-small) {
-    width: 50%;
+    width: 100%;
   }
 
   .e-class {
     height: 210px;
+    @media (max-width: $width-small) {
+      height: 120px;
+    }
     > div h3 {
       font-size: 1.2em;
     }
