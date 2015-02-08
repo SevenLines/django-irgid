@@ -19,6 +19,8 @@
         self.old_description = ko.observable($(form).data('description'));
 
         self.visible = ko.observable($(form).data('visible'));
+        self.is_gallery = ko.observable($(form).data('is_gallery'));
+        self.old_is_gallery = ko.observable(self.is_gallery());
 
         self.imageUrl = ko.observable($(form).data('image-url'));
         self.old_imageUrl = ko.observable(self.imageUrl());
@@ -26,12 +28,14 @@
         self.changed = ko.computed(function () {
             return self.old_imageUrl() != self.imageUrl() ||
                 self.old_title() != self.title() ||
+                self.old_is_gallery() != self.is_gallery() ||
                 self.old_description() != self.description()
         });
 
         function Reset() {
             self.old_title(self.title());
             self.old_description(self.description());
+            self.old_is_gallery(self.is_gallery());
             self.old_imageUrl(self.imageUrl());
         }
 
@@ -84,6 +88,7 @@
             }
             formData.append("id", self.id);
             formData.append("title", self.title());
+            formData.append("is_gallery", self.is_gallery());
             formData.append("description", self.description());
             formData.append("csrfmiddlewaretoken", self.csrf);
 
@@ -147,6 +152,10 @@
                 self.visible(!self.visible());
                 InterfaceAlerts.showSuccess();
             }).fail(InterfaceAlerts.showFail);
+        };
+
+        self.setAsGallery = function () {
+            self.model.setAsGallery(self);
         };
 
         Init();
