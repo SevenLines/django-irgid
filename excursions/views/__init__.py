@@ -91,7 +91,7 @@ def excursion_gallery_index(request):
     context = {}
     c = ExcursionCategory.objects.filter(is_gallery=True).last()
 
-    context['excursions'] = c.excursions(request) if c else []
+    context['excursions'] = c.excursions(request).order_by("title") if c else []
     context['current_category'] = c
     return render(request, "excursions/gallery/index.html", context)
 
