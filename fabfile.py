@@ -40,17 +40,19 @@ def backup(only_base=False):
 
     # create backip_archive on server
     with cd(app_dir):
-        run("./dump_db.sh")  # create database dump
+        with prefix(env.activate):
+            run("python manage.py dumpdata > dump.json")
+            run("tar cvzf dump.tgz dump.json")
         if not only_base:
             run("tar -czf media.tgz media")  # create media dump
 
     # remove local old backup
-    local("rm -f dump.sql")
+    local("rm -f dump.json")
     if not only_base:
         local("rm -f media.tgz")
 
     # download database backup from server
-    local("scp -C {user}@{host}:{app_dir}/dump.sql dump.sql".format(
+    local("scp -C {user}@{host}:{app_dir}/dump.tgz dump.tgz".format(
         user=env.user, host=env.hosts[0], app_dir=app_dir)
     )
     if not only_base:
@@ -60,10 +62,43 @@ def backup(only_base=False):
         )
 
     # restore database
-    local("psql -U postgres -d irgid -f dump.sql")
+    local("tar xvzf dump.tgz")  # unpack archive
+    local("python manage.py sqlflush | python manage.py dbshell")  # clear old data
+    local("python manage.py loaddata dump.json")  # load new data
 
     if not only_base:
         # restore media
         local("rm -rf media")
         local("mkdir media")
         local("tar -xf media.tgz")
+    # local("ssh-add ~/.ssh/locum.ru")  # add ssh-key
+    #
+    # # create backip_archive on server
+    # with cd(app_dir):
+    #     run("./dump_db.sh")  # create database dump
+    #     if not only_base:
+    #         run("tar -czf media.tgz media")  # create media dump
+    #
+    # # remove local old backup
+    # local("rm -f dump.sql")
+    # if not only_base:
+    #     local("rm -f media.tgz")
+    #
+    # # download database backup from server
+    # local("scp -C {user}@{host}:{app_dir}/dump.sql dump.sql".format(
+    #     user=env.user, host=env.hosts[0], app_dir=app_dir)
+    # )
+    # if not only_base:
+    #     # download media backup from server
+    #     local("scp -C {user}@{host}:{app_dir}/media.tgz media.tgz".format(
+    #         user=env.user, host=env.hosts[0], app_dir=app_dir)
+    #     )
+    #
+    # # restore database
+    # local("psql -U postgres -d irgid -f dump.sql")
+    #
+    # if not only_base:
+    #     # restore media
+    #     local("rm -rf media")
+    #     local("mkdir media")
+    #     local("tar -xf media.tgz")

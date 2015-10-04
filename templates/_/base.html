@@ -1,4 +1,4 @@
-{% load cms_tags sekizai_tags menu_tags static ex_tags %}
+{% load cms_tags sekizai_tags menu_tags static ex_tags custom_settings_tags %}
 <!DOCTYPE html>
 <!--[if lt IE 7]><html class="lt-ie9 lt-ie8 lt-ie7"><![endif]-->
 <!--[if IE 7]><html class="lt-ie9 lt-ie8"><![endif]-->
@@ -28,6 +28,9 @@
                 {% include "_/elements/weather-snippet.html" %}
                 {% if user.is_authenticated %}
                     <div class="pull-right hidden-sm hidden-xs" style="padding-top: 0.5em">
+                        <a href="{% url "settings" %}" class="btn btn-default">
+                                Настройки
+                        </a>
                         привет, <b>{{ request.user }}</b>
                         {% if user.is_superuser %}
                             | <a href="/admin">админка</a>
@@ -50,32 +53,18 @@
             <table style="width:100%;table-layout: fixed">
                 <tr>
                     <td style="width:33%;">
-                        {#                        Иркутск, ул. Байкальская, д.256<br>#}
-                        тел.: +7 (3952) 35-55-87, +7 (914) 895-66-44<br>
-                        email: {{ "irgid@bk.ru"|obfuscate_mailto }}
+                        тел.: {% custom_setting 'phone' %}<br>
+                        email: <a href="mailto:{% custom_setting 'email' %}">{% custom_setting 'email' %}</a>
                     </td>
                     <td style="width:34%;text-align: center;">
                         <span style="display: inline-block;">
-                            © 2015 Экскурсионное агентство «<span itemprop="author" itemscope
-                                                                  itemtype="http://schema.org/Person"><span
-                                itemprop="name">Иргид</span></span>».<br>Все права защищены.
+                            {% custom_setting 'copyright' %}
                         </span>
                     </td>
                     <td style="width:33%;text-align: right">
-                        {#                        <img src="{% static "images/logo3.png" %}" style="height: 48px; margin: -0.5em"/>#}
                     </td>
                 </tr>
             </table>
-            {#            <div style="width:100%;">#}
-            {#                <div>#}
-            {#                    Иркутск, ул. Байкальская, д.256<br>#}
-            {#                    тел.: +7 (3952) 35-55-87, +7 (914) 895-66-44<br>#}
-            {#                    email: {{ "irgid@bk.ru"|obfuscate_mailto }}#}
-            {#                </div>#}
-            {#                <div style="padding-right: 0.5em">#}
-            {#                    <span>© 2015 Экскурсионное агентство «Иргид».<br>Все права защищены.</span>#}
-            {#                    <img src="{% static "images/logo2.png" %}" style="height: 64px;">#}
-            {#                </div>#}
         </div>
     </div>
 </div>
