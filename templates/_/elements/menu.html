@@ -1,0 +1,7 @@
+<ul class="nav nav-pills pull-left">
+{% for item in menu %}
+    <li class="child sibling{% if item.selected %} selected{% endif %}">
+        <a href="{{ item.url }}">{{ item.title }}</a>
+    </li>
+{% endfor %}
+</ul>

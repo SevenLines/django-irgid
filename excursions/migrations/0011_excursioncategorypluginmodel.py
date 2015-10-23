@@ -7,7 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cms', '0003_auto_20140926_2347'),
+        # ('cms', '0003_auto_20140926_2347'),
         ('excursions', '0010_excursioncategory_visible'),
     ]
 

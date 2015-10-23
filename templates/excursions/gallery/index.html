@@ -1,12 +1,12 @@
 {% extends "excursions/base.html" %}
 {% load static sekizai_tags %}
-{% load static thumbnail cms_tags %}
+{% load static thumbnail  %}
 {% block ex_content %}
 
     {% for e in excursions %}
         <div class="categories-list">
             <div class="gallery-item-element">
-                <a href="{% url "excursions:gallery_item" e.id %}" class="e-class-description">
+                <a href="{% url "gallery:item" e.id %}" class="e-class-description">
                     <div class="e-class">
                         {% if e.img_preview %}
                             <img class="lazy fadein" data-original="{% thumbnail e.img_preview 0x300 %}">{% endif %}
@@ -19,3 +19,4 @@
         </div>
     {% endfor %}
 {% endblock %}
+s

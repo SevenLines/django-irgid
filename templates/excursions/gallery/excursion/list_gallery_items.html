@@ -1,4 +1,4 @@
-{% load static thumbnail cms_tags %}
+{% load static thumbnail %}
 <div class="e-categories-excursion list-group-menu">
     <a class="e-category list-group-menu-item active"
        href="{% url "excursions:gallery" %}">
@@ -9,7 +9,7 @@
         <div class="excursions-menu-container" style="max-height: 600px">
             {% for e in excursions %}
                 {% if e.pk != current_excursion.pk %}
-                    <a href="{% url  "excursions:gallery_item" e.pk %}"
+                    <a href="{% url  "gallery:item" e.pk %}"
                        class="list-group-item-excursion list-group-gallery-item">
                         <div>
                                 <img style="max-width: 100%;" src="{% thumbnail e.img_preview 0x300 %}" alt=""/>

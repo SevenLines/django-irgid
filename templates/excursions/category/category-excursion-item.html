@@ -8,14 +8,14 @@
                     data-category_id="{{ e.category_id }}"
                     data-id="{{ e.id }}"
                     data-published="{{ e.published }}"
-                    data-action="{% url "excursions.views.ajax.excursion_save" %}">
+                    data-action="{% url "excursions:save" %}">
                 <span class="glyphicon{% if e.published %} glyphicon-eye-open{% else %} glyphicon-eye-close{% endif %}"></span>
             </button>
             <button class="btn btn-danger"
                     data-toggle="modal"
                     data-target="#modal-excursion-remove"
                     data-title="{{ e.title }}"
-                    data-action="{% url "excursions.views.excursion_remove" e.pk %}">
+                    data-action="{% url "excursions:remove" e.pk %}">
                 <span class="glyphicon glyphicon-remove"></span>
             </button>
         </div>

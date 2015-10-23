@@ -5,6 +5,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
 from django.contrib.sitemaps.views import sitemap
+from django.views.generic import TemplateView
 
 import custom_settings.urls
 from excursions.models import Excursion, ExcursionCategory
@@ -34,12 +35,19 @@ sitemaps = {
 
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^excursions-app/', include(excursions.urls.excursions, namespace='excursions', app_name='excursions')),
-    url(r'^gallery-app/', include(excursions.urls.gallery, namespace='gallery', app_name='excursions')),
+    url(r'^excursions/', include(excursions.urls.excursions, namespace='excursions', app_name='excursions')),
+    url(r'^gallery/', include(excursions.urls.gallery, namespace='gallery', app_name='excursions')),
+
+    # for old urls comaptability
+    url(r'^excursions-app/', include(excursions.urls.excursions)),
+    url(r'^gallery-app/', include(excursions.urls.gallery)),
+
     url(r'^settings/', include(custom_settings.urls)),
     url(r'^textpages-app/', include(textpage.urls)),
     url(r'^sharedcontroll-app/', include(sharedcontroll.urls)),
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    url(r'^about/$', TemplateView.as_view(template_name="about.html"), name='about'),
+    url(r'^faq/$', TemplateView.as_view(template_name="faq.html"), name='faq'),
     url('^$', excursions.views.index, name='index'),
     url('^', include('django.contrib.auth.urls')),
     # url(r'^', include('cms.urls')),

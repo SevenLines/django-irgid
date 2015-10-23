@@ -49,7 +49,7 @@
                   data-visible="{{ c.visible|yesno:"true,false" }}"
                   {% if c.image %}data-image-url="{% thumbnail c.image 0x300 %}"{% endif %}>
 
-                <a class="e-class-description" href="{% url "excursions.views.category" c.pk %}">
+                <a class="e-class-description" href="{% url "excursions:category" c.pk %}">
                     <div class="e-class">
                         <img data-bind="attr: { src: imageUrl }">
 
@@ -69,12 +69,12 @@
 <script>
     ko.applyBindings(new SaveCategoriesButtonModel({
         url: {
-            set_order: '{% url "excursions.views.ajax.set_categories_order" %}',
-            set_image: '{% url "excursions.views.ajax.set_category_image" %}',
-            set_visible: '{% url "excursions.views.ajax.toggle_category" %}',
-            rmv_image: '{% url "excursions.views.ajax.remove_category_image" %}',
-            rmv_category: '{% url "excursions.views.ajax.category_remove" %}',
-            save_category: '{% url "excursions.views.ajax.category_save" %}'
+            set_order: '{% url "excursions:ajax_set_categories_order" %}',
+            set_image: '{% url "excursions:ajax_set_category_image" %}',
+            set_visible: '{% url "excursions:ajax_toggle_category" %}',
+            rmv_image: '{% url "excursions:ajax_remove_category_image" %}',
+            rmv_category: '{% url "excursions:ajax_category_remove" %}',
+            save_category: '{% url "excursions:ajax_category_save" %}'
         },
         csrf: '{{ csrf_token }}'
     }), document.getElementById("save-categories-btn"));

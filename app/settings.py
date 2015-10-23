@@ -1,3 +1,4 @@
+# coding=utf-8
 # Django settings for adpp project.
 
 import os
@@ -116,10 +117,10 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.doc.XViewMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'cms.middleware.user.CurrentUserMiddleware',
-    'cms.middleware.page.CurrentPageMiddleware',
-    'cms.middleware.toolbar.ToolbarMiddleware',
-    'cms.middleware.language.LanguageCookieMiddleware',
+    # 'cms.middleware.user.CurrentUserMiddleware',
+    # 'cms.middleware.page.CurrentPageMiddleware',
+    # 'cms.middleware.toolbar.ToolbarMiddleware',
+    # 'cms.middleware.language.LanguageCookieMiddleware',
     'request.middleware.RequestMiddleware',
 )
 
@@ -137,7 +138,7 @@ CMS_TEMPLATES = (
 )
 
 MIGRATION_MODULES = {
-    'cms': 'cms.migrations_django',
+    # 'cms': 'cms.migrations_django',
     'filer': 'filer.migrations_django',
 }
 
@@ -148,7 +149,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.core.context_processors.media',
     'django.core.context_processors.static',
-    'cms.context_processors.cms_settings',
+    # 'cms.context_processors.cms_settings',
     'app.context_processors.debug',
     'sekizai.context_processors.sekizai',
 )
@@ -179,3 +180,10 @@ EMAIL_HOST = 'smtp.locum.ru'
 EMAIL_HOST_USER = 'robot@irgid.ru'
 EMAIL_HOST_PASSWORD = 'I_YzdH-FM2(f'
 EMAIL_TIMEOUT = 30
+
+MENU = [
+    ('index', u'Экскурсии', '^/excursions|^$|^/$'),
+    ('about', u'О нас', '^/about'),
+    ('faq', u'FAQ', '^/faq'),
+    ('gallery:index', u'Галерея', '^/gallery'),
+]
