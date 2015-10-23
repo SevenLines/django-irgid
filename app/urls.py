@@ -10,6 +10,7 @@ import custom_settings.urls
 from excursions.models import Excursion, ExcursionCategory
 import excursions.urls.excursions
 import excursions.urls.gallery
+import excursions.views.base
 import sharedcontroll.urls
 import textpage.urls
 
@@ -27,20 +28,21 @@ sitemaps = {
         'data_field': 'update_date',
         'changefreq': 'weekly',
     }),
-    'cmspages': CMSSitemap,
+    # 'cmspages': CMSSitemap,
 }
 
 
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^excursions-app/', include(excursions.urls.excursions)),
-    url(r'^gallery-app/', include(excursions.urls.gallery)),
+    url(r'^excursions-app/', include(excursions.urls.excursions, namespace='excursions', app_name='excursions')),
+    url(r'^gallery-app/', include(excursions.urls.gallery, namespace='gallery', app_name='excursions')),
     url(r'^settings/', include(custom_settings.urls)),
     url(r'^textpages-app/', include(textpage.urls)),
     url(r'^sharedcontroll-app/', include(sharedcontroll.urls)),
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    url('^$', excursions.views.index, name='index'),
     url('^', include('django.contrib.auth.urls')),
-    url(r'^', include('cms.urls')),
+    # url(r'^', include('cms.urls')),
 )
 
 

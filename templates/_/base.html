@@ -7,7 +7,7 @@
 <html><!--<![endif]-->
 <head lang="ru">
     {% include "_/elements/meta.html" %}
-    <title>{% if title %}{{ title }}{% else %}{% page_attribute "page_title" %}{% endif %}</title>
+{#    <title>{% if title %}{{ title }}{% else %}{% page_attribute "page_title" %}{% endif %}</title>#}
     <link rel="shortcut icon" href="{% static "images/icon.png" %}"/>
     {% include "_/elements/styles.html" %}
     {% include "_/elements/scripts.html" %}
@@ -16,14 +16,25 @@
 </head>
 <body>
 
-{% cms_toolbar %}
+{#{% cms_toolbar %}#}
 
 <div class="container">
     <div class="container-content">
         <div class="header">
             <nav class="navbar menu">
                 <ul class="nav nav-pills pull-left">
-                    {% show_menu 0 100 100 100 %}
+                    <li class="child selected">
+                        <a href="{% url 'excursions:index' %}">Экскурсии</a>
+                    </li>
+                    <li class="child sibling">
+                        <a href="">О нас</a>
+                    </li>
+                    <li class="child sibling">
+                        <a href="">FAQ</a>
+                    </li>
+                    <li class="child sibling">
+                        <a href="{% url 'gallery:index' %}">Галерея</a>
+                    </li>
                 </ul>
                 {% include "_/elements/weather-snippet.html" %}
                 {% if user.is_authenticated %}
@@ -43,7 +54,7 @@
         <div id="content">
             {% block content %}
             {% endblock content %}
-            {% placeholder "plugins" %}
+{#            {% placeholder "plugins" %}#}
             <div style="clear:both;"></div>
         </div>
 

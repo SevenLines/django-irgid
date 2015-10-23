@@ -1,6 +1,6 @@
 {% load thumbnail static excursions_tags %}
 <div>
-    <a class="hidden-lg hidden-md hidden-sm" href="{% url "excursions.views.category" current_excursion.category.pk %}">
+    <a class="hidden-lg hidden-md hidden-sm" href="{% url "excursions:category" current_excursion.category.pk %}">
         <button class="btn btn-sm btn-default"
                 style="margin-bottom: 5px">{{ current_excursion.category.title }} </button>
     </a>
