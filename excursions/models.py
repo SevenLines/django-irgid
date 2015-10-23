@@ -31,13 +31,6 @@ class ExcursionCategory(models.Model):
         return reverse("excursions.views.category", args=[self.pk])
 
 
-# class ExcursionCategoryPluginModel(CMSPlugin):
-#     category = models.ForeignKey("ExcursionCategory")
-#
-#     def __unicode__(self):
-#         return self.category.title if self.category else ""
-
-
 class Excursion(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(default="")

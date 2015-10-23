@@ -3,6 +3,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.http.response import HttpResponseBadRequest, HttpResponse
 from django.shortcuts import redirect
+from django.views.generic.base import TemplateView
+
 from app.utils import require_in_POST
 
 __author__ = 'm'
@@ -22,4 +24,13 @@ def login_user(request):
     return redirect(request.META['HTTP_REFERER'])
 
 
+class TemplateViewEx(TemplateView):
+    data = None
 
+    def get_context_data(self, **kwargs):
+
+        data = self.data if self.data else {}
+
+        context = super(TemplateViewEx, self).get_context_data(**kwargs)
+        context.update(data)
+        return context

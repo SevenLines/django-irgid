@@ -93,6 +93,7 @@ def excursion_gallery_index(request):
 
     context['excursions'] = c.excursions(request).order_by("title") if c else []
     context['current_category'] = c
+    context['title'] = u'Галерея'
     return render(request, "excursions/gallery/index.html", context)
 
 

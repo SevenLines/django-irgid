@@ -117,10 +117,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.doc.XViewMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'cms.middleware.user.CurrentUserMiddleware',
-    # 'cms.middleware.page.CurrentPageMiddleware',
-    # 'cms.middleware.toolbar.ToolbarMiddleware',
-    # 'cms.middleware.language.LanguageCookieMiddleware',
     'request.middleware.RequestMiddleware',
 )
 
@@ -149,7 +145,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.core.context_processors.media',
     'django.core.context_processors.static',
-    # 'cms.context_processors.cms_settings',
     'app.context_processors.debug',
     'sekizai.context_processors.sekizai',
 )
