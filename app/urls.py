@@ -38,9 +38,8 @@ urlpatterns = patterns('',
     url(r'^settings/', include(custom_settings.urls)),
     url(r'^textpages-app/', include(textpage.urls)),
     url(r'^sharedcontroll-app/', include(sharedcontroll.urls)),
-    url(r'login/', "app.views.login_user"),
-    url(r'logout/', "django.contrib.auth.views.logout"),
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    url('^', include('django.contrib.auth.urls')),
     url(r'^', include('cms.urls')),
 )
 

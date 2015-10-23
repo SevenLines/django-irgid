@@ -148,9 +148,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.core.context_processors.media',
     'django.core.context_processors.static',
-    'sekizai.context_processors.sekizai',
     'cms.context_processors.cms_settings',
     'app.context_processors.debug',
+    'sekizai.context_processors.sekizai',
 )
 
 THUMBNAIL_PROCESSORS = (
@@ -175,3 +175,7 @@ if not DEBUG:
 ASSETS_ROOT = os.path.join(PROJECT_PATH, 'templates/static')
 DONT_USE_METRICS = False
 
+EMAIL_HOST = 'smtp.locum.ru'
+EMAIL_HOST_USER = 'robot@irgid.ru'
+EMAIL_HOST_PASSWORD = 'I_YzdH-FM2(f'
+EMAIL_TIMEOUT = 30
