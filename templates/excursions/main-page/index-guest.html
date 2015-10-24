@@ -2,7 +2,10 @@
 <div id="categories-list">
     {% for c in categories %}
         <div class="category-element">
-            <a class="e-class-description" href="{% if c.is_gallery %}{% url "gallery:index" %}{% else %}{% url "excursions:category" c.pk %}{% endif %}">
+            <a class="e-class-description" href="{% if gallery == c %}{% url "gallery:index" %}
+            {% elif travel == c %} {% url "travel:index" %}
+            {% else %}{% url "excursions:category" pk=c.pk %}
+            {% endif %}">
                 <div class="e-class">
                     {% if c.image %}<img src="{% thumbnail c.image 0x300 %}">{% endif %}
                     <div>

@@ -24,7 +24,9 @@ class MainPageView(TitledView):
         categories = ExcursionCategory.objects.common_with_gallery(self.request.user)
 
         context.update({
-            'categories': categories
+            'categories': categories,
+            'gallery': ExcursionCategory.objects.gallery(),
+            'travel': ExcursionCategory.objects.travel()
         })
         return context
 
@@ -106,6 +108,7 @@ class ExcursionGalleryItemView(TitledView):
         category = e.category
 
         context.update({
+            'title': e.title,
             'current_excursion': e,
             'current_category': category,
             'excursions': category.excursions(self.request).order_by("title"),
@@ -144,6 +147,7 @@ class ExcursionTravelItemView(TitledView):
         category = e.category
 
         context.update({
+            'title': e.title,
             'current_excursion': e,
             'current_category': category,
             'excursions': category.excursions(self.request).order_by("title"),

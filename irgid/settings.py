@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'request',
     'sharedcontroll',
     'custom_settings',
+    'debug_toolbar',
 )
 
 MIDDLEWARE_CLASSES = (
