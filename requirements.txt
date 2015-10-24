@@ -2,8 +2,13 @@ Django==1.8.5
 psycopg2==2.5.4
 Pillow==2.4.0
 easy_thumbnails==2.2
-django-sekizai
-django-filer
-djangocms-admin-style
+
+django-sekizai==0.8.2
+django-filer==0.9.12
+djangocms-admin-style==0.2.8
 django-assets==0.10
+django-braces==1.8.1
+
 transliterate==1.7.3
+cssmin==0.2.0
+yuicompressor

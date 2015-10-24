@@ -1,0 +1,163 @@
+@import "constants";
+
+.excursion-preview-container {
+  text-align: center;
+  //  background-color: #c0c0c0;
+  margin-right: 310px;
+  max-height: 400px;
+  white-space: nowrap;
+  img {
+    max-width: 100%;
+    max-height: 400px;
+    border: 1px solid #000000;
+    vertical-align: middle;
+  }
+  .preview-container-helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+  }
+  &.without-items {
+    margin-right: 0;
+  }
+}
+
+.excursion-gallery {
+  &.guest {
+    width: 300px;
+    max-height: 400px;
+    float: right;
+    .excursion-gallery-item {
+      width: 33%;
+    }
+  }
+  padding-bottom: 1em;
+  //  margin: 0 0.5em;
+  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
+  input[type=file] {
+    display: none;
+  }
+}
+
+@media (max-width: $width-xbig) {
+  .excursion-preview-container {
+    margin-right: 100px;
+  }
+  .excursion-gallery {
+    &.guest {
+      width: 95px;
+      .excursion-gallery-item {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: $width-big) {
+  .excursion-preview-container {
+    position: relative;
+    margin-right: 0;
+    a {
+      overflow: hidden;
+    }
+    img {
+      max-height: 300px;
+    }
+    .zoom-wrapper {
+      position: absolute;
+      display: table;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      > div {
+        display: table-cell;
+        vertical-align: middle;
+        .zoom {
+          margin-right: auto;
+          margin-left: auto;
+//          display: inline-block;
+//          background-color: #ffffff;
+//          height: 60px;
+//          width: 60px;
+//          border-radius: 30px;
+        }
+      }
+    }
+  }
+  .excursion-gallery.guest {
+    width: 100%;
+    float: none;
+    white-space: nowrap;
+    overflow: scroll;
+    overflow-y: hidden;
+    overflow-x: auto;
+    padding: 0;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+
+    .excursion-gallery-item {
+      width: 70px;
+      height: 70px;
+      float: none;
+      display: inline-block;
+    }
+  }
+}
+
+.excursion-gallery-item {
+  &.active {
+    > div {
+      box-shadow: 0 0 0 4px skyblue;
+      &:hover {
+        box-shadow: 0 0 0 4px skyblue;
+      }
+    }
+  }
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  position: relative;
+  $height: 90px;
+  width: 90px;
+  cursor: pointer;
+
+  height: $height;
+  float: left;
+  padding: 0.5em;
+  overflow: hidden;
+  > div {
+    box-shadow: 0 0 2px gray;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    &:hover {
+      box-shadow: 0 0 4px gray;
+    }
+    @include transition(0.3s);
+  }
+  img, #add-image {
+    height: 100%;
+  }
+  #add-image {
+    text-align: center;
+    background-color: lightskyblue;
+    color: #002b36;
+    font-size: $height/4;
+    font-weight: bold;
+    cursor: pointer;
+    padding-top: $height/4;
+  }
+
+  .remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}

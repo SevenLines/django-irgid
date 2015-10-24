@@ -1,10 +1,16 @@
 # coding=utf-8
-from django.contrib.auth import authenticate, login, logout
-from django.contrib import messages
-from django.http.response import HttpResponseBadRequest, HttpResponse
-from django.shortcuts import redirect
-from django.views.generic.base import TemplateView
+import os
 
+from braces.views import LoginRequiredMixin
+from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from django.core.files.storage import FileSystemStorage
+from django.http.response import HttpResponseBadRequest, HttpResponse, HttpResponseRedirect
+from django.shortcuts import redirect
+from django.views.generic.base import TemplateView, View
+
+from irgid.forms import UploadFileForm
 from irgid.utils import require_in_POST
 
 __author__ = 'm'
@@ -22,6 +28,30 @@ def login_user(request):
     else:
         messages.error(request, u"Неверная комбинация пользователь / пароль")
     return redirect(request.META['HTTP_REFERER'])
+
+
+def handle_uploaded_file(f):
+    with open('some/file/name.txt', 'wb+') as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
+
+
+class UploadFile(LoginRequiredMixin, View):
+    storage = FileSystemStorage(os.path.join(settings.MEDIA_ROOT, 'common'),
+                                base_url=os.path.join(settings.MEDIA_URL, 'common'))
+
+    def post(self, request):
+        form = UploadFileForm(request.POST, request.FILES)
+
+        result = HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+        if form.is_valid():
+            file = request.FILES['file']
+            name = self.storage.save(name=None, content=file)
+            result = self.storage.url(name)
+            result = HttpResponse(result)
+
+        return result
 
 
 class TemplateViewEx(TemplateView):

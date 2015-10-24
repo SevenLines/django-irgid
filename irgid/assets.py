@@ -5,9 +5,9 @@ get_env().append_path("templates/static")
 get_env().append_path("excursions/static")
 
 main_js = Bundle('bower/jquery/dist/jquery.min.js',
-                 'bower/bootstrap/dist/js/bootstrap.min.js',
+                 'bower/bootstrap/dist/js/bootstrap.js',
                  'bower/jquery.cookie/jquery.cookie.js',
-                 'bower/jquery.lazyload/jquery.lazyload.min.js',
+                 'bower/jquery.lazyload/jquery.lazyload.js',
                  'bower/jquery-impromptu/dist/jquery-impromptu.min.js',
                  'js/lib/jquery.hypher.js',
                  'js/lib/jquery.scrollchaser.js',

@@ -3,10 +3,44 @@
     <textarea name="editor" id="editor" rows="40" cols="80">
         {% custom_setting custom_settings_key %}
     </textarea>
+    <form action="{% url "upload-image" %}" name="upload-file-form" id="upload-file-form" method="post"
+          enctype="multipart/form-data">
+        <input type="file" name='file' id="upload-file">
+        {% csrf_token %}
+    </form>
     <script src="/static/bower/ckeditor/ckeditor.js"></script>
     <script>
         var editor = CKEDITOR.inline('editor');
-        console.log(editor);
+        editor.config.toolbar = [
+            {name: 'clipboard', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
+            {name: 'editing', items: ['Scayt']},
+            {name: 'links', items: ['Link', 'Unlink', 'Anchor']},
+            {name: 'insert', items: ['Image', 'Table', 'HorizontalRule', 'SpecialChar']},
+            {name: 'tools', items: ['Maximize']},
+            {name: 'document', items: ['Source']},
+            '/',
+            {name: 'basicstyles', items: ['Bold', 'Italic', 'Strike', '-', 'RemoveFormat']},
+            {name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote']},
+            {name: 'styles', items: ['Styles', 'Format']},
+            {name: 'about', items: ['About']}
+        ];
+
+        $('#upload-file-form').submit(function (e) {
+            $.ajax({
+                url: this.action,
+                type: 'POST',
+                data: new FormData(this),
+                processData: false,
+                contentType: false
+            }).done(function (r) {
+                console.log(r);
+                editor.insertHtml("<img src='" + r + "' />")
+            });
+            console.log("123");
+            e.preventDefault();
+            return false;
+        });
+
         editor.addCommand("saveCommand", { // create named command
             exec: function (edt) {
                 var text = edt.getData();
@@ -21,9 +55,28 @@
             }
         });
 
+        editor.addCommand("imageUpload", {
+            exec: function () {
+                var fileInput = $('#upload-file');
+
+                fileInput.on('change', function () {
+                    $(this.form).submit();
+                });
+
+                fileInput.click();
+            }
+        });
+
         editor.ui.addButton('SaveButton', { // add new button and bind our command
             label: "save",
             command: 'saveCommand',
+            toolbar: 'editing',
+            icon: 'https://avatars1.githubusercontent.com/u/5500999?v=2&s=16'
+        });
+
+        editor.ui.addButton('UploadImageButton', { // add new button and bind our command
+            label: "image",
+            command: 'imageUpload',
             toolbar: 'editing',
             icon: 'https://avatars1.githubusercontent.com/u/5500999?v=2&s=16'
         });

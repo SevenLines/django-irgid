@@ -11,7 +11,7 @@ import excursions.urls.gallery
 import excursions.views.base
 import sharedcontroll.urls
 from excursions.models import Excursion, ExcursionCategory
-from irgid.views import TemplateViewEx
+from irgid.views import TemplateViewEx, UploadFile
 
 admin.autodiscover()
 
@@ -33,6 +33,7 @@ sitemaps = {
 
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^upload-image/', UploadFile.as_view(), name='upload-image'),
     url(r'^excursions/', include(excursions.urls.excursions, namespace='excursions', app_name='excursions')),
     url(r'^gallery/', include(excursions.urls.gallery, namespace='gallery', app_name='excursions')),
 
@@ -49,7 +50,6 @@ urlpatterns = patterns('',
     url('^', include('django.contrib.auth.urls')),
     # url(r'^', include('cms.urls')),
 )
-
 
 
 if settings.DEBUG:

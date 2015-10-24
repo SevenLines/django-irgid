@@ -5,7 +5,16 @@ module.exports = function (grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 
 		version: {
-			src: ['<%= pkg.exportName %>.js', '*.json']
+			js: {
+				src: ['<%= pkg.exportName %>.js', '*.json']
+			},
+			cdn: {
+				options: {
+					prefix: '(cdnjs\\.cloudflare\\.com\\/ajax\\/libs\\/Sortable|cdn\\.jsdelivr\\.net\\/sortable)\\/',
+					replace: '[0-9\\.]+'
+				},
+				src: ['README.md']
+			}
 		},
 
 		jshint: {
@@ -24,6 +33,9 @@ module.exports = function (grunt) {
 				files: {
 					'<%= pkg.exportName %>.min.js': ['<%= pkg.exportName %>.js']
 				}
+			},
+			jquery: {
+				files: {}
 			}
 		},
 
@@ -34,8 +46,45 @@ module.exports = function (grunt) {
 			'meteor-publish': {
 				command: 'meteor/publish.sh'
 			}
+		},
+
+		jquery: {}
+	});
+
+
+	grunt.registerTask('jquery', function (exportName, uglify) {
+		if (exportName == 'min') {
+			exportName = null;
+			uglify = 'min';
 		}
 
+		if (!exportName) {
+			exportName = 'sortable';
+		}
+
+		var fs = require('fs'),
+			filename = 'jquery.fn.' + exportName + '.js';
+
+		grunt.log.oklns(filename);
+
+		fs.writeFileSync(
+			filename,
+			(fs.readFileSync('jquery.binding.js') + '')
+				.replace('$.fn.sortable', '$.fn.' + exportName)
+				.replace('/* CODE */',
+					(fs.readFileSync('Sortable.js') + '')
+						.replace(/^[\s\S]*?function[\s\S]*?(var[\s\S]+)\/\/\s+Export[\s\S]+/, '$1')
+				)
+		);
+
+		if (uglify) {
+			var opts = {};
+
+			opts['jquery.fn.' + exportName + '.min.js'] = filename;
+			grunt.config.set('uglify.jquery.files', opts);
+
+			grunt.task.run('uglify:jquery');
+		}
 	});
 
 
@@ -50,5 +99,5 @@ module.exports = function (grunt) {
 	grunt.registerTask('meteor', ['meteor-test', 'meteor-publish']);
 
 	grunt.registerTask('tests', ['jshint']);
-	grunt.registerTask('default', ['tests', 'version', 'uglify']);
+	grunt.registerTask('default', ['tests', 'version', 'uglify:dist']);
 };

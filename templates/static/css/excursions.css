@@ -1,0 +1,435 @@
+.excursion-preview-container {
+  text-align: center;
+  margin-right: 310px;
+  max-height: 400px;
+  white-space: nowrap; }
+  .excursion-preview-container img {
+    max-width: 100%;
+    max-height: 400px;
+    border: 1px solid #000000;
+    vertical-align: middle; }
+  .excursion-preview-container .preview-container-helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle; }
+  .excursion-preview-container.without-items {
+    margin-right: 0; }
+
+.excursion-gallery {
+  padding-bottom: 1em;
+  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: auto; }
+  .excursion-gallery.guest {
+    width: 300px;
+    max-height: 400px;
+    float: right; }
+    .excursion-gallery.guest .excursion-gallery-item {
+      width: 33%; }
+  .excursion-gallery input[type=file] {
+    display: none; }
+
+@media (max-width: 1200px) {
+  .excursion-preview-container {
+    margin-right: 100px; }
+
+  .excursion-gallery.guest {
+    width: 95px; }
+    .excursion-gallery.guest .excursion-gallery-item {
+      width: 100%; } }
+@media (max-width: 990px) {
+  .excursion-preview-container {
+    position: relative;
+    margin-right: 0; }
+    .excursion-preview-container a {
+      overflow: hidden; }
+    .excursion-preview-container img {
+      max-height: 300px; }
+    .excursion-preview-container .zoom-wrapper {
+      position: absolute;
+      display: table;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%; }
+      .excursion-preview-container .zoom-wrapper > div {
+        display: table-cell;
+        vertical-align: middle; }
+        .excursion-preview-container .zoom-wrapper > div .zoom {
+          margin-right: auto;
+          margin-left: auto; }
+
+  .excursion-gallery.guest {
+    width: 100%;
+    float: none;
+    white-space: nowrap;
+    overflow: scroll;
+    overflow-y: hidden;
+    overflow-x: auto;
+    padding: 0;
+    padding-bottom: 5px;
+    margin-bottom: 5px; }
+    .excursion-gallery.guest .excursion-gallery-item {
+      width: 70px;
+      height: 70px;
+      float: none;
+      display: inline-block; } }
+.excursion-gallery-item {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+  width: 90px;
+  cursor: pointer;
+  height: 90px;
+  float: left;
+  padding: 0.5em;
+  overflow: hidden; }
+  .excursion-gallery-item.active > div {
+    box-shadow: 0 0 0 4px skyblue; }
+    .excursion-gallery-item.active > div:hover {
+      box-shadow: 0 0 0 4px skyblue; }
+  .excursion-gallery-item > div {
+    box-shadow: 0 0 2px gray;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    -webkit-transition: all ease-in-out 0.3s;
+    -moz-transition: all ease-in-out 0.3s;
+    -ms-transition: all ease-in-out 0.3s;
+    -o-transition: all ease-in-out 0.3s;
+    transition: all ease-in-out 0.3s; }
+    .excursion-gallery-item > div:hover {
+      box-shadow: 0 0 4px gray; }
+  .excursion-gallery-item img, .excursion-gallery-item #add-image {
+    height: 100%; }
+  .excursion-gallery-item #add-image {
+    text-align: center;
+    background-color: lightskyblue;
+    color: #002b36;
+    font-size: 22.5px;
+    font-weight: bold;
+    cursor: pointer;
+    padding-top: 22.5px; }
+  .excursion-gallery-item .remove {
+    position: absolute;
+    top: 0;
+    right: 0; }
+
+.gallery-item-element {
+  width: 25%;
+  float: left;
+  padding: 8px;
+  position: relative; }
+  @media (max-width: 765px) {
+    .gallery-item-element {
+      width: 50%; } }
+  @media (max-width: 500px) {
+    .gallery-item-element {
+      width: 100%; } }
+  .gallery-item-element .e-class {
+    height: 210px; }
+    @media (max-width: 500px) {
+      .gallery-item-element .e-class {
+        height: 120px; } }
+    .gallery-item-element .e-class > div h3 {
+      font-size: 1.2em; }
+  .gallery-item-element .e-class-menu {
+    position: absolute;
+    bottom: 16px;
+    right: 24px;
+    left: 24px; }
+
+.list-group-menu .excursions-menu.without-angle {
+  background-image: none; }
+.list-group-menu .excursions-menu .excursions-menu-container .list-group-gallery-item {
+  position: relative; }
+  .list-group-menu .excursions-menu .excursions-menu-container .list-group-gallery-item .description {
+    -webkit-transition: all ease-in-out 0.3s;
+    -moz-transition: all ease-in-out 0.3s;
+    -ms-transition: all ease-in-out 0.3s;
+    -o-transition: all ease-in-out 0.3s;
+    transition: all ease-in-out 0.3s;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.95);
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center; }
+
+.e-preview {
+  margin-left: -8px;
+  margin-right: -8px; }
+
+.e-class {
+  -webkit-transition: all ease-in-out 0.2s;
+  -moz-transition: all ease-in-out 0.2s;
+  -ms-transition: all ease-in-out 0.2s;
+  -o-transition: all ease-in-out 0.2s;
+  transition: all ease-in-out 0.2s;
+  overflow: hidden;
+  border: 1px solid #2b679c;
+  position: relative;
+  height: 240px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 1px #2b679c;
+  color: #2b679c; }
+  .e-class.add-button > div, .e-class.save-button > div {
+    background-color: unset !important; }
+    .e-class.add-button > div h1, .e-class.save-button > div h1 {
+      margin: 0;
+      padding: 0; }
+  .e-class:hover > div {
+    background-color: white; }
+  .e-class > div {
+    padding: 16px;
+    text-align: center;
+    border-bottom: 1px solid #2b679c;
+    position: absolute;
+    width: 100%;
+    text-shadow: 0 0 1px white;
+    background-color: rgba(255, 255, 255, 0.85);
+    -webkit-transition: all ease-in-out 0.3s;
+    -moz-transition: all ease-in-out 0.3s;
+    -ms-transition: all ease-in-out 0.3s;
+    -o-transition: all ease-in-out 0.3s;
+    transition: all ease-in-out 0.3s; }
+  .e-class h3 {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    margin: 0; }
+  .e-class img {
+    height: 100%;
+    position: absolute; }
+  @media (max-width: 500px) {
+    .e-class {
+      height: 120px; }
+      .e-class > div {
+        margin-top: 0; }
+      .e-class img {
+        width: 100%;
+        height: auto; }
+      .e-class h3 {
+        font-size: 1.4em; } }
+  .e-class:hover {
+    box-shadow: 0 0 8px #2b679c; }
+
+.e-class-menu {
+  margin-top: 0.5em; }
+
+.category-element {
+  width: 33.3%;
+  float: left;
+  padding: 8px;
+  position: relative; }
+  @media (max-width: 765px) {
+    .category-element {
+      width: 50%; } }
+  @media (max-width: 500px) {
+    .category-element {
+      width: 100%; } }
+  .category-element .e-class-menu {
+    position: absolute;
+    bottom: 16px;
+    right: 24px;
+    left: 24px; }
+
+.e-ex-container {
+  width: 24%;
+  float: left;
+  position: relative; }
+  @media (max-width: 765px) {
+    .e-ex-container {
+      width: 50%; } }
+  @media (max-width: 500px) {
+    .e-ex-container {
+      width: 100%; } }
+
+.e-ex {
+  -webkit-transition: all ease-in-out 0.2s;
+  -moz-transition: all ease-in-out 0.2s;
+  -ms-transition: all ease-in-out 0.2s;
+  -o-transition: all ease-in-out 0.2s;
+  transition: all ease-in-out 0.2s;
+  padding: 16px;
+  height: 180px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+  box-shadow: 0 0 1px gray; }
+  .e-ex:hover {
+    box-shadow: 0 0 8px gray; }
+
+/* excursions */
+.excursions-list {
+  padding-bottom: 1em; }
+  .excursions-list .excursion:hover {
+    box-shadow: 0 0 2px #2b679c;
+    color: #2b679c; }
+
+#excursion-price-list {
+  overflow: scroll;
+  overflow-y: hidden;
+  overflow-x: auto; }
+
+.excursion {
+  display: block;
+  min-height: 55px;
+  position: relative;
+  -webkit-transition: all ease-in-out 0.2s;
+  -moz-transition: all ease-in-out 0.2s;
+  -ms-transition: all ease-in-out 0.2s;
+  -o-transition: all ease-in-out 0.2s;
+  transition: all ease-in-out 0.2s;
+  margin: 0.25em 0 2px;
+  padding: 0.5em 0.75em;
+  border-radius: 8px;
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; }
+  .excursion > a {
+    text-decoration: none;
+    color: #000000; }
+  .excursion hr {
+    margin: 12px 0; }
+  .excursion img.img-preview {
+    max-width: 100%;
+    border-radius: 0.25em; }
+    .excursion img.img-preview[src] {
+      border: 1px solid #000000; }
+  .excursion .e-excursion-item-menu {
+    position: absolute;
+    right: 0.5em;
+    top: 0.75em; }
+  .excursion .toggle {
+    color: #2b679c;
+    cursor: pointer;
+    border-bottom: dashed 1px; }
+    .excursion .toggle:hover {
+      color: black; }
+  .excursion .description {
+    text-align: justify;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; }
+    @media (max-width: 500px) {
+      .excursion .description {
+        display: none; } }
+  .excursion h2 {
+    margin: 0;
+    padding-left: 0; }
+    @media (max-width: 500px) {
+      .excursion h2 {
+        font-size: 1.2em; } }
+  .excursion .price {
+    margin-top: 8px; }
+  .excursion .price table {
+    border: 1px solid black;
+    border-bottom: none;
+    border-right: none;
+    border-collapse: separate;
+    /*font-size: 1e*/ }
+  .excursion .price th, .excursion .price td {
+    padding: 0.5em;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    background-color: white;
+    text-align: center; }
+
+.excursion-or-category-content {
+  margin-left: 210px; }
+  @media (max-width: 765px) {
+    .excursion-or-category-content {
+      margin-left: 0; } }
+
+/* end excursions */
+.list-group-menu {
+  width: 200px;
+  float: left; }
+  @media (max-width: 765px) {
+    .list-group-menu {
+      width: 100%;
+      float: inherit;
+      display: none; } }
+  .list-group-menu .excursions-menu {
+    padding-left: 8px;
+    background-image: url("images/menu-angle.png");
+    background-repeat: no-repeat; }
+    .list-group-menu .excursions-menu .excursions-menu-container {
+      max-height: 300px;
+      overflow: scroll;
+      overflow-x: hidden;
+      overflow-y: auto; }
+      .list-group-menu .excursions-menu .excursions-menu-container .list-group-item-excursion {
+        -webkit-transition: all ease-in-out 0.2s;
+        -moz-transition: all ease-in-out 0.2s;
+        -ms-transition: all ease-in-out 0.2s;
+        -o-transition: all ease-in-out 0.2s;
+        transition: all ease-in-out 0.2s;
+        color: #2b679c;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-top: none;
+        display: block;
+        padding: 10px 15px;
+        position: relative; }
+        .list-group-menu .excursions-menu .excursions-menu-container .list-group-item-excursion:hover {
+          text-decoration: none;
+          background-color: #eee; }
+        .list-group-menu .excursions-menu .excursions-menu-container .list-group-item-excursion.first {
+          position: relative;
+          overflow: hidden; }
+        .list-group-menu .excursions-menu .excursions-menu-container .list-group-item-excursion:last-child {
+          border-bottom: none; }
+        .list-group-menu .excursions-menu .excursions-menu-container .list-group-item-excursion.current {
+          background-color: #5b9ad2;
+          border-color: #5b9ad2;
+          color: white; }
+    .list-group-menu .excursions-menu:last-child .excursions-menu-container {
+      border-bottom: 1px solid #ddd;
+      border-radius: 0 0 0 8px; }
+  .list-group-menu .list-group-menu-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    display: block;
+    padding: 10px 15px;
+    position: relative;
+    border-bottom: none;
+    color: #2b679c;
+    -webkit-transition: all ease-in-out 0.3s;
+    -moz-transition: all ease-in-out 0.3s;
+    -ms-transition: all ease-in-out 0.3s;
+    -o-transition: all ease-in-out 0.3s;
+    transition: all ease-in-out 0.3s; }
+    .list-group-menu .list-group-menu-item:hover {
+      text-decoration: none;
+      background-color: #eee; }
+    .list-group-menu .list-group-menu-item:first-child {
+      border-radius: 4px 0 0 0; }
+    .list-group-menu .list-group-menu-item:last-child {
+      border-bottom: 1px solid #ddd;
+      border-radius: 0 0 0 4px; }
+    .list-group-menu .list-group-menu-item.active {
+      background-color: #2b679c;
+      border-color: #2b679c;
+      color: white; }
+
+#excursion-description {
+  text-align: justify; }
+
+.excursion-map {
+  width: 100%;
+  box-shadow: 0 0 4px silver;
+  overflow: hidden;
+  border-radius: 4px; }
+  .excursion-map > ymaps {
+    height: 500px !important; }
+    @media (max-width: 990px) {
+      .excursion-map > ymaps {
+        height: 300px !important; } }
+
+#price-calculator .input-group-addon {
+  width: 100px; }

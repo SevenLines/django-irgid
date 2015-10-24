@@ -6,16 +6,28 @@ Demo: http://rubaxa.github.io/Sortable/
 
 ## Features
 
- * Supports touch devices and [modern](http://caniuse.com/#search=drag) browsers
+ * Supports touch devices and [modern](http://caniuse.com/#search=drag) browsers (including IE9)
  * Can drag from one list to another or within the same list
  * CSS animation when moving items
  * Supports drag handles *and selectable text* (better than voidberg's html5sortable)
  * Smart auto-scrolling
  * Built using native HTML5 drag and drop API
- * Supports [Meteor](meteor/README.md) and [AngularJS](#ng)
+ * Supports [Meteor](meteor/README.md), [AngularJS](#ng), [React](#react) and [Polymer](#polymer)
  * Supports any CSS library, e.g. [Bootstrap](#bs)
  * Simple API
- * No jQuery
+ * [CDN](#cdn)
+ * No jQuery (but there is [support](#jq))
+
+
+<br/>
+
+
+### Articles
+ * [Sortable v1.0 — New capabilities](https://github.com/RubaXa/Sortable/wiki/Sortable-v1.0-—-New-capabilities/) (December 22, 2014)
+ * [Sorting with the help of HTML5 Drag'n'Drop API](https://github.com/RubaXa/Sortable/wiki/Sorting-with-the-help-of-HTML5-Drag'n'Drop-API/) (December 23, 2013)
+
+
+<br/>
 
 
 ### Usage
@@ -43,6 +55,7 @@ You can use any element for the list and its elements, not just `ul`/`li`. Here 
 var sortable = new Sortable(el, {
 	group: "name",  // or { name: "...", pull: [true, false, clone], put: [true, false, array] }
 	sort: true,  // sorting inside list
+	delay: 0, // time in milliseconds to define when the sorting should start
 	disabled: false, // Disables the sortable if set to true.
 	store: null,  // @see Store
 	animation: 150,  // ms, animation speed moving items when sorting, `0` — without animation
@@ -50,6 +63,12 @@ var sortable = new Sortable(el, {
 	filter: ".ignore-elements",  // Selectors that do not lead to dragging (String or Function)
 	draggable: ".item",  // Specifies which items inside the element should be sortable
 	ghostClass: "sortable-ghost",  // Class name for the drop placeholder
+	chosenClass: "sortable-chosen",  // Class name for the chosen item
+	dataIdAttr: 'data-id',
+	
+	forceFallback: false,  // ignore the HTML5 DnD behaviour and force the fallback to kick in
+	fallbackClass: "sortable-fallback"  // Class name for the cloned DOM Element when using forceFallback
+	fallbackOnBody: false  // Appends the cloned DOM Element into the Document's Body
 	
 	scroll: true, // or HTMLElement
 	scrollSensitivity: 30, // px, how near the mouse must be to an edge to start scrolling.
@@ -96,6 +115,16 @@ var sortable = new Sortable(el, {
 	// Attempt to drag a filtered element
 	onFilter: function (/**Event*/evt) {
 		var itemEl = evt.item;  // HTMLElement receiving the `mousedown|tapstart` event.
+	},
+	
+	// Event when you move an item in the list or between lists
+	onMove: function (/**Event*/evt) {
+		// Example: http://jsbin.com/tuyafe/1/edit?js,output
+		evt.dragged; // dragged HTMLElement
+		evt.draggedRect; // TextRectangle {left, top, right и bottom}
+		evt.related; // HTMLElement on which have guided
+		evt.relatedRect; // TextRectangle
+		// return false; — for cancel
 	}
 });
 ```
@@ -117,9 +146,18 @@ You can also define whether lists can give away, give and keep a copy (`clone`),
 
 
 #### `sort` option
-Sorting inside list
+Sorting inside list.
 
 Demo: http://jsbin.com/xizeh/2/edit?html,js,output
+
+
+---
+
+
+#### `delay` option
+Time in milliseconds to define when the sorting should start.
+
+Demo: http://jsbin.com/xizeh/4/edit?html,js,output
 
 
 ---
@@ -182,7 +220,7 @@ Sortable.create(el, {
 Sortable.create(list, {
 	filter: ".js-remove, .js-edit",
 	onFilter: function (evt) {
-		var item = el.item,
+		var item = evt.item,
 			ctrl = evt.target;
 
 		if (Sortable.utils.is(ctrl, ".js-remove")) {  // Click on remove button
@@ -200,9 +238,9 @@ Sortable.create(list, {
 
 
 #### `ghostClass` option
-Class name for the drop placeholder.
+Class name for the drop placeholder (default `sortable-ghost`).
 
-Demo: http://jsbin.com/boqugumiqi/1/edit?css,js,output
+Demo: http://jsbin.com/hunifu/1/edit?css,js,output
 
 ```css
 .ghost {
@@ -215,6 +253,41 @@ Sortable.create(list, {
   ghostClass: "ghost"
 });
 ```
+
+
+---
+
+
+#### `chosenClass` option
+Class name for the chosen item  (default `sortable-chosen`).
+
+Demo: http://jsbin.com/hunifu/edit?html,css,js,output
+
+```css
+.chosen {
+  color: #fff;
+  background-color: #c00;
+}
+```
+
+```js
+Sortable.create(list, {
+  delay: 500,
+  chosenClass: "chosen"
+});
+```
+
+
+---
+
+
+#### `forceFallback` option
+If set to `true`, the Fallback for non HTML5 Browser will be used, even if we are using an HTML5 Browser.
+This gives us the possiblity to test the behaviour for older Browsers even in newer Browser, or make the Drag 'n Drop feel more consistent between Desktop , Mobile and old Browsers.
+
+On top of that, the Fallback always generates a copy of that DOM Element and appends the class `fallbackClass` definied in the options. This behaviour controls the look of this 'dragged' Element.
+
+Demo: http://jsbin.com/pucurizace/edit?html,css,js,output
 
 
 ---
@@ -274,13 +347,143 @@ angular.module('myApp', ['ng-sortable'])
 		$scope.items = ['item 1', 'item 2'];
 		$scope.foo = ['foo 1', '..'];
 		$scope.bar = ['bar 1', '..'];
-		$scope.barConfig = { group: 'foobar', animation: 150 };
+		$scope.barConfig = {
+			group: 'foobar',
+			animation: 150,
+			onSort: function (/** ngSortEvent */evt){
+				// @see https://github.com/RubaXa/Sortable/blob/master/ng-sortable.js#L18-L24
+			}
+		};
 	}]);
 ```
 
 
 ---
 
+
+<a name="react"></a>
+### Support React
+Include [react-sortable-mixin.js](react-sortable-mixin.js).
+See [more options](react-sortable-mixin.js#L26).
+
+
+```jsx
+var SortableList = React.createClass({
+	mixins: [SortableMixin],
+
+	getInitialState: function() {
+		return {
+			items: ['Mixin', 'Sortable']
+		};
+	},
+
+	handleSort: function (/** Event */evt) { /*..*/ },
+
+	render: function() {
+		return <ul>{
+			this.state.items.map(function (text) {
+				return <li>{text}</li>
+			})
+		}</ul>
+	}
+});
+
+React.render(<SortableList />, document.body);
+
+
+//
+// Groups
+//
+var AllUsers = React.createClass({
+	mixins: [SortableMixin],
+
+	sortableOptions: {
+		ref: "user",
+		group: "shared",
+		model: "users"
+	},
+
+	getInitialState: function() {
+		return { users: ['Abbi', 'Adela', 'Bud', 'Cate', 'Davis', 'Eric']; };
+	},
+
+	render: function() {
+		return (
+			<h1>Users</h1>
+			<ul ref="user">{
+				this.state.users.map(function (text) {
+					return <li>{text}</li>
+				})
+			}</ul>
+		);
+	}
+});
+
+var ApprovedUsers = React.createClass({
+	mixins: [SortableMixin],
+	sortableOptions: { group: "shared" },
+
+	getInitialState: function() {
+		return { items: ['Hal', 'Judy']; };
+	},
+
+	render: function() {
+		return <ul>{
+			this.state.items.map(function (text) {
+				return <li>{text}</li>
+			})
+		}</ul>
+	}
+});
+
+React.render(<div>
+	<AllUsers/>
+	<hr/>
+	<ApprovedUsers/>
+</div>, document.body);
+```
+
+
+---
+
+
+<a name="ko"></a>
+### Support KnockoutJS
+Include [knockout-sortable.js](knockout-sortable.js)
+
+```html
+<div data-bind="sortable: {foreach: yourObservableArray, options: {/* sortable options here */}}">
+	<!-- optional item template here -->
+</div>
+
+<div data-bind="draggable: {foreach: yourObservableArray, options: {/* sortable options here */}}">
+	<!-- optional item template here -->
+</div>
+```
+
+Using this bindingHandler sorts the observableArray when the user sorts the HTMLElements.
+
+The sortable/draggable bindingHandlers supports the same syntax as Knockouts built in [template](http://knockoutjs.com/documentation/template-binding.html) binding except for the `data` option, meaning that you could supply the name of a template or specify a separate templateEngine. The difference between the sortable and draggable handlers is that the draggable has the sortable `group` option set to `{pull:'clone',put: false}` and the `sort` option set to false by default (overridable).
+
+Other attributes are:
+*	options: an object that contains settings for the underlaying sortable, ie `group`,`handle`, events etc.
+*	collection: if your `foreach` array is a computed then you would supply the underlaying observableArray that you would like to sort here.
+
+
+---
+
+<a name="polymer"></a>
+### Support Polymer
+```html
+
+<link rel="import" href="bower_components/Sortable/Sortable-js.html">
+
+<sortable-js handle=".handle">
+  <template is="dom-repeat" items={{names}}>
+    <div>{{item}}</div>
+  </template>
+<sortable-js>
+```
 
 ### Method
 
@@ -295,7 +498,7 @@ For each element in the set, get the first element that matches the selector by 
 
 
 ##### toArray():`String[]`
-Serializes the sortable's item `data-id`'s into an array of string.
+Serializes the sortable's item `data-id`'s (`dataIdAttr` option) into an array of string.
 
 
 ##### sort(order:`String[]`)
@@ -424,13 +627,69 @@ Link to the active instance.
 * toggleClass(el`:HTMLElement`, name`:String`, state`:Boolean`) — add or remove one classes from each element
 
 
+---
+
+
+<a name="cdn"></a>
+### CDN
+
+```html
+<!-- CDNJS :: Sortable (https://cdnjs.com/) -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/Sortable/1.4.2/Sortable.min.js"></script>
+
+
+<!-- jsDelivr :: Sortable (http://www.jsdelivr.com/) -->
+<script src="//cdn.jsdelivr.net/sortable/1.4.2/Sortable.min.js"></script>
+
+
+<!-- jsDelivr :: Sortable :: Latest (http://www.jsdelivr.com/) -->
+<script src="//cdn.jsdelivr.net/sortable/latest/Sortable.min.js"></script>
+```
+
 
 ---
 
 
+<a name="jq"></a>
+### jQuery compatibility
+To assemble plugin for jQuery, perform the following steps:
+
+```bash
+  cd Sortable
+  npm install
+  grunt jquery
+```
+
+Now you can use `jquery.fn.sortable.js`:<br/>
+(or `jquery.fn.sortable.min.js` if you run `grunt jquery:min`)
+
+```js
+  $("#list").sortable({ /* options */ }); // init
+  
+  $("#list").sortable("widget"); // get Sortable instance
+  
+  $("#list").sortable("destroy"); // destroy Sortable instance
+  
+  $("#list").sortable("{method-name}"); // call an instance method
+  
+  $("#list").sortable("{method-name}", "foo", "bar"); // call an instance method with parameters
+```
+
+And `grunt jquery:mySortableFunc` → `jquery.fn.mySortableFunc.js`
+
+---
+
+
+### Contributing (Issue/PR)
+
+Please, [read this](CONTRIBUTING.md). 
+
+
+---
+
 
 ## MIT LICENSE
-Copyright 2013-2014 Lebedev Konstantin <ibnRubaXa@gmail.com>
+Copyright 2013-2015 Lebedev Konstantin <ibnRubaXa@gmail.com>
 http://rubaxa.github.io/Sortable/
 
 Permission is hereby granted, free of charge, to any person obtaining
