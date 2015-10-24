@@ -92,6 +92,7 @@ def category_save(request):
 
     return HttpResponse()
 
+
 @login_required
 @permission_required("excursions.delete_excursioncategory")
 def category_remove(request):
@@ -102,6 +103,7 @@ def category_remove(request):
         messages.warning(request, e.message)
 
     return HttpResponse()
+
 
 @login_required
 @require_in_POST("id")

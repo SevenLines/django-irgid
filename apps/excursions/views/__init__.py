@@ -1,37 +1,159 @@
 # coding=utf-8
 # Create your views here.
 import json
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
-from django.http.response import HttpResponseBadRequest
-from django.shortcuts import render, redirect
-from django.template.context import RequestContext
+from django.shortcuts import render, redirect, get_object_or_404
 
-from custom_settings.models import Setting
-from irgid.utils import require_in_POST
 from excursions.models import ExcursionCategory, Excursion, ExcursionImage
 from excursions.utils import get_price_list
 from excursions.views import ajax
 from excursions.views.base import _excursion_save, _excursion_context
+from irgid.utils import require_in_POST
+from irgid.views import TitledView
 
 
-def index(request):
-    context = _excursion_context(request)
-    context['title'] = 'Иргид - экскурсионное агентство'
-    return render(request, "excursions/main-page/index.html", context)
+class MainPageView(TitledView):
+    title = u'Иргид - экскурсионное агентство'
+    template_name = 'excursions/main-page/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(MainPageView, self).get_context_data(**kwargs)
+
+        categories = ExcursionCategory.objects.common_with_gallery(self.request.user)
+
+        context.update({
+            'categories': categories
+        })
+        return context
 
 
-def category(request, id):
-    context = _excursion_context(request)
-    c = ExcursionCategory.objects.get(pk=id)
-    context['current_category'] = c
-    context['excursions'] = c.excursions(request).order_by("title")
-    context['title'] = c.title
-    context['meta'] = {
-        'description': u"Категория: %s; Описание: %s"
-                       % (c.title, c.description.strip())
-    }
-    return render(request, "excursions/category/index.html", context)
+class CategoryView(TitledView):
+    template_name = 'excursions/category/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoryView, self).get_context_data(**kwargs)
+
+        c = get_object_or_404(ExcursionCategory, pk=kwargs.get('pk', None))
+
+        categories = ExcursionCategory.objects.common(self.request.user)
+
+        context.update({
+            'current_category': c,
+            'excursions': c.excursions(self.request).order_by("title"),
+            'title': c.title,
+            'categories': categories,
+            'meta': {
+                'description': u"Категория: %s; Описание: %s"
+                               % (c.title, c.description.strip())
+            }
+        })
+
+        return context
+
+
+class ExcursionItemView(TitledView):
+    template_name = "excursions/excursion/index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ExcursionItemView, self).get_context_data(**kwargs)
+
+        pk = kwargs.get('pk', None)
+
+        e = get_object_or_404(Excursion, pk=pk)
+        category = e.category
+
+        context.update({
+            'current_excursion': e,
+            'current_category': category,
+            'categories': ExcursionCategory.objects.common(self.request.user),
+            'excursions': category.excursions(self.request).order_by("title"),
+            'gallery': ExcursionImage.objects.filter(excursion_id=pk).order_by("order"),
+            'title': e.title,
+            'meta': {
+                'description': u"Экскурсия: %s; Описание: %s" % (e.title, e.short_description)
+            },
+            'price_list': json.dumps(get_price_list(e.priceList))
+        })
+
+        return context
+
+
+class ExcursionGalleryIndexView(TitledView):
+    title = u'Галерея'
+    template_name = "excursions/gallery/index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ExcursionGalleryIndexView, self).get_context_data(**kwargs)
+        c = ExcursionCategory.objects.gallery()
+
+        context.update({
+            'excursions': c.excursions(self.request).order_by("title") if c else [],
+            'current_category': c
+        })
+        return context
+
+
+class ExcursionGalleryItemView(TitledView):
+    template_name = "excursions/gallery/excursion/index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ExcursionGalleryItemView, self).get_context_data(**kwargs)
+        pk = kwargs.get('pk')
+
+        e = get_object_or_404(Excursion, pk=pk)
+        category = e.category
+
+        context.update({
+            'current_excursion': e,
+            'current_category': category,
+            'excursions': category.excursions(self.request).order_by("title"),
+            'gallery': ExcursionImage.objects.filter(excursion=e).order_by("order"),
+            'meta': {
+                'description': u"Галерея: %s; Описание: %s" % (e.title, e.short_description)
+            }
+        })
+
+        return context
+
+
+class ExcursionTravelIndexView(TitledView):
+    title = u'Путешествия'
+    template_name = "excursions/travel/index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ExcursionTravelIndexView, self).get_context_data(**kwargs)
+        c = ExcursionCategory.objects.travel()
+
+        context.update({
+            'excursions': c.excursions(self.request).order_by("title") if c else [],
+            'current_category': c
+        })
+        return context
+
+
+class ExcursionTravelItemView(TitledView):
+    template_name = "excursions/travel/excursion/index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ExcursionTravelItemView, self).get_context_data(**kwargs)
+        pk = kwargs.get('pk')
+
+        e = get_object_or_404(Excursion, pk=pk)
+        category = e.category
+
+        context.update({
+            'current_excursion': e,
+            'current_category': category,
+            'excursions': category.excursions(self.request).order_by("title"),
+            'gallery': ExcursionImage.objects.filter(excursion=e).order_by("order"),
+            'meta': {
+                'description': u"Путешествие: %s; Описание: %s" % (e.title, e.short_description)
+            }
+        })
+
+        return context
 
 
 @login_required
@@ -43,23 +165,6 @@ def category_remove(request, id):
         messages.warning(request, e.message)
 
     return redirect(request.META['HTTP_REFERER'])
-
-
-def excursion(request, id):
-    context = _excursion_context(request)
-    e = Excursion.objects.get(pk=id)
-    context['current_excursion'] = e
-    category = e.category
-    context['current_category'] = category
-    context['excursions'] = category.excursions(request).order_by("title")
-    context['gallery'] = ExcursionImage.objects.filter(excursion_id=id).order_by("order")
-    context['title'] = e.title
-    context['meta'] = {
-        'description': u"Экскурсия: %s; Описание: %s" % (e.title, e.short_description)
-    }
-    context['price_list'] = json.dumps(get_price_list(e.priceList))
-
-    return render(request, "excursions/excursion/index.html", context)
 
 
 @login_required
@@ -88,56 +193,3 @@ def category_save(request):
     ajax.category_save(request)
     return redirect(request.META['HTTP_REFERER'])
 
-
-def excursion_gallery_index(request):
-    context = {}
-    c = ExcursionCategory.objects.filter(pk=Setting.objects.get(key='gallery_id').get_value()).last()
-
-    context['excursions'] = c.excursions(request).order_by("title") if c else []
-    context['current_category'] = c
-    context['title'] = u'Галерея'
-    return render(request, "excursions/gallery/index.html", context)
-
-
-def excursion_travel_index(request):
-    context = {}
-    c = ExcursionCategory.objects.filter(pk=Setting.objects.get(key='travel_id').get_value()).last()
-
-    context['excursions'] = c.excursions(request).order_by("title") if c else []
-    context['current_category'] = c
-    context['title'] = u'Путешествия'
-    return render(request, "excursions/travel/index.html", context)
-
-
-def excursion_travel_item(request, id):
-    context = _excursion_context(request)
-    e = Excursion.objects.get(pk=id)
-    context['current_excursion'] = e
-    category = e.category
-    context['current_category'] = category
-    context['excursions'] = category.excursions(request).order_by("title")
-    context['gallery'] = ExcursionImage.objects.filter(excursion_id=id).order_by("order")
-    context['title'] = e.title
-    context['meta'] = {
-        'description': u"Экскурсия: %s; Описание: %s" % (e.title, e.short_description)
-    }
-    context['price_list'] = json.dumps(get_price_list(e.priceList))
-
-    return render(request, "excursions/travel/excursion/index.html", context)
-
-
-def excursion_gallery_item(request, id):
-    context = _excursion_context(request)
-    e = Excursion.objects.get(pk=id)
-    context['current_excursion'] = e
-    category = e.category
-    context['current_category'] = category
-    context['excursions'] = category.excursions(request).order_by("title")
-    context['gallery'] = ExcursionImage.objects.filter(excursion_id=id).order_by("order")
-    context['title'] = e.title
-    context['meta'] = {
-        'description': u"Экскурсия: %s; Описание: %s" % (e.title, e.short_description)
-    }
-    context['price_list'] = json.dumps(get_price_list(e.priceList))
-
-    return render(request, "excursions/gallery/excursion/index.html", context)

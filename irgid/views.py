@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.core.files.storage import FileSystemStorage
-from django.http.response import HttpResponseBadRequest, HttpResponse, HttpResponseRedirect
+from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.views.generic.base import TemplateView, View
 
@@ -34,6 +34,15 @@ def handle_uploaded_file(f):
     with open('some/file/name.txt', 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
+
+
+class TitledView(TemplateView):
+    title = ''
+
+    def get_context_data(self, **kwargs):
+        context = super(TitledView, self).get_context_data()
+        context['title'] = self.title
+        return context
 
 
 class UploadFile(LoginRequiredMixin, View):

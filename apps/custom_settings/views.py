@@ -4,10 +4,13 @@ from itertools import chain
 
 from django.http.response import HttpResponse
 from django.shortcuts import redirect
+from django.views.generic import TemplateView
 from django.views.generic.edit import UpdateView
 from django.views.generic.list import ListView
 
 from custom_settings.models import TextSetting, IntegerSetting, Setting
+
+
 
 
 class SettingsListView(ListView):

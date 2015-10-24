@@ -3,7 +3,7 @@
 <div class="category-element">
     <div class="alert-info add-button">
         <div class="e-class-description">
-            <form method="post" action="{% url "excursions.views.category_save" %}">
+            <form method="post" action="{% url "excursions:category_save" %}">
                 <div class="input-group">
                     <input name="title" class="form-control" type="text" placeholder="название новой категории">
                     {% csrf_token %}

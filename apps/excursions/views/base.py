@@ -7,9 +7,9 @@ from excursions.models import Excursion, ExcursionCategory, ExcursionImage
 
 
 def _excursion_context(request):
-    categories = ExcursionCategory.objects.all()
+    categories = ExcursionCategory.objects
     if not request.user.has_perm("excursions.change_excursion"):
-        categories = categories.filter(visible=True)
+        categories = categories.visible()
     categories = categories.order_by("order", "title")
 
     if not request.user.is_authenticated():

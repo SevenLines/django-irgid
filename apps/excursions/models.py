@@ -5,6 +5,8 @@ from django.db.models.signals import pre_delete, post_delete
 from django.dispatch.dispatcher import receiver
 from easy_thumbnails.fields import ThumbnailerImageField
 
+from excursions.managers import ExcursionsCategoryManager
+
 
 class ExcursionCategory(models.Model):
     title = models.CharField(max_length=100, default='')
@@ -15,6 +17,8 @@ class ExcursionCategory(models.Model):
 
     update_date = models.DateTimeField(auto_now=True)
     create_date = models.DateTimeField(auto_now_add=True)
+
+    objects = ExcursionsCategoryManager()
 
     def __unicode__(self):
         return self.title
