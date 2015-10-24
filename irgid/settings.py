@@ -10,12 +10,10 @@ https://docs.djangoproject.com/en/1.8/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.8/ref/settings/
 """
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-print(BASE_DIR)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
@@ -162,6 +160,18 @@ MENU = [
     ('gallery:index', u'Галерея', '^/gallery', '', False),
     ('settings', u'Настройки', '^/settings', '', True),
 ]
+
+CUSTOM_SETTINGS = {
+    'phone': (u'Телефон', '', 'String'),
+    'email': (u'Электронная почта', '', 'String'),
+    'copyright': (u'Копирайт', """
+© 2015 Экскурсионное агентство «<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Иргид</span></span>».<br>Все права защищены.
+    """, 'String'),
+    'about': (u'О нас', '', 'String'),
+    'faq': (u'FAQ', '', 'String'),
+    'gallery_id': (u'Галерея', None, 'ForeignKey', 'excursions.ExcursionCategory:title'),
+    'travel_id': (u'Путешествия', None, 'ForeignKey', 'excursions.ExcursionCategory:title'),
+}
 
 ASSETS_MODULES = [
     'irgid.assets'
