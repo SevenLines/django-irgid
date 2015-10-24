@@ -46,20 +46,12 @@ a {
 #footer {
   border-top: 1px solid #c0c0c0;
   padding: 1em 1.5em;
-  //  background-color: lighten($common_color, 0);
-  //  color: white;
-  //  a {
-  //    color: white;
-  //    text-decoration: underline;
-  //  }
-  //  text-align: center;
   overflow: hidden;
   @include transition(0.3s);
 
   @media (max-width: $width-small) {
     font-size: smaller;
   }
-  //  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .nav.nav-pills {
@@ -75,6 +67,19 @@ a {
     padding-top: 60px;
   }
 }
+
+.text-content {
+  img[style*="float:left"], img[style*="float: left"] {
+    margin-left: 0;
+    margin-right: 1em;
+  }
+  img[style*="float:right"], img[style*="float: right"] {
+    margin-left: 1em;
+    margin-right: 0;
+  }
+}
+
+
 
 .tooltip {
   .tooltip-inner {

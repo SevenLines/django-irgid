@@ -62,6 +62,13 @@ a {
       padding: 10px;
       padding-top: 60px; } }
 
+.text-content img[style*="float:left"], .text-content img[style*="float: left"] {
+  margin-left: 0;
+  margin-right: 1em; }
+.text-content img[style*="float:right"], .text-content img[style*="float: right"] {
+  margin-left: 1em;
+  margin-right: 0; }
+
 .tooltip .tooltip-inner {
   color: #000000;
   background-color: #ffffff;
@@ -131,3 +138,5 @@ a {
   @media (max-width: 800px) {
     #enter-button {
       display: none; } }
+
+/*# sourceMappingURL=style.css.map */
