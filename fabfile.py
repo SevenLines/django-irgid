@@ -36,6 +36,17 @@ def deploy():
             run("touch django.wsgi")
 
 
+def download(only_base=False):
+    # download database backup from server
+    local("scp -C {user}@{host}:{app_dir}/dump.tgz dump.tgz".format(
+        user=env.user, host=env.hosts[0], app_dir=app_dir)
+    )
+    if not only_base:
+        # download media backup from server
+        local("scp -C {user}@{host}:{app_dir}/media.tgz media.tgz".format(
+            user=env.user, host=env.hosts[0], app_dir=app_dir)
+        )
+
 def backup(only_base=False):
     local("ssh-add ~/.ssh/locum.ru")  # add ssh-key
 
@@ -52,15 +63,7 @@ def backup(only_base=False):
     if not only_base:
         local("rm -f media.tgz")
 
-    # download database backup from server
-    local("scp -C {user}@{host}:{app_dir}/dump.tgz dump.tgz".format(
-        user=env.user, host=env.hosts[0], app_dir=app_dir)
-    )
-    if not only_base:
-        # download media backup from server
-        local("scp -C {user}@{host}:{app_dir}/media.tgz media.tgz".format(
-            user=env.user, host=env.hosts[0], app_dir=app_dir)
-        )
+    download(only_base)
 
     # restore database
     local("tar xvzf dump.tgz")  # unpack archive
