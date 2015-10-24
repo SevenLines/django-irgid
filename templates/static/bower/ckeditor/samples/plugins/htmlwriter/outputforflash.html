@@ -65,7 +65,7 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 							'due to security restrictions implemented in Flash.' +
 							'\n\nPlease load the sample from a web server instead.' );
 
-					var editor = CKEDITOR.replace( 'editor1', {
+					var editor = CKEDITOR.replace( 'editor', {
 						/*
 						 * Ensure that htmlwriter plugin, which is required for this sample, is loaded.
 						 */
@@ -228,7 +228,7 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 					}
 
 					function sendToFlash() {
-						var html = CKEDITOR.instances.editor1.getData() ;
+						var html = CKEDITOR.instances.editor.getData() ;
 
 						// Quick fix for link color.
 						html = html.replace( /<a /g, '<font color="#0000FF"><u><a ' )

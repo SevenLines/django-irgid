@@ -4,8 +4,11 @@
 import os
 import json
 
+import sys
+
 gettext = lambda s: s
 PROJECT_PATH = os.path.split(os.path.abspath(os.path.dirname(__file__)))[0]
+sys.path.insert(0, os.path.join(PROJECT_PATH, 'apps'))
 
 try:
     credentials_path = ""

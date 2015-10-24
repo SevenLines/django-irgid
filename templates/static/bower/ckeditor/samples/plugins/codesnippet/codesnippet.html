@@ -171,7 +171,7 @@ CKEDITOR.inline( 'editable', {
 				height: 400
 			};
 
-			CKEDITOR.replace( 'editor1', config );
+			CKEDITOR.replace( 'editor', config );
 
 			CKEDITOR.inline( 'editable', CKEDITOR.tools.extend( {}, config, {
 				extraPlugins: 'codesnippet'
@@ -203,10 +203,10 @@ CKEDITOR.inline( 'editable', {
 				}
 
 				select.$.onchange = function() {
-					if ( CKEDITOR.instances.editor1 )
-						CKEDITOR.instances.editor1.destroy();
+					if ( CKEDITOR.instances.editor )
+						CKEDITOR.instances.editor.destroy();
 
-					CKEDITOR.replace( 'editor1', CKEDITOR.tools.extend( {}, config, {
+					CKEDITOR.replace( 'editor', CKEDITOR.tools.extend( {}, config, {
 						codeSnippet_theme: this.value
 					}, true ) );
 

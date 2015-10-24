@@ -21,18 +21,6 @@
         <div class="header">
             <nav class="navbar menu">
                 {% menu %}
-                {#                    <li class="child selected">#}
-                {#                        <a href="{% url 'excursions:index' %}">Экскурсии</a>#}
-                {#                    </li>#}
-                {#                    <li class="child sibling">#}
-                {#                        <a href="{% url 'about' %}">О нас</a>#}
-                {#                    </li>#}
-                {#                    <li class="child sibling">#}
-                {#                        <a href="{% url 'faq' %}">FAQ</a>#}
-                {#                    </li>#}
-                {#                    <li class="child sibling">#}
-                {#                        <a href="{% url 'gallery:index' %}">Галерея</a>#}
-                {#                    </li>#}
                 {% include "_/elements/weather-snippet.html" %}
                 {% if user.is_authenticated %}
                     <div class="pull-right hidden-sm hidden-xs" style="padding-top: 0.5em">

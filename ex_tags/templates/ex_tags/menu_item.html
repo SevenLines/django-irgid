@@ -1,9 +1,0 @@
-{% load static %}
-<li class="{% if active %}active{% endif %}{% if touchable %} touchable{% endif %}">
-    <a href="{{ href }}">
-        {% if img %}
-            <img src="{% static img %}">
-        {% endif %}
-        {{ title }}
-    </a>
-</li>

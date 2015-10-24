@@ -1,0 +1,25 @@
+{% load custom_settings_tags %}
+{% if user.is_authenticated %}
+    <textarea name="editor" id="editor" rows="40" cols="80">
+        {% custom_setting custom_settings_key %}
+    </textarea>
+    <script src="/static/bower/ckeditor/ckeditor.js"></script>
+    <script>
+        var editor = CKEDITOR.inline('editor');
+        console.log(editor);
+        editor.addCommand("saveCommand", { // create named command
+            exec: function (edt) {
+                alert(edt.getData());
+            }
+        });
+
+        editor.ui.addButton('SaveButton', { // add new button and bind our command
+            label: "save",
+            command: 'saveCommand',
+            toolbar: 'editing',
+            icon: 'https://avatars1.githubusercontent.com/u/5500999?v=2&s=16'
+        });
+    </script>
+{% else %}
+    {% custom_setting custom_settings_key %}
+{% endif %}
