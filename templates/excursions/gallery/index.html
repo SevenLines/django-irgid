@@ -1,8 +1,6 @@
 {% extends "excursions/base.html" %}
-{% load static sekizai_tags %}
-{% load static thumbnail  %}
+{% load static sekizai_tags thumbnail custom_settings_tags %}
 {% block ex_content %}
-
     {% for e in excursions %}
         <div class="categories-list">
             <div class="gallery-item-element">
@@ -17,6 +15,8 @@
                 </a>
             </div>
         </div>
+    {% empty %}
+        {% custom_setting 'excuse_for_not_exists' %}
     {% endfor %}
 {% endblock %}
 s

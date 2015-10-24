@@ -170,6 +170,7 @@ CUSTOM_SETTINGS = {
     """, 'String'),
     'about': (u'О нас', '', 'String'),
     'faq': (u'FAQ', '', 'String'),
+    'excuse_for_not_exists': (u'Извенение', "<h2 style='text-align: center;'>Этот раздел сейчас в разработке</h2>", 'String'),
     'gallery_id': (u'Галерея', None, 'ForeignKey', 'excursions.ExcursionCategory:title'),
     'travel_id': (u'Путешествия', None, 'ForeignKey', 'excursions.ExcursionCategory:title'),
 }

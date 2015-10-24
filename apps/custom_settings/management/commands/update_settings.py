@@ -6,11 +6,10 @@ from custom_settings.models import TextSetting, IntegerSetting
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        for s in settings.CUSTOM_SETTINGS:
-            type = s[3]
-            key = s[0]
-            title = s[1]
-            value = s[2]
+        for key, s in settings.CUSTOM_SETTINGS.items():
+            title = s[0]
+            value = s[1]
+            type = s[2]
 
             model = None
             if type == 'String':

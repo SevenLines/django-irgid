@@ -26,6 +26,7 @@ def menu(context):
         'class': x[3],
         'login_required': x[4],
     }, settings.MENU)
+
     return render_to_string("_/elements/menu.html", {
         'menu': menu_dict
     }, context)

@@ -12,7 +12,6 @@ class ExcursionCategory(models.Model):
     visible = models.BooleanField(default=False)
     order = models.SmallIntegerField(default=0)
     image = ThumbnailerImageField(upload_to="excursions_category_img_preview", null=True, blank=True)
-    is_gallery = models.BooleanField(default=False)
 
     update_date = models.DateTimeField(auto_now=True)
     create_date = models.DateTimeField(auto_now_add=True)
