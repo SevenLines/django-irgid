@@ -1,20 +1,17 @@
 # coding=utf-8
-from cms.sitemaps.cms_sitemap import CMSSitemap
-from django.conf.urls import include, patterns, url
-from django.conf.urls.i18n import i18n_patterns
-from django.contrib import admin
 from django.conf import settings
-from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
+from django.conf.urls import include, patterns, url
+from django.contrib import admin
+from django.contrib.sitemaps import GenericSitemap
 from django.contrib.sitemaps.views import sitemap
-from django.views.generic import TemplateView
 
 import custom_settings.urls
-from irgid.views import TemplateViewEx
-from excursions.models import Excursion, ExcursionCategory
 import excursions.urls.excursions
 import excursions.urls.gallery
 import excursions.views.base
 import sharedcontroll.urls
+from excursions.models import Excursion, ExcursionCategory
+from irgid.views import TemplateViewEx
 
 admin.autodiscover()
 

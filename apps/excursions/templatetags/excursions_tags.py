@@ -19,7 +19,13 @@ def min_to_hours(value):
 @register.simple_tag(takes_context=True)
 def menu(context):
     path = context['request'].path
-    menu_dict = map(lambda x: {'url': reverse(x[0]), 'title': x[1], 'selected': re.match(x[2], path)}, settings.MENU)
+    menu_dict = map(lambda x: {
+        'url': reverse(x[0]),
+        'title': x[1],
+        'selected': re.match(x[2], path),
+        'class': x[3],
+        'login_required': x[4],
+    }, settings.MENU)
     return render_to_string("_/elements/menu.html", {
         'menu': menu_dict
-    })
+    }, context)

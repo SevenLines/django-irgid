@@ -12,15 +12,15 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='ExcursionCategoryPluginModel',
-            fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
-                ('category', models.ForeignKey(to='excursions.ExcursionCategory')),
-            ],
-            options={
-                'abstract': False,
-            },
-            bases=('cms.cmsplugin',),
-        ),
+        # migrations.CreateModel(
+        #     name='ExcursionCategoryPluginModel',
+        #     fields=[
+        #         ('cmsplugin_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+        #         ('category', models.ForeignKey(to='excursions.ExcursionCategory')),
+        #     ],
+        #     options={
+        #         'abstract': False,
+        #     },
+        #     bases=('cms.cmsplugin',),
+        # ),
     ]

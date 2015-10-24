@@ -9,7 +9,15 @@
         console.log(editor);
         editor.addCommand("saveCommand", { // create named command
             exec: function (edt) {
-                alert(edt.getData());
+                var text = edt.getData();
+                $.post('{% url "settings-update-by-key" custom_settings_key %}', {
+                    'value': text,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                }).done(function () {
+                    InterfaceAlerts.showSuccess();
+                }).fail(function () {
+                    InterfaceAlerts.showFail();
+                });
             }
         });
 

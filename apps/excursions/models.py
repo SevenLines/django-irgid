@@ -1,5 +1,4 @@
 # coding=utf-8
-from cms.models.pluginmodel import CMSPlugin
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import pre_delete, post_delete

@@ -20,6 +20,7 @@ class SettingsListView(ListView):
 
 class SettingEditView(UpdateView):
     model = TextSetting
+    slug_field = 'key'
     fields = ['value', ]
 
     def post(self, request, *args, **kwargs):
