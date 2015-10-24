@@ -1,0 +1,23 @@
+<div class="excursions-list">
+
+    {% if user.is_authenticated %}
+        <hr>
+        {% include "excursions/category/add-excursion-form.html" %}
+        <hr>
+    {% endif %}
+
+    {% for e in excursions %}
+        <div class="excursion">
+            {% include "excursions/travel/category-excursion-item.html" %}
+        </div>
+    {% endfor %}
+    {% if user.is_authenticated %}
+        <hr>
+        {% include "excursions/category/add-excursion-form.html" %}
+    {% endif %}
+
+</div>
+
+{% if user.is_authenticated %}
+    {% include "excursions/category/modal-excursion.html" %}
+{% endif %}

@@ -1,0 +1,10 @@
+{% extends "excursions/base.html" %}
+{% load static sekizai_tags %}
+
+{% block ex_content %}
+    {% include "excursions/travel/excursion/list_gallery_items.html" %}
+    <div class="excursion-or-category-content">
+        {% include "excursions/excursion/description-excursion.html" %}
+    </div>
+{% endblock %}
+

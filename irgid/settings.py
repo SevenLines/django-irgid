@@ -155,6 +155,7 @@ except:
 # APPLICATION SETTINGS BEGIN
 MENU = [
     ('index', u'Экскурсии', '^/excursions|^$|^/$', '', False),
+    ('travel:index', u'Путешествия', '^/travel', '', False),
     ('about', u'О нас', '^/about', '', False),
     ('faq', u'FAQ', '^/faq', '', False),
     ('gallery:index', u'Галерея', '^/gallery', '', False),

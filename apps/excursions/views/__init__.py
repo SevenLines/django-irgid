@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.http.response import HttpResponseBadRequest
 from django.shortcuts import render, redirect
 from django.template.context import RequestContext
+
+from custom_settings.models import Setting
 from irgid.utils import require_in_POST
 from excursions.models import ExcursionCategory, Excursion, ExcursionImage
 from excursions.utils import get_price_list
@@ -89,12 +91,39 @@ def category_save(request):
 
 def excursion_gallery_index(request):
     context = {}
-    c = ExcursionCategory.objects.filter(is_gallery=True).last()
+    c = ExcursionCategory.objects.filter(pk=Setting.objects.get(key='gallery_id').get_value()).last()
 
     context['excursions'] = c.excursions(request).order_by("title") if c else []
     context['current_category'] = c
     context['title'] = u'Галерея'
     return render(request, "excursions/gallery/index.html", context)
+
+
+def excursion_travel_index(request):
+    context = {}
+    c = ExcursionCategory.objects.filter(pk=Setting.objects.get(key='travel_id').get_value()).last()
+
+    context['excursions'] = c.excursions(request).order_by("title") if c else []
+    context['current_category'] = c
+    context['title'] = u'Путешествия'
+    return render(request, "excursions/travel/index.html", context)
+
+
+def excursion_travel_item(request, id):
+    context = _excursion_context(request)
+    e = Excursion.objects.get(pk=id)
+    context['current_excursion'] = e
+    category = e.category
+    context['current_category'] = category
+    context['excursions'] = category.excursions(request).order_by("title")
+    context['gallery'] = ExcursionImage.objects.filter(excursion_id=id).order_by("order")
+    context['title'] = e.title
+    context['meta'] = {
+        'description': u"Экскурсия: %s; Описание: %s" % (e.title, e.short_description)
+    }
+    context['price_list'] = json.dumps(get_price_list(e.priceList))
+
+    return render(request, "excursions/travel/excursion/index.html", context)
 
 
 def excursion_gallery_item(request, id):

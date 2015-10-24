@@ -8,6 +8,7 @@ from django.contrib.sitemaps.views import sitemap
 import custom_settings.urls
 import excursions.urls.excursions
 import excursions.urls.gallery
+import excursions.urls.travel
 import excursions.views.base
 import sharedcontroll.urls
 from excursions.models import Excursion, ExcursionCategory
@@ -36,6 +37,7 @@ urlpatterns = patterns('',
     url(r'^upload-image/', UploadFile.as_view(), name='upload-image'),
     url(r'^excursions/', include(excursions.urls.excursions, namespace='excursions', app_name='excursions')),
     url(r'^gallery/', include(excursions.urls.gallery, namespace='gallery', app_name='excursions')),
+    url(r'^travel/', include(excursions.urls.travel, namespace='travel', app_name='excursions')),
 
     # for old urls comaptability
     url(r'^excursions-app/', include(excursions.urls.excursions)),

@@ -35,7 +35,7 @@ class SettingEditView(UpdateView):
         obj.value = request.POST['value'] if request.POST['value'] != '-' else None
         obj.save()
 
-        if request.is_ajax:
+        if request.is_ajax():
             return HttpResponse()
         else:
             return redirect(self.get_success_url())
