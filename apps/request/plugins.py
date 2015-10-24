@@ -4,7 +4,7 @@ from django.db import connection
 from django.db.models import Count
 from django.utils.translation import string_concat, ugettext, ugettext_lazy as _
 from django.template.loader import render_to_string
-from app.utils import dictfetchall
+from irgid.utils import dictfetchall
 
 from request import settings
 from request.models import Request

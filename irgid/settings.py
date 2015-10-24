@@ -123,10 +123,10 @@ MIDDLEWARE_CLASSES = (
     'request.middleware.RequestMiddleware',
 )
 
-ROOT_URLCONF = 'app.urls'
+ROOT_URLCONF = 'irgid.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'app.wsgi.application'
+WSGI_APPLICATION = 'irgid.wsgi.application'
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, "templates"),
@@ -148,7 +148,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.core.context_processors.media',
     'django.core.context_processors.static',
-    'app.context_processors.debug',
+    'irgid.context_processors.debug',
     'sekizai.context_processors.sekizai',
 )
 
@@ -161,7 +161,7 @@ THUMBNAIL_PROCESSORS = (
 )
 
 ASSETS_MODULES = [
-    'app.assets'
+    'irgid.assets'
 ]
 
 THUMBNAIL_DEBUG = False

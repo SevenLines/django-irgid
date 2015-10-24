@@ -9,7 +9,7 @@ from django.contrib.sitemaps.views import sitemap
 from django.views.generic import TemplateView
 
 import custom_settings.urls
-from app.views import TemplateViewEx
+from irgid.views import TemplateViewEx
 from excursions.models import Excursion, ExcursionCategory
 import excursions.urls.excursions
 import excursions.urls.gallery

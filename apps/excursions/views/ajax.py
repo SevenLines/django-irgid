@@ -6,7 +6,7 @@ from django.core.files.base import ContentFile
 from django.db.transaction import atomic
 from django.http.response import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render
-from app.utils import require_in_POST, require_in_GET
+from irgid.utils import require_in_POST, require_in_GET
 from excursions.models import Excursion, ExcursionImage, ExcursionCategory
 from excursions.views.base import _excursion_save, _excursion_context
 

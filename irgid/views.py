@@ -5,7 +5,7 @@ from django.http.response import HttpResponseBadRequest, HttpResponse
 from django.shortcuts import redirect
 from django.views.generic.base import TemplateView
 
-from app.utils import require_in_POST
+from irgid.utils import require_in_POST
 
 __author__ = 'm'
 

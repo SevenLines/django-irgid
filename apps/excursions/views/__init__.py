@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.http.response import HttpResponseBadRequest
 from django.shortcuts import render, redirect
 from django.template.context import RequestContext
-from app.utils import require_in_POST
+from irgid.utils import require_in_POST
 from excursions.models import ExcursionCategory, Excursion, ExcursionImage
 from excursions.utils import get_price_list
 from excursions.views import ajax

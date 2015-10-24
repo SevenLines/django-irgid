@@ -1,4 +1,4 @@
-from app.settings import credentials
+from irgid.settings import credentials
 
 DEBUG = credentials['DEBUG'] == '1'
 TEMPLATE_DEBUG = DEBUG
