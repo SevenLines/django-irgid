@@ -36,7 +36,6 @@ INSTALLED_APPS = (
 
     'excursions',
     'django_assets',
-    'setup_irgid',
     'ex_tags',
     'utils',
     'request',
