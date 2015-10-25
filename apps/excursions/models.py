@@ -21,7 +21,7 @@ class ExcursionCategory(models.Model):
     objects = ExcursionsCategoryManager()
 
     def __unicode__(self):
-        return self.title
+        return u"{title}|{id}".format(**self.__dict__)
 
     def excursions(self, request):
         if not request.user.is_authenticated():
@@ -63,6 +63,9 @@ class Excursion(models.Model):
 
     def get_absolute_url(self):
         return reverse("excursions.views.excursion", args=[self.pk])
+
+    def __unicode__(self):
+        return u"{title}|{id}".format(**self.__dict__)
 
 
 class ExcursionImage(models.Model):

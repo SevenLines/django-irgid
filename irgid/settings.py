@@ -33,6 +33,7 @@ INSTALLED_APPS = (
     'sekizai',  # for javascript and css management
     'filer',
     'easy_thumbnails',
+    'django_extensions',
 
     'excursions',
     'django_assets',

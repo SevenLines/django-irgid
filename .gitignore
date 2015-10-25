@@ -6,8 +6,10 @@ dump.*
 media/*
 static/*
 .idea/*
+*.ipynb
 node_modules/
 local_settings.py
+.ipynb_checkpoints
 
 credentials.json
 env
