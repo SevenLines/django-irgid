@@ -1,0 +1,92 @@
+{% load custom_settings_tags static %}
+<div class="text-content">
+    {% if user.is_authenticated %}
+        <style>
+            .cke_button.cke_button__image.cke_button_off {
+                display: none !important;
+            }
+        </style>
+        <div id="toolbar"></div>
+        <div style="margin-top: 10px" name="editor" id="editor" contenteditable="true">
+        {% custom_setting custom_settings_key %}
+        </div>
+        <div id="statusbar"></div>
+
+        <form action="{% url "upload-image" %}" name="upload-file-form" id="upload-file-form" method="post"
+          enctype="multipart/form-data">
+        <input type="file" name='file' id="upload-file" style="visibility: hidden">
+        {% csrf_token %}
+        </form>
+        <script src="/static/bower/ckeditor/ckeditor.js"></script>
+        <script>
+            CKEDITOR.disableAutoInline = true;
+            var editor = CKEDITOR.inline('editor', {
+                extraPlugins: 'justify,sharedspace,pastefromword,colorbutton',
+                removePlugins: 'maximize,resize',
+                {#            removeButtons: 'Image',#}
+                sharedSpaces: {
+                    top: 'toolbar',
+                    bottom: 'statusbar'
+                },
+            });
+
+            $('#upload-file-form').submit(function (e) {
+                $.ajax({
+                    url: this.action,
+                    type: 'POST',
+                    data: new FormData(this),
+                    processData: false,
+                    contentType: false
+                }).done(function (r) {
+                    console.log(r);
+                    editor.insertHtml("<img src='" + r + "' />")
+                });
+                console.log("123");
+                e.preventDefault();
+                return false;
+            });
+
+            editor.addCommand("saveCommand", { // create named command
+                exec: function (edt) {
+                    var text = edt.getData();
+                    $.post('{% url "settings-update-by-key" custom_settings_key %}', {
+                        'value': text,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    }).done(function () {
+                        InterfaceAlerts.showSuccess();
+                    }).fail(function () {
+                        InterfaceAlerts.showFail();
+                    });
+                }
+            });
+
+            editor.addCommand("imageUpload", {
+                exec: function () {
+                    var fileInput = $('#upload-file');
+
+                    fileInput.on('change', function () {
+                        $(this.form).submit();
+                    });
+
+                    fileInput.click();
+                }
+            });
+
+            editor.ui.addButton('SaveButton', { // add new button and bind our command
+                label: "save",
+                command: 'saveCommand',
+                toolbar: 'editing',
+                icon: '{% static "images/save.png" %}'
+            });
+
+            editor.ui.addButton('UploadImageButton', { // add new button and bind our command
+                label: "image",
+                command: 'imageUpload',
+                toolbar: 'editing',
+                icon: '{% static "images/icon_picture.png" %}'
+            });
+        </script>
+    {% else %}
+        {% custom_setting custom_settings_key %}
+    {% endif %}
+</div>

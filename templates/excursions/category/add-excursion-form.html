@@ -1,0 +1,12 @@
+<form role="form" method="post" action="{% url "excursions:save" %}">
+    {% csrf_token %}
+    <div class="input-group">
+        <input class="form-control" placeholder="название" type="text" name="title">
+        <span class="input-group-btn">
+            <button type="submit" class="btn btn-primary pull-right">
+                <span class="glyphicon glyphicon-plus"> Добавить экскурсию</span>
+            </button>
+        </span>
+    </div>
+    <input hidden="" name="category_id" value="{{ current_category.pk }}">
+</form>

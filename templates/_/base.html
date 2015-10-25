@@ -1,4 +1,4 @@
-{% load cms_tags sekizai_tags menu_tags static ex_tags custom_settings_tags %}
+{% load sekizai_tags static ex_tags custom_settings_tags excursions_tags %}
 <!DOCTYPE html>
 <!--[if lt IE 7]><html class="lt-ie9 lt-ie8 lt-ie7"><![endif]-->
 <!--[if IE 7]><html class="lt-ie9 lt-ie8"><![endif]-->
@@ -7,7 +7,7 @@
 <html><!--<![endif]-->
 <head lang="ru">
     {% include "_/elements/meta.html" %}
-    <title>{% if title %}{{ title }}{% else %}{% page_attribute "page_title" %}{% endif %}</title>
+    <title>{% if title %}{{ title }}{% else %}{% endif %}</title>
     <link rel="shortcut icon" href="{% static "images/icon.png" %}"/>
     {% include "_/elements/styles.html" %}
     {% include "_/elements/scripts.html" %}
@@ -16,21 +16,14 @@
 </head>
 <body>
 
-{% cms_toolbar %}
-
 <div class="container">
     <div class="container-content">
         <div class="header">
             <nav class="navbar menu">
-                <ul class="nav nav-pills pull-left">
-                    {% show_menu 0 100 100 100 %}
-                </ul>
+                {% menu %}
                 {% include "_/elements/weather-snippet.html" %}
                 {% if user.is_authenticated %}
                     <div class="pull-right hidden-sm hidden-xs" style="padding-top: 0.5em">
-                        <a href="{% url "settings" %}" class="btn btn-default">
-                                Настройки
-                        </a>
                         привет, <b>{{ request.user }}</b>
                         {% if user.is_superuser %}
                             | <a href="/admin">админка</a>
@@ -43,7 +36,6 @@
         <div id="content">
             {% block content %}
             {% endblock content %}
-            {% placeholder "plugins" %}
             <div style="clear:both;"></div>
         </div>
 

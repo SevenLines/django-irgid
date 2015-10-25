@@ -220,6 +220,7 @@ img {
 	margin-right: 10px;
 	font: bold 20px Sans-Serif;
 	color: #5F9EDF;
+	display: inline-block;
 	cursor: move;
 	cursor: -webkit-grabbing;  /* overrides 'move' */
 }
@@ -229,4 +230,10 @@ img {
 	font-size: 14px;
 	font-family: 'Roboto', sans-serif;
 	font-weight: 300;
+}
+
+
+
+#nested ul li {
+	background-color: rgba(0,0,0,.05);
 }

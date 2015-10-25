@@ -1,0 +1,162 @@
+{% load static sekizai_tags thumbnail %}
+{#<form id="excursion-save-form" method="post" action="{% url "excursions.views.ajax.excursion_save" %}">#}
+<div id="excursion-content" xmlns="http://www.w3.org/1999/html">
+    <form class="excursion-form" action="{% url "excursions.views.ajax.excursion_save" %}">
+        <div style="clear:right"></div>
+
+        <div>
+            <table style="width: 100%;table-layout: fixed">
+                <tr>
+                    <td style="width:75%;">
+                        <!-- НАЗВАНИЕ ЭКСКУРСИИ -->
+                        <h2 contenteditable="true" id="excursion-title">{{ current_excursion.title|default:"..." }}</h2>
+                        <!-- конец НАЗВАНИЕ ЭКСКУРСИИ -->
+
+                        <!-- КРАТКОЕ ОПИСАНИЕ ЭКСКУРСИИ -->
+                        <div id="excursion-short-description" contenteditable="true">
+                            {{ current_excursion.short_description|safe|default:"..." }}
+                        </div>
+                        <!-- конец КРАТКОЕ ОПИСАНИЕ ЭКСКУРСИИ -->
+                    </td>
+                    <td style="padding-left:5px;width: 25%;text-align: right">
+                        <!-- ГЛАВНАЯ КАРТИНКА ЭКСКУРСИИ -->
+                        <div>
+                            {% if  current_excursion.img_preview %}
+                                {% thumbnail current_excursion.img_preview 150x150 as thumb %}
+                            {% endif %}
+                            <img name="image"
+                                 src="{{ thumb.url }}"
+                                 style="max-width: 100%;border-radius: 0.25em;cursor: pointer"/>
+                            <input type="file" name="small_image" accept="image/*" class="image-selector"
+                                   style="display: none;">
+                        </div>
+                        <!-- конец ГЛАВНАЯ КАРТИНКА ЭКСКУРСИИ -->
+                    </td>
+                </tr>
+            </table>
+            <hr>
+
+            <span class="label label-success">Добавлено: {{ current_excursion.create_date }}</span>
+            <span class="label label-default">Обновлено: {{ current_excursion.update_date }}</span>
+            <span class="pull-right">
+            {% include "excursions/excursion/save-button.html" %}
+            </span>
+
+            <div style="clear:right"></div>
+            <hr>
+            <div class="form-inline">
+                <div class="input-group  input-group-sm">
+                    <span class="input-group-addon">Продолжительность</span>
+                    <input class="form-control" type="number" name="time_length"
+                           value="{{ current_excursion.time_length }}">
+                    <span class="input-group-addon">минут</span>
+                </div>
+                <div class="input-group  input-group-sm">
+                    <span class="input-group-addon">Ограничение по возрасту</span>
+                    <input class="form-control" type="number" name="min_age" value="{{ current_excursion.min_age }}">
+                </div>
+            </div>
+            <hr>
+
+            <!-- ГАЛЕРЕЯ -->
+            <div id="gallery-item-template" style="display: none;">
+                <div class="excursion-gallery-item">
+                    <div>
+                        <div class="remove">
+                            <div class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </div>
+                        </div>
+                        <img src=""/>
+                        <input type="file" accept="image/*">
+                    </div>
+                </div>
+            </div>
+            <div class="excursion-gallery">
+                <div class="images">
+                    {% for img in gallery %}
+                        <div class="excursion-gallery-item" data-id="{{ img.id }}">
+                            <div>
+                                <div class="remove"
+                                     data-action="{% url "excursions:ajax_image_remove" img.id %}">
+                                    <div class="btn btn-danger btn-sm">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </div>
+                                </div>
+                                {% thumbnail img.image 0x150 as thumb %}
+                                <a href="{{ img.image.url }}">
+                                    <img class="lazy" data-original="{{ thumb.url }}"/>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="excursion-gallery-item">
+                    <div id="add-image">+</div>
+                </div>
+            </div>
+            <div style="clear:right"></div>
+            <!-- конец ГАЛЕРЕЯ -->
+
+            <!-- ЦЕНЫ -->
+            <div id="price-edit" style="float: right;width:200px;padding-left: 1em">
+                <h3 style="margin-top: 0">Цены:</h3>
+                <textarea rows="9" style="max-width: 100%;min-width: 100%;" class="form-control"
+                          id="excursion-price-list"
+                          name="priceList">{{ current_excursion.priceList|safe }}</textarea>
+
+                <div style="float: right;margin-top: 1em">
+                    {% include "excursions/excursion/save-button.html" %}
+                </div>
+            </div>
+            <!-- конец ЦЕНЫ -->
+
+            <!-- ПОДРОБНОЕ ОПИСАНИЕ ЭКУСКУРСИИ -->
+            <div contenteditable="true" id="excursion-description"
+                 style="margin-right: 200px; padding-right: 1em; border-right: 1px solid #808080">
+                {{ current_excursion.description|safe|default:"..." }}
+            </div>
+            <hr>
+            {% include "excursions/excursion/save-button.html" %}
+            <!-- конец ПОДРОБНОЕ ОПИСАНИЕ ЭКУСКУРСИИ -->
+        </div>
+        <div style="clear:right"></div>
+        <hr>
+        <div class="input-group" id="yandex-map-holder" style="margin-bottom: 0.5em">
+            {#            <span class="input-group-addon">Код из конструктора карт</span>#}
+            <span class="input-group-btn">
+                <a href="https://tech.yandex.ru/maps/tools/constructor/" class="btn btn-primary" type="button"
+                   target="_blank">Конструктор карты</a>
+            </span>
+            <input class="form-control" type="text" id="yandexmapscript-input" name="yandexmapscript"
+                   placeholder="скопируй сгенерированный код сюда" value="{{ current_excursion.yandex_map_script }}">
+            <span class="input-group-btn">
+                <button id="yandex-map-update-button" class="btn btn-success" type="button">
+                    Обновить
+                </button>
+            </span>
+        </div>
+        {% with current_excursion.yandex_map_script as map_id %}
+            {% include "excursions/excursion/map-element.html" %}
+        {% endwith %}
+        <hr>
+
+    </form>
+    {% addtoblock "footerjs" %}
+    {% endaddtoblock %}
+    <script src="{% static "bower/ckeditor/ckeditor.js" %}"></script>
+
+    {% addtoblock "footerjs" %}
+        <script>
+            new ExcursionModel({
+                id: {{ current_excursion.id }},
+                csrf: '{{ csrf_token }}'
+            });
+
+            var gallery = $(".excursion-gallery .images")[0];
+            new Sortable(gallery, {
+                animation: 300,
+            });
+        </script>
+    {% endaddtoblock %}
+</div>

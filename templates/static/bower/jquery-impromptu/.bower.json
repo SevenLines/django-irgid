@@ -1,6 +1,6 @@
 {
   "name": "jquery-impromptu",
-  "version": "6.0.0",
+  "version": "6.2.1",
   "main": [
     "dist/jquery-impromptu.css",
     "dist/jquery-impromptu.js"
@@ -21,11 +21,11 @@
     "jquery": ">=1.6"
   },
   "homepage": "https://github.com/trentrichardson/jQuery-Impromptu",
-  "_release": "6.0.0",
+  "_release": "6.2.1",
   "_resolution": {
     "type": "version",
-    "tag": "v6.0.0",
-    "commit": "00353fcad1902038437cf194f67a43e045c36045"
+    "tag": "v6.2.1",
+    "commit": "8414062620821b2ec7a80e26384e6b52cd60a479"
   },
   "_source": "git://github.com/trentrichardson/jQuery-Impromptu.git",
   "_target": "~6",

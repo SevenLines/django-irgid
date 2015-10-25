@@ -1,0 +1,8 @@
+<div class="e-categories list-group">
+    {% for c in categories %}
+        <a class="e-category list-group-item{% if c.pk == current_category.pk %} active{% endif %}"
+           {% if c.pk != current_category.pk %}href="{% url "excursions:category" c.pk %}{% endif %}" >
+            {{ c.title }}
+        </a>
+    {% endfor %}
+</div>

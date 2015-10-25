@@ -2,119 +2,190 @@
  * @author RubaXa <trash@rubaxa.org>
  * @licence MIT
  */
-angular.module('ng-sortable', [])
-	.constant('$version', '0.3.2')
-	.directive('ngSortable', ['$parse', function ($parse) {
-		'use strict';
+(function (factory) {
+	'use strict';
 
-		var removed;
+	if (typeof define === 'function' && define.amd) {
+		define(['angular', './Sortable'], factory);
+	}
+	else if (typeof require === 'function' && typeof exports === 'object' && typeof module === 'object') {
+		require('angular');
+		factory(angular, require('./Sortable'));
+		module.exports = 'ng-sortable';
+	}
+	else if (window.angular && window.Sortable) {
+		factory(angular, Sortable);
+	}
+})(function (angular, Sortable) {
+	'use strict';
 
-		function getSource(el) {
-			var scope = angular.element(el).scope();
-			var ngRepeat = [].filter.call(el.childNodes, function (node) {
-				return (
-						(node.nodeType === 8) &&
-						(node.nodeValue.indexOf('ngRepeat:') !== -1)
-					);
-			})[0];
-			ngRepeat = ngRepeat.nodeValue.match(/ngRepeat:\s*([^\s]+)\s+in\s+([^\s|]+)/);
 
-			var itemExpr = $parse(ngRepeat[1]);
-			var itemsExpr = $parse(ngRepeat[2]);
+	/**
+	 * @typedef   {Object}        ngSortEvent
+	 * @property  {*}             model      List item
+	 * @property  {Object|Array}  models     List of items
+	 * @property  {number}        oldIndex   before sort
+	 * @property  {number}        newIndex   after sort
+	 */
 
+	var expando = 'Sortable:ng-sortable';
+
+	angular.module('ng-sortable', [])
+		.constant('ngSortableVersion', '0.4.0')
+		.constant('ngSortableConfig', {})
+		.directive('ngSortable', ['$parse', 'ngSortableConfig', function ($parse, ngSortableConfig) {
+			var removed,
+				nextSibling,
+				getSourceFactory = function getSourceFactory(el, scope) {
+					var ngRepeat = [].filter.call(el.childNodes, function (node) {
+						return (
+								(node.nodeType === 8) &&
+								(node.nodeValue.indexOf('ngRepeat:') !== -1)
+							);
+					})[0];
+
+					if (!ngRepeat) {
+						// Without ng-repeat
+						return function () {
+							return null;
+						};
+					}
+
+					// tests: http://jsbin.com/kosubutilo/1/edit?js,output
+					ngRepeat = ngRepeat.nodeValue.match(/ngRepeat:\s*(?:\(.*?,\s*)?([^\s)]+)[\s)]+in\s+([^\s|]+)/);
+
+					var itemsExpr = $parse(ngRepeat[2]);
+
+					return function () {
+						return itemsExpr(scope.$parent) || [];
+					};
+				};
+
+
+			// Export
 			return {
-				item: function (el) {
-					return itemExpr(angular.element(el).scope());
-				},
-				items: function () {
-					return itemsExpr(scope);
-				}
-			};
-		}
+				restrict: 'AC',
+				scope: { ngSortable: "=?" },
+				link: function (scope, $el) {
+					var el = $el[0],
+						options = angular.extend(scope.ngSortable || {}, ngSortableConfig),
+						watchers = [],
+						getSource = getSourceFactory(el, scope),
+						sortable
+					;
 
+					el[expando] = getSource;
 
-		// Export
-		return {
-			restrict: 'AC',
-			link: function (scope, $el, attrs) {
-				var el = $el[0],
-					ngSortable = attrs.ngSortable,
-					options = scope.$eval(ngSortable) || {},
-					source = getSource(el),
-					sortable
-				;
+					function _emitEvent(/**Event*/evt, /*Mixed*/item) {
+						var name = 'on' + evt.type.charAt(0).toUpperCase() + evt.type.substr(1);
+						var source = getSource();
 
-
-				'Start End Add Update Remove Sort'.split(' ').forEach(function (name) {
-					options['on' + name] = options['on' + name] || function () {};
-				});
-
-
-				function _sync(evt) {
-					var oldIndex = evt.oldIndex,
-						newIndex = evt.newIndex,
-						items = source.items();
-
-					if (el !== evt.from) {
-						var prevSource = getSource(evt.from),
-							prevItems = prevSource.items();
-
-						oldIndex = prevItems.indexOf(prevSource.item(evt.item));
-						removed = prevItems.splice(oldIndex, 1)[0];
-
-						items.splice(newIndex, 0, removed);
-
-						evt.from.appendChild(evt.item); // revert element
-					} else {
-						items.splice(newIndex, 0, items.splice(oldIndex, 1)[0]);
+						/* jshint expr:true */
+						options[name] && options[name]({
+							model: item || source[evt.newIndex],
+							models: source,
+							oldIndex: evt.oldIndex,
+							newIndex: evt.newIndex
+						});
 					}
 
-					scope.$apply();
-				}
 
+					function _sync(/**Event*/evt) {
+						var items = getSource();
 
-				sortable = Sortable.create(el, Object.keys(options).reduce(function (opts, name) {
-					opts[name] = opts[name] || options[name];
-					return opts;
-				}, {
-					onStart: function () {
-						options.onStart(source.items());
-					},
-					onEnd: function () {
-						options.onEnd(source.items());
-					},
-					onAdd: function (evt) {
-						_sync(evt);
-						options.onAdd(source.items(), removed);
-					},
-					onUpdate: function (evt) {
-						_sync(evt);
-						options.onUpdate(source.items(), source.item(evt.item));
-					},
-					onRemove: function () {
-						options.onRemove(source.items(), removed);
-					},
-					onSort: function () {
-						options.onSort(source.items());
+						if (!items) {
+							// Without ng-repeat
+							return;
+						}
+
+						var oldIndex = evt.oldIndex,
+							newIndex = evt.newIndex;
+
+						if (el !== evt.from) {
+							var prevItems = evt.from[expando]();
+
+							removed = prevItems[oldIndex];
+
+							if (evt.clone) {
+								removed = angular.copy(removed);
+								prevItems.splice(Sortable.utils.index(evt.clone), 0, prevItems.splice(oldIndex, 1)[0]);
+								evt.from.removeChild(evt.clone);
+							}
+							else {
+								prevItems.splice(oldIndex, 1);
+							}
+
+							items.splice(newIndex, 0, removed);
+
+							evt.from.insertBefore(evt.item, nextSibling); // revert element
+						}
+						else {
+							items.splice(newIndex, 0, items.splice(oldIndex, 1)[0]);
+						}
+
+						scope.$apply();
 					}
-				}));
 
-				$el.on('$destroy', function () {
-					sortable.destroy();
-					sortable = null;
-				});
 
-				if (!/{|}/.test(ngSortable)) { // todo: ugly
-					angular.forEach(['sort', 'disabled', 'draggable', 'handle', 'animation'], function (name) {
-						scope.$watch(ngSortable + '.' + name, function (value) {
+					sortable = Sortable.create(el, Object.keys(options).reduce(function (opts, name) {
+						opts[name] = opts[name] || options[name];
+						return opts;
+					}, {
+						onStart: function (/**Event*/evt) {
+							nextSibling = evt.item.nextSibling;
+							_emitEvent(evt);
+							scope.$apply();
+						},
+						onEnd: function (/**Event*/evt) {
+							_emitEvent(evt, removed);
+							scope.$apply();
+						},
+						onAdd: function (/**Event*/evt) {
+							_sync(evt);
+							_emitEvent(evt, removed);
+							scope.$apply();
+						},
+						onUpdate: function (/**Event*/evt) {
+							_sync(evt);
+							_emitEvent(evt);
+						},
+						onRemove: function (/**Event*/evt) {
+							_emitEvent(evt, removed);
+						},
+						onSort: function (/**Event*/evt) {
+							_emitEvent(evt);
+						}
+					}));
+
+					$el.on('$destroy', function () {
+						angular.forEach(watchers, function (/** Function */unwatch) {
+							unwatch();
+						});
+
+						sortable.destroy();
+
+						el[expando] = null;
+						el = null;
+						watchers = null;
+						sortable = null;
+						nextSibling = null;
+					});
+
+					angular.forEach([
+						'sort', 'disabled', 'draggable', 'handle', 'animation', 'group', 'ghostClass', 'filter',
+						'onStart', 'onEnd', 'onAdd', 'onUpdate', 'onRemove', 'onSort'
+					], function (name) {
+						watchers.push(scope.$watch('ngSortable.' + name, function (value) {
 							if (value !== void 0) {
 								options[name] = value;
-								sortable.option(name, value);
+
+								if (!/^on[A-Z]/.test(name)) {
+									sortable.option(name, value);
+								}
 							}
-						});
+						}));
 					});
 				}
-			}
-		};
-	}])
-;
+			};
+		}]);
+});

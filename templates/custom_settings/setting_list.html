@@ -1,0 +1,36 @@
+{% extends '_/base.html' %}
+
+{% block content %}
+    {% for setting in object_list|dictsort:'title' %}
+        {% if setting.key != 'about' and setting.key != 'faq' %}
+            <form action="{% url 'settings-update' setting.id %}" class="form" method="post">
+                <div class="form-group">
+                    {% if setting.type == 'ForeignKey' %}
+                        <div class="input-group">
+                            <div class="input-group-addon">{{ setting.title }}</div>
+                            <select name="value" id="" class="form-control" onchange="this.form.submit();">
+                                <option>-</option>
+                                {% for option in setting.options %}
+                                    <option value="{{ option.pk }}" {% if setting.value == option.pk %}selected{% endif %}>
+                                        {{ option.title }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            {% csrf_token %}
+                        </div>
+                    {% else %}
+                        <div class="input-group">
+                            <div class="input-group-addon">{{ setting.title }}</div>
+                            <input class="form-control" type="text" name="value" value="{{ setting.value }}">
+                            {% csrf_token %}
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-success" type="button"><span
+                                    class="glyphicon glyphicon-save"></span></button>
+                          </span>
+                        </div>
+                    {% endif %}
+                </div>
+            </form>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
