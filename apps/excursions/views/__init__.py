@@ -2,10 +2,12 @@
 # Create your views here.
 import json
 
+from braces.views import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import DetailView
+from django.views.generic.edit import DeleteView
 
 from excursions.models import ExcursionCategory, Excursion, ExcursionImage
 from excursions.utils import get_price_list
@@ -147,26 +149,12 @@ class ExcursionTravelIndexView(TitledView):
         return ExcursionCategory.objects.travel()
 
 
-@login_required
-@permission_required("excursions.delete_excursioncategory")
-def category_remove(request, id):
-    try:
-        ExcursionCategory.objects.get(pk=id).delete()
-    except Exception as e:
-        messages.warning(request, e.message)
-
-    return redirect(request.META['HTTP_REFERER'])
+class CategoryRemove(LoginRequiredMixin, DeleteView):
+    model = ExcursionCategory
 
 
-@login_required
-@permission_required("excursions.delete_excursion")
-def excursion_remove(request, id):
-    try:
-        Excursion.objects.get(pk=id).delete()
-    except Exception as e:
-        messages.warning(request, e.message)
-
-    return redirect(request.META['HTTP_REFERER'])
+class ExcursionRemove(LoginRequiredMixin, DeleteView):
+    model = Excursion
 
 
 @login_required

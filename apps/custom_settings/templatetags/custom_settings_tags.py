@@ -8,9 +8,17 @@ register = template.Library()
 
 @register.simple_tag
 def custom_setting(key):
-    return Setting.objects.get(key=key).get_value()
+    setting = Setting.objects.filter(key=key).first()
+    result = None
+    if setting:
+        result = setting.get_value()
+    return result
 
 
 @register.filter
 def custom_setting_value(key):
-    return Setting.objects.get(key=key).get_value()
+    setting = Setting.objects.filter(key=key).first()
+    result = None
+    if setting:
+        result = setting.get_value()
+    return result
