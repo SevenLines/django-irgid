@@ -2,9 +2,12 @@
 # Create your views here.
 import json
 
+from braces.views import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404
+from django.views.generic import DetailView
+from django.views.generic.edit import DeleteView
 
 from excursions.models import ExcursionCategory, Excursion, ExcursionImage
 from excursions.utils import get_price_list
@@ -55,64 +58,41 @@ class CategoryView(TitledView):
         return context
 
 
-class ExcursionItemView(TitledView):
+class ExcursionItemBaseView(DetailView):
+    model = Excursion
+    template_name = "excursions/excursion/index.html"
+    excursion = None
+    category = None
+
+    def get_context_data(self, **kwargs):
+        context = super(ExcursionItemBaseView, self).get_context_data(**kwargs)
+        self.excursion = self.object
+        self.category = self.excursion.category
+
+        context['title'] = self.excursion.title
+        context['current_excursion'] = self.excursion
+        context['current_category'] = self.category
+        context['excursions'] = self.category.excursions(self.request).order_by("title")
+        context['categories'] = ExcursionCategory.objects.common(self.request.user)
+        context['price_list'] = json.dumps(get_price_list(self.excursion.priceList))
+        context['gallery'] = ExcursionImage.objects.filter(excursion=self.excursion).order_by("order")
+        context['meta'] = {
+            'description': u"Экскурсия: {}; Описание: {}".format(self.excursion.title, self.excursion.short_description)
+        }
+
+        return context
+
+
+class ExcursionItemView(ExcursionItemBaseView):
     template_name = "excursions/excursion/index.html"
 
-    def get_context_data(self, **kwargs):
-        context = super(ExcursionItemView, self).get_context_data(**kwargs)
 
-        pk = kwargs.get('pk', None)
-
-        e = get_object_or_404(Excursion, pk=pk)
-        category = e.category
-
-        context.update({
-            'current_excursion': e,
-            'current_category': category,
-            'categories': ExcursionCategory.objects.common(self.request.user),
-            'excursions': category.excursions(self.request).order_by("title"),
-            'gallery': ExcursionImage.objects.filter(excursion_id=pk).order_by("order"),
-            'title': e.title,
-            'meta': {
-                'description': u"Экскурсия: %s; Описание: %s" % (e.title, e.short_description)
-            },
-            'price_list': json.dumps(get_price_list(e.priceList))
-        })
-
-        return context
-
-
-class ExcursionGalleryIndexView(TitledView):
-    title = u'Галерея'
-    template_name = "excursions/gallery/index.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(ExcursionGalleryIndexView, self).get_context_data(**kwargs)
-        c = ExcursionCategory.objects.gallery()
-
-        context.update({
-            'excursions': c.excursions(self.request).order_by("title") if c else [],
-            'current_category': c
-        })
-        return context
-
-
-class ExcursionGalleryItemView(TitledView):
+class ExcursionGalleryItemView(ExcursionItemBaseView):
     template_name = "excursions/gallery/excursion/index.html"
 
     def get_context_data(self, **kwargs):
         context = super(ExcursionGalleryItemView, self).get_context_data(**kwargs)
-        pk = kwargs.get('pk')
-
-        e = get_object_or_404(Excursion, pk=pk)
-        category = e.category
-
         context.update({
-            'title': e.title,
-            'current_excursion': e,
-            'current_category': category,
-            'excursions': category.excursions(self.request).order_by("title"),
-            'gallery': ExcursionImage.objects.filter(excursion=e).order_by("order"),
             'meta': {
                 'description': u"Галерея: %s; Описание: %s" % (e.title, e.short_description)
             }
@@ -121,37 +101,13 @@ class ExcursionGalleryItemView(TitledView):
         return context
 
 
-class ExcursionTravelIndexView(TitledView):
-    title = u'Путешествия'
-    template_name = "excursions/travel/index.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(ExcursionTravelIndexView, self).get_context_data(**kwargs)
-        c = ExcursionCategory.objects.travel()
-
-        context.update({
-            'excursions': c.excursions(self.request).order_by("title") if c else [],
-            'current_category': c
-        })
-        return context
-
-
-class ExcursionTravelItemView(TitledView):
+class ExcursionTravelItemView(ExcursionItemBaseView):
     template_name = "excursions/travel/excursion/index.html"
 
     def get_context_data(self, **kwargs):
         context = super(ExcursionTravelItemView, self).get_context_data(**kwargs)
-        pk = kwargs.get('pk')
-
-        e = get_object_or_404(Excursion, pk=pk)
-        category = e.category
 
         context.update({
-            'title': e.title,
-            'current_excursion': e,
-            'current_category': category,
-            'excursions': category.excursions(self.request).order_by("title"),
-            'gallery': ExcursionImage.objects.filter(excursion=e).order_by("order"),
             'meta': {
                 'description': u"Путешествие: %s; Описание: %s" % (e.title, e.short_description)
             }
@@ -160,26 +116,45 @@ class ExcursionTravelItemView(TitledView):
         return context
 
 
-@login_required
-@permission_required("excursions.delete_excursioncategory")
-def category_remove(request, id):
-    try:
-        ExcursionCategory.objects.get(pk=id).delete()
-    except Exception as e:
-        messages.warning(request, e.message)
+class ExcursionIndexBaseView(TitledView):
+    def get_category(self):
+        raise NotImplementedError
 
-    return redirect(request.META['HTTP_REFERER'])
+    def get_context_data(self, **kwargs):
+        context = super(ExcursionIndexBaseView, self).get_context_data(**kwargs)
+
+        category = self.get_category()
+
+        context.update({
+            'excursions': category.excursions(self.request).order_by("title") if category else [],
+            'current_category': category
+        })
+
+        return context
 
 
-@login_required
-@permission_required("excursions.delete_excursion")
-def excursion_remove(request, id):
-    try:
-        Excursion.objects.get(pk=id).delete()
-    except Exception as e:
-        messages.warning(request, e.message)
+class ExcursionGalleryIndexView(ExcursionIndexBaseView):
+    title = u'Галерея'
+    template_name = "excursions/gallery/index.html"
 
-    return redirect(request.META['HTTP_REFERER'])
+    def get_category(self):
+        return ExcursionCategory.objects.gallery()
+
+
+class ExcursionTravelIndexView(TitledView):
+    title = u'Путешествия'
+    template_name = "excursions/travel/index.html"
+
+    def get_category(self):
+        return ExcursionCategory.objects.travel()
+
+
+class CategoryRemove(LoginRequiredMixin, DeleteView):
+    model = ExcursionCategory
+
+
+class ExcursionRemove(LoginRequiredMixin, DeleteView):
+    model = Excursion
 
 
 @login_required

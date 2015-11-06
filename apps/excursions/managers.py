@@ -20,10 +20,18 @@ class ExcursionsCategoryManager(models.Manager):
         return self._data(excluded, user)
 
     def gallery(self):
-        return self.get_queryset().filter(pk=Setting.objects.get(key='gallery_id').get_value()).last()
+        gallery = Setting.objects.filter(key='gallery_id').first()
+        result = None
+        if gallery:
+            result =self.get_queryset().filter(pk=gallery.get_value()).last()
+        return result
 
     def travel(self):
-        return self.get_queryset().filter(pk=Setting.objects.get(key='travel_id').get_value()).last()
+        travel = Setting.objects.filter(key='travel_id').first()
+        result = None
+        if travel:
+            result =self.get_queryset().filter(pk=travel.get_value()).last()
+        return result
 
     def get_special_categories_info(self):
         special_categories = IntegerSetting.objects\

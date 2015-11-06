@@ -10,7 +10,9 @@ django-assets==0.10
 django-braces==1.8.1
 django-polymorphic==0.7.2
 django-debug-toolbar
-
+django-extensions
+pytest-django
+ipython
 
 transliterate==1.7.3
 cssmin==0.2.0
