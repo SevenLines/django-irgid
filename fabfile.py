@@ -29,7 +29,7 @@ def deploy():
             run("git pull")
             with settings(warn_only=True):
                 # run("git stash apply")
-                run('pip-accel install -r requirements.txt')
+                run('pip install -r requirements.txt')
             run("python manage.py migrate")
             run("python manage.py collectstatic --noinput")
             run("python manage.py update_settings")
