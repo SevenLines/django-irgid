@@ -71,6 +71,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'irgid.context_processors.debug',
+                'irgid.context_processors.custom_settings',
                 'sekizai.context_processors.sekizai',
             ],
         },
@@ -166,9 +167,9 @@ MENU = [
 CUSTOM_SETTINGS = {
     'phone': (u'Телефон', '', 'String'),
     'email': (u'Электронная почта', '', 'String'),
-    'copyright': (u'Копирайт', """
-© 2015 Экскурсионное агентство «<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Иргид</span></span>».<br>Все права защищены.
-    """, 'String'),
+    'headers_excursions': (u'Заголовоки для экскурсий', 'Кол-во человек в группе/Цена/Взрослый/Детский/Дошкольный', 'String'),
+    'headers_travel': (u'Заголовоки для путуешествий', 'Кол-во человек в группе/Цена/Эконом/Стандарт/Люкс', 'String'),
+    'copyright': (u'Копирайт', """© 2015 Экскурсионное агентство «<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Иргид</span></span>».<br>Все права защищены.""", 'String'),
     'about': (u'О нас', '', 'String'),
     'faq': (u'FAQ', '', 'String'),
 

@@ -1,44 +1,71 @@
+{% load excursions_tags %}
 {% if current_excursion.priceList %}
     <hr>
-    <h3>Рассчитать цену:</h3>
-    <form class="form-inline" id="price-calculator">
-        <div class="input-group" style="margin-bottom: 5px; ">
-            <span class="input-group-addon">Взрослых</span>
-            <input type="text" class="form-control" style="max-width: 4em" name="adults_count" placeholder="0"/>
-            <span class="input-group-addon">× <span style="font-weight: bold" id="priceAdult">750</span> руб</span>
-        </div>
-        +
-        <div class="input-group" style="margin-bottom: 5px;">
-            <span class="input-group-addon">Детей</span>
-            <input type="text" class="form-control" style="max-width: 4em" name="children_count" placeholder="0"/>
-            <span class="input-group-addon">× <span style="font-weight: bold" id="priceChildren">750</span> руб</span>
-        </div>
-        = <label id="priceOut">0</label> руб.
-    </form>
-{#    <noscript>#}
-{#        <div class="hidden-sm hidden-xs hidden-md">#}
-{#            <h3>Цены:</h3>#}
-{##}
-{#            <div id="excursion-price-list">#}
-{#                <table class="table">#}
-{#                    <thead>#}
-{#                    <tr>#}
-{#                        <td>Кол-во человек в группе</td>#}
-{#                        {% for k, v in current_excursion.price_list_rendered %}#}
-{#                            <td>{{ k }}</td>#}
-{#                        {% endfor %}#}
-{#                    </tr>#}
-{#                    </thead>#}
-{#                    <tbody>#}
-{#                    <tr>#}
-{#                        <td>Цена в расчете на человека, руб.</td>#}
-{#                        {% for k, v in current_excursion.price_list_rendered %}#}
-{#                            <td>{{ v }}</td>#}
-{#                        {% endfor %}#}
-{#                    </tr>#}
-{#                    </tbody>#}
-{#                </table>#}
-{#            </div>#}
+    <div>
+        <h3>Стоимость:</h3>
+        {% with current_excursion.price_list_rendered as price_list %}
+            {% with CUSTOMS|get_item:price_headers as HEADERS %}
+                <div id="excursion-price-list">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>{{ HEADERS.people }}</th>
+                            {% for item in price_list.data %}
+                                <td>{{ item.header }}</td>
+                            {% endfor %}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if price_list.lines_count > 1 %}
+                            {% for line in price_list.lines %}
+                                <tr>
+                                    <th>{{ HEADERS.price_line|get_item:line }}</th>
+                                    {% for item in price_list.data %}
+                                        {% if item.span == 2 %}
+                                            {% if forloop.counter == 1 %}
+                                                <td rowspan="1">{{ item.price_line|get_item:line }}</td>
+                                            {% elif forloop.parentloop.counter == 3 %}
+                                                <td>{{ item.price_line|get_item:line }}</td>
+                                            {% endif %}
+                                        {% elif item.span == 3 %}
+                                            {% if forloop.parentloop.counter == 1 %}
+                                                <td rowspan="2">{{ item.price_line|get_item:line }}</td>
+                                            {% endif %}
+                                        {% else %}
+                                            <td>{{ item.price_line|get_item:line }}</td>
+                                        {% endif %}
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <th>{{ HEADERS.default_price }}</th>
+                                {% for item in price_list.data %}
+                                    <td>{{ item.default_price }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endwith %}
+        {% endwith %}
+    </div>
+{#    <hr>#}
+{#    <h3>Калькулятор:</h3>#}
+{#    <form class="form-inline" id="price-calculator">#}
+{#        <div class="input-group" style="margin-bottom: 5px; ">#}
+{#            <span class="input-group-addon">Взрослых</span>#}
+{#            <input type="text" class="form-control" style="max-width: 4em" name="adults_count" placeholder="0"/>#}
+{#            <span class="input-group-addon">× <span style="font-weight: bold" id="priceAdult">750</span> руб</span>#}
 {#        </div>#}
-{#    </noscript>#}
+{#        +#}
+{#        <div class="input-group" style="margin-bottom: 5px;">#}
+{#            <span class="input-group-addon">Детей</span>#}
+{#            <input type="text" class="form-control" style="max-width: 4em" name="children_count" placeholder="0"/>#}
+{#            <span class="input-group-addon">× <span style="font-weight: bold" id="priceChildren">750</span> руб</span>#}
+{#        </div>#}
+{#        = <label id="priceOut">0</label> руб.#}
+{#    </form>#}
+
 {% endif %}

@@ -52,13 +52,41 @@ class Excursion(models.Model):
     category = models.ForeignKey("ExcursionCategory", default=None, null=True)
     published = models.BooleanField("", default=False)
 
-    @property
+    # def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+    #     super(Excursion, self).save(force_insert, force_update, using, update_fields)
+
     def price_list_rendered(self):
-        out = []
+        out = {
+            'lines_count': 1,
+            'data': []
+        }
         price_lines = self.priceList.splitlines()
         for p in price_lines:
             values = p.split('|', 1)
-            out.append((values[0].strip(' \t\n\r'), values[1].strip(' \t\n\r')))
+            header = values[0].strip(' \t\n\r')
+            data = values[1].strip(' \t\n\r').split('/')
+            span = 0
+            item = {
+                'header': header,
+                'default_price': data[0],
+                'span': 0,
+                'price_line': {
+                    0: data[-1],  # взрослый
+                    1: data[-2] if len(data) > 1 else data[-1],  # детский
+                    2: data[-3] if len(data) > 2 else data[-1],  # дошкольный
+                },
+            }
+            if item['price_line'][0] == item['price_line'][1]:
+                span = 2
+                if item['price_line'][1] == item['price_line'][2]:
+                    span = 3
+
+            item['span'] = span
+            out['data'].append(item)
+
+            if len(data) > out['lines_count']:
+                out['lines_count'] = len(data)
+        out['lines'] = xrange(out['lines_count'])
         return out
 
     def get_absolute_url(self):
