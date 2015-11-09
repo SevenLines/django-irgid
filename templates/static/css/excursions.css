@@ -277,7 +277,16 @@
 #excursion-price-list {
   overflow: scroll;
   overflow-y: hidden;
-  overflow-x: auto; }
+  overflow-x: auto;
+  font-size: 0.9em; }
+  #excursion-price-list table {
+    table-layout: fixed; }
+    #excursion-price-list table td, #excursion-price-list table th {
+      border: 1px solid silver;
+      text-align: center;
+      white-space: nowrap;
+      padding: 0.5em;
+      vertical-align: middle; }
 
 .excursion {
   display: block;

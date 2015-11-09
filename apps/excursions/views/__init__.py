@@ -1,10 +1,10 @@
 # coding=utf-8
 # Create your views here.
 import json
-
 from braces.views import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
+from django.http.response import Http404
 from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import DetailView
 from django.views.generic.edit import DeleteView
@@ -34,24 +34,29 @@ class MainPageView(TitledView):
         return context
 
 
-class CategoryView(TitledView):
+class CategoryView(DetailView):
+    model = ExcursionCategory
     template_name = 'excursions/category/index.html'
+    category = None
 
     def get_context_data(self, **kwargs):
         context = super(CategoryView, self).get_context_data(**kwargs)
+        self.category = self.object
 
-        c = get_object_or_404(ExcursionCategory, pk=kwargs.get('pk', None))
+        if not self.request.user.is_authenticated():
+            if not self.category.visible or len(self.category.excursions(self.request)) == 0:
+                raise Http404
 
         categories = ExcursionCategory.objects.common(self.request.user)
 
         context.update({
-            'current_category': c,
-            'excursions': c.excursions(self.request).order_by("title"),
-            'title': c.title,
+            'current_category': self.category,
+            'excursions': self.category.excursions(self.request).order_by("title"),
+            'title': self.category.title,
             'categories': categories,
             'meta': {
                 'description': u"Категория: %s; Описание: %s"
-                               % (c.title, c.description.strip())
+                               % (self.category.title, self.category.description.strip())
             }
         })
 
@@ -69,7 +74,12 @@ class ExcursionItemBaseView(DetailView):
         self.excursion = self.object
         self.category = self.excursion.category
 
+        if not self.request.user.is_authenticated():
+            if not self.excursion.published or not self.category.visible:
+                raise Http404
+
         context['title'] = self.excursion.title
+        context['price_headers'] = 'headers_excursions'
         context['current_excursion'] = self.excursion
         context['current_category'] = self.category
         context['excursions'] = self.category.excursions(self.request).order_by("title")
@@ -108,12 +118,19 @@ class ExcursionTravelItemView(ExcursionItemBaseView):
         context = super(ExcursionTravelItemView, self).get_context_data(**kwargs)
 
         context.update({
+            'price_headers': 'headers_travel',
             'meta': {
-                'description': u"Путешествие: %s; Описание: %s" % (e.title, e.short_description)
+                'description': u"Путешествие: %s; Описание: %s" % (
+                    self.excursion.title, self.excursion.short_description)
             }
         })
 
         return context
+
+
+class ExcursionPreviewItemView(LoginRequiredMixin, ExcursionItemBaseView):
+    def preview(self):
+        return True
 
 
 class ExcursionIndexBaseView(TitledView):
@@ -141,20 +158,32 @@ class ExcursionGalleryIndexView(ExcursionIndexBaseView):
         return ExcursionCategory.objects.gallery()
 
 
-class ExcursionTravelIndexView(TitledView):
-    title = u'Путешествия'
+class ExcursionTravelIndexView(CategoryView):
     template_name = "excursions/travel/index.html"
 
-    def get_category(self):
+    def get_object(self, **kwargs):
         return ExcursionCategory.objects.travel()
 
+    def get_context_data(self, **kwargs):
+        context = super(ExcursionTravelIndexView, self).get_context_data(**kwargs)
+        context.update({
+            'title': u'Путешествия'
+        })
+        return context
 
-class CategoryRemove(LoginRequiredMixin, DeleteView):
+
+class ExcursionRemoveView(LoginRequiredMixin, DeleteView):
+    model = Excursion
+
+    def get_success_url(self):
+        return self.request.META['HTTP_REFERER']
+
+
+class ExcursionCategoryRemoveView(LoginRequiredMixin, DeleteView):
     model = ExcursionCategory
 
-
-class ExcursionRemove(LoginRequiredMixin, DeleteView):
-    model = Excursion
+    def get_success_url(self):
+        return self.request.META['HTTP_REFERER']
 
 
 @login_required

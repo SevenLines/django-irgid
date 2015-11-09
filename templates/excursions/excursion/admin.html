@@ -36,10 +36,11 @@
             </table>
             <hr>
 
-            <span class="label label-success">Добавлено: {{ current_excursion.create_date }}</span>
-            <span class="label label-default">Обновлено: {{ current_excursion.update_date }}</span>
+            <span class="label label-success">Добавлено: {{ current_excursion.create_date|date:'Y.m.d H:i' }}</span>
+            <span class="label label-default">Обновлено: {{ current_excursion.update_date|date:'Y.m.d H:i' }}</span>
             <span class="pull-right">
-            {% include "excursions/excursion/save-button.html" %}
+                <a class="btn btn-default" target="_blank" href="{% url 'excursions:item_preview' pk=current_excursion.pk %}">Предпросмотр</a>
+                {% include "excursions/excursion/save-button.html" %}
             </span>
 
             <div style="clear:right"></div>

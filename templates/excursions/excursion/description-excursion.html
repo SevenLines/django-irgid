@@ -3,7 +3,7 @@
 
 
 <div itemscope itemtype="http://schema.org/Article" class="excursion" style="padding: 0 5px">
-    {% if user.is_authenticated %}
+    {% if user.is_authenticated and not view.preview %}
         {% include "excursions/excursion/admin.html" %}
     {% else %}
         {% include "excursions/excursion/guest.html" %}

@@ -36,9 +36,9 @@ $grid-gap: 8px;
   > div {
     padding: 16px;
     text-align: center;
-//    bottom: ;
-//    margin-top: $height/2.7;
-        border-bottom: 1px solid $common_color;
+    //    bottom: ;
+    //    margin-top: $height/2.7;
+    border-bottom: 1px solid $common_color;
 
     position: absolute;
     width: 100%;
@@ -163,6 +163,29 @@ $grid-gap: 8px;
   overflow: scroll;
   overflow-y: hidden;
   overflow-x: auto;
+  font-size: 0.9em;
+  table {
+    table-layout: fixed;
+    td, th {
+      border: 1px solid silver;
+      text-align: center;
+      white-space: nowrap;
+      padding: 0.5em;
+      vertical-align: middle;
+    }
+    tbody {
+      td {
+      }
+    }
+  }
+  //.table-headers {
+  //  float: left;
+  //  max-height: 200px;
+  //  clear: none;
+  //}
+  //.table-info {
+  //  margin-left: 200px;
+  //}
 }
 
 .excursion {

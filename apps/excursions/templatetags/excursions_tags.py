@@ -11,11 +11,17 @@ from excursions.models import ExcursionCategory
 
 register = template.Library()
 
+
 @register.filter
 @stringfilter
 def min_to_hours(value):
     value = round(int(value) / 60, 1)
     return u"%g" % value
+
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
 
 
 @register.simple_tag(takes_context=True)
