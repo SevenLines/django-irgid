@@ -20,7 +20,7 @@ class ExcursionsCategoryManager(models.Manager):
         return travel_id
 
     def _data(self, excluded_pk, user):
-        result = self.get_queryset().exclude(pk__in=excluded_pk).order_by('order', 'title')
+        result = self.get_queryset().exclude(pk__in=filter(None, excluded_pk)).order_by('order', 'title')
         if not user or not user.is_authenticated():
             result = result.filter(visible=True)
         return result
@@ -32,6 +32,9 @@ class ExcursionsCategoryManager(models.Manager):
     def common_with_gallery(self, user=None):
         excluded = [self.get_travel_id()]
         return self._data(excluded, user)
+
+    def common_with_all(self, user=None):
+        return self._data([], user)
 
     def gallery(self):
         gallery_id = self.get_gallery_id()

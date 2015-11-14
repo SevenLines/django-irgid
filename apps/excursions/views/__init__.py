@@ -24,7 +24,7 @@ class MainPageView(TitledView):
     def get_context_data(self, **kwargs):
         context = super(MainPageView, self).get_context_data(**kwargs)
 
-        categories = ExcursionCategory.objects.common_with_gallery(self.request.user)
+        categories = ExcursionCategory.objects.common_with_all(self.request.user)
 
         context.update({
             'categories': categories,
