@@ -85,7 +85,7 @@ class ExcursionItemBaseView(DetailView):
         context['excursions'] = self.category.excursions(self.request).order_by("title")
         context['categories'] = ExcursionCategory.objects.common(self.request.user)
         context['price_list'] = json.dumps(get_price_list(self.excursion.priceList))
-        context['gallery'] = ExcursionImage.objects.filter(excursion=self.excursion).order_by("order")
+        context['file_browser'] = ExcursionImage.objects.filter(excursion=self.excursion).order_by("order")
         context['meta'] = {
             'description': u"Экскурсия: {}; Описание: {}".format(self.excursion.title, self.excursion.short_description)
         }
@@ -104,7 +104,7 @@ class ExcursionGalleryItemView(ExcursionItemBaseView):
         context = super(ExcursionGalleryItemView, self).get_context_data(**kwargs)
         context.update({
             'meta': {
-                'description': u"Галерея: %s; Описание: %s" % (e.title, e.short_description)
+                'description': u"Галерея: %s; Описание: %s" % (self.excursion.title, self.excursion.short_description)
             }
         })
 
