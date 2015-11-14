@@ -12,9 +12,10 @@
                     <a href="{% url  "travel:item" e.pk %}"
                        class="list-group-item-excursion list-group-gallery-item">
                         <div>
-                            {% if e.img_preview %}
-                                <img style="max-width: 100%;" src="{% thumbnail e.img_preview 0x300 %}" alt=""/>
-                            {% endif %}
+                            <img style="max-width: 100%;" src="{% if e.img_preview %}
+                                {% thumbnail e.img_preview 0x300 %}
+                                {% else %}{% static 'images/no_image.jpeg' %}
+                                {% endif %}" alt=""/>
                             <div class="description" style=""><h5>{{ e.title }}</h5></div>
                         </div>
                     </a>
