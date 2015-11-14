@@ -79,9 +79,6 @@ def category_save(request):
     if 'visible' in request.POST:
         e.visible = request.POST['visible'] == "true"
 
-    if 'is_gallery' in request.POST:
-        e.is_gallery = request.POST['is_gallery'] == "true"
-
     if 'image' in request.FILES:
         f = request.FILES['image']
         ext = f.name.split('.')[-1]

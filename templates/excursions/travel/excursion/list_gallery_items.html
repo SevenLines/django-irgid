@@ -12,8 +12,9 @@
                     <a href="{% url  "travel:item" e.pk %}"
                        class="list-group-item-excursion list-group-gallery-item">
                         <div>
+                            {% if e.img_preview %}
                                 <img style="max-width: 100%;" src="{% thumbnail e.img_preview 0x300 %}" alt=""/>
-{#                            <img class="lazy fadein" style="max-width: 100%;" data-original="{% thumbnail e.img_preview 0x300 %}" alt=""/>#}
+                            {% endif %}
                             <div class="description" style=""><h5>{{ e.title }}</h5></div>
                         </div>
                     </a>

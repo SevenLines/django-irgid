@@ -23,7 +23,7 @@ class ExcursionCategory(models.Model):
     def __unicode__(self):
         return u"{title}|{id}".format(**self.__dict__)
 
-    def excursions(self, request):
+    def get_excursions(self, request):
         if not request.user.is_authenticated():
             return Excursion.objects.filter(category=self, published=True)
         else:
@@ -47,7 +47,6 @@ class Excursion(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
 
     img_preview = ThumbnailerImageField(upload_to="excursions_img_preview", null=True, blank=True)
-    # image = models.ThumbnailerImageField(upload_to="excursions_big_img_preview", null=True, blank=True)
 
     category = models.ForeignKey("ExcursionCategory", default=None, null=True)
     published = models.BooleanField("", default=False)

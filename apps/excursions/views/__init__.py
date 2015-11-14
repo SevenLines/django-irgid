@@ -44,14 +44,14 @@ class CategoryView(DetailView):
         self.category = self.object
 
         if not self.request.user.is_authenticated():
-            if not self.category.visible or len(self.category.excursions(self.request)) == 0:
+            if not self.category.visible or len(self.category.get_excursions(self.request)) == 0:
                 raise Http404
 
         categories = ExcursionCategory.objects.common(self.request.user)
 
         context.update({
             'current_category': self.category,
-            'excursions': self.category.excursions(self.request).order_by("title"),
+            'excursions': self.category.get_excursions(self.request).order_by("title"),
             'title': self.category.title,
             'categories': categories,
             'meta': {
@@ -75,7 +75,7 @@ class ExcursionItemBaseView(DetailView):
         self.category = self.excursion.category
 
         if not self.request.user.is_authenticated():
-            if not self.excursion.published or not self.category.visible:
+            if not self.excursion.published or not self.category or not self.category.visible:
                 raise Http404
 
         context['title'] = self.excursion.title
@@ -87,7 +87,7 @@ class ExcursionItemBaseView(DetailView):
         context['price_headers'] = 'headers_excursions'
         context['current_excursion'] = self.excursion
         context['current_category'] = self.category
-        context['excursions'] = self.category.excursions(self.request).order_by("title")
+        context['excursions'] = self.category.get_excursions(self.request).order_by("title") if self.category else []
         context['categories'] = ExcursionCategory.objects.common(self.request.user)
         context['price_list'] = json.dumps(get_price_list(self.excursion.priceList))
         context['file_browser'] = ExcursionImage.objects.filter(excursion=self.excursion).order_by("order")
@@ -107,6 +107,12 @@ class ExcursionGalleryItemView(ExcursionItemBaseView):
 
     def get_context_data(self, **kwargs):
         context = super(ExcursionGalleryItemView, self).get_context_data(**kwargs)
+
+        gallery = ExcursionCategory.objects.gallery()
+
+        if not gallery or self.category != gallery:
+            raise Http404
+
         context.update({
             'meta': {
                 'description': u"Галерея: %s; Описание: %s" % (self.excursion.title, self.excursion.short_description)
@@ -121,6 +127,10 @@ class ExcursionTravelItemView(ExcursionItemBaseView):
 
     def get_context_data(self, **kwargs):
         context = super(ExcursionTravelItemView, self).get_context_data(**kwargs)
+        travel = ExcursionCategory.objects.travel()
+
+        if not travel or self.category != travel:
+            raise Http404
 
         context.update({
             'price_headers': 'headers_travel',
@@ -153,7 +163,7 @@ class ExcursionIndexBaseView(TitledView):
         category = self.get_category()
 
         context.update({
-            'excursions': category.excursions(self.request).order_by("title") if category else [],
+            'excursions': category.get_excursions(self.request).order_by("title") if category else [],
             'current_category': category
         })
 
@@ -165,14 +175,20 @@ class ExcursionGalleryIndexView(ExcursionIndexBaseView):
     template_name = "excursions/gallery/index.html"
 
     def get_category(self):
-        return ExcursionCategory.objects.gallery()
+        gallery = ExcursionCategory.objects.gallery()
+        if not gallery:
+            raise Http404
+        return gallery
 
 
 class ExcursionTravelIndexView(CategoryView):
     template_name = "excursions/travel/index.html"
 
     def get_object(self, **kwargs):
-        return ExcursionCategory.objects.travel()
+        travel = ExcursionCategory.objects.travel()
+        if not travel:
+            raise Http404
+        return travel
 
     def get_context_data(self, **kwargs):
         context = super(ExcursionTravelIndexView, self).get_context_data(**kwargs)

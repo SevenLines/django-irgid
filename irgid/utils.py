@@ -3,6 +3,10 @@ from django.db.models.fields.files import ImageFieldFile
 from django.http import HttpResponseBadRequest
 
 
+def cache_key(key, key_prefix, version):
+    return '-'.join([key_prefix, key.replace('_', '').encode('rot13'), str(version)])
+
+
 def require_in_POST(*items):
     def decorator(func):
         def wrapper(request):
