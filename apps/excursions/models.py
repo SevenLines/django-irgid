@@ -99,7 +99,7 @@ class Excursion(models.Model):
 class ExcursionImage(models.Model):
     excursion = models.ForeignKey(Excursion)
     image = ThumbnailerImageField(upload_to="excursions_gallery")
-    actve = models.BooleanField(default=False)
+    hidden = models.BooleanField(default=False)
     order = models.SmallIntegerField(default=0)
 
     class Meta:

@@ -113,10 +113,13 @@
     font-weight: bold;
     cursor: pointer;
     padding-top: 22.5px; }
-  .excursion-gallery-item .remove {
+  .excursion-gallery-item .excursion-gallery-image-toolbar .remove, .excursion-gallery-item .excursion-gallery-image-toolbar .toggle {
     position: absolute;
-    top: 0;
+    top: 0; }
+  .excursion-gallery-item .excursion-gallery-image-toolbar .remove {
     right: 0; }
+  .excursion-gallery-item .excursion-gallery-image-toolbar .toggle {
+    right: 40px; }
 
 .gallery-item-element {
   width: 25%;
