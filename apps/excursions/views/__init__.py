@@ -80,7 +80,7 @@ class ExcursionItemBaseView(DetailView):
 
         context['title'] = self.excursion.title
 
-        context['gallery'] = ExcursionImage.objects.filter(excursion=self.excursion)
+        context['gallery'] = self.excursion.images.all()
         if not self.request.user.is_authenticated():
             context['gallery'] = context['gallery'].filter(hidden=False)
 

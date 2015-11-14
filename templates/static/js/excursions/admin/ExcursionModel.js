@@ -8,12 +8,64 @@
 
         self.$excursionForm = $(".excursion-form");
         self.init_order = "";
+        self.hasNewImageInGallery = false;
+        self.hasNewMainImage = false;
+        self.hasNoImage = false;
 
         function InitSaveAction() {
             self.$excursionForm.submit(function () {
                 self.Save(this);
                 return false;
             });
+        }
+
+        function InitMainImage() {
+            var imageItem = $('.main-image-remove');
+            imageItem.on('click', function () {
+                var that = this;
+                $.prompt("Удалить изображение?", {
+                    title: 'Подтвердите',
+                    buttons: {"Удалить": true, "Пока не надо": false},
+                    persistent: false,
+                    submit: function (e, confirmed, m, f) {
+                        if (confirmed) {
+                            $.post(that.dataset.action, {
+                                csrfmiddlewaretoken: self.csrf
+                            }).done(function () {
+                                $(that).siblings('.excursion-main-image').attr('src', '/static/images/no_image.jpeg');
+                                imageItem.hide();
+                            }).fail(function () {
+                                InterfaceAlerts.showFail();
+                            })
+                        }
+                    },
+                    overlayspeed: 'fast',
+                    promptspeed: 0,
+                    show: 'fadeIn'
+                });
+
+            });
+
+            $(".image-selector").on("change", function () {
+                var that = this;
+                if (that.files.length > 0) {
+                    var file = that.files[0];
+                    var fileReader = new FileReader();
+                    fileReader.onload = function (e) {
+                        $(that).siblings("img")[0].src = e.target.result;
+                    };
+                    fileReader.readAsDataURL(file);
+                }
+                that.dataset['changed'] = 1;
+                self.hasNewMainImage = true;
+            }).each(function (i, item) {
+                var that = this;
+                $(that).parent().find("img").click(function () {
+                    $(that).click();
+                });
+            });
+
+            self.init_order = self.get_order(self.$excursionForm[0]);
         }
 
         function InitGallery() {
@@ -130,7 +182,6 @@
                     });
                 },
                 onClick: function (value) {
-                    console.log(value);
                     img_html = "<img src='" + value + "' />";
                     self.editor.insertHtml(img_html);
                 }
@@ -152,28 +203,6 @@
             });
         }
 
-        function InitImageSelector() {
-            $(".image-selector").on("change", function () {
-                var that = this;
-                if (that.files.length > 0) {
-                    var file = that.files[0];
-                    var fileReader = new FileReader();
-                    fileReader.onload = function (e) {
-                        $(that).siblings("img")[0].src = e.target.result;
-                    };
-                    fileReader.readAsDataURL(file);
-                }
-                that.dataset['changed'] = 1;
-            }).each(function (i, item) {
-                var that = this;
-                $(that).parent().find("img").click(function () {
-                    $(that).click();
-                });
-            });
-
-            self.init_order = self.get_order(self.$excursionForm[0]);
-        }
-
         function Init() {
             var editor_config = {
                 enterMode: CKEDITOR.ENTER_BR,
@@ -186,10 +215,10 @@
 
             InitSaveButton();
             InitGalleryComboBox();
-            InitImageSelector();
             InitYandexMapControl();
             InitSaveAction();
             InitGallery();
+            InitMainImage();
         }
 
         self.get_order = function (form) {
@@ -220,10 +249,9 @@
                 formData.append("small_image", form.small_image.files[0]);
             }
 
-            var hasNewImageInGallery = false;
             $(form).find(".excursion-gallery .excursion-gallery-item input[type=file]").each(function () {
                 formData.append("gallery[]", this.files[0]);
-                hasNewImageInGallery = true;
+                self.hasNewImageInGallery = true;
             });
 
             formData.append("id", self.excursion_id);
@@ -251,7 +279,7 @@
                 InterfaceAlerts.showSuccess();
                 if (oncomplete)
                     oncomplete();
-                if (hasNewImageInGallery) {
+                if (self.hasNewImageInGallery || self.hasNewMainImage) {
                     location.reload();
                 }
                 self.reset();

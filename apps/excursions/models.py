@@ -96,7 +96,7 @@ class Excursion(models.Model):
 
 
 class ExcursionImage(models.Model):
-    excursion = models.ForeignKey(Excursion)
+    excursion = models.ForeignKey(Excursion, related_name='images')
     image = ThumbnailerImageField(upload_to="excursions_gallery")
     hidden = models.BooleanField(default=False)
     order = models.SmallIntegerField(default=0)

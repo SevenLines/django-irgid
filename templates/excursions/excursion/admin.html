@@ -21,12 +21,13 @@
                     <td style="padding-left:5px;width: 25%;text-align: right">
                         <!-- ГЛАВНАЯ КАРТИНКА ЭКСКУРСИИ -->
                         <div>
-                            {% if  current_excursion.img_preview %}
-                                {% thumbnail current_excursion.img_preview 150x150 as thumb %}
-                            {% endif %}
-                            <img name="image"
-                                 src="{{ thumb.url }}"
-                                 style="max-width: 100%;border-radius: 0.25em;cursor: pointer"/>
+                            {% thumbnail current_excursion.img_preview 150x150 as thumb %}
+                            <img name="image" src="{% if thumb.url %}{{ thumb.url }}{% else %}{% static 'images/no_image.jpeg' %}{% endif %}"
+                                 class="excursion-main-image" style="max-width: 100%;border-radius: 0.25em;cursor: pointer"/>
+                            <div data-action="{% url 'excursions:ajax_main_image_remove' pk=current_excursion.pk %}"
+                                 class="btn btn-default btn-danger main-image-remove{% if not thumb %} hidden{% endif %}" style="position: absolute; right: 0; top: 0;">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </div>
                             <input type="file" name="small_image" accept="image/*" class="image-selector"
                                    style="display: none;">
                         </div>

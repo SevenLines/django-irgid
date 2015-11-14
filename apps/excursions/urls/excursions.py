@@ -5,6 +5,7 @@ from django.conf.urls.i18n import i18n_patterns
 
 from excursions.views import MainPageView, CategoryView, ExcursionItemView, ExcursionGalleryItemView, \
     ExcursionGalleryIndexView, ExcursionRemoveView, ExcursionCategoryRemoveView, ExcursionPreviewItemView
+from excursions.views.ajax import ExcursionMainImageRemove
 
 __author__ = 'm'
 
@@ -24,6 +25,7 @@ urlpatterns = i18n_patterns('excursions.views',
     url(r'image/add', 'ajax.excursion_image_add', name='image_add'),
     url(r'image/(\d+)/remove$', 'ajax.excursion_image_remove', name='ajax_image_remove'),
     url(r'image/(\d+)/toggle$', 'ajax.excursion_image_toggle', name='ajax_image_toggle'),
+    url(r'(?P<pk>(\d+))/main-image-remove/$', ExcursionMainImageRemove.as_view(), name='ajax_main_image_remove'),
     url(r'(?P<pk>(\d+))/remove/$', ExcursionRemoveView.as_view(), name='remove'),
     url(r'(?P<pk>(\d+))/preview/$', ExcursionPreviewItemView.as_view(), name='item_preview'),
     url(r'(?P<pk>(\d+))/$', ExcursionItemView.as_view(), name='item'),
