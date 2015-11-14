@@ -137,3 +137,12 @@ def excursion_image_remove(request, id):
     ei.image.delete()
     ei.delete()
     return HttpResponse()
+
+
+@login_required
+@permission_required("excursions.change_excursion")
+def excursion_image_toggle(request, id):
+    ei = ExcursionImage.objects.get(id=id)
+    ei.hidden = not ei.hidden
+    ei.save()
+    return HttpResponse()

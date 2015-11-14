@@ -1,22 +1,158 @@
 (function () {
     function ExcursionModel(data) {
         var self = this;
+
+        self.editor = null;
         self.excursion_id = data.id;
         self.csrf = data.csrf;
 
         self.$excursionForm = $(".excursion-form");
         self.init_order = "";
 
-        function Init() {
-            var editor_config = {
-                enterMode: CKEDITOR.ENTER_BR,
-                extraPlugins: 'sourcedialog,showblocks,justify,colordialog,colorbutton,liststyle'
-            };
+        function InitSaveAction() {
+            self.$excursionForm.submit(function () {
+                self.Save(this);
+                return false;
+            });
+        }
 
-            CKEDITOR.disableAutoInline = true;
-            CKEDITOR.inline('excursion-description', editor_config);
+        function InitGallery() {
+            var galleryItem = $(".excursion-gallery .images");
+
+            // click on remove button
+            galleryItem.on('click', ".remove", function () {
+                var that = this;
+                if (this.dataset.action) {
+                    $.prompt("Удалить изображение?", {
+                        title: 'Подтвердите',
+                        buttons: {"Удалить": true, "Пока не надо": false},
+                        persistent: false,
+                        submit: function (e, confirmed, m, f) {
+                            if (confirmed) {
+                                $.post(that.dataset.action, {
+                                    csrfmiddlewaretoken: self.csrf
+                                }).done(function () {
+                                    $(that).parent().parent().remove();
+                                }).fail(function () {
+                                    InterfaceAlerts.showFail();
+                                })
+                            }
+                        },
+                        overlayspeed: 'fast',
+                        promptspeed: 0,
+                        show: 'fadeIn'
+                    });
+                } else {
+                    $(this).parent().parent().remove();
+                }
+            });
+
+            galleryItem.on('click', ".toggle", function () {
+                var that = this;
+                $.post(that.dataset.action, {
+                    csrfmiddlewaretoken: self.csrf
+                }).done(function () {
+                    var visible_cls = 'btn-success';
+                    var hidden_cls = 'btn-default';
+                    var item = $(that).find('.btn');
+                    console.log(item);
+                    if ($(item).hasClass(visible_cls)) {
+                        $(item).removeClass(visible_cls);
+                        $(item).addClass(hidden_cls);
+                    } else {
+                        $(item).removeClass(hidden_cls);
+                        $(item).addClass(visible_cls);
+                    }
+                    InterfaceAlerts.showSuccess();
+                }).fail(function () {
+                    InterfaceAlerts.showFail();
+                })
+            });
 
 
+            var template = $("#gallery-item-template").html();
+            var addItem = $("#add-image");
+            addItem.click(function () {
+                var item = $(template);
+                var selector = item.find("input[type=file]");
+                selector.one("change", function () {
+                    var file = this.files[0];
+                    var fileReader = new FileReader();
+                    fileReader.onload = function (e) {
+                        item.find("img").attr("src", e.target.result)
+                    };
+                    fileReader.readAsDataURL(file);
+                    galleryItem.append(item);
+                    //item.insertBefore(addItem.parent());
+                });
+                selector.click();
+            });
+        }
+
+        function InitYandexMapControl() {
+            var input = $("#yandexmapscript-input");
+            var btn = $("#yandex-map-update-button");
+            input.on("change", function () {
+                var re = /\?sid=([\w-]+)?/g;
+                var matches = re.exec(this.value);
+                if (matches) {
+                    this.value = matches[1];
+                }
+
+                // убираем width и height теги
+                //this.value = this.value.replace(/&(width|height)=(\d+)/g, "") ;
+            });
+            btn.on("click", function () {
+                self.Save(self.$excursionForm[0], function () {
+                    location.reload();
+                })
+            })
+        }
+
+        function InitGalleryComboBox() {
+            self.editor.ui.addRichCombo('Combo', {
+                label: "Галерея",
+                init: function () {
+                    console.log(this);
+                    var self = this;
+                    $.each($(".excursion-gallery a"), function (index, value) {
+                        // value, html, text
+                        var thumb = $(value).find('img').attr('src');
+                        var href = $(value).attr('href');
+
+                        var thumb_html = [
+                            "<img ",
+                            "src='", thumb, "' ",
+                            "style='height:30px;'",
+                            " />"
+                        ].join('');
+                        self.add(href, thumb_html)
+                    });
+                },
+                onClick: function (value) {
+                    console.log(value);
+                    img_html = "<img src='" + value + "' />";
+                    self.editor.insertHtml(img_html);
+                }
+            });
+        }
+
+        function InitSaveButton() {
+            self.editor.addCommand("saveCommand", { // create named command
+                exec: function (edt) {
+                    self.$excursionForm.submit();
+                }
+            });
+
+            self.editor.ui.addButton('SaveButton', { // add new button and bind our command
+                label: "save",
+                command: 'saveCommand',
+                toolbar: 'editing',
+                icon: '/static/images/save.png'
+            });
+        }
+
+        function InitImageSelector() {
             $(".image-selector").on("change", function () {
                 var that = this;
                 if (that.files.length > 0) {
@@ -38,23 +174,41 @@
             self.init_order = self.get_order(self.$excursionForm[0]);
         }
 
+        function Init() {
+            var editor_config = {
+                enterMode: CKEDITOR.ENTER_BR,
+                extraPlugins: 'sourcedialog,showblocks,justify,colordialog,colorbutton,liststyle'
+            };
+
+            CKEDITOR.disableAutoInline = true;
+            self.editor = CKEDITOR.inline('excursion-description', editor_config);
+
+
+            InitSaveButton();
+            InitGalleryComboBox();
+            InitImageSelector();
+            InitYandexMapControl();
+            InitSaveAction();
+            InitGallery();
+        }
+
         self.get_order = function (form) {
             var items = $(form).find(".excursion-gallery .images .excursion-gallery-item");
             var order = {};
             items.each(function(i, item) {
-                var id = $(item).data("id");
+                var id = $(item).data("id") || -1;
                 order[id] = i + 1;
             });
             return order;
         };
 
-        self.Reset = function () {
+        self.reset = function () {
             self.init_order =self.get_order(self.$excursionForm[0]);
         };
 
         self.Save = function (form, oncomplete) {
             var title = $("#excursion-title").html();
-            var description = $("#excursion-description").html();
+            var description = self.editor.getData();
             var short_description = $("#excursion-short-description").html();
             var price_list = $("#excursion-price-list")[0].value;
             var yandex_map_script = $("#yandexmapscript-input")[0].value;
@@ -100,94 +254,15 @@
                 if (hasNewImageInGallery) {
                     location.reload();
                 }
-                self.Reset();
+                self.reset();
             }).fail(function () {
                 InterfaceAlerts.showFail();
             });
         };
 
-        function InitSaveAction() {
-            self.$excursionForm.submit(function () {
-                self.Save(this);
-                return false;
-            });
-        }
-
-        function InitGallery() {
-            var galleryItem = $(".excursion-gallery .images");
-
-            // click on remove button
-            galleryItem.on('click', ".remove", function () {
-                var that = this;
-                if (this.dataset.action) {
-                    $.prompt("Удалить изображение?", {
-                        title: 'Подтвердите',
-                        buttons: {"Удалить": true, "Пока не надо": false},
-                        persistent: false,
-                        submit: function (e, confirmed, m, f) {
-                            if (confirmed) {
-                                $.post(that.dataset.action, {
-                                    csrfmiddlewaretoken: self.csrf
-                                }).done(function () {
-                                    $(that).parent().parent().remove();
-                                }).fail(function () {
-                                    InterfaceAlerts.showFail();
-                                })
-                            }
-                        },
-                        overlayspeed: 'fast',
-                        promptspeed: 0,
-                        show: 'fadeIn'
-                    });
-                } else {
-                    $(this).parent().parent().remove();
-                }
-            });
-
-
-            var template = $("#gallery-item-template").html();
-            var addItem = $("#add-image");
-            addItem.click(function () {
-                var item = $(template);
-                var selector = item.find("input[type=file]");
-                selector.one("change", function () {
-                    var file = this.files[0];
-                    var fileReader = new FileReader();
-                    fileReader.onload = function (e) {
-                        item.find("img").attr("src", e.target.result)
-                    };
-                    fileReader.readAsDataURL(file);
-                    galleryItem.append(item);
-                    //item.insertBefore(addItem.parent());
-                });
-                selector.click();
-            });
-        }
-
-        function InitYandexMapControl() {
-            var input = $("#yandexmapscript-input");
-            var btn = $("#yandex-map-update-button");
-            input.on("change", function () {
-                var re = /\?sid=([\w-]+)?/g;
-                var matches = re.exec(this.value);
-                if (matches) {
-                    this.value = matches[1];
-                }
-
-                // убираем width и height теги
-                //this.value = this.value.replace(/&(width|height)=(\d+)/g, "") ;
-            });
-            btn.on("click", function () {
-                self.Save(self.$excursionForm[0], function () {
-                    location.reload();
-                })
-            })
-        }
 
         Init();
-        InitYandexMapControl();
-        InitSaveAction();
-        InitGallery();
+
     }
 
     window.ExcursionModel = ExcursionModel

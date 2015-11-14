@@ -77,11 +77,15 @@
                 <div class="images">
                     {% for img in gallery %}
                         <div class="excursion-gallery-item" data-id="{{ img.id }}">
-                            <div>
-                                <div class="remove"
-                                     data-action="{% url "excursions:ajax_image_remove" img.id %}">
+                            <div class="excursion-gallery-image-toolbar">
+                                <div class="remove" data-action="{% url "excursions:ajax_image_remove" img.id %}">
                                     <div class="btn btn-danger btn-sm">
                                         <span class="glyphicon glyphicon-remove"></span>
+                                    </div>
+                                </div>
+                                <div class="toggle" data-action="{% url "excursions:ajax_image_toggle" img.id %}">
+                                    <div class="btn btn-sm {% if not img.hidden %}btn-success{% else %}btn-default{% endif %}">
+                                        <span class="glyphicon glyphicon-eye-open"></span>
                                     </div>
                                 </div>
                                 {% thumbnail img.image 0x150 as thumb %}
@@ -151,7 +155,8 @@
         <script>
             new ExcursionModel({
                 id: {{ current_excursion.id }},
-                csrf: '{{ csrf_token }}'
+                csrf: '{{ csrf_token }}',
+                save_url: '{% url "excursions.views.ajax.excursion_save" %}',
             });
 
             var gallery = $(".excursion-gallery .images")[0];

@@ -155,9 +155,17 @@
     padding-top: $height/4;
   }
 
-  .remove {
-    position: absolute;
-    top: 0;
-    right: 0;
+  .excursion-gallery-image-toolbar {
+    .remove, .toggle{
+      position: absolute;
+      top: 0;
+    }
+    .remove {
+      right: 0;
+    }
+    .toggle {
+      right: 40px;
+    }
+
   }
 }

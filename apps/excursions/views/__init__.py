@@ -79,7 +79,11 @@ class ExcursionItemBaseView(DetailView):
                 raise Http404
 
         context['title'] = self.excursion.title
+
         context['gallery'] = ExcursionImage.objects.filter(excursion=self.excursion)
+        if not self.request.user.is_authenticated():
+            context['gallery'] = context['gallery'].filter(hidden=False)
+
         context['price_headers'] = 'headers_excursions'
         context['current_excursion'] = self.excursion
         context['current_category'] = self.category
@@ -132,6 +136,11 @@ class ExcursionTravelItemView(ExcursionItemBaseView):
 class ExcursionPreviewItemView(LoginRequiredMixin, ExcursionItemBaseView):
     def preview(self):
         return True
+
+    def get_context_data(self, **kwargs):
+        context = super(ExcursionPreviewItemView, self).get_context_data(**kwargs)
+        context['gallery'] = context['gallery'].filter(hidden=False)
+        return context
 
 
 class ExcursionIndexBaseView(TitledView):
