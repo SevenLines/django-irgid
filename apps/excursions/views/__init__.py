@@ -79,6 +79,7 @@ class ExcursionItemBaseView(DetailView):
                 raise Http404
 
         context['title'] = self.excursion.title
+        context['gallery'] = ExcursionImage.objects.filter(excursion=self.excursion)
         context['price_headers'] = 'headers_excursions'
         context['current_excursion'] = self.excursion
         context['current_category'] = self.category

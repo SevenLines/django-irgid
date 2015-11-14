@@ -102,6 +102,9 @@ class ExcursionImage(models.Model):
     actve = models.BooleanField(default=False)
     order = models.SmallIntegerField(default=0)
 
+    class Meta:
+        ordering = ['order', 'id']
+
 
 @receiver(post_delete, sender=ExcursionImage)
 def mymodel_delete(sender, instance, **kwargs):
