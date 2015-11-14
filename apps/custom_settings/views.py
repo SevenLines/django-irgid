@@ -2,7 +2,6 @@
 # Create your views here.
 from itertools import chain
 
-from django.core.cache import cache
 from django.http.response import HttpResponse
 from django.shortcuts import redirect
 from django.views.generic.edit import UpdateView
@@ -34,7 +33,6 @@ class SettingEditView(UpdateView):
     def post(self, request, *args, **kwargs):
         obj = self.get_object()
         obj.value = request.POST['value'] if request.POST['value'] != '-' else None
-        cache.set(obj.key, obj.value)
         obj.save()
 
         if request.is_ajax():
