@@ -1,11 +1,16 @@
 import json
 from uuid import uuid4
+
+from braces.views import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.files.base import ContentFile
 from django.db.transaction import atomic
 from django.http.response import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import UpdateView
+
 from irgid.utils import require_in_POST, require_in_GET
 from excursions.models import Excursion, ExcursionImage, ExcursionCategory
 from excursions.views.base import _excursion_save, _excursion_context
@@ -125,6 +130,16 @@ def remove_category_image(request):
         assert isinstance(c, ExcursionCategory)
         c.image.delete()
     return HttpResponse()
+
+
+class ExcursionMainImageRemove(LoginRequiredMixin, UpdateView):
+    model = Excursion
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.img_preview.delete()
+        self.object.img_preview = None
+        return HttpResponse()
 
 
 @login_required
