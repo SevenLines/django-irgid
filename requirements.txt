@@ -14,6 +14,8 @@ django-extensions
 pytest-django
 ipython
 
+python-memcached
+
 transliterate==1.7.3
 cssmin==0.2.0
 yuicompressor

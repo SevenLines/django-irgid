@@ -1,11 +1,8 @@
 <div class="e-categories list-group-menu">
     {% for c in categories %}
-        {% if c.is_gallery %}
-        {% else %}
-            <a class="e-category list-group-menu-item{% if c.pk == current_category.pk %} active{% endif %}"
-               {% if c.pk != current_category.pk %}href="{% url "excursions:category" c.pk %}"{% endif %}>
-                {{ c.title }}
-            </a>
-        {% endif %}
+        <a class="e-category list-group-menu-item{% if c.pk == current_category.pk %} active{% endif %}"
+           {% if c.pk != current_category.pk %}href="{% url "excursions:category" c.pk %}"{% endif %}>
+            {{ c.title }}
+        </a>
     {% endfor %}
 </div>

@@ -2,11 +2,16 @@ from django.conf import settings
 from django.db import models
 from django.db.models.loading import get_model
 from polymorphic import PolymorphicModel
+from django.core.cache import cache
+
+from custom_settings.managers import CustomSettingsCacheManager
 
 
 class Setting(PolymorphicModel):
     key = models.CharField(max_length=128, null=False, blank=True, unique=True)
     title = models.CharField(max_length=128, null=False, blank=True)
+
+    objects = CustomSettingsCacheManager()
 
     def get_value(self):
         return self.value
@@ -14,6 +19,10 @@ class Setting(PolymorphicModel):
     @property
     def type(self):
         return settings.CUSTOM_SETTINGS[self.key][2]
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        super(Setting, self).save(force_insert, force_update, using, update_fields)
+        cache.set(self.key, self.get_value())
 
 
 class TextSetting(Setting):

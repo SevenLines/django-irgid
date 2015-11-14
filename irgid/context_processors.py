@@ -10,17 +10,19 @@ def debug(context):
 
 def custom_settings(context):
     from custom_settings.models import Setting
-    settings = Setting.objects.filter(key__in=('headers_excursions', 'headers_travel'))
+    settings = {
+        'headers_excursions': Setting.objects.get_value('headers_excursions'),
+        'headers_travel': Setting.objects.get_value('headers_travel'),
+    }
 
     out = {}
 
-    for setting in settings:
-        value = setting.get_value()
+    for key, value in settings.items():
         items = value.split('/')
         while len(items) < 5:
             items.append('')
 
-        out[setting.key] = {
+        out[key] = {
             'people': items[0],
             'default_price': items[1],
             'price_line': {

@@ -12,12 +12,14 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import sys
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # Application definition
+TESTING= 'test' in sys.argv
 
 INSTALLED_APPS = (
     'djangocms_admin_style',
@@ -95,6 +97,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
+    'test': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'test_db.sqlite3'),
     }
 }
 
@@ -146,6 +152,28 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'django_assets.finders.AssetsFinder',
 )
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+        'KEY_FUNCTION': "irgid.utils.cache_key",
+        'KEY_PREFIX': '0957c690-7ddb-49fb-80e1-890def9f484b',
+    }
+}
+
+
+
+if TESTING:
+    class DisableMigrations(object):
+        def __contains__(self, item):
+            return True
+
+        def __getitem__(self, item):
+            return "notmigrations"
+    DEBUG = False
+    TEMPLATE_DEBUG = False
+    MIGRATION_MODULES = DisableMigrations()
 
 try:
     from local_settings import *

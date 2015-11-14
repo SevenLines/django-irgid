@@ -1,6 +1,8 @@
 <div id="yashare" class="yashare-auto-init"
      data-host="http://{{ request.get_host }}"
+     {% if current_excursion.img_preview %}
      data-yashareImage="http://{{ request.get_host }}{{ current_excursion.img_preview.url }}"
+     {% endif %}
      data-yashareDescription="{{ current_excursion.short_description }}"
      data-yashareL10n="ru"
      data-yashareType="big"

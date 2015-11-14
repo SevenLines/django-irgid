@@ -1,18 +1,32 @@
+from django.contrib.auth.models import User
+from django.core.management import call_command
 from django.core.urlresolvers import reverse
-from django.test import TestCase
-from django.test.client import MULTIPART_CONTENT
+from django.test.testcases import TestCase
 
 
-class TestCaseEx(TestCase):
-    def get(self, path, data=None, follow=False, secure=False, **extra):
-        return self.client.get(path, data, follow, secure, **extra)
+class LoggedSession(object):
+    def __init__(self, client, username, password):
+        self.client = client
+        self.username = username
+        self.password = password
 
-    def post(self, path, data=None, content_type=MULTIPART_CONTENT, follow=False, secure=False, **extra):
-        return self.client.post(path, data, content_type, follow, secure, **extra)
+    def __enter__(self):
+        return self.client.login(username=self.username, password=self.password)
 
-    def api(self, name, data=None, post=True, content_type=MULTIPART_CONTENT, follow=False, secure=False, **extra):
-        if post:
-            result = self.post(reverse(name), data=data, content_type=content_type, follow=follow, secure=secure,**extra)
-        else:
-            result = self.get(reverse(name), data=data, follow=follow, secure=secure, **extra)
-        return result
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.client.logout()
+
+
+class BaseTestCase(TestCase):
+    def setUp(self):
+        super(BaseTestCase, self).setUp()
+        self.superuser = User.objects.create_superuser('admin', 'admin@mail.com', '1234')
+        call_command('update_settings')
+
+    def api(self, name, data=None, params=None, status_code=200):
+        r = self.client.get(reverse(name, kwargs=params), data=data)
+        self.assertEqual(r.status_code, status_code)
+        return r
+
+    def login(self, username='admin', password='1234'):
+        return LoggedSession(self.client, username, password)

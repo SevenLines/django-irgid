@@ -43,7 +43,6 @@
             <form class="category-form"
                   data-id="{{ c.pk }}"
                   data-title="{{ c.title }}"
-                  data-is_gallery="{{ c.is_gallery|yesno:"true,false" }}"
                   data-description="{{ c.description }}"
                   data-order="{{ forloop.counter0 }}"
                   data-visible="{{ c.visible|yesno:"true,false" }}"
