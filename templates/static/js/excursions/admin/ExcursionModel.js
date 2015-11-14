@@ -1,6 +1,8 @@
 (function () {
     function ExcursionModel(data) {
         var self = this;
+
+        self.editor = null;
         self.excursion_id = data.id;
         self.csrf = data.csrf;
 
@@ -14,8 +16,46 @@
             };
 
             CKEDITOR.disableAutoInline = true;
-            CKEDITOR.inline('excursion-description', editor_config);
+            self.editor = CKEDITOR.inline('excursion-description', editor_config);
 
+            self.editor.addCommand("saveCommand", { // create named command
+                exec: function (edt) {
+                    self.$excursionForm.submit();
+                }
+            });
+
+            self.editor.ui.addButton('SaveButton', { // add new button and bind our command
+                label: "save",
+                command: 'saveCommand',
+                toolbar: 'editing',
+                icon: '/static/images/save.png'
+            });
+
+            self.editor.ui.addRichCombo('Combo', {
+                label: "Галерея",
+                init: function () {
+                    console.log(this);
+                    var self = this;
+                    $.each($(".excursion-gallery a"), function (index, value) {
+                        // value, html, text
+                        var thumb = $(value).find('img').attr('src');
+                        var href = $(value).attr('href');
+
+                        var thumb_html = [
+                            "<img ",
+                            "src='",thumb,"' ",
+                            "style='height:30px;'",
+                            " />"
+                        ].join('');
+                        self.add(href, thumb_html)
+                    });
+                },
+                onClick: function (value) {
+                    console.log(value);
+                    img_html = "<img src='" + value + "' />";
+                    self.editor.insertHtml(img_html);
+                }
+            });
 
             $(".image-selector").on("change", function () {
                 var that = this;
@@ -42,7 +82,7 @@
             var items = $(form).find(".excursion-gallery .images .excursion-gallery-item");
             var order = {};
             items.each(function(i, item) {
-                var id = $(item).data("id");
+                var id = $(item).data("id") || -1;
                 order[id] = i + 1;
             });
             return order;
@@ -54,7 +94,7 @@
 
         self.Save = function (form, oncomplete) {
             var title = $("#excursion-title").html();
-            var description = $("#excursion-description").html();
+            var description = self.editor.getData();
             var short_description = $("#excursion-short-description").html();
             var price_list = $("#excursion-price-list")[0].value;
             var yandex_map_script = $("#yandexmapscript-input")[0].value;

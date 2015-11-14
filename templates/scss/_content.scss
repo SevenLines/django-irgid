@@ -68,7 +68,13 @@ a {
   }
 }
 
+
+
 .text-content {
+  img {
+    max-width: 100%;
+  }
+
   img[style*="float:left"], img[style*="float: left"] {
     margin-left: 0;
     margin-right: 1em;

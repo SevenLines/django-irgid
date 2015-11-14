@@ -62,6 +62,8 @@ a {
       padding: 10px;
       padding-top: 60px; } }
 
+.text-content img {
+  max-width: 100%; }
 .text-content img[style*="float:left"], .text-content img[style*="float: left"] {
   margin-left: 0;
   margin-right: 1em; }

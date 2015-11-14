@@ -151,7 +151,8 @@
         <script>
             new ExcursionModel({
                 id: {{ current_excursion.id }},
-                csrf: '{{ csrf_token }}'
+                csrf: '{{ csrf_token }}',
+                save_url: '{% url "excursions.views.ajax.excursion_save" %}',
             });
 
             var gallery = $(".excursion-gallery .images")[0];

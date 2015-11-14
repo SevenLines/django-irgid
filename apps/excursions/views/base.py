@@ -24,9 +24,9 @@ def _excursion_context(request):
 def _save_excursions_galley_images_order(request):
     order = request.POST['order']
     order = json.loads(order)
-    for ec in ExcursionImage.objects.filter(id__in=order.keys()):
-        ec.order = order[unicode(ec.id)]
-        ec.save()
+    for image in ExcursionImage.objects.filter(id__in=order.keys()):
+        image.order = order[unicode(image.id)] or 100
+        image.save()
 
 
 def _excursion_save(request):
