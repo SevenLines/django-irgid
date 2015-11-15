@@ -1,10 +1,12 @@
 {% load thumbnail static excursions_tags %}
+{% if current_excursion.category %}
 <div>
-    <a class="hidden-lg hidden-md hidden-sm" href="{% url "excursions:category" current_excursion.category.pk %}">
+    <a class="hidden-lg hidden-md hidden-sm" href="{% url "excursions:category" pk=current_excursion.category.pk %}">
         <button class="btn btn-sm btn-default"
                 style="margin-bottom: 5px">{{ current_excursion.category.title }} </button>
     </a>
 </div>
+{% endif %}
 
 <h2 itemprop="name" id="excursion-title" style="margin-bottom: 0.25em">
     {{ current_excursion.title|default:"..." }}
