@@ -23,6 +23,14 @@ class ExcursionCategory(models.Model):
     def __unicode__(self):
         return u"{title}|{id}".format(**self.__dict__)
 
+    @property
+    def is_gallery(self):
+        return self.pk == ExcursionCategory.objects.get_gallery_id()
+
+    @property
+    def is_travel(self):
+        return self.pk == ExcursionCategory.objects.get_travel_id()
+
     def get_excursions(self, request):
         if not request.user.is_authenticated():
             return Excursion.objects.filter(category=self, published=True)
