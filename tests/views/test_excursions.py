@@ -79,6 +79,19 @@ class CategoryViewsTestCase(BaseTestCase):
         self.api('travel:index')
         self.api('travel:item', params={'pk': c.excursion_set.all()[0].pk})
 
+    def test_it_can_be_removed(self):
+        c = ExcursionCategory.objects.create(
+            title=u'Название',
+            visible=True,
+        )
+        self.assertEqual(ExcursionCategory.objects.filter(pk=c.pk).count(), 1)
+        self.api('excursions:category_remove', params={'pk': c.pk}, status_code=302)
+        self.assertEqual(ExcursionCategory.objects.filter(pk=c.pk).count(), 1)
+
+        with self.login():
+            self.api('excursions:category_remove', params={'pk': c.pk}, post=True, ajax=True)
+        self.assertEqual(ExcursionCategory.objects.filter(pk=c.pk).count(), 0)
+
 
 class ExcursionViewsTestCase(BaseTestCase):
     def test_it_can_be_dont_visible_for_guest(self):
@@ -102,4 +115,29 @@ class ExcursionViewsTestCase(BaseTestCase):
 
         with self.login():
             self.api('excursions:item', params={'pk': e.id})
+
+    def test_it_can_be_removed(self):
+        e = Excursion.objects.create(
+            title=u'Название',
+            published=True,
+        )
+        self.assertEqual(Excursion.objects.filter(pk=e.pk).count(), 1)
+        self.api('excursions:remove', params={'pk': e.pk}, status_code=302)
+        self.assertEqual(Excursion.objects.filter(pk=e.pk).count(), 1)
+
+        with self.login():
+            self.api('excursions:remove', params={'pk': e.pk}, post=True, ajax=True)
+        self.assertEqual(Excursion.objects.filter(pk=e.pk).count(), 0)
+
+    def test_preview(self):
+        e = Excursion.objects.create(
+            title=u'Название',
+        )
+        self.api('excursions:item_preview', params={'pk': e.pk}, status_code=302)
+
+        with self.login():
+            self.api('excursions:item_preview', params={'pk': e.pk})
+
+
+
 

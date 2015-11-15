@@ -70,7 +70,7 @@
                     set_image: self.url.set_image,
                     rmv_image: self.url.rmv_image,
                     set_visible: self.url.set_visible,
-                    rmv_category: self.url.rmv_category,
+                    rmv_category: formElement.dataset.removeUrl,
                     save_category: self.url.save_category
                 },
                 csrf: self.csrf,

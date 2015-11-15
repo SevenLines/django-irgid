@@ -129,8 +129,9 @@
                 persistent: false,
                 submit: function (e, confirmed) {
                     if (confirmed) {
-                        $.get(self.url.rmv_category, {
-                            id: self.id
+                        $.post(self.url.rmv_category, {
+                            id: self.id,
+                            csrfmiddlewaretoken: self.csrf
                         }).done(function () {
                             location.reload()
                         }).fail(InterfaceAlerts.showFail);
