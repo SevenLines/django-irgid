@@ -10,15 +10,15 @@ from excursions.views.ajax import ExcursionMainImageRemove
 __author__ = 'm'
 
 urlpatterns = i18n_patterns('excursions.views',
-    url(r'c/(?P<pk>(\d+))/remove/$', ExcursionCategoryRemoveView.as_view(), name='category_remove'),
-    url(r'c/(?P<pk>(\d+))/$', CategoryView.as_view(), name='category'),
     url(r'c/ajax/save/$', 'ajax.category_save', name='ajax_category_save'),
     url(r'c/ajax/set-order/$', 'ajax.set_categories_order', name='ajax_set_categories_order'),
     url(r'c/ajax/set-image/$', 'ajax.set_category_image', name='ajax_set_category_image'),
     url(r'c/ajax/remove-image/$', 'ajax.remove_category_image', name='ajax_remove_category_image'),
-    url(r'c/ajax/remove/$', 'ajax.category_remove', name='ajax_category_remove'),
+    # url(r'c/ajax/remove/$', 'ajax.category_remove', name='ajax_category_remove'),
     url(r'c/ajax/toggle/$', 'ajax.toggle_category', name='ajax_toggle_category'),
     url(r'c/save/$', 'category_save', name='category_save'),
+    url(r'c/(?P<pk>(\d+))/remove/$', ExcursionCategoryRemoveView.as_view(), name='category_remove'),
+    url(r'c/(?P<pk>(\d+))/$', CategoryView.as_view(), name='category'),
 
     url(r'save/$', 'excursion_save', name='save'),
     url(r'ajax/save$', 'ajax.excursion_save', name='ajax_save'),
@@ -49,7 +49,5 @@ urlpatterns = i18n_patterns('excursions.views',
     url(r'category/ajax/set-order/$', 'ajax.set_categories_order'),
     url(r'category/ajax/set-image/$', 'ajax.set_category_image'),
     url(r'category/ajax/remove-image/$', 'ajax.remove_category_image'),
-    url(r'category/ajax/remove/$', 'ajax.category_remove'),
     url(r'category/ajax/toggle/$', 'ajax.toggle_category'),
-
 )

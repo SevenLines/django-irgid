@@ -1,13 +1,14 @@
 # coding=utf-8
 # Create your views here.
 import json
+
 from braces.views import LoginRequiredMixin
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
-from django.http.response import Http404
-from django.shortcuts import redirect, get_object_or_404
-from django.views.generic import DetailView
-from django.views.generic.edit import DeleteView
+from django.core.urlresolvers import reverse
+from django.http.response import Http404, HttpResponse
+from django.shortcuts import redirect
+from django.views.generic import DetailView, View
+from django.views.generic.detail import SingleObjectMixin
 
 from excursions.models import ExcursionCategory, Excursion, ExcursionImage
 from excursions.utils import get_price_list
@@ -32,6 +33,18 @@ class MainPageView(TitledView):
             'travel': ExcursionCategory.objects.travel()
         })
         return context
+
+
+class BaseModelDeleteView(LoginRequiredMixin, SingleObjectMixin, View):
+    def post(self, request, *args, **kwargs):
+        self.get_object().delete()
+
+        if request.is_ajax():
+            result = HttpResponse()
+        else:
+            result = redirect(request.META.get('HTTP_REFERER', reverse('index')))
+
+        return result
 
 
 class CategoryView(DetailView):
@@ -198,18 +211,12 @@ class ExcursionTravelIndexView(CategoryView):
         return context
 
 
-class ExcursionRemoveView(LoginRequiredMixin, DeleteView):
+class ExcursionRemoveView(BaseModelDeleteView):
     model = Excursion
 
-    def get_success_url(self):
-        return self.request.META['HTTP_REFERER']
 
-
-class ExcursionCategoryRemoveView(LoginRequiredMixin, DeleteView):
+class ExcursionCategoryRemoveView(BaseModelDeleteView):
     model = ExcursionCategory
-
-    def get_success_url(self):
-        return self.request.META['HTTP_REFERER']
 
 
 @login_required

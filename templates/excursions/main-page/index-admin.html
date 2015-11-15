@@ -46,9 +46,10 @@
                   data-description="{{ c.description }}"
                   data-order="{{ forloop.counter0 }}"
                   data-visible="{{ c.visible|yesno:"true,false" }}"
+                  data-remove-url="{% url "excursions:category_remove" pk=c.pk %}"
                   {% if c.image %}data-image-url="{% thumbnail c.image 0x300 %}"{% endif %}>
 
-                <a class="e-class-description" href="{% url "excursions:category" c.pk %}">
+                <a class="e-class-description" href="{% url "excursions:category" pk=c.pk %}">
                     <div class="e-class">
                         <img data-bind="attr: { src: imageUrl }">
 
@@ -72,7 +73,6 @@
             set_image: '{% url "excursions:ajax_set_category_image" %}',
             set_visible: '{% url "excursions:ajax_toggle_category" %}',
             rmv_image: '{% url "excursions:ajax_remove_category_image" %}',
-            rmv_category: '{% url "excursions:ajax_category_remove" %}',
             save_category: '{% url "excursions:ajax_category_save" %}'
         },
         csrf: '{{ csrf_token }}'
