@@ -45,7 +45,13 @@ class ExcursionsCategoryManager(models.Manager):
         return self.get_queryset().filter(pk=travel_id).last()
 
     def get_special_categories_info(self):
-        return {
+        result = {
             'gallery_id': self.get_gallery_id(),
             'travel_id': self.get_travel_id(),
         }
+
+        for key, value in result.items():
+            if not value:
+                del result[key]
+
+        return result
