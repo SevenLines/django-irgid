@@ -10,14 +10,14 @@ class ExcursionsCategoryManager(models.Manager):
         if not gallery_id:
             gallery_id = Setting.objects.get(key='gallery_id').get_value()
             cache.set('gallery_id', gallery_id)
-        return gallery_id
+        return None if gallery_id is None else int(gallery_id)
 
     def get_travel_id(self):
         travel_id = cache.get('travel_id')
         if not travel_id:
             travel_id = Setting.objects.get(key='travel_id').get_value()
             cache.set('travel_id', travel_id)
-        return travel_id
+        return None if travel_id is None else int(travel_id)
 
     def _data(self, excluded_pk, user):
         result = self.get_queryset().exclude(pk__in=filter(None, excluded_pk)).order_by('order', 'title')

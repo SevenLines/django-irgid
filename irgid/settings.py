@@ -183,13 +183,22 @@ except:
 
 # -=-=-=-=-=-=-=-=-=-=-=-=-
 # APPLICATION SETTINGS BEGIN
+def travel_menu_item_visible(context):
+    from excursions.models import Excursion, ExcursionCategory
+    if context['user'].is_authenticated():
+        return True
+    return Excursion.objects.filter(
+        published=True,
+        category_id=ExcursionCategory.objects.get_travel_id()
+    ).exists()
+
 MENU = [
-    ('index', u'Экскурсии', '^/excursions|^$|^/$', '', False),
-    ('travel:index', u'Путешествия', '^/travel', '', False),
-    ('about', u'О нас', '^/about', '', False),
-    ('faq', u'FAQ', '^/faq', '', False),
-    ('gallery:index', u'Галерея', '^/gallery', '', False),
-    ('settings', u'Настройки', '^/settings', '', True),
+    ('index', u'Экскурсии', '^/excursions|^$|^/$', '', lambda c: True),
+    ('travel:index', u'Путешествия', '^/travel', '', travel_menu_item_visible),
+    ('about', u'О нас', '^/about', '', lambda c: True),
+    ('faq', u'FAQ', '^/faq', '', lambda c: True),
+    ('gallery:index', u'Галерея', '^/gallery', '', lambda c: True),
+    ('settings', u'Настройки', '^/settings', '', lambda c: c['user'].is_authenticated()),
 ]
 
 CUSTOM_SETTINGS = {
