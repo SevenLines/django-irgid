@@ -57,7 +57,9 @@ class CategoryView(DetailView):
         self.category = self.object
 
         if not self.request.user.is_authenticated():
-            if not self.category.visible or len(self.category.get_excursions(self.request)) == 0:
+            if not self.category.get_excursions(self.request).exists():
+                raise Http404
+            if not self.category.visible and not (self.category.is_gallery or self.category.is_travel):
                 raise Http404
 
         categories = ExcursionCategory.objects.common(self.request.user)
@@ -88,7 +90,11 @@ class ExcursionItemBaseView(DetailView):
         self.category = self.excursion.category
 
         if not self.request.user.is_authenticated():
-            if not self.excursion.published or not self.category or not self.category.visible:
+            if not self.excursion.published:
+                raise Http404
+            if not self.category:
+                raise Http404
+            if not self.category.visible and not (self.category.is_gallery or self.category.is_travel):
                 raise Http404
 
         context['title'] = self.excursion.title

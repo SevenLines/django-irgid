@@ -36,13 +36,13 @@ def menu(context):
         if item[0] == 'gallery:index' and 'gallery_id' not in special_categories:
             continue
 
-        menu_dict.append({
-            'url': reverse(item[0]),
-            'title': item[1],
-            'selected': re.match(item[2], path),
-            'class': item[3],
-            'login_required': item[4],
-        })
+        if item[4](context):
+            menu_dict.append({
+                'url': reverse(item[0]),
+                'title': item[1],
+                'selected': re.match(item[2], path),
+                'class': item[3],
+            })
 
     return render_to_string("_/elements/menu.html", {
         'menu': menu_dict
