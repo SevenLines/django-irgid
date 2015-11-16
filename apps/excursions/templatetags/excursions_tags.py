@@ -1,6 +1,9 @@
+# coding=utf-8
 from __future__ import division
 
 import re
+
+import math
 from django import template
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -17,6 +20,31 @@ register = template.Library()
 def min_to_hours(value):
     value = round(int(value) / 60, 1)
     return u"%g" % value
+
+
+@register.filter
+@stringfilter
+def time_verbose(value):
+    hours = round(int(value) / 60, 1)
+    days = int(math.floor(hours / 24))
+    hours -= days * 24
+
+    out = ""
+
+    if days:
+        day_verb = {
+            1: 'день',
+            2: 'дня',
+            3: 'дня',
+            4: 'дня',
+        }.get(days, 'дней')
+        out += "{} {}".format(days, day_verb)
+
+    if hours:
+        hour_verb = 'часа' if hours <= 4 else 'часов'
+        out += " {} {}".format(str(hours).rstrip('0').rstrip('.'), hour_verb)
+
+    return out.strip()
 
 
 @register.filter
