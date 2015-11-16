@@ -27,7 +27,7 @@ def min_to_hours(value):
 def time_verbose(value):
     hours = round(int(value) / 60, 1)
     days = int(math.floor(hours / 24))
-    hours = hours - days * 24
+    hours -= days * 24
 
     out = ""
 
