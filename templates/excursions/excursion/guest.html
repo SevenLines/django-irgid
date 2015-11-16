@@ -17,7 +17,7 @@
     <div style="float:left;">
         {% if current_excursion.time_length %}
             <span class="label label-success"
-                  style="display: inline-block" data-toggle="tooltip" data-placement="top" title="продолжительность экскурсии">({{ current_excursion.time_length|min_to_hours }}ч.)</span>
+                  style="display: inline-block" data-toggle="tooltip" data-placement="top" title="продолжительность экскурсии">({{ current_excursion.time_length|time_verbose }})</span>
         {% endif %}
         {% if current_excursion.min_age %}
             <span class="label label-danger" style="display: inline-block" data-toggle="tooltip" data-placement="top" title="рекомендуемый возраст">
