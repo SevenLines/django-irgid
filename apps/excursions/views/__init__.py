@@ -103,12 +103,12 @@ class ExcursionItemBaseView(DetailView):
         if not self.request.user.is_authenticated():
             context['gallery'] = context['gallery'].filter(hidden=False)
 
-        context['price_headers'] = 'headers_excursions'
         context['current_excursion'] = self.excursion
         context['current_category'] = self.category
         context['excursions'] = self.category.get_excursions(self.request).order_by("title") if self.category else []
         context['categories'] = ExcursionCategory.objects.common(self.request.user)
         context['price_list'] = json.dumps(get_price_list(self.excursion.priceList))
+        context['price_headers'] = 'headers_excursions'
         context['file_browser'] = ExcursionImage.objects.filter(excursion=self.excursion).order_by("order")
         context['meta'] = {
             'description': u"Экскурсия: {}; Описание: {}".format(self.excursion.title, self.excursion.short_description)
@@ -169,6 +169,8 @@ class ExcursionPreviewItemView(LoginRequiredMixin, ExcursionItemBaseView):
     def get_context_data(self, **kwargs):
         context = super(ExcursionPreviewItemView, self).get_context_data(**kwargs)
         context['gallery'] = context['gallery'].filter(hidden=False)
+        if self.category and self.category.is_travel:
+            context['price_headers'] = 'headers_travel'
         return context
 
 
