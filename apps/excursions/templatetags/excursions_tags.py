@@ -75,3 +75,14 @@ def menu(context):
     return render_to_string("_/elements/menu.html", {
         'menu': menu_dict
     }, context)
+
+
+@register.filter
+@stringfilter
+def lazy_load(text):
+    """
+    :type text: str
+    """
+    import re
+    exp = re.compile(r'(<img.*?)src="(.*?)"(.*?>)', re.IGNORECASE)
+    return exp.sub(r'\1 class="lazy fadein" data-original="\2" \3', text)
