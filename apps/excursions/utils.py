@@ -6,7 +6,12 @@ def get_price_list(price_list_string):
     out = []
     for l in price_list_string.strip().splitlines():
         count, price = l.split("|")
-        count_min, count_max = count.split('-')
+        count = count.split('-')
+        if len(count) > 1:
+            count_min = count[0]
+            count_max = count[1]
+        else:
+            count_min = count_max = count[0]
 
         child_price = 0
         adult_price = 0
