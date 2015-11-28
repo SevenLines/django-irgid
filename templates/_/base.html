@@ -44,16 +44,14 @@
         <div class="logo-info" style="margin: 0 auto">
             <table style="width:100%;table-layout: fixed">
                 <tr>
-                    <td style="width:33%;">
-                        тел.: {% custom_setting 'phone' %}<br>
-                        email: <a href="mailto:{% custom_setting 'email' %}">{% custom_setting 'email' %}</a>
-                    </td>
-                    <td style="width:34%;text-align: center;">
+                    <td style="width:50%;text-align: center;">
                         <span style="display: inline-block;">
                             {% custom_setting 'copyright' %}
                         </span>
                     </td>
-                    <td style="width:33%;text-align: right">
+                    <td style="width:50%;text-align: center;">
+                        тел.: {% custom_setting 'phone' %}<br>
+                        email: <a href="mailto:{% custom_setting 'email' %}">{% custom_setting 'email' %}</a>
                     </td>
                 </tr>
             </table>
