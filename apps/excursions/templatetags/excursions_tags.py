@@ -58,6 +58,7 @@ def menu(context):
     path = context['request'].path
 
     menu_dict = []
+    selected_item = None
     for item in settings.MENU:
         if item[0] == 'travel:index' and 'travel_id' not in special_categories:
             continue
@@ -65,15 +66,20 @@ def menu(context):
             continue
 
         if item[4](context):
-            menu_dict.append({
+            selected = re.match(item[2], path)
+            menu_item = {
                 'url': reverse(item[0]),
                 'title': item[1],
-                'selected': re.match(item[2], path),
+                'selected': selected,
                 'class': item[3],
-            })
+            }
+            if selected:
+                selected_item = menu_item
+            menu_dict.append(menu_item)
 
     return render_to_string("_/elements/menu.html", {
-        'menu': menu_dict
+        'menu': menu_dict,
+        'menu_current_item': selected_item
     }, context)
 
 
