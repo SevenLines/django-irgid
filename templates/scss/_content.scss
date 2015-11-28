@@ -62,9 +62,12 @@ a {
 
 #content {
   background-color: white;
+  margin-top: 1em;
   @media (max-width: $width-medium) {
     padding: 10px;
-    padding-top: 60px;
+    margin-top: 0;
+
+    //padding-top: 60px;
   }
 }
 
