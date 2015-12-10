@@ -22,15 +22,7 @@
             <nav class="navbar menu">
                 {% menu %}
                 {% include "_/elements/weather-snippet.html" %}
-                {% if user.is_authenticated %}
-                    <div class="pull-right hidden-sm hidden-xs" style="padding-top: 0.5em">
-                        привет, <b>{{ request.user }}</b>
-                        {% if user.is_superuser %}
-                            | <a href="/admin">админка</a>
-                            | <a href="/admin/request/request/overview/">статистика</a>
-                        {% endif %}
-                    </div>
-                {% endif %}
+
             </nav>
         </div>
         <div id="content">
