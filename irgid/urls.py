@@ -46,8 +46,19 @@ urlpatterns = patterns('',
     url(r'^settings/', include(custom_settings.urls)),
     url(r'^sharedcontroll-app/', include(sharedcontroll.urls)),
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
-    url(r'^about/$', TemplateViewEx.as_view(template_name="about.html", data={'title': u'О нас'}), name='about'),
-    url(r'^faq/$', TemplateViewEx.as_view(template_name="faq.html", data={'title': u'FAQ'}), name='faq'),
+
+    url(r'^about/$', TemplateViewEx.as_view(
+        template_name="about.html", data={'title': u'О нас'}
+    ), name='about'),
+
+    url(r'^calendar/$', TemplateViewEx.as_view(
+        template_name="calendar.html", data={'title': u'Расписание экскурсий'}
+    ), name='calendar'),
+
+    url(r'^faq/$', TemplateViewEx.as_view(
+        template_name="faq.html", data={'title': u'FAQ'}
+    ), name='faq'),
+
     url('^$', excursions.views.MainPageView.as_view(), name='index'),
     url('^', include('django.contrib.auth.urls')),
     # url(r'^', include('cms.urls')),

@@ -6,11 +6,9 @@
                 display: none !important;
             }
         </style>
-        <div id="toolbar"></div>
         <div style="margin-top: 10px" name="editor" id="editor" contenteditable="true">
         {% custom_setting custom_settings_key %}
         </div>
-        <div id="statusbar"></div>
 
         <form action="{% url "upload-image" %}" name="upload-file-form" id="upload-file-form" method="post"
           enctype="multipart/form-data">
@@ -22,12 +20,7 @@
             CKEDITOR.disableAutoInline = true;
             var editor = CKEDITOR.inline('editor', {
                 extraPlugins: 'justify,sharedspace,pastefromword,colorbutton',
-                removePlugins: 'maximize,resize',
-                {#            removeButtons: 'Image',#}
-                sharedSpaces: {
-                    top: 'toolbar',
-                    bottom: 'statusbar'
-                },
+                removePlugins: 'maximize,resize'
             });
 
             $('#upload-file-form').submit(function (e) {

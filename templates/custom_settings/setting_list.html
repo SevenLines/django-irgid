@@ -2,7 +2,7 @@
 
 {% block content %}
     {% for setting in object_list|dictsort:'title' %}
-        {% if setting.key != 'about' and setting.key != 'faq' %}
+        {% if setting.key != 'about' and setting.key != 'faq' and setting.key != 'calendar' %}
             <form action="{% url 'settings-update' setting.id %}" class="form" method="post">
                 <div class="form-group">
                     {% if setting.type == 'ForeignKey' %}

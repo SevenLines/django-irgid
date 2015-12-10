@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models.loading import get_model
 from polymorphic import PolymorphicModel
 from django.core.cache import cache
+from simple_history.models import HistoricalRecords
 
 from custom_settings.managers import CustomSettingsCacheManager
 
@@ -28,9 +29,12 @@ class Setting(PolymorphicModel):
 class TextSetting(Setting):
     value = models.TextField(null=True, default=True)
 
+    history = HistoricalRecords()
+
 
 class IntegerSetting(Setting):
     value = models.IntegerField(null=True, default=True)
+    history = HistoricalRecords()
 
     @property
     def options(self):

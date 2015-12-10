@@ -1,4 +1,4 @@
-Django==1.8.5
+Django==1.8.7
 psycopg2==2.5.4
 Pillow==2.4.0
 easy_thumbnails==2.2
@@ -12,6 +12,7 @@ django-polymorphic==0.7.2
 django-debug-toolbar
 django-extensions
 pytest-django
+django-simple-history
 ipython
 
 python-memcached
