@@ -1,6 +1,8 @@
 # coding=utf-8
+import calendar
+from datetime import date
 from django.core.urlresolvers import reverse
-from django.db import models
+from django.db import models, transaction
 from django.db.models.signals import pre_delete, post_delete
 from django.dispatch.dispatcher import receiver
 from easy_thumbnails.fields import ThumbnailerImageField
@@ -103,6 +105,26 @@ class Excursion(models.Model):
 
     def __unicode__(self):
         return u"{title}|{id}".format(**self.__dict__)
+
+
+class ExcursionCalendar(models.Model):
+    excursion = models.ForeignKey(Excursion, null=True, blank=True)
+    date = models.DateField(default=date.today)
+    comment = models.TextField(default="")
+
+    is_best = models.BooleanField(default=False, verbose_name='Является ли лучши мпредложением месяца')
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        with transaction.atomic():
+            if self.is_best:
+                min_range, max_range = calendar.monthrange(date.today().year, date.today().month)
+                min_range = date.today().replace(day=min_range)
+                max_range = date.today().replace(day=max_range)
+                # только одна главная экскурсия в месяц
+                ExcursionCalendar.objects.filter(date__range=(min_range, max_range))\
+                    .update(is_best=False)
+
+            super(ExcursionCalendar, self).save(force_insert, force_update, using, update_fields)
 
 
 class ExcursionImage(models.Model):
