@@ -6,6 +6,7 @@ from django.db import models, transaction
 from django.db.models.signals import pre_delete, post_delete
 from django.dispatch.dispatcher import receiver
 from easy_thumbnails.fields import ThumbnailerImageField
+from simple_history.models import HistoricalRecords
 
 from excursions.managers import ExcursionsCategoryManager
 
@@ -21,6 +22,8 @@ class ExcursionCategory(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
 
     objects = ExcursionsCategoryManager()
+
+    history = HistoricalRecords()
 
     def __unicode__(self):
         return u"{title}|{id}".format(**self.__dict__)
@@ -62,6 +65,8 @@ class Excursion(models.Model):
 
     category = models.ForeignKey("ExcursionCategory", default=None, null=True)
     published = models.BooleanField("", default=False)
+
+    history = HistoricalRecords()
 
     # def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
     #     super(Excursion, self).save(force_insert, force_update, using, update_fields)

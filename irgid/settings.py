@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'sharedcontroll',
     'custom_settings',
     'debug_toolbar',
+    'simple_history',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -56,6 +57,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
 )
 
 ROOT_URLCONF = 'irgid.urls'
@@ -194,6 +196,7 @@ def travel_menu_item_visible(context):
 
 MENU = [
     ('index', u'Экскурсии', '^/excursions|^$|^/$', '', lambda c: True),
+    ('calendar', u'Расписание', '^/calendar', '', lambda c: True),
     ('travel:index', u'Путешествия', '^/travel', '', travel_menu_item_visible),
     ('about', u'О нас', '^/about', '', lambda c: True),
     ('faq', u'FAQ', '^/faq', '', lambda c: True),
@@ -207,8 +210,10 @@ CUSTOM_SETTINGS = {
     'headers_excursions': (u'Заголовоки для экскурсий', 'Кол-во человек в группе/Цена/Взрослый/Детский/Дошкольный', 'String'),
     'headers_travel': (u'Заголовоки для путуешествий', 'Кол-во человек в группе/Цена/Эконом/Стандарт/Люкс', 'String'),
     'copyright': (u'Копирайт', """© 2015 Экскурсионное агентство «<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Иргид</span></span>».<br>Все права защищены.""", 'String'),
+
     'about': (u'О нас', '', 'String'),
     'faq': (u'FAQ', '', 'String'),
+    'calendar': (u'Расписание экскурсий', '', 'String'),
 
     'excuse_for_not_exists': (u'Извинение', "<h2 style='text-align: center;'>Этот раздел сейчас в разработке</h2>", 'String'),
 
