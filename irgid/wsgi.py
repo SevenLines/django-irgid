@@ -21,6 +21,9 @@ import os
 # os.environ["DJANGO_SETTINGS_MODULE"] = "app.settings"
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "app.settings")
 
+import locale
+locale.setlocale(locale.LC_ALL, "ru_RU.UTF-8")
+
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION
 # setting points here.

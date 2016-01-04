@@ -66,12 +66,17 @@ def backup(only_base=False):
     download(only_base)
 
     # restore database
-    local("tar xvzf dump.tgz")  # unpack archive
-    local("python manage.py sqlflush | python manage.py dbshell")  # clear old data
-    local("python manage.py loaddata dump.json")  # load new data
+    restore_db()
 
     if not only_base:
         # restore media
         local("rm -rf media")
         local("mkdir media")
         local("tar -xf media.tgz")
+
+
+def restore_db():
+    # restore database
+    local("tar xvzf dump.tgz")  # unpack archive
+    local("python manage.py sqlflush | python manage.py dbshell")  # clear old data
+    local("python manage.py loaddata dump.json")  # load new data

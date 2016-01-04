@@ -455,4 +455,30 @@
 #price-calculator .input-group-addon {
   width: 100px; }
 
+.calendar td > div {
+  padding: 12px;
+  margin: 4px;
+  border-radius: 24px;
+  background-color: #EFEFEF;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer; }
+  .calendar td > div:hover {
+    background-color: #b3dde5;
+    color: white; }
+  .calendar td > div.current {
+    background-color: #00A6C7;
+    color: white; }
+
+.day-info .title .day {
+  padding: 6px;
+  border-radius: 30px;
+  border: 2px solid crimson;
+  float: left; }
+
 /*# sourceMappingURL=excursions.css.map */

@@ -4,7 +4,8 @@ from django.conf.urls import url
 from django.conf.urls.i18n import i18n_patterns
 
 from excursions.views import MainPageView, CategoryView, ExcursionItemView, ExcursionGalleryItemView, \
-    ExcursionGalleryIndexView, ExcursionRemoveView, ExcursionCategoryRemoveView, ExcursionPreviewItemView
+    ExcursionGalleryIndexView, ExcursionRemoveView, ExcursionCategoryRemoveView, ExcursionPreviewItemView, \
+    ExcursionCalendarView
 from excursions.views.ajax import ExcursionMainImageRemove
 
 __author__ = 'm'
@@ -29,6 +30,8 @@ urlpatterns = i18n_patterns('excursions.views',
     url(r'(?P<pk>(\d+))/remove/$', ExcursionRemoveView.as_view(), name='remove'),
     url(r'(?P<pk>(\d+))/preview/$', ExcursionPreviewItemView.as_view(), name='item_preview'),
     url(r'(?P<pk>(\d+))/$', ExcursionItemView.as_view(), name='item'),
+
+    url(r'calendar/$', ExcursionCalendarView.as_view(), name='calendar'),
 
     url(r'$', MainPageView.as_view(), name='index'),
 

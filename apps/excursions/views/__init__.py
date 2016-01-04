@@ -1,8 +1,10 @@
 # coding=utf-8
 # Create your views here.
 import json
+from calendar import Calendar
 
 from braces.views import LoginRequiredMixin
+from datetime import date, datetime
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse
 from django.http.response import Http404, HttpResponse
@@ -10,7 +12,8 @@ from django.shortcuts import redirect
 from django.views.generic import DetailView, View
 from django.views.generic.detail import SingleObjectMixin
 
-from excursions.models import ExcursionCategory, Excursion, ExcursionImage
+from excursions.helpers import ExcursionCalendarHelper
+from excursions.models import ExcursionCategory, Excursion, ExcursionImage, ExcursionCalendar
 from excursions.utils import get_price_list
 from excursions.views import ajax
 from excursions.views.base import _excursion_save, _excursion_context
@@ -225,6 +228,64 @@ class ExcursionRemoveView(BaseModelDeleteView):
 
 class ExcursionCategoryRemoveView(BaseModelDeleteView):
     model = ExcursionCategory
+
+
+class ExcursionCalendarView(TitledView):
+    title = u'Календарь'
+    template_name = 'excursions/calendar/index.html'
+
+    def month(self):
+        verbose = {
+            1: 'Январь',
+            2: 'Февраль',
+            3: 'Март',
+            4: 'Апрель',
+            5: 'Май',
+            6: 'Июнь',
+            7: 'Июль',
+            8: 'Август',
+            9: 'Сентябрь',
+            10: 'Октябрь',
+            11: 'Ноябрь',
+            12: 'Декабрь',
+        }[self.selected_month]
+
+        return {
+            'number': self.selected_month,
+            'verbose': verbose,
+        }
+
+    def today(self):
+        return datetime.today()
+
+    def day(self):
+        d = date.today().day
+        return d
+
+    def calendar(self):
+        days = Calendar().itermonthdates(self.selected_year, self.selected_month)
+        weeks = {}
+        for d in days:
+            weeks.setdefault(d.weekday(), [])
+            weeks[d.weekday()].append(d)
+        out = []
+        for w in weeks.keys():
+            days = []
+            for d in weeks[w]:
+                days.append(d)
+            out.append(days)
+        return out
+
+    def days(self):
+        return Calendar().itermonthdates(self.selected_year, self.selected_month)
+
+    def events(self):
+        ExcursionCalendar.objects.filter(date)
+
+    def get_context_data(self, **kwargs):
+        self.selected_year = int(self.request.GET.get('year', date.today().year))
+        self.selected_month = int(self.request.GET.get('month', date.today().month))
+        return super(ExcursionCalendarView, self).get_context_data(**kwargs)
 
 
 @login_required

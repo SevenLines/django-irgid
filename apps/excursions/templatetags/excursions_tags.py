@@ -46,6 +46,19 @@ def time_verbose(value):
 
     return out.strip()
 
+@register.filter
+@stringfilter
+def week_day_verbose(value):
+    value = int(value)
+    return {
+        0: 'Понедельник',
+        1: 'Вторник',
+        2: 'Среда',
+        3: 'Четверг',
+        4: 'Пятница',
+        5: 'Суббота',
+        6: 'Воскресенье',
+    }.get(value)
 
 @register.filter
 def get_item(dictionary, key):

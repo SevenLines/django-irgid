@@ -12,6 +12,7 @@ import excursions.urls.travel
 import excursions.views.base
 import sharedcontroll.urls
 from excursions.models import Excursion, ExcursionCategory
+from excursions.views import ExcursionCalendarView
 from irgid.views import TemplateViewEx, UploadFile
 
 admin.autodiscover()
@@ -51,9 +52,10 @@ urlpatterns = patterns('',
         template_name="about.html", data={'title': u'О нас'}
     ), name='about'),
 
-    url(r'^calendar/$', TemplateViewEx.as_view(
-        template_name="calendar.html", data={'title': u'Расписание экскурсий'}
-    ), name='calendar'),
+    # url(r'^calendar/$', TemplateViewEx.as_view(
+    #     template_name="calendar.html", data={'title': u'Расписание экскурсий'}
+    # ), name='calendar'),
+    url(r'^calendar/$', ExcursionCalendarView.as_view(), name='calendar'),
 
     url(r'^faq/$', TemplateViewEx.as_view(
         template_name="faq.html", data={'title': u'FAQ'}

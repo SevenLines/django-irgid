@@ -57,6 +57,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
 )
 
@@ -109,7 +110,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'UTC'
 
@@ -118,7 +119,6 @@ USE_I18N = False
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
@@ -226,7 +226,6 @@ ASSETS_MODULES = [
 ]
 
 THUMBNAIL_DEBUG = False
-
 if not DEBUG:
     ASSETS_CACHE = False
     ASSETS_MANIFEST = False

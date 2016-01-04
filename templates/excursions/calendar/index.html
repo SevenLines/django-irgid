@@ -1,0 +1,36 @@
+{% extends "excursions/base.html" %}
+{% load static sekizai_tags %}
+
+{% block ex_content %}
+    {% now "Y" as current_year %}
+    <div class="col-md-4">
+        <h1>{{ current_year }} | {{ view.month.verbose }}</h1>
+    </div>
+    <div class="col-md-8"></div>
+    <div class="clearfix"></div>
+    <div class="col-md-4">
+        <table class="calendar" style="table-layout: fixed">
+            {% for week in view.calendar %}
+                <tr style="width: 100%;padding: 0">
+                    {% for d in week %}
+                        <td style="width: 20%;">
+                            {% if d.month == view.month.number %}
+                                <div class="{% if d.day == view.day and d.month == view.today.month %}current{% endif %}">
+                                    {{ d.day }}
+                                </div>
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-md-8">
+        {% for date in view.days %}
+            {% if date.month == view.month.number %}
+                {% include "excursions/calendar/days.html" %}
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}
+
