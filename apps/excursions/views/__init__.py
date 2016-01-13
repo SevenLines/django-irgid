@@ -5,8 +5,11 @@ from calendar import Calendar
 
 from braces.views import LoginRequiredMixin
 from datetime import date, datetime
+
+from django.conf import settings
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse
+from django.db.models.aggregates import Min
 from django.http.response import Http404, HttpResponse
 from django.shortcuts import redirect
 from django.views.generic import DetailView, View
@@ -234,21 +237,11 @@ class ExcursionCalendarView(TitledView):
     title = u'Календарь'
     template_name = 'excursions/calendar/index.html'
 
+    def months(self):
+        return settings.MONTHS
+
     def month(self):
-        verbose = {
-            1: 'Январь',
-            2: 'Февраль',
-            3: 'Март',
-            4: 'Апрель',
-            5: 'Май',
-            6: 'Июнь',
-            7: 'Июль',
-            8: 'Август',
-            9: 'Сентябрь',
-            10: 'Октябрь',
-            11: 'Ноябрь',
-            12: 'Декабрь',
-        }[self.selected_month]
+        verbose = dict(settings.MONTHS)[self.selected_month]
 
         return {
             'number': self.selected_month,
@@ -261,6 +254,20 @@ class ExcursionCalendarView(TitledView):
     def day(self):
         d = date.today().day
         return d
+
+    def selected_year(self):
+        return self.selected_year
+
+    def selected_month(self):
+        return self.selected_month
+
+    def actual_years(self):
+        min_year = ExcursionCalendar.objects.annotate(min_date=Min('date')).values_list('min_date', flat=True)
+        if min_year:
+            min_year = min_year[0].year
+        else:
+            min_year = date.today().year
+        return [year for year in xrange(min_year - 1, date.today().year + 2)]
 
     def get_calendar_items(self):
         dates = list(Calendar().itermonthdates(self.selected_year, self.selected_month))

@@ -98,7 +98,7 @@
             this.save_url = this.$el.find("#save-calendar-button").data('url');
             var that = this;
 
-            $(".day-info").each(function (item) {
+            $(".day-info").each(function () {
                 var model = new DayInfoModel({
                     day: $(this).data('day'),
                     weekday: $(this).data('weekday'),

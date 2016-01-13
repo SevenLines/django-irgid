@@ -1,5 +1,5 @@
 {% load excursions_tags %}
-<div class="day-info{% if date < view.today.date %} old{% endif %}{% if day_item.current %} current{% endif %}"
+<div id='day-info-{{ date.day }}' class="day-info{% if date < view.today.date %} old{% endif %}{% if day_item.current %} current{% endif %}"
      {% if user.is_authenticated %}
      data-month="{{ date.month }}"
      data-day="{{ date.day }}"
