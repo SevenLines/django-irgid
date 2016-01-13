@@ -1,0 +1,20 @@
+{% load excursions_tags %}
+<div id='day-info-{{ date.day }}' class="day-info{% if date < view.today.date %} old{% endif %}{% if day_item.current %} current{% endif %}"
+     {% if user.is_authenticated %}
+     data-month="{{ date.month }}"
+     data-day="{{ date.day }}"
+     data-weekday="{{ date.weekday }}" data-year="{{ date.year }}"{% endif %}>
+    <div class="pull-left">
+        <div class="title week-day-{{ date.weekday }}">
+            <span class="day">{{ date|date:'d' }}</span>
+            <span class="day-of-week">{{ date.weekday|week_day_verbose }}</span>
+        </div>
+    </div>
+    {% if user.is_authenticated %}
+        <div class="description" contenteditable="true">{{ item.comment|safe }}</div>
+    {% else %}
+        <div class="description">{{ item.comment|safe }}</div>
+    {% endif %}
+    <div class="clearfix"></div>
+    <hr>
+</div>

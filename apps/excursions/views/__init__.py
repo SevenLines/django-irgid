@@ -1,16 +1,22 @@
 # coding=utf-8
 # Create your views here.
 import json
+from calendar import Calendar
 
 from braces.views import LoginRequiredMixin
+from datetime import date, datetime
+
+from django.conf import settings
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse
+from django.db.models.aggregates import Min
 from django.http.response import Http404, HttpResponse
 from django.shortcuts import redirect
 from django.views.generic import DetailView, View
 from django.views.generic.detail import SingleObjectMixin
 
-from excursions.models import ExcursionCategory, Excursion, ExcursionImage
+from excursions.helpers import ExcursionCalendarHelper
+from excursions.models import ExcursionCategory, Excursion, ExcursionImage, ExcursionCalendar
 from excursions.utils import get_price_list
 from excursions.views import ajax
 from excursions.views.base import _excursion_save, _excursion_context
@@ -226,6 +232,105 @@ class ExcursionRemoveView(BaseModelDeleteView):
 class ExcursionCategoryRemoveView(BaseModelDeleteView):
     model = ExcursionCategory
 
+
+class ExcursionCalendarView(TitledView):
+    title = u'Календарь'
+    template_name = 'excursions/calendar/index.html'
+
+    def months(self):
+        return settings.MONTHS
+
+    def month(self):
+        verbose = dict(settings.MONTHS)[self.selected_month]
+
+        return {
+            'number': self.selected_month,
+            'verbose': verbose,
+        }
+
+    def today(self):
+        return datetime.today()
+
+    def day(self):
+        d = date.today().day
+        return d
+
+    def selected_year(self):
+        return self.selected_year
+
+    def selected_month(self):
+        return self.selected_month
+
+    def actual_years(self):
+        min_year = ExcursionCalendar.objects.annotate(min_date=Min('date')).values_list('min_date', flat=True)
+        if min_year:
+            min_year = min_year[0].year
+        else:
+            min_year = date.today().year
+        return [year for year in xrange(min_year - 1, date.today().year + 2)]
+
+    def get_calendar_items(self):
+        dates = list(Calendar().itermonthdates(self.selected_year, self.selected_month))
+
+        calendar_items = ExcursionCalendar.objects.filter(
+            date__in=dates
+        )
+        calendar_items = dict([(item.date, item) for item in calendar_items])
+        exists = bool(calendar_items)
+
+        out = [
+            {
+                'date': date,
+                'current': date == date.today(),
+                'item': calendar_items.get(date, None)
+            } for date in dates
+        ]
+        return out, exists
+
+    def calendar(self):
+        days = self.calendar_items
+
+        weeks = {}
+        for d in days:
+            weeks.setdefault(d['date'].weekday(), [])
+            weeks[d['date'].weekday()].append(d)
+        out = []
+        for w in weeks.keys():
+            days = []
+            for d in weeks[w]:
+                days.append(d)
+            out.append(days)
+        return out
+
+    def days(self):
+        return self.calendar_items
+
+    def events(self):
+        ExcursionCalendar.objects.filter(date)
+
+    def get_context_data(self, **kwargs):
+        self.selected_year = int(self.request.GET.get('year', date.today().year))
+        self.selected_month = int(self.request.GET.get('month', date.today().month))
+        self.calendar_items, calendar_items_exists = self.get_calendar_items()
+        if not self.request.user.is_authenticated():
+            if not calendar_items_exists:
+                raise Http404()
+
+        return super(ExcursionCalendarView, self).get_context_data(**kwargs)
+
+
+class ExcursionCalendarUpdateView(LoginRequiredMixin, View):
+    def post(self, request):
+        items = json.loads(request.POST['items'])
+        for item in items:
+            dt = date(item['year'], item['month'], item['day'])
+            mdl, created = ExcursionCalendar.objects.get_or_create(
+                date=dt
+            )
+            mdl.comment = item['description']
+            mdl.save()
+
+        return HttpResponse()
 
 @login_required
 @permission_required("excursions.change_excursion")

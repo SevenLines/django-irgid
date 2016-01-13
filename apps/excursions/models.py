@@ -114,10 +114,10 @@ class Excursion(models.Model):
 
 class ExcursionCalendar(models.Model):
     excursion = models.ForeignKey(Excursion, null=True, blank=True)
-    date = models.DateField(default=date.today)
+    date = models.DateField(default=date.today, unique=True)
     comment = models.TextField(default="")
 
-    is_best = models.BooleanField(default=False, verbose_name='Является ли лучши мпредложением месяца')
+    is_best = models.BooleanField(default=False, verbose_name='Является ли лучши предложением месяца')
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         with transaction.atomic():

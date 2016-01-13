@@ -1,0 +1,108 @@
+{% extends "excursions/base.html" %}
+{% load static sekizai_tags %}
+{% block ex_content %}
+    {% now "Y" as current_year %}
+    <div class="col-md-12" style="padding: 1em 1em">
+        {% if user.is_authenticated %}
+            <form action="" class="form-inline pull-left">
+                <select name="year" id="" class="form-control">
+                    {% for year in view.actual_years %}
+                        <option value="{{ year }}"
+                                {% if year == view.selected_year %}selected{% endif %}>{{ year }}</option>
+                    {% endfor %}
+                </select>
+                <select name="month" id="" class="form-control">
+                    {% for month in view.months %}
+                        <option value="{{ month.0 }}" {% if month.0 == view.selected_month %}selected{% endif %}>
+                            {{ month.1 }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <button class="btn btn-primary" type="submit">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </button>
+            </form>
+        {% else %}
+            <h1 style="margin: 0" class="pull-left">
+                {{ current_year }} | {{ view.month.verbose }}
+            </h1>
+        {% endif %}
+        {% if user.is_authenticated %}
+            <div class="pull-right">
+                <button id="save-calendar-button" class="btn btn-default" data-url="{% url 'calendar_update' %}">
+                    Сохранить
+                </button>
+            </div>
+        {% endif %}
+    </div>
+    <div class="col-md-8"></div>
+    <div class="clearfix"></div>
+    <div style="width: auto; float: left; ">
+        <table class="calendar hidden-xs" style="table-layout: fixed">
+            {% for week in view.calendar %}
+                <tr style="width: 100%;padding: 0">
+                    {% for day_item in week %}
+                        {% with d=day_item.date item=day_item.item %}
+                            <td style="width: 20%;">
+                                {% if d.month == view.month.number %}
+                                    <div id="calendar-day-{{ d.day }}"
+                                         data-day="{{ d.day }}"
+                                         class="calendar-day{% if day_item.current %} current{% endif %}
+                                                {% if not item.comment %} blank{% endif %}">
+                                        {{ d.day }}
+                                    </div>
+                                {% endif %}
+                            </td>
+                        {% endwith %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="days">
+        <div id="topToolbar" style="padding-left: 1em;"></div>
+        <div class="days-content" style="padding-top: 1em">
+            {% for day_item in view.days %}
+                {% with date=day_item.date item=day_item.item %}
+                    {% if not user.is_authenticated and not item.comment %}
+                    {% else %}
+                        {% if date.month == view.month.number %}
+                            {% include "excursions/calendar/days.html" %}
+                        {% endif %}
+                    {% endif %}
+                {% endwith %}
+            {% endfor %}
+        </div>
+        <div class="bottom"></div>
+        <div id="bottomToolbar" style="padding-left: 1em"></div>
+    </div>
+
+    {% if user.is_authenticated %}
+        <script src="/static/bower/ckeditor/ckeditor.js"></script>
+        <script src="/static/bower/lodash/lodash.min.js"></script>
+        <script src="/static/bower/backbone/backbone-min.js"></script>
+        <script src="/static/js/calendar/interface.js"></script>
+        <script>
+            new CalendarInterface({
+                el: document
+            });
+        </script>
+        <style>
+            .calendar td > div.blank {
+                pointer-events: auto;
+            }
+        </style>
+    {% endif %}
+    <script>
+        $(".calendar-day").click(function () {
+            var day = $(this).data('day');
+            var container = $(".days-content");
+            var containerOffsetTop = container.offset().top;
+            var scrollToTop = $('#day-info-' + day).offset().top;
+            container.animate({
+                scrollTop: scrollToTop - containerOffsetTop + container.scrollTop() - 10
+            })
+        });
+    </script>
+{% endblock %}
+
