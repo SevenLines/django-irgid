@@ -1,15 +1,20 @@
 {% load excursions_tags %}
-<div class="day-info">
-    <div class="title">
-        <div class="day">{{ date|date:'d' }}</div><div class="day-of-week">{{ date.weekday|week_day_verbose }}</div>
-        <div class="clearfix"></div>
+<div class="day-info{% if date < view.today.date %} old{% endif %}{% if day_item.current %} current{% endif %}"
+     {% if user.is_authenticated %}
+     data-month="{{ date.month }}"
+     data-day="{{ date.day }}"
+     data-weekday="{{ date.weekday }}" data-year="{{ date.year }}"{% endif %}>
+    <div class="pull-left">
+        <div class="title week-day-{{ date.weekday }}">
+            <span class="day">{{ date|date:'d' }}</span>
+            <span class="day-of-week">{{ date.weekday|week_day_verbose }}</span>
+        </div>
     </div>
-    Экскурсия: Иркутск Новогодний <br>
-    Музей: Дом-музей Рогаля - Праздничная новогодняя программа для детей (интересные конкурсы, Дед Мороз и Снегурочка,
-    хоровод вокруг новогодней ёлки, Призы ожидают всех участников, настоящая сказка-спектакль в постановке режиссера
-    Андрея Штейнера) 11:30<br>
-    Театр: Органный зал - Новогодние проказы Бабы Яги 12:00, 14:00, 16:00<br>
-    Музыкальный театр - Морозко 10:00, 13:00<br>
-    Филармония - Малыш и Карлсон. Новый год на крыше 11:00, 13:30, 16:00.<br>
-    Аистенок - Приходите в гости! 10:00, 13:00, 15:30<br>
+    {% if user.is_authenticated %}
+        <div class="description" contenteditable="true">{{ item.comment|safe }}</div>
+    {% else %}
+        <div class="description">{{ item.comment|safe }}</div>
+    {% endif %}
+    <div class="clearfix"></div>
+    <hr>
 </div>

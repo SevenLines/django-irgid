@@ -456,6 +456,8 @@
   width: 100px; }
 
 .calendar td > div {
+  width: 3em;
+  height: 3em;
   padding: 12px;
   margin: 4px;
   border-radius: 24px;
@@ -468,17 +470,123 @@
   -o-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer; }
+  .calendar td > div.blank {
+    opacity: 0.25;
+    pointer-events: none; }
   .calendar td > div:hover {
-    background-color: #b3dde5;
+    background-color: #f6a800;
     color: white; }
   .calendar td > div.current {
+    opacity: 1;
     background-color: #00A6C7;
     color: white; }
 
-.day-info .title .day {
-  padding: 6px;
-  border-radius: 30px;
-  border: 2px solid crimson;
-  float: left; }
+.days {
+  position: relative;
+  overflow: hidden; }
+  .days .top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAeCAYAAADtlXTHAAAAV0lEQVQImQXBERBCAQBAsXcXpmEapmGahmmYhl/DNEzDNA3TMA3TMFlb+IVv+IR3eIVneIR7uIVruIRzOIVjOIQh7MMubMMmrMMqLMMizMMsTMMkjMPoDytVaHr7Aah5AAAAAElFTkSuQmCC"); }
+  .days .bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAeCAYAAADtlXTHAAAAV0lEQVQImQXBERBCAQBAsXcXpmEapmGahmmYhl/DNEzDNA3TMA3TMFlbGIVxmIRpmIV5WIRlWIV12IRt2IV9GMIhHMMpnMMlXMMt3MMjPMMrvMMnfMPvDz19aHrxzJXQAAAAAElFTkSuQmCC"); }
+  .days .days-content {
+    max-height: 350px;
+    overflow: scroll;
+    overflow-x: hidden;
+    padding-left: 1em; }
+    .days .days-content .day-info {
+      -webkit-transition: all 0.3s;
+      -moz-transition: all 0.3s;
+      -ms-transition: all 0.3s;
+      -o-transition: all 0.3s;
+      transition: all 0.3s; }
+      .days .days-content .day-info .title {
+        border-radius: 30px 8px 8px 30px;
+        color: black;
+        padding: 6px 6px 6px 2px;
+        margin-right: 8px; }
+        .days .days-content .day-info .title .day {
+          background-color: white;
+          padding: 4px 5px 4px 4px;
+          border-radius: 16px; }
+      .days .days-content .day-info .week-day-0 {
+        color: black;
+        background-color: #95bfc7;
+        border: 2px solid #74abb5; }
+        .days .days-content .day-info .week-day-0 .day {
+          color: black;
+          border: 1px solid #74abb5; }
+      .days .days-content .day-info.current .title .day {
+        background-color: #00A6C7;
+        color: white; }
+      .days .days-content .day-info .week-day-1 {
+        color: black;
+        background-color: #95bfc7;
+        border: 2px solid #74abb5; }
+        .days .days-content .day-info .week-day-1 .day {
+          color: black;
+          border: 1px solid #74abb5; }
+      .days .days-content .day-info.current .title .day {
+        background-color: #00A6C7;
+        color: white; }
+      .days .days-content .day-info .week-day-2 {
+        color: black;
+        background-color: #95bfc7;
+        border: 2px solid #74abb5; }
+        .days .days-content .day-info .week-day-2 .day {
+          color: black;
+          border: 1px solid #74abb5; }
+      .days .days-content .day-info.current .title .day {
+        background-color: #00A6C7;
+        color: white; }
+      .days .days-content .day-info .week-day-3 {
+        color: black;
+        background-color: #95bfc7;
+        border: 2px solid #74abb5; }
+        .days .days-content .day-info .week-day-3 .day {
+          color: black;
+          border: 1px solid #74abb5; }
+      .days .days-content .day-info.current .title .day {
+        background-color: #00A6C7;
+        color: white; }
+      .days .days-content .day-info .week-day-4 {
+        color: black;
+        background-color: #95bfc7;
+        border: 2px solid #74abb5; }
+        .days .days-content .day-info .week-day-4 .day {
+          color: black;
+          border: 1px solid #74abb5; }
+      .days .days-content .day-info.current .title .day {
+        background-color: #00A6C7;
+        color: white; }
+      .days .days-content .day-info .week-day-5 {
+        color: white;
+        background-color: #eea600;
+        border: 2px solid #bb8200; }
+        .days .days-content .day-info .week-day-5 .day {
+          color: #885f00;
+          border: 1px solid #bb8200; }
+      .days .days-content .day-info.current .title .day {
+        background-color: #00A6C7;
+        color: white; }
+      .days .days-content .day-info .week-day-6 {
+        color: white;
+        background-color: #dc0b1b;
+        border: 2px solid #ab0915; }
+        .days .days-content .day-info .week-day-6 .day {
+          color: #7b060f;
+          border: 1px solid #ab0915; }
+      .days .days-content .day-info.current .title .day {
+        background-color: #00A6C7;
+        color: white; }
 
 /*# sourceMappingURL=excursions.css.map */

@@ -114,9 +114,7 @@ class Excursion(models.Model):
 
 class ExcursionCalendar(models.Model):
     excursion = models.ForeignKey(Excursion, null=True, blank=True)
-    date = models.DateField(default=date.today)
-    month = models.SmallIntegerField(default=1)
-    year = models.SmallIntegerField(default=2016)
+    date = models.DateField(default=date.today, unique=True)
     comment = models.TextField(default="")
 
     is_best = models.BooleanField(default=False, verbose_name='Является ли лучши предложением месяца')

@@ -1,36 +1,70 @@
 {% extends "excursions/base.html" %}
 {% load static sekizai_tags %}
-
 {% block ex_content %}
     {% now "Y" as current_year %}
-    <div class="col-md-4">
-        <h1>{{ current_year }} | {{ view.month.verbose }}</h1>
+    <div class="col-md-12" style="padding: 1em 1em">
+        <h1 style="margin: 0" class="pull-left">
+            {{ current_year }} | {{ view.month.verbose }}
+        </h1>
+        {% if user.is_authenticated %}
+            <div class="pull-right">
+                <button id="save-calendar-button" class="btn btn-default" data-url="{% url 'calendar_update' %}">
+                    Сохранить
+                </button>
+            </div>
+        {% endif %}
     </div>
     <div class="col-md-8"></div>
     <div class="clearfix"></div>
-    <div class="col-md-4">
-        <table class="calendar" style="table-layout: fixed">
+    <div style="width: auto; float: left; ">
+        <table class="calendar hidden-xs" style="table-layout: fixed">
             {% for week in view.calendar %}
                 <tr style="width: 100%;padding: 0">
-                    {% for d in week %}
-                        <td style="width: 20%;">
-                            {% if d.month == view.month.number %}
-                                <div class="{% if d.day == view.day and d.month == view.today.month %}current{% endif %}">
-                                    {{ d.day }}
-                                </div>
-                            {% endif %}
-                        </td>
+                    {% for day_item in week %}
+                        {% with d=day_item.date item=day_item.item %}
+                            <td style="width: 20%;">
+                                {% if d.month == view.month.number %}
+                                    <div id="calendar-day-{{ d.day }}"
+                                         class="{% if day_item.current %} current{% endif %}
+                                                {% if not item.comment %} blank{% endif %}">
+                                        {{ d.day }}
+                                    </div>
+                                {% endif %}
+                            </td>
+                        {% endwith %}
                     {% endfor %}
                 </tr>
             {% endfor %}
         </table>
     </div>
-    <div class="col-md-8">
-        {% for date in view.days %}
-            {% if date.month == view.month.number %}
-                {% include "excursions/calendar/days.html" %}
-            {% endif %}
-        {% endfor %}
+    <div class="days">
+        <div id="topToolbar" style="padding-left: 1em;"></div>
+        <div class="days-content" style="padding-top: 1em">
+            {% for day_item in view.days %}
+                {% with date=day_item.date item=day_item.item %}
+                    {% if not user.is_authenticated and not item.comment %}
+                    {% else %}
+                        {% if date.month == view.month.number %}
+                            {% include "excursions/calendar/days.html" %}
+                        {% endif %}
+                    {% endif %}
+                {% endwith %}
+            {% endfor %}
+        </div>
+        <div class="bottom"></div>
+        <div id="bottomToolbar" style="padding-left: 1em"></div>
     </div>
+
+    {% if user.is_authenticated %}
+        <script src="/static/bower/ckeditor/ckeditor.js"></script>
+        <script src="/static/bower/lodash/lodash.min.js"></script>
+        <script src="/static/bower/backbone/backbone-min.js"></script>
+        <script src="/static/js/calendar/interface.js"></script>
+        <script>
+            new CalendarInterface({
+                el: document,
+            });
+        </script>
+    {% endif %}
 {% endblock %}
 
