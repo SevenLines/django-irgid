@@ -271,10 +271,12 @@ class ExcursionCalendarView(TitledView):
 
     def get_calendar_items(self):
         dates = list(Calendar().itermonthdates(self.selected_year, self.selected_month))
+
         calendar_items = ExcursionCalendar.objects.filter(
             date__in=dates
         )
         calendar_items = dict([(item.date, item) for item in calendar_items])
+        exists = bool(calendar_items)
 
         out = [
             {
@@ -283,7 +285,7 @@ class ExcursionCalendarView(TitledView):
                 'item': calendar_items.get(date, None)
             } for date in dates
         ]
-        return out
+        return out, exists
 
     def calendar(self):
         days = self.calendar_items
@@ -309,7 +311,11 @@ class ExcursionCalendarView(TitledView):
     def get_context_data(self, **kwargs):
         self.selected_year = int(self.request.GET.get('year', date.today().year))
         self.selected_month = int(self.request.GET.get('month', date.today().month))
-        self.calendar_items = self.get_calendar_items()
+        self.calendar_items, calendar_items_exists = self.get_calendar_items()
+        if not self.request.user.is_authenticated():
+            if not calendar_items_exists:
+                raise Http404()
+
         return super(ExcursionCalendarView, self).get_context_data(**kwargs)
 
 
