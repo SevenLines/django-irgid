@@ -101,7 +101,9 @@
             var element = $('#day-info-' + day);
             InterfaceAlerts.scrollTo(container, element);
         });
-        InterfaceAlerts.scrollTo(container, $('#day-info-{{ view.today.day }}'));
+        {% if view.today.month == view.month.number %}
+            InterfaceAlerts.scrollTo(container, $('#day-info-{{ view.today.day }}'));
+        {% endif %}
     </script>
 {% endblock %}
 

@@ -525,73 +525,66 @@
           border-radius: 16px; }
       .days .days-content .day-info .week-day-0 {
         color: black;
-        background-color: #95bfc7;
-        border: 2px solid #74abb5; }
+        background-color: #EFEFEF;
+        border: 2px solid #d6d6d6; }
         .days .days-content .day-info .week-day-0 .day {
           color: black;
-          border: 1px solid #74abb5; }
-      .days .days-content .day-info.current .title .day {
-        background-color: #00A6C7;
-        color: white; }
+          border: 1px solid #d6d6d6; }
+      .days .days-content .day-info.current .title {
+        background-color: #00A6C7; }
       .days .days-content .day-info .week-day-1 {
         color: black;
-        background-color: #95bfc7;
-        border: 2px solid #74abb5; }
+        background-color: #EFEFEF;
+        border: 2px solid #d6d6d6; }
         .days .days-content .day-info .week-day-1 .day {
           color: black;
-          border: 1px solid #74abb5; }
-      .days .days-content .day-info.current .title .day {
-        background-color: #00A6C7;
-        color: white; }
+          border: 1px solid #d6d6d6; }
+      .days .days-content .day-info.current .title {
+        background-color: #00A6C7; }
       .days .days-content .day-info .week-day-2 {
         color: black;
-        background-color: #95bfc7;
-        border: 2px solid #74abb5; }
+        background-color: #EFEFEF;
+        border: 2px solid #d6d6d6; }
         .days .days-content .day-info .week-day-2 .day {
           color: black;
-          border: 1px solid #74abb5; }
-      .days .days-content .day-info.current .title .day {
-        background-color: #00A6C7;
-        color: white; }
+          border: 1px solid #d6d6d6; }
+      .days .days-content .day-info.current .title {
+        background-color: #00A6C7; }
       .days .days-content .day-info .week-day-3 {
         color: black;
-        background-color: #95bfc7;
-        border: 2px solid #74abb5; }
+        background-color: #EFEFEF;
+        border: 2px solid #d6d6d6; }
         .days .days-content .day-info .week-day-3 .day {
           color: black;
-          border: 1px solid #74abb5; }
-      .days .days-content .day-info.current .title .day {
-        background-color: #00A6C7;
-        color: white; }
+          border: 1px solid #d6d6d6; }
+      .days .days-content .day-info.current .title {
+        background-color: #00A6C7; }
       .days .days-content .day-info .week-day-4 {
         color: black;
-        background-color: #95bfc7;
-        border: 2px solid #74abb5; }
+        background-color: #EFEFEF;
+        border: 2px solid #d6d6d6; }
         .days .days-content .day-info .week-day-4 .day {
           color: black;
-          border: 1px solid #74abb5; }
-      .days .days-content .day-info.current .title .day {
-        background-color: #00A6C7;
-        color: white; }
+          border: 1px solid #d6d6d6; }
+      .days .days-content .day-info.current .title {
+        background-color: #00A6C7; }
       .days .days-content .day-info .week-day-5 {
-        color: white;
-        background-color: #eea600;
-        border: 2px solid #bb8200; }
+        color: black;
+        background-color: #f6ca8c;
+        border: 2px solid #f2b45d; }
         .days .days-content .day-info .week-day-5 .day {
           color: #885f00;
-          border: 1px solid #bb8200; }
-      .days .days-content .day-info.current .title .day {
-        background-color: #00A6C7;
-        color: white; }
+          border: 1px solid #f2b45d; }
+      .days .days-content .day-info.current .title {
+        background-color: #00A6C7; }
       .days .days-content .day-info .week-day-6 {
-        color: white;
-        background-color: #dc0b1b;
-        border: 2px solid #ab0915; }
+        color: black;
+        background-color: #f6917f;
+        border: 2px solid #f3684f; }
         .days .days-content .day-info .week-day-6 .day {
           color: #7b060f;
-          border: 1px solid #ab0915; }
-      .days .days-content .day-info.current .title .day {
-        background-color: #00A6C7;
-        color: white; }
+          border: 1px solid #f3684f; }
+      .days .days-content .day-info.current .title {
+        background-color: #00A6C7; }
 
 /*# sourceMappingURL=excursions.css.map */

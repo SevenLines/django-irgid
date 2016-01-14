@@ -493,7 +493,13 @@ $grid-gap: 8px;
       //  }
       //}
 
-      $colors: ("week-day-0", #95bfc7, black, black) ("week-day-1", #95bfc7, black, black) ("week-day-2", #95bfc7, black, black) ("week-day-3", #95bfc7, black, black) ("week-day-4", #95bfc7, black, black) ("week-day-5", #eea600, #eea600, white) ("week-day-6", #dc0b1b, #dc0b1b, white);
+      $colors: ("week-day-0", #EFEFEF, black, black)
+              ("week-day-1", #EFEFEF, black, black)
+              ("week-day-2", #EFEFEF, black, black)
+              ("week-day-3", #EFEFEF, black, black)
+              ("week-day-4", #EFEFEF, black, black)
+              ("week-day-5", #f6ca8c, #eea600, black)
+              ("week-day-6", #f6917f, #dc0b1b, black);
 
       .title {
         border-radius: 30px 8px 8px 30px;
@@ -519,10 +525,11 @@ $grid-gap: 8px;
         }
         &.current {
           .title {
-            .day {
-              background-color: #00A6C7;
-              color: white;
-            }
+            background-color: #00A6C7;
+            //.day {
+            //  background-color: #00A6C7;
+            //  color: white;
+            //}
           }
         }
     }
