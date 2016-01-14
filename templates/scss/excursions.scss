@@ -422,19 +422,30 @@ $grid-gap: 8px;
 
     cursor: pointer;
 
+    &.old {
+      opacity: 0.35;
+    }
+
     &.blank {
       opacity: 0.25;
       pointer-events: none;
     }
 
     &:hover {
-      background-color: #f6a800;
-      color: white;
+      //background-color: #f6a800 !important;
+      box-shadow: 0 0 3px $fore_color;
     }
     &.current {
       opacity: 1;
       background-color: $fore_color;
       color: white;
+    }
+
+    &.week-day-5 {
+      background-color: #f6ca8c;
+    }
+    &.week-day-6 {
+      background-color: #f6917f;
     }
   }
 }
