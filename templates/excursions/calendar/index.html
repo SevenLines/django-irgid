@@ -47,7 +47,8 @@
                                 {% if d.month == view.month.number %}
                                     <div id="calendar-day-{{ d.day }}"
                                          data-day="{{ d.day }}"
-                                         class="calendar-day{% if day_item.current %} current{% endif %}
+                                         class="calendar-day week-day-{{ d.weekday }}{% if day_item.current %} current{% endif %}
+                                                {% if d < view.today.date %} old{% endif %}
                                                 {% if not item.comment %} blank{% endif %}">
                                         {{ d.day }}
                                     </div>
@@ -94,15 +95,13 @@
         </style>
     {% endif %}
     <script>
+        var container = $(".days-content");
         $(".calendar-day").click(function () {
             var day = $(this).data('day');
-            var container = $(".days-content");
-            var containerOffsetTop = container.offset().top;
-            var scrollToTop = $('#day-info-' + day).offset().top;
-            container.animate({
-                scrollTop: scrollToTop - containerOffsetTop + container.scrollTop() - 10
-            })
+            var element = $('#day-info-' + day);
+            InterfaceAlerts.scrollTo(container, element);
         });
+        InterfaceAlerts.scrollTo(container, $('#day-info-{{ view.today.day }}'));
     </script>
 {% endblock %}
 

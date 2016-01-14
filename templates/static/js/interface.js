@@ -46,6 +46,13 @@ dismissRelatedImageLookupPopup = function (win, chosenId, chosenThumbnailUrl, ch
         self.showFail = function () {
             self.blink("#FFAA88", 1000);
         };
+        self.scrollTo = function($container, $element) {
+            var containerOffsetTop = $container.offset().top;
+            var scrollToTop = $element.offset().top;
+            $container.animate({
+                scrollTop: scrollToTop - containerOffsetTop + $container.scrollTop() - 10
+            })
+        };
     }
 
     window.InterfaceAlerts = new InterfaceAlerts();

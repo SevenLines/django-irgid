@@ -470,16 +470,21 @@
   -o-transition: all 0.3s;
   transition: all 0.3s;
   cursor: pointer; }
+  .calendar td > div.old {
+    opacity: 0.35; }
   .calendar td > div.blank {
     opacity: 0.25;
     pointer-events: none; }
   .calendar td > div:hover {
-    background-color: #f6a800;
-    color: white; }
+    box-shadow: 0 0 3px #00A6C7; }
   .calendar td > div.current {
     opacity: 1;
     background-color: #00A6C7;
     color: white; }
+  .calendar td > div.week-day-5 {
+    background-color: #f6ca8c; }
+  .calendar td > div.week-day-6 {
+    background-color: #f6917f; }
 
 .days {
   position: relative;
