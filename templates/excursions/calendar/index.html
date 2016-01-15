@@ -1,46 +1,39 @@
 {% extends "excursions/base.html" %}
-{% load static sekizai_tags %}
+{% load static sekizai_tags excursions_tags %}
 {% block ex_content %}
     {% now "Y" as current_year %}
-    <div class="col-md-12" style="padding: 1em 1em">
-        {% if user.is_authenticated %}
-            <form action="" class="form-inline pull-left">
-                <select name="year" id="" class="form-control">
-                    {% for year in view.actual_years %}
-                        <option value="{{ year }}"
-                                {% if year == view.selected_year %}selected{% endif %}>{{ year }}</option>
-                    {% endfor %}
-                </select>
-                <select name="month" id="" class="form-control">
-                    {% for month in view.months %}
-                        <option value="{{ month.0 }}" {% if month.0 == view.selected_month %}selected{% endif %}>
-                            {{ month.1 }}
-                        </option>
-                    {% endfor %}
-                </select>
-                <button class="btn btn-primary" type="submit">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                </button>
-            </form>
-        {% else %}
-            <h1 style="margin: 0" class="pull-left">
-                {{ current_year }} | {{ view.month.verbose }}
-            </h1>
-        {% endif %}
-        {% if user.is_authenticated %}
-            <div class="pull-right">
-                <button id="save-calendar-button" class="btn btn-default" data-url="{% url 'calendar_update' %}">
-                    Сохранить
-                </button>
-            </div>
-        {% endif %}
-    </div>
-    <div class="col-md-8"></div>
+
     <div class="clearfix"></div>
-    <div style="width: auto; float: left; ">
+    <div style="width: auto; float: left;margin: 0px 0.5em; ">
+        <div class="col-md-12" style="padding: 1em 0em">
+            {% if user.is_authenticated %}
+                <form action="" class="form-inline pull-left">
+                    <select name="year" id="" class="form-control">
+                        {% for year in view.actual_years %}
+                            <option value="{{ year }}"
+                                    {% if year == view.selected_year %}selected{% endif %}>{{ year }}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="month" id="" class="form-control">
+                        {% for month in view.months %}
+                            <option value="{{ month.0 }}" {% if month.0 == view.selected_month %}selected{% endif %}>
+                                {{ month.1 }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <button class="btn btn-primary" type="submit">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </button>
+                </form>
+            {% else %}
+                <h1 style="margin: 0;font-size: 2.3em;text-align: center">{{ current_year }}
+                    | {{ view.month.verbose }}</h1>
+            {% endif %}
+        </div>
         <table class="calendar hidden-xs" style="table-layout: fixed">
             {% for week in view.calendar %}
                 <tr style="width: 100%;padding: 0">
+                    {#                <td class="header">{{ week.0.date.weekday|week_day_verb }}</td>#}
                     {% for day_item in week %}
                         {% with d=day_item.date item=day_item.item %}
                             <td style="width: 20%;">
@@ -59,6 +52,14 @@
                 </tr>
             {% endfor %}
         </table>
+        {% if user.is_authenticated %}
+            <hr style="margin: 1em 0">
+            <div>
+                <button id="save-calendar-button" class="btn btn-default" data-url="{% url 'calendar_update' %}">
+                    Сохранить
+                </button>
+            </div>
+        {% endif %}
     </div>
     <div class="days">
         <div id="topToolbar" style="padding-left: 1em;"></div>

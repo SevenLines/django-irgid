@@ -404,6 +404,15 @@ $grid-gap: 8px;
 .calendar {
   $fore_color: #00A6C7;
   $bg_color: #EFEFEF;
+
+  .header {
+    width: 3em;
+    height: 3em;
+    padding: 12px;
+    margin: 4px;
+    border-right: 1px solid black;
+  }
+
   td > div {
     width: 3em;
     height: 3em;
@@ -473,7 +482,8 @@ $grid-gap: 8px;
   }
 
   .days-content {
-    max-height: 350px;
+    margin-top: 6px;
+    max-height: 418px;
     overflow: scroll;
     overflow-x: hidden;
     padding-left: 1em;
@@ -485,13 +495,21 @@ $grid-gap: 8px;
       -o-transition: all 0.3s;
       transition: all 0.3s;
 
-      //&.old {
-      //  display: none;
-      //  opacity: 0.1;
-      //  &:hover {
-      //    opacity: 0.85;
-      //  }
-      //}
+      padding: 12px 0;
+      margin-right: 6px;
+      border-bottom: 1px groove silver;
+      p {
+        margin: 0;
+      }
+
+      hr {
+        margin-bottom: 0;
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 1em;
+      }
 
       $colors: ("week-day-0", #EFEFEF, black, black)
               ("week-day-1", #EFEFEF, black, black)
@@ -526,10 +544,6 @@ $grid-gap: 8px;
         &.current {
           .title {
             background-color: #00A6C7;
-            //.day {
-            //  background-color: #00A6C7;
-            //  color: white;
-            //}
           }
         }
     }

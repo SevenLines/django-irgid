@@ -455,6 +455,12 @@
 #price-calculator .input-group-addon {
   width: 100px; }
 
+.calendar .header {
+  width: 3em;
+  height: 3em;
+  padding: 12px;
+  margin: 4px;
+  border-right: 1px solid black; }
 .calendar td > div {
   width: 3em;
   height: 3em;
@@ -504,7 +510,8 @@
     height: 30px;
     background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAeCAYAAADtlXTHAAAAV0lEQVQImQXBERBCAQBAsXcXpmEapmGahmmYhl/DNEzDNA3TMA3TMFlbGIVxmIRpmIV5WIRlWIV12IRt2IV9GMIhHMMpnMMlXMMt3MMjPMMrvMMnfMPvDz19aHrxzJXQAAAAAElFTkSuQmCC"); }
   .days .days-content {
-    max-height: 350px;
+    margin-top: 6px;
+    max-height: 418px;
     overflow: scroll;
     overflow-x: hidden;
     padding-left: 1em; }
@@ -513,7 +520,17 @@
       -moz-transition: all 0.3s;
       -ms-transition: all 0.3s;
       -o-transition: all 0.3s;
-      transition: all 0.3s; }
+      transition: all 0.3s;
+      padding: 12px 0;
+      margin-right: 6px;
+      border-bottom: 1px groove silver; }
+      .days .days-content .day-info p {
+        margin: 0; }
+      .days .days-content .day-info hr {
+        margin-bottom: 0;
+        margin-top: 0; }
+      .days .days-content .day-info:last-child {
+        margin-bottom: 1em; }
       .days .days-content .day-info .title {
         border-radius: 30px 8px 8px 30px;
         color: black;
