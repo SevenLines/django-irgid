@@ -61,6 +61,20 @@ def week_day_verbose(value):
     }.get(value)
 
 @register.filter
+@stringfilter
+def week_day_verb(value):
+    value = int(value)
+    return {
+        0: 'Пн',
+        1: 'Вт',
+        2: 'Ср',
+        3: 'Чт',
+        4: 'Пт',
+        5: 'Сб',
+        6: 'Вс',
+    }.get(value)
+
+@register.filter
 def get_item(dictionary, key):
     return dictionary.get(key)
 
