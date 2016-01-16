@@ -446,7 +446,7 @@ $grid-gap: 8px;
     }
     &.current {
       opacity: 1;
-      background-color: $fore_color;
+      background-color: $fore_color !important;
       color: white;
     }
 

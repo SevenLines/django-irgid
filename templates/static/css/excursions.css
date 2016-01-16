@@ -485,7 +485,7 @@
     box-shadow: 0 0 3px #00A6C7; }
   .calendar td > div.current {
     opacity: 1;
-    background-color: #00A6C7;
+    background-color: #00A6C7 !important;
     color: white; }
   .calendar td > div.week-day-5 {
     background-color: #f6ca8c; }
