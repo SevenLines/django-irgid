@@ -461,6 +461,9 @@
   padding: 12px;
   margin: 4px;
   border-right: 1px solid black; }
+@media (max-width: 600px) {
+  .calendar {
+    display: none; } }
 .calendar td > div {
   width: 3em;
   height: 3em;
@@ -492,6 +495,14 @@
   .calendar td > div.week-day-6 {
     background-color: #f6917f; }
 
+.days-header {
+  display: none; }
+  @media (max-width: 600px) {
+    .days-header {
+      display: block;
+      padding: 0.5em;
+      border-radius: 4px; } }
+
 .days {
   position: relative;
   overflow: hidden; }
@@ -514,7 +525,11 @@
     max-height: 418px;
     overflow: scroll;
     overflow-x: hidden;
-    padding-left: 1em; }
+    padding-left: 1em;
+    padding-top: 1em; }
+    @media (max-width: 600px) {
+      .days .days-content {
+        padding-top: 0; } }
     .days .days-content .day-info {
       -webkit-transition: all 0.3s;
       -moz-transition: all 0.3s;

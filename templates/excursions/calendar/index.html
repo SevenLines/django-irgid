@@ -4,7 +4,7 @@
     {% now "Y" as current_year %}
 
     <div class="clearfix"></div>
-    <div style="width: auto; float: left;margin: 0px 0.5em; ">
+    <div class="calendar" style="width: auto; float: left;margin: 0px 0.5em; ">
         <div class="col-md-12" style="padding: 1em 0em">
             {% if user.is_authenticated %}
                 <form action="" class="form-inline pull-left">
@@ -26,11 +26,10 @@
                     </button>
                 </form>
             {% else %}
-                <h1 style="margin: 0;font-size: 2.3em;text-align: center">{{ current_year }}
-                    | {{ view.month.verbose }}</h1>
+                <h1 style="margin: 0;font-size: 2.3em;text-align: center">{{ current_year }} | {{ view.month.verbose }}</h1>
             {% endif %}
         </div>
-        <table class="calendar hidden-xs" style="table-layout: fixed">
+        <table class="" style="table-layout: fixed">
             {% for week in view.calendar %}
                 <tr style="width: 100%;padding: 0">
                     {#                <td class="header">{{ week.0.date.weekday|week_day_verb }}</td>#}
@@ -61,9 +60,13 @@
             </div>
         {% endif %}
     </div>
+    <div class="days-header">
+        <h1 style="margin: 0;font-size: 2.3em;text-align: center">{{ current_year }} | {{ view.month.verbose }}</h1>
+    </div>
     <div class="days">
+
         <div id="topToolbar" style="padding-left: 1em;"></div>
-        <div class="days-content" style="padding-top: 1em">
+        <div class="days-content" style="">
             {% for day_item in view.days %}
                 {% with date=day_item.date item=day_item.item %}
                     {% if not user.is_authenticated and not item.comment %}
