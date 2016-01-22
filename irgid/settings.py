@@ -196,10 +196,10 @@ def travel_menu_item_visible(context):
 
 MENU = [
     ('index', u'Экскурсии', '^/excursions|^$|^/$', '', lambda c: True),
-    ('calendar', u'Расписание', '^/calendar', '', lambda c: True),
+    ('calendar', u'Календарь Экскурсий', '^/calendar', '', lambda c: True),
     ('travel:index', u'Путешествия', '^/travel', '', travel_menu_item_visible),
     ('about', u'О нас', '^/about', '', lambda c: True),
-    ('faq', u'FAQ', '^/faq', '', lambda c: True),
+    ('faq', u'Частые вопросы (FAQ)', '^/faq', '', lambda c: True),
     ('gallery:index', u'Галерея', '^/gallery', '', lambda c: True),
     ('settings', u'Настройки', '^/settings', '', lambda c: c['user'].is_authenticated()),
 ]
