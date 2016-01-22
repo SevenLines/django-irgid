@@ -6,7 +6,7 @@
     <div class="clearfix"></div>
     <div class="calendar" style="width: auto; float: left;margin: 0px 0.5em; ">
         <div class="col-md-12" style="padding: 1em 0em">
-            {% if user.is_authenticated %}
+            {#            {% if user.is_authenticated %}#}
                 <form action="" class="form-inline pull-left">
                     <select name="year" id="" class="form-control">
                         {% for year in view.actual_years %}
@@ -14,7 +14,7 @@
                                     {% if year == view.selected_year %}selected{% endif %}>{{ year }}</option>
                         {% endfor %}
                     </select>
-                    <select name="month" id="" class="form-control">
+                    <select name="month" id="" class="form-control" onchange="this.form.submit()">
                         {% for month in view.months %}
                             <option value="{{ month.0 }}" {% if month.0 == view.selected_month %}selected{% endif %}>
                                 {{ month.1 }}
@@ -25,14 +25,13 @@
                         <span class="glyphicon glyphicon-chevron-right"></span>
                     </button>
                 </form>
-            {% else %}
-                <h1 style="margin: 0;font-size: 2.3em;text-align: center">{{ current_year }} | {{ view.month.verbose }}</h1>
-            {% endif %}
+{#                {% else %}#}
+{#                <h1 style="margin: 0;font-size: 2.3em;text-align: center">{{ current_year }} | {{ view.month.verbose }}</h1>#}
+{#                {% endif %}#}
         </div>
         <table class="" style="table-layout: fixed">
             {% for week in view.calendar %}
                 <tr style="width: 100%;padding: 0">
-                    {#                <td class="header">{{ week.0.date.weekday|week_day_verb }}</td>#}
                     {% for day_item in week %}
                         {% with d=day_item.date item=day_item.item %}
                             <td style="width: 20%;">
@@ -64,22 +63,22 @@
         <h1 style="margin: 0;font-size: 2.3em;text-align: center">{{ current_year }} | {{ view.month.verbose }}</h1>
     </div>
     <div class="days">
-
-        <div id="topToolbar" style="padding-left: 1em;"></div>
-        <div class="days-content" style="">
-            {% for day_item in view.days %}
-                {% with date=day_item.date item=day_item.item %}
-                    {% if not user.is_authenticated and not item.comment %}
-                    {% else %}
+        {% if view.days %}
+            <div id="topToolbar" style="padding-left: 1em;"></div>
+            <div class="days-content" style="">
+                {% for day_item in view.days %}
+                    {% with date=day_item.date item=day_item.item %}
                         {% if date.month == view.month.number %}
                             {% include "excursions/calendar/days.html" %}
                         {% endif %}
-                    {% endif %}
-                {% endwith %}
-            {% endfor %}
-        </div>
-        <div class="bottom"></div>
-        <div id="bottomToolbar" style="padding-left: 1em"></div>
+                    {% endwith %}
+                {% endfor %}
+            </div>
+            <div class="bottom"></div>
+            <div id="bottomToolbar" style="padding-left: 1em"></div>
+        {% else %}
+            <h1 style="text-align: center; padding-top: 4em;">На этот месяц пока ничего не запланированно</h1>
+        {% endif %}
     </div>
 
     {% if user.is_authenticated %}
