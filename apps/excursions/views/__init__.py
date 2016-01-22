@@ -9,7 +9,7 @@ from datetime import date, datetime
 from django.conf import settings
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse
-from django.db.models.aggregates import Min
+from django.db.models.aggregates import Min, Max
 from django.http.response import Http404, HttpResponse
 from django.shortcuts import redirect
 from django.views.generic import DetailView, View
@@ -262,12 +262,17 @@ class ExcursionCalendarView(TitledView):
         return self.selected_month
 
     def actual_years(self):
-        min_year = ExcursionCalendar.objects.annotate(min_date=Min('date')).values_list('min_date', flat=True)
-        if min_year:
-            min_year = min_year[0].year
+        rng = ExcursionCalendar.objects.aggregate(min_date=Min('date'), max_date=Max('date'))
+        if rng:
+            min_year = rng['min_date'].year
+            max_year = rng['max_date'].year
         else:
             min_year = date.today().year
-        return [year for year in xrange(min_year - 1, date.today().year + 2)]
+            max_year = min_year
+        if self.request.user.is_authenticated():
+            return [year for year in xrange(min_year - 1, max_year + 2)]
+        else:
+            return [year for year in xrange(min_year, max_year + 1)]
 
     def get_calendar_items(self):
         dates = list(Calendar().itermonthdates(self.selected_year, self.selected_month))
@@ -303,7 +308,12 @@ class ExcursionCalendarView(TitledView):
         return out
 
     def days(self):
-        return self.calendar_items
+        if self.request.user.is_authenticated():
+            out = self.calendar_items
+        else:
+            out = [item for item in self.calendar_items if item['item'] and item['item'].comment]
+
+        return out
 
     def events(self):
         ExcursionCalendar.objects.filter(date)
@@ -312,9 +322,9 @@ class ExcursionCalendarView(TitledView):
         self.selected_year = int(self.request.GET.get('year', date.today().year))
         self.selected_month = int(self.request.GET.get('month', date.today().month))
         self.calendar_items, calendar_items_exists = self.get_calendar_items()
-        if not self.request.user.is_authenticated():
-            if not calendar_items_exists:
-                raise Http404()
+        # if not self.request.user.is_authenticated():
+        #     if not calendar_items_exists:
+        #         raise Http404()
 
         return super(ExcursionCalendarView, self).get_context_data(**kwargs)
 
