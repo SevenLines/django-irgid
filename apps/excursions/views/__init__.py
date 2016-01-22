@@ -311,7 +311,8 @@ class ExcursionCalendarView(TitledView):
         if self.request.user.is_authenticated():
             out = self.calendar_items
         else:
-            out = [item for item in self.calendar_items if item['item'] and item['item'].comment]
+            out = [item for item in self.calendar_items
+                   if item['item'] and item['item'].comment and item['date'].month == self.selected_month]
 
         return out
 
