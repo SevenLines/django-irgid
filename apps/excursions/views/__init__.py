@@ -14,9 +14,10 @@ from django.http.response import Http404, HttpResponse
 from django.shortcuts import redirect
 from django.views.generic import DetailView, View
 from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.edit import CreateView
 
 from excursions.helpers import ExcursionCalendarHelper
-from excursions.models import ExcursionCategory, Excursion, ExcursionImage, ExcursionCalendar
+from excursions.models import ExcursionCategory, Excursion, ExcursionImage, ExcursionCalendar, ExcursionAppointment
 from excursions.utils import get_price_list
 from excursions.views import ajax
 from excursions.views.base import _excursion_save, _excursion_context
@@ -342,6 +343,12 @@ class ExcursionCalendarUpdateView(LoginRequiredMixin, View):
             mdl.save()
 
         return HttpResponse()
+
+
+class ExcursionAppointmentView(CreateView):
+    model = ExcursionAppointment
+    fields = ['phone', 'email', 'comment']
+
 
 @login_required
 @permission_required("excursions.change_excursion")

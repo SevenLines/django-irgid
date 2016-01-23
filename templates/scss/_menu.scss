@@ -34,6 +34,7 @@
         -o-transition: all 0.3s;
         transition: all 0.3s;
         border-radius: 1em;
+        margin-right: 8px;
       }
       &:hover a {
         background-color: lighten($common_color, 70) !important;
@@ -51,7 +52,19 @@
         }
       }
     }
+    .appointment-button {
+      $color: #9acd32;
+      background-color: $color !important;
+      //border-color: darken($color, 10);
+      color: white !important;
+      &:hover, &:active {
+        color: white !important;
+        background-color: $color !important;
+        box-shadow: 0 0 10px #dee70a inset;
+      }
+    }
   }
+
   @media (max-width: $width-medium) {
     .nav li {
       display: block;
@@ -80,7 +93,7 @@
 
   .navbar-brand {
     padding: 0.25em;
-    margin-right: 0.75em;
+    margin-right: 0;
   }
 
   //  .logo-info {

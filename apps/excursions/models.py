@@ -132,6 +132,16 @@ class ExcursionCalendar(models.Model):
             super(ExcursionCalendar, self).save(force_insert, force_update, using, update_fields)
 
 
+class ExcursionAppointment(models.Model):
+    phone = models.CharField(max_length=128, null=False)
+    email = models.EmailField(null=False)
+    comment = models.TextField(null=False, blank=False)
+
+    sended = models.BooleanField(default=False)
+    processed = models.BooleanField(default=False)
+    deleted = models.BooleanField(default=False)
+
+
 class ExcursionImage(models.Model):
     excursion = models.ForeignKey(Excursion, related_name='images')
     image = ThumbnailerImageField(upload_to="excursions_gallery")

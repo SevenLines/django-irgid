@@ -234,11 +234,6 @@ if not DEBUG:
 ASSETS_ROOT = os.path.join(BASE_DIR, 'templates/static')
 DONT_USE_METRICS = False
 
-EMAIL_HOST = 'smtp.locum.ru'
-EMAIL_HOST_USER = 'robot@irgid.ru'
-EMAIL_HOST_PASSWORD = 'I_YzdH-FM2(f'
-EMAIL_TIMEOUT = 30
-
 MONTHS = [
     (1, 'Январь'),
     (2, 'Февраль'),
