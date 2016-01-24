@@ -31,10 +31,10 @@
         </div>
         <table class="" style="table-layout: fixed">
             {% for week in view.calendar %}
-                <tr style="width: 100%;padding: 0">
+                <tr >
                     {% for day_item in week %}
                         {% with d=day_item.date item=day_item.item %}
-                            <td style="width: 20%;">
+                            <td>
                                 {% if d.month == view.month.number %}
                                     <div id="calendar-day-{{ d.day }}"
                                          data-day="{{ d.day }}"
