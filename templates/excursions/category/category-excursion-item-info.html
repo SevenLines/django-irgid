@@ -7,7 +7,7 @@
                     <h2>{{ e.title }}
 
                     </h2>
-                    <small>
+                    <small style="display: block">
                         {% if e.time_length %}
                             <span class="label label-success" data-toggle="tooltip" data-placement="top" title="продолжительность экскурсии">({{ e.time_length|time_verbose }})</span>
                         {% endif %}
