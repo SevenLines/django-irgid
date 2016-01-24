@@ -85,6 +85,12 @@ a {
 .tooltip.top .tooltip-arrow {
   border-top-color: #15324c; }
 
+.container-fluid {
+  padding-right: 0; }
+
+.navbar-collapse {
+  padding-right: 0; }
+
 .menu {
   background-color: white;
   z-index: 100;
@@ -108,10 +114,11 @@ a {
     -ms-transition: all 0.3s;
     -o-transition: all 0.3s;
     transition: all 0.3s;
-    border-radius: 1em;
-    margin-right: 8px; }
+    border-radius: 8px;
+    margin-right: 4px;
+    margin-bottom: 4px; }
   .menu .navbar-nav li:hover a {
-    background-color: white !important;
+    background-color: #d3e4f3 !important;
     color: black !important; }
   .menu .navbar-nav li.selected a {
     background-color: #2b679c;
@@ -124,8 +131,12 @@ a {
     color: white !important; }
     .menu .navbar-nav .appointment-button:hover, .menu .navbar-nav .appointment-button:active {
       color: white !important;
-      background-color: #9acd32 !important;
-      box-shadow: 0 0 10px #dee70a inset; }
+      background-color: #aed75b !important; }
+  @media (min-width: 765px) {
+    .menu .appointment-nav {
+      float: right; }
+    .menu .navbar-collapse {
+      margin-left: 30px; } }
   @media (max-width: 765px) {
     .menu {
       padding-top: 0; }
