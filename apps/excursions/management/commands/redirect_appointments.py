@@ -6,7 +6,10 @@ from django.template.loader import render_to_string
 
 from custom_settings.models import Setting
 from excursions.models import ExcursionAppointment
+import logging
+import traceback
 
+logger = logging.getLogger('excursions')
 
 class Command(BaseCommand):
     help = 'redirect apointments to specified email'
@@ -26,7 +29,7 @@ class Command(BaseCommand):
             try:
                 mail = EmailMultiAlternatives(
                     u"Заявка № {} на сайте irgid.ru".format(appointment.id),
-                    u"Телефон: {phone} |  email: {email} \n{comment}".format(**appointment.__dict__),
+                    u"Телефон: {phone} |  email: {email}\n{comment}".format(**appointment.__dict__),
                     settings.EMAIL_HOST_USER,
                     address
                 )
@@ -35,7 +38,7 @@ class Command(BaseCommand):
                 }), "text/html")
                 mail.send()
             except Exception as e:
-                pass
+                logger.error(traceback.format_exc())
             else:
                 appointment.sended = True
                 appointment.save()
