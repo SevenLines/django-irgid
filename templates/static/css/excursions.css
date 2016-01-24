@@ -461,6 +461,8 @@
   padding: 12px;
   margin: 4px;
   border-right: 1px solid black; }
+.calendar .calendar-date-selector {
+  overflow: hidden; }
 @media (max-width: 600px) {
   .calendar {
     display: none; } }

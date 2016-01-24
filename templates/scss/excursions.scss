@@ -415,6 +415,9 @@ $calendar_small_width: 600px;
     border-right: 1px solid black;
   }
 
+  .calendar-date-selector {
+    overflow: hidden;
+  }
 
   @media (max-width: $calendar_small_width) {
     display: none;
