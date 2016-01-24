@@ -31,7 +31,7 @@ class Command(BaseCommand):
                 try:
                     mail = EmailMultiAlternatives(
                         u"Заявка № {} на сайте irgid.ru".format(appointment.id),
-                        u"Телефон: {phone} |  email: {email}\n{comment}".format(**appointment.__dict__),
+                        u"ФИО: {full_name} | Телефон: {phone} |  email: {email} | {comment}".format(**appointment.__dict__),
                         settings.EMAIL_HOST_USER,
                         address
                     )
