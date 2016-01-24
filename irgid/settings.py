@@ -219,6 +219,8 @@ CUSTOM_SETTINGS = {
 
     'gallery_id': (u'Раздел "Галерея"', None, 'ForeignKey', 'excursions.ExcursionCategory:title'),
     'travel_id': (u'Раздел "Путешествия"', None, 'ForeignKey', 'excursions.ExcursionCategory:title'),
+
+    'email_for_appointments': (u"Почта для перенаправления заявок", '', 'String'),
 }
 
 ASSETS_MODULES = [

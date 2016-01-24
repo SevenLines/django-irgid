@@ -127,11 +127,11 @@ a {
     background-color: #3681c4 !important;
     color: white !important; }
   .menu .navbar-nav .appointment-button {
-    background-color: #9acd32 !important;
-    color: white !important; }
+    background-color: #d3e4f3 !important;
+    color: black !important; }
     .menu .navbar-nav .appointment-button:hover, .menu .navbar-nav .appointment-button:active {
       color: white !important;
-      background-color: #aed75b !important; }
+      background-color: #83b3dd !important; }
   @media (min-width: 765px) {
     .menu .appointment-nav {
       float: right; }

@@ -64,12 +64,12 @@
     }
     .appointment-button {
       $color: #9acd32;
-      background-color: $color !important;
-      color: white !important;
+      background-color: lighten($common_color, 50) !important;
+      color: black !important;
       &:hover, &:active {
         color: white !important;
         //background-color: $color !important;
-        background-color: lighten($color, 10) !important;
+        background-color: lighten($common_color, 30) !important;
       }
     }
   }
