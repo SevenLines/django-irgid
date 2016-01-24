@@ -25,11 +25,13 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav">
+                {% if user.is_authenticated %}
                 <li>
                     <a class="appointment-button" data-toggle="modal" href="#modal-appointment">
                         Оставить заявку
                     </a>
                 </li>
+                {% endif %}
 
                 {% for item in menu %}
                     <li class="{{ item.class }}{% if item.selected %} selected{% endif %}">
