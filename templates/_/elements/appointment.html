@@ -10,13 +10,23 @@
                 </div>
                 <div class="modal-body">
                     Здесь можно оставить заявку на экскурсию либо просто задать вопрос. <br>
-                    Мы обязательно с вами свяжемся.<p>
+                    Обязательно укажите ваш адрес электронной почты или телефонный номер,
+                    иначе мы не сможем с вами связаться.<p>
+                    <div class="form-group has-feedback">
+                        <label>ФИО</label>
+                        <div class="input-group">
+                            <input class="form-control" name="full_name" type="text"
+                                   data-error="это поле необходимо заполнить"
+                                   required>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
                     <div class="form-group has-feedback">
                         <label>Номер телефона</label>
                         <div class="input-group">
-                            <input class="form-control" name="phone" type="text"
-                                   data-error="необходимо ввести номер телефона"
-                                   required>
+                            <input class="form-control" name="phone" type="text" data-brother="email"
+                                   data-brother-error="необходимо указать хотя бы номер контактного телефона">
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             <span class="help-block with-errors"></span>
                         </div>
@@ -24,8 +34,9 @@
                     <div class="form-group has-feedback">
                         <label>Адрес электронной почты</label>
                         <div class="input-group">
-                            <input class="form-control" name="email" type="email"
-                                   data-error="необходимо ввести адрес электронной почты" required>
+                            <input class="form-control" name="email" type="email" data-brother="phone"
+                                   data-error="укажите корректный адрес электронной почты"
+                                   data-brother-error="необходимо указать хотя бы адрес электронной почты">
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             <span class="help-block with-errors"></span>
                         </div>
@@ -33,7 +44,8 @@
                     <div class="form-group has-feedback">
                         <label for="comment">Комментарий</label>
                         <textarea style="max-width: 100%" name="comment" cols="30" rows="6"
-                                  class="form-control" data-error="это поле необходимо заполнить" required></textarea>
+                                  data-error="это поле необходимо заполнить"
+                                  class="form-control" required></textarea>
                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         <span class="help-block with-errors"></span>
                     </div>
@@ -62,7 +74,21 @@
 </div><!-- /.modal -->
 
 <script>
-    $("#appointment-form").validator().on('submit', function (e) {
+    $("#appointment-form").validator({
+        custom: {
+            brother: function ($el) {
+                var brother = $el.data('brother');
+                var form = $el[0].form;
+                brother = form[brother];
+
+                return $el.val() || brother.value;
+            }
+        },
+        delay: 100,
+        errors: {
+            brother: 'необходимо указать хотя бы одно из полей',
+        }
+    }).on('submit', function (e) {
         var form = this;
         if (!e.isDefaultPrevented()) {
             var data = $(form).serialize();
