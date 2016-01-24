@@ -28,8 +28,12 @@
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
-                    <textarea style="max-width: 100%" name="comment" cols="30" rows="6"
-                              class="form-control"></textarea>
+                    <div class="form-group has-feedback">
+                        <textarea style="max-width: 100%" name="comment" cols="30" rows="6"
+                                  class="form-control" data-error="это поле необходимо заполнить" required></textarea>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        <span class="help-block with-errors"></span>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
@@ -55,7 +59,7 @@
 </div><!-- /.modal -->
 
 <script>
-    $("#appointment-form").on('submit', function (e) {
+    $("#appointment-form").validator().on('submit', function (e) {
         var form = this;
         if (!e.isDefaultPrevented()) {
             var data = $(form).serialize();
@@ -75,5 +79,5 @@
             });
         }
         return false;
-    }).validator();
+    });
 </script>

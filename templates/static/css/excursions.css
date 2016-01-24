@@ -495,7 +495,7 @@
   .calendar td > div.week-day-5 {
     background-color: #dcee02; }
   .calendar td > div.week-day-6 {
-    background-color: #f66f8f; }
+    background-color: #f6ad08; }
 
 .days-header {
   display: none; }
@@ -613,11 +613,11 @@
         background-color: #00A6C7; }
       .days .days-content .day-info .week-day-6 {
         color: black;
-        background-color: #ff92ad;
-        border: 2px solid #ff5f87; }
+        background-color: #ffcf28;
+        border: 2px solid #f4be00; }
         .days .days-content .day-info .week-day-6 .day {
-          color: #f00f44;
-          border: 1px solid #ff5f87; }
+          color: #936805;
+          border: 1px solid #f4be00; }
       .days .days-content .day-info.current .title {
         background-color: #00A6C7; }
 

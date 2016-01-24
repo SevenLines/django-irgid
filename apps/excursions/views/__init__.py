@@ -347,12 +347,14 @@ class ExcursionCalendarUpdateView(LoginRequiredMixin, View):
 
 class ExcursionAppointmentCreateView(View):
     def post(self, request):
+        from excursions.forms import ExcursionAppointmentForm
+
         email = request.POST['email']
         phone = request.POST['phone']
         comment = request.POST['comment']
 
-        success = False
-        try:
+        form = ExcursionAppointmentForm(request.POST)
+        if form.is_valid():
             appointment = ExcursionAppointment.objects.create(
                 email=email,
                 phone=phone,
@@ -360,13 +362,12 @@ class ExcursionAppointmentCreateView(View):
             )
             message = "Заявка успешно создана,\nмы свяжемся с вами в ближайшее время. "
             success = True
-        except:
+        else:
             message = "Возникли проблемы при создании заявки,\nпожалуйста, попробуйте еще раз."
-            pass
+            success = False
 
         if request.is_ajax():
             return HttpResponse(json.dumps({
-                "pk": appointment.pk,
                 "message": message,
                 "success": success
             }), content_type='json')
