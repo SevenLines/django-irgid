@@ -345,9 +345,33 @@ class ExcursionCalendarUpdateView(LoginRequiredMixin, View):
         return HttpResponse()
 
 
-class ExcursionAppointmentView(CreateView):
-    model = ExcursionAppointment
-    fields = ['phone', 'email', 'comment']
+class ExcursionAppointmentCreateView(View):
+    def post(self, request):
+        email = request.POST['email']
+        phone = request.POST['phone']
+        comment = request.POST['comment']
+
+        success = False
+        try:
+            appointment = ExcursionAppointment.objects.create(
+                email=email,
+                phone=phone,
+                comment=comment,
+            )
+            message = "Заявка успешно создана,\nмы свяжемся с вами в ближайшее время. "
+            success = True
+        except:
+            message = "Возникли проблемы при создании заявки,\nпожалуйста, попробуйте еще раз."
+            pass
+
+        if request.is_ajax():
+            return HttpResponse(json.dumps({
+                "pk": appointment.pk,
+                "message": message,
+                "success": success
+            }), content_type='json')
+        else:
+            return redirect(request.META['HTTP_REFERER'])
 
 
 @login_required

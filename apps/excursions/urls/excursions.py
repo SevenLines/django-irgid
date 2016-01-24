@@ -5,7 +5,7 @@ from django.conf.urls.i18n import i18n_patterns
 
 from excursions.views import MainPageView, CategoryView, ExcursionItemView, ExcursionGalleryItemView, \
     ExcursionGalleryIndexView, ExcursionRemoveView, ExcursionCategoryRemoveView, ExcursionPreviewItemView, \
-    ExcursionCalendarView, ExcursionCalendarUpdateView
+    ExcursionCalendarView, ExcursionCalendarUpdateView, ExcursionAppointmentCreateView
 from excursions.views.ajax import ExcursionMainImageRemove
 
 __author__ = 'm'
@@ -33,6 +33,8 @@ urlpatterns = i18n_patterns('excursions.views',
 
     url(r'calendar/update$', ExcursionCalendarUpdateView.as_view(), name='calendar_update'),
     url(r'calendar/$', ExcursionCalendarView.as_view(), name='calendar'),
+
+    url(r'appointment/$', ExcursionAppointmentCreateView.as_view(), name='appointment_create'),
 
     url(r'$', MainPageView.as_view(), name='index'),
 
