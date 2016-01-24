@@ -1,5 +1,5 @@
 {% load static %}
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" style="overflow: hidden; float: left;margin-bottom: 8px">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -25,22 +25,21 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav">
+                {% if user.is_authenticated %}
+                <li>
+                    <a class="appointment-button" data-toggle="modal" href="#modal-appointment">
+                        Оставить заявку
+                    </a>
+                </li>
+                {% endif %}
+
                 {% for item in menu %}
                     <li class="{{ item.class }}{% if item.selected %} selected{% endif %}">
                         <a href="{{ item.url }}">{{ item.title }}</a>
                     </li>
                 {% endfor %}
             </ul>
-            {% if user.is_authenticated %}
-                <div class="pull-right hidden-sm hidden-xs" style="padding-top: 0.5em">
-                    привет, <b>{{ request.user }}</b>
-                    {% if user.is_superuser %}
-                        | <a href="/admin">админка</a>
-                        | <a href="/admin/request/request/overview/">статистика</a>
-                    {% endif %}
-                </div>
-            {% endif %}
         </div><!-- /.navbar-collapse -->
-
     </div><!-- /.container-fluid -->
+    <div class="clearfix"></div>
 </nav>

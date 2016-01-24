@@ -5,7 +5,7 @@
             <tr>
                 <td style="padding-right: 1em">
                     <h2>{{ e.title }}</h2>
-                    <small>
+                    <small style="display: block; padding:  4px 0">
                         {% if e.time_length %}
                             <span class="label label-success" data-toggle="tooltip" data-placement="top" title="продолжительность экскурсии">({{ e.time_length|time_verbose }})</span>
                         {% endif %}

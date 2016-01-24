@@ -15,3 +15,4 @@ DONT_USE_METRICS = True
 ALLOWED_HOSTS = [
     "*"
 ]
+

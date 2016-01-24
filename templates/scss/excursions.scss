@@ -421,13 +421,6 @@ $calendar_small_width: 600px;
 
   @media (max-width: $calendar_small_width) {
     display: none;
-    //  position: absolute;
-    //  background-color: white;
-    //  max-height: 4em;
-    //left: 0;
-    //right: 0;
-    //  overflow: hidden;
-    //  z-index: 100;
   }
 
   td > div {
@@ -447,8 +440,6 @@ $calendar_small_width: 600px;
     transition: all 0.3s;
 
     cursor: pointer;
-
-
 
     &.old {
       opacity: 0.35;
@@ -470,10 +461,10 @@ $calendar_small_width: 600px;
     }
 
     &.week-day-5 {
-      background-color: #f6ca8c;
+      background-color: #dcee02;
     }
     &.week-day-6 {
-      background-color: #f6917f;
+      background-color: #f6ad08;
     }
   }
 }
@@ -531,7 +522,7 @@ $calendar_small_width: 600px;
 
       padding: 12px 0;
       margin-right: 6px;
-      border-bottom: 1px groove silver;
+      border-bottom: 1px solid #e8e8e8;
       p {
         margin: 0;
       }
@@ -550,8 +541,8 @@ $calendar_small_width: 600px;
               ("week-day-2", #EFEFEF, black, black)
               ("week-day-3", #EFEFEF, black, black)
               ("week-day-4", #EFEFEF, black, black)
-              ("week-day-5", #f6ca8c, #eea600, black)
-              ("week-day-6", #f6917f, #dc0b1b, black);
+              ("week-day-5", #dcee02, #c2ee06, black)
+              ("week-day-6", #ffcf28, #f6ad08, black);
 
       .title {
         border-radius: 30px 8px 8px 30px;

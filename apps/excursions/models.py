@@ -1,6 +1,6 @@
 # coding=utf-8
 import calendar
-from datetime import date
+from datetime import date, datetime
 from django.core.urlresolvers import reverse
 from django.db import models, transaction
 from django.db.models.signals import pre_delete, post_delete
@@ -130,6 +130,23 @@ class ExcursionCalendar(models.Model):
                     .update(is_best=False)
 
             super(ExcursionCalendar, self).save(force_insert, force_update, using, update_fields)
+
+
+class ExcursionAppointment(models.Model):
+    phone = models.CharField(max_length=128, null=False)
+    email = models.EmailField(null=False)
+    comment = models.TextField(null=False, blank=False)
+
+    create_date = models.DateTimeField(default=datetime.now, editable=False)
+    update_date = models.DateTimeField(default=datetime.now)
+
+    sended = models.BooleanField(default=False)
+    processed = models.BooleanField(default=False)
+    deleted = models.BooleanField(default=False)
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        self.update_date = datetime.now()
+        super(ExcursionAppointment, self).save(force_insert, force_update, using, update_fields)
 
 
 class ExcursionImage(models.Model):

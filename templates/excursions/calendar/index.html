@@ -6,32 +6,25 @@
     <div class="clearfix"></div>
     <div class="calendar" style="width: auto; float: left;margin: 0px 0.5em; ">
         <div class="calendar-date-selector" style="padding: 1em 0em">
-            {#            {% if user.is_authenticated %}#}
-                <form action="" class="form-inline pull-left">
-                    <select name="year" id="" class="form-control">
-                        {% for year in view.actual_years %}
-                            <option value="{{ year }}"
-                                    {% if year == view.selected_year %}selected{% endif %}>{{ year }}</option>
-                        {% endfor %}
-                    </select>
-                    <select name="month" id="" class="form-control" onchange="this.form.submit()">
-                        {% for month in view.months %}
-                            <option value="{{ month.0 }}" {% if month.0 == view.selected_month %}selected{% endif %}>
-                                {{ month.1 }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                    <button class="btn btn-primary" type="submit">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </button>
-                </form>
-{#                {% else %}#}
-{#                <h1 style="margin: 0;font-size: 2.3em;text-align: center">{{ current_year }} | {{ view.month.verbose }}</h1>#}
-{#                {% endif %}#}
+            <form action="" class="form-inline pull-left">
+                <select name="year" id="" class="form-control" style="float: left; margin-right: 8px;width: auto;">
+                    {% for year in view.actual_years %}
+                        <option value="{{ year }}"
+                                {% if year == view.selected_year %}selected{% endif %}>{{ year }}</option>
+                    {% endfor %}
+                </select>
+                <select name="month" id="" class="form-control" onchange="this.form.submit()" style="float: left;width: auto;">
+                    {% for month in view.months %}
+                        <option value="{{ month.0 }}" {% if month.0 == view.selected_month %}selected{% endif %}>
+                            {{ month.1 }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </form>
         </div>
         <table class="" style="table-layout: fixed">
             {% for week in view.calendar %}
-                <tr >
+                <tr>
                     {% for day_item in week %}
                         {% with d=day_item.date item=day_item.item %}
                             <td>

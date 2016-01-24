@@ -1,0 +1,86 @@
+<div class="modal fade" id="modal-appointment">
+    <div class="modal-dialog">
+        <form id="appointment-form" class="form" data-action="{% url 'excursions:appointment_create' %}"
+              data-toggle="validator">
+            {% csrf_token %}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Оставить заявку</h4>
+                </div>
+                <div class="modal-body">
+                    Здесь можно оставить заявку на экскурсию либо просто задать вопрос. <br>
+                    Мы обязательно с вами свяжемся.<p>
+                    <div class="form-group has-feedback">
+                        <label>Номер телефона</label>
+                        <div class="input-group">
+                            <input class="form-control" name="phone" type="text"
+                                   data-error="необходимо ввести номер телефона"
+                                   required>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <label>Адрес электронной почты</label>
+                        <div class="input-group">
+                            <input class="form-control" name="email" type="email"
+                                   data-error="необходимо ввести адрес электронной почты" required>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <label for="comment">Комментарий</label>
+                        <textarea style="max-width: 100%" name="comment" cols="30" rows="6"
+                                  class="form-control" data-error="это поле необходимо заполнить" required></textarea>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        <span class="help-block with-errors"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
+                    <button type="submit" class="btn btn-primary">Отправить</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </form>
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="modal-alert">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Сообщение</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+    $("#appointment-form").validator().on('submit', function (e) {
+        var form = this;
+        if (!e.isDefaultPrevented()) {
+            var data = $(form).serialize();
+            waitingDialog.show("<h3 style='text-align:center'>Обрабатываю заявку<br>подождите немного...</h3>");
+            $.post($(this).data('action'), data).done(function (r) {
+            }).always(function (r) {
+                waitingDialog.hide();
+
+                var cls = r.success ? 'success' : 'warning';
+                var el = $('<div class="alert alert-' + cls + '" style="margin-bottom:0;">' + r.message + '</div>');
+
+                $("#modal-alert").find('.modal-body').html(el);
+                $("#modal-alert").modal('show');
+                if (r.success) {
+                    $("#modal-appointment").modal('hide');
+                }
+            });
+        }
+        return false;
+    });
+</script>

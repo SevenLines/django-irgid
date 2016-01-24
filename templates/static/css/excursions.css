@@ -493,9 +493,9 @@
     background-color: #00A6C7 !important;
     color: white; }
   .calendar td > div.week-day-5 {
-    background-color: #f6ca8c; }
+    background-color: #dcee02; }
   .calendar td > div.week-day-6 {
-    background-color: #f6917f; }
+    background-color: #f6ad08; }
 
 .days-header {
   display: none; }
@@ -540,7 +540,7 @@
       transition: all 0.3s;
       padding: 12px 0;
       margin-right: 6px;
-      border-bottom: 1px groove silver; }
+      border-bottom: 1px solid #e8e8e8; }
       .days .days-content .day-info p {
         margin: 0; }
       .days .days-content .day-info hr {
@@ -604,20 +604,20 @@
         background-color: #00A6C7; }
       .days .days-content .day-info .week-day-5 {
         color: black;
-        background-color: #f6ca8c;
-        border: 2px solid #f2b45d; }
+        background-color: #dcee02;
+        border: 2px solid #adbb02; }
         .days .days-content .day-info .week-day-5 .day {
-          color: #885f00;
-          border: 1px solid #f2b45d; }
+          color: #718b03;
+          border: 1px solid #adbb02; }
       .days .days-content .day-info.current .title {
         background-color: #00A6C7; }
       .days .days-content .day-info .week-day-6 {
         color: black;
-        background-color: #f6917f;
-        border: 2px solid #f3684f; }
+        background-color: #ffcf28;
+        border: 2px solid #f4be00; }
         .days .days-content .day-info .week-day-6 .day {
-          color: #7b060f;
-          border: 1px solid #f3684f; }
+          color: #936805;
+          border: 1px solid #f4be00; }
       .days .days-content .day-info.current .title {
         background-color: #00A6C7; }
 

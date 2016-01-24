@@ -6,6 +6,8 @@ get_env().append_path("excursions/static")
 
 main_js = Bundle('bower/jquery/dist/jquery.min.js',
                  'bower/bootstrap/dist/js/bootstrap.js',
+                 'bower/bootstrap-validator/dist/validator.min.js',
+                 'bower/bootstrap-waitingfor/build/bootstrap-waitingfor.js',
                  'bower/jquery.cookie/jquery.cookie.js',
                  'bower/jquery.lazyload/jquery.lazyload.js',
                  'bower/jquery-impromptu/dist/jquery-impromptu.min.js',

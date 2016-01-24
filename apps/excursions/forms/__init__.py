@@ -1,6 +1,7 @@
 from django import forms
+from django.forms import ModelForm
 from filer.fields.image import AdminImageFormField
-from excursions.models import Excursion
+from excursions.models import Excursion, ExcursionAppointment
 
 __author__ = 'm'
 
@@ -10,3 +11,9 @@ class ExcursionForm(forms.Form):
                                       queryset=None,
                                       rel=Excursion,
                                       to_field_name="img_preview")
+
+
+class ExcursionAppointmentForm(ModelForm):
+    class Meta:
+        model = ExcursionAppointment
+        fields = ['email', 'phone', 'comment']

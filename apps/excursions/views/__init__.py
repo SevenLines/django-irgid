@@ -14,9 +14,10 @@ from django.http.response import Http404, HttpResponse
 from django.shortcuts import redirect
 from django.views.generic import DetailView, View
 from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.edit import CreateView
 
 from excursions.helpers import ExcursionCalendarHelper
-from excursions.models import ExcursionCategory, Excursion, ExcursionImage, ExcursionCalendar
+from excursions.models import ExcursionCategory, Excursion, ExcursionImage, ExcursionCalendar, ExcursionAppointment
 from excursions.utils import get_price_list
 from excursions.views import ajax
 from excursions.views.base import _excursion_save, _excursion_context
@@ -342,6 +343,37 @@ class ExcursionCalendarUpdateView(LoginRequiredMixin, View):
             mdl.save()
 
         return HttpResponse()
+
+
+class ExcursionAppointmentCreateView(View):
+    def post(self, request):
+        from excursions.forms import ExcursionAppointmentForm
+
+        email = request.POST['email']
+        phone = request.POST['phone']
+        comment = request.POST['comment']
+
+        form = ExcursionAppointmentForm(request.POST)
+        if form.is_valid():
+            appointment = ExcursionAppointment.objects.create(
+                email=email,
+                phone=phone,
+                comment=comment,
+            )
+            message = "Заявка успешно создана,\nмы свяжемся с вами в ближайшее время. "
+            success = True
+        else:
+            message = "Возникли проблемы при создании заявки,\nпожалуйста, попробуйте еще раз."
+            success = False
+
+        if request.is_ajax():
+            return HttpResponse(json.dumps({
+                "message": message,
+                "success": success
+            }), content_type='json')
+        else:
+            return redirect(request.META['HTTP_REFERER'])
+
 
 @login_required
 @permission_required("excursions.change_excursion")

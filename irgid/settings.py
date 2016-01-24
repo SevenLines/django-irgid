@@ -219,6 +219,8 @@ CUSTOM_SETTINGS = {
 
     'gallery_id': (u'Раздел "Галерея"', None, 'ForeignKey', 'excursions.ExcursionCategory:title'),
     'travel_id': (u'Раздел "Путешествия"', None, 'ForeignKey', 'excursions.ExcursionCategory:title'),
+
+    'email_for_appointments': (u"Почта для перенаправления заявок", '', 'String'),
 }
 
 ASSETS_MODULES = [
@@ -234,11 +236,6 @@ if not DEBUG:
 ASSETS_ROOT = os.path.join(BASE_DIR, 'templates/static')
 DONT_USE_METRICS = False
 
-EMAIL_HOST = 'smtp.locum.ru'
-EMAIL_HOST_USER = 'robot@irgid.ru'
-EMAIL_HOST_PASSWORD = 'I_YzdH-FM2(f'
-EMAIL_TIMEOUT = 30
-
 MONTHS = [
     (1, 'Январь'),
     (2, 'Февраль'),
@@ -253,3 +250,52 @@ MONTHS = [
     (11, 'Ноябрь'),
     (12, 'Декабрь'),
 ]
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+    },
+    'handlers': {
+        'django_file': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'level': 'ERROR',
+            'filename': 'django.log',
+            'formatter': 'verbose',
+            'maxBytes': 1024 * 1024 * 5,
+            'backupCount': 5,
+        },
+        'file': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'level': 'ERROR',
+            'filename': 'irgid.log',
+            'formatter': 'verbose',
+            'maxBytes': 1024 * 1024 * 5,
+            'backupCount': 5,
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['django_file', 'mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['mail_admins', 'django_file'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'excursions': {
+            'handlers': ['file', 'mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}

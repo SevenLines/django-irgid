@@ -21,8 +21,6 @@
         <div class="header">
             <nav class="navbar menu">
                 {% menu %}
-                {% include "_/elements/weather-snippet.html" %}
-
             </nav>
         </div>
         <div id="content">
@@ -51,6 +49,7 @@
     </div>
 </div>
 
+{% include "_/elements/appointment.html" %}
 {% render_block "footerjs" %}
 
 {% include "_/elements/login-form.html" %}

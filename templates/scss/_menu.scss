@@ -1,5 +1,12 @@
 @import "constants";
 
+.container-fluid {
+  padding-right: 0;
+}
+.navbar-collapse {
+  padding-right: 0;
+}
+
 .menu {
   background-color: white;
   z-index: 100;
@@ -33,10 +40,14 @@
         -ms-transition: all 0.3s;
         -o-transition: all 0.3s;
         transition: all 0.3s;
-        border-radius: 1em;
+
+        border-radius: 8px;
+        margin-right: 4px;
+
+        margin-bottom: 4px;
       }
       &:hover a {
-        background-color: lighten($common_color, 70) !important;
+        background-color: lighten($common_color, 50) !important;
         color: black !important;
       }
 
@@ -51,7 +62,27 @@
         }
       }
     }
+    .appointment-button {
+      $color: #9acd32;
+      background-color: lighten($common_color, 50) !important;
+      color: black !important;
+      &:hover, &:active {
+        color: white !important;
+        //background-color: $color !important;
+        background-color: lighten($common_color, 30) !important;
+      }
+    }
   }
+
+  @media (min-width: $width-medium) {
+    .appointment-nav {
+      float: right;
+    }
+    .navbar-collapse {
+      margin-left: 30px;
+    }
+  }
+
   @media (max-width: $width-medium) {
     .nav li {
       display: block;
@@ -80,7 +111,7 @@
 
   .navbar-brand {
     padding: 0.25em;
-    margin-right: 0.75em;
+    margin-right: 0;
   }
 
   //  .logo-info {
