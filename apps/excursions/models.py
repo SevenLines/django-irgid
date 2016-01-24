@@ -133,8 +133,9 @@ class ExcursionCalendar(models.Model):
 
 
 class ExcursionAppointment(models.Model):
-    phone = models.CharField(max_length=128, null=False)
-    email = models.EmailField(null=False)
+    full_name = models.CharField(max_length=256, null=False)
+    phone = models.CharField(max_length=128, default="", blank=True)
+    email = models.EmailField(default="", blank=True)
     comment = models.TextField(null=False, blank=False)
 
     create_date = models.DateTimeField(default=datetime.now, editable=False)

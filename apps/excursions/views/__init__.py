@@ -352,11 +352,13 @@ class ExcursionAppointmentCreateView(View):
         email = request.POST['email']
         phone = request.POST['phone']
         comment = request.POST['comment']
+        full_name = request.POST['full_name']
 
         form = ExcursionAppointmentForm(request.POST)
         if form.is_valid():
             appointment = ExcursionAppointment.objects.create(
                 email=email,
+                full_name=full_name,
                 phone=phone,
                 comment=comment,
             )

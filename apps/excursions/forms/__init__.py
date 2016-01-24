@@ -16,4 +16,4 @@ class ExcursionForm(forms.Form):
 class ExcursionAppointmentForm(ModelForm):
     class Meta:
         model = ExcursionAppointment
-        fields = ['email', 'phone', 'comment']
+        fields = ['email', 'phone', 'comment', 'full_name']
