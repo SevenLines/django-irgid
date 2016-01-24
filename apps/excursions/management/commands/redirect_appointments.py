@@ -15,7 +15,7 @@ class Command(BaseCommand):
     help = 'redirect apointments to specified email'
 
     def handle(self, *args, **options):
-        appointments = ExcursionAppointment.objects.filter(sended=False)
+        appointments = ExcursionAppointment.objects.filter(sended=False).select_for_update()
 
         address = filter(
             None,
