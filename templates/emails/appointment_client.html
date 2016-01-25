@@ -1,0 +1,14 @@
+<h3>Заявка №{{ appointment.pk }} от {{ appointment.create_date|date:"Y.m.d H:i" }}</h3>
+Спасибо за оставленную заявку! <br>
+Ваш запрос принят и направлен нашему оператору. <br>
+Мы постараемся в кратчайшие сроки ответить Вам
+<hr>
+<h4>Вы указали следующую информацию: </h4>
+ФИО: {{ appointment.full_name }} <br>
+{% if appointment.phone %}Телефон: {{ appointment.phone }} <br>{% endif %}
+{% if appointment.email %}Почта: <a href="mailto:{{ appointment.email }} ">{{ appointment.email }} </a>{% endif %}
+<p>
+{{ appointment.comment }}
+<hr>
+Экскурсионное агентство <a href="http://irgid.ru">«Иргид»</a> <br>
+2012-{% now "Y" %} гг.

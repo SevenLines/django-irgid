@@ -1,4 +1,4 @@
-<h3>Заявка № {{ appointment.pk }}</h3>
+<h3>Заявка №{{ appointment.pk }} от {{ appointment.create_date|date:"Y.m.d H:i" }}</h3>
 ФИО: {{ appointment.full_name }} <br>
 Телефон: {{ appointment.phone }} <br>
 Почта: <a href="mailto:{{ appointment.email }} ">{{ appointment.email }} </a>

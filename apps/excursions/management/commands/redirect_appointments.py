@@ -30,7 +30,7 @@ class Command(BaseCommand):
             for appointment in appointments:
                 try:
                     mail = EmailMultiAlternatives(
-                        u"Заявка № {} на сайте irgid.ru".format(appointment.id),
+                        u"Заявка №{} на сайте irgid.ru".format(appointment.id),
                         u"ФИО: {full_name} | Телефон: {phone} |  email: {email} | {comment}".format(**appointment.__dict__),
                         settings.EMAIL_HOST_USER,
                         address
@@ -39,6 +39,19 @@ class Command(BaseCommand):
                         'appointment': appointment
                     }), "text/html")
                     mail.send()
+
+                    if appointment.email:
+                        mail = EmailMultiAlternatives(
+                            u"Заявка №{} на сайте irgid.ru".format(appointment.id),
+                            u"ФИО: {full_name} | Телефон: {phone} |  email: {email} | {comment}".format(**appointment.__dict__),
+                            settings.EMAIL_HOST_USER,
+                            [appointment.email, ]
+                        )
+                        mail.attach_alternative(render_to_string("emails/appointment_client.html", {
+                            'appointment': appointment
+                        }), "text/html")
+                        mail.send()
+
                 except Exception as e:
                     logger.error(traceback.format_exc())
                 else:
