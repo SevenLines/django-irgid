@@ -493,9 +493,9 @@
     background-color: #00A6C7 !important;
     color: white; }
   .calendar td > div.week-day-5 {
-    background-color: #dcee02; }
+    background-color: #f6ca8c; }
   .calendar td > div.week-day-6 {
-    background-color: #f6ad08; }
+    background-color: #f6917f; }
 
 .days-header {
   display: none; }
@@ -604,20 +604,20 @@
         background-color: #00A6C7; }
       .days .days-content .day-info .week-day-5 {
         color: black;
-        background-color: #dcee02;
-        border: 2px solid #adbb02; }
+        background-color: #f6ca8c;
+        border: 2px solid #f2b45d; }
         .days .days-content .day-info .week-day-5 .day {
-          color: #718b03;
-          border: 1px solid #adbb02; }
+          color: #885f00;
+          border: 1px solid #f2b45d; }
       .days .days-content .day-info.current .title {
         background-color: #00A6C7; }
       .days .days-content .day-info .week-day-6 {
         color: black;
-        background-color: #ffcf28;
-        border: 2px solid #f4be00; }
+        background-color: #f6917f;
+        border: 2px solid #f3684f; }
         .days .days-content .day-info .week-day-6 .day {
-          color: #936805;
-          border: 1px solid #f4be00; }
+          color: #7b060f;
+          border: 1px solid #f3684f; }
       .days .days-content .day-info.current .title {
         background-color: #00A6C7; }
 

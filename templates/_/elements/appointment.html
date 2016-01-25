@@ -9,12 +9,14 @@
                     <h4 class="modal-title">Оставить заявку</h4>
                 </div>
                 <div class="modal-body">
-                    Здесь можно оставить заявку на экскурсию либо просто задать вопрос. <br>
-                    Обязательно укажите ваш адрес электронной почты или телефонный номер,
-                    иначе мы не сможем с вами связаться.<p>
+                    Заполните эту форму, чтобы связаться с нами и получить ответы на Ваши вопросы.
+                    Ваш запрос будет направлен оператору, и мы постараемся в кратчайшие сроки ответить Вам. <p>
+{#                    Здесь можно оставить заявку на экскурсию либо просто задать вопрос. <br>#}
+{#                    Обязательно укажите ваш адрес электронной почты или телефонный номер,#}
+{#                    иначе мы не сможем с вами связаться.<p>#}
                     <div class="form-group has-feedback">
                         <label>ФИО</label>
-                        <div class="input-group">
+                        <div class="input-group" style="width: 100%">
                             <input class="form-control" name="full_name" type="text"
                                    data-error="это поле необходимо заполнить"
                                    required>
@@ -24,8 +26,8 @@
                     </div>
                     <div class="form-group has-feedback">
                         <label>Номер телефона</label>
-                        <div class="input-group">
-                            <input class="form-control" name="phone" type="text" data-brother="email"
+                        <div class="input-group" style="width: 100%">
+                            <input class="form-control"  name="phone" type="text" data-brother="email"
                                    data-brother-error="необходимо указать хотя бы номер контактного телефона">
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             <span class="help-block with-errors"></span>
@@ -33,7 +35,7 @@
                     </div>
                     <div class="form-group has-feedback">
                         <label>Адрес электронной почты</label>
-                        <div class="input-group">
+                        <div class="input-group" style="width: 100%">
                             <input class="form-control" name="email" type="email" data-brother="phone"
                                    data-error="укажите корректный адрес электронной почты"
                                    data-brother-error="необходимо указать хотя бы адрес электронной почты">
