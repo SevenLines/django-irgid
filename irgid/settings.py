@@ -20,6 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Application definition
 TESTING= 'test' in sys.argv
+DEBUG = False
 
 INSTALLED_APPS = (
     'djangocms_admin_style',
@@ -44,7 +45,6 @@ INSTALLED_APPS = (
     'request',
     'sharedcontroll',
     'custom_settings',
-    'debug_toolbar',
     'simple_history',
 )
 
@@ -165,7 +165,6 @@ CACHES = {
 }
 
 
-
 if TESTING:
     class DisableMigrations(object):
         def __contains__(self, item):
@@ -182,6 +181,12 @@ try:
 except:
     print("Failed to import settings, local_settings.py don't exists or incorretc")
     exit()
+
+
+if DEBUG:
+    INSTALLED_APPS += 'debug_toolbar'
+    MIDDLEWARE_CLASSES += 'debug_toolbar.middleware.DebugToolbarMiddleware'
+
 
 # -=-=-=-=-=-=-=-=-=-=-=-=-
 # APPLICATION SETTINGS BEGIN
