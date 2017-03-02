@@ -138,6 +138,30 @@ class ExcursionViewsTestCase(BaseTestCase):
         with self.login():
             self.api('excursions:item_preview', params={'pk': e.pk})
 
+    def test_price_list_rendered(self):
+        e = Excursion.objects.create(
+            title=u'Название',
+            published=True,
+            priceList=
+            "1-10 | 100/200/300\n"
+            "11-20 | 400/500/600"
+        )
+
+        data = e.price_list_rendered()
+        lines = data['lines']
+        data = data['data']
+        self.assertEqual('100', data[0]['default_price'])
+        self.assertEqual("1-10", data[0]['header'])
+        self.assertEqual(0, data[0]['span'])
+        self.assertEqual({0: '300', 1: '200', 2: '100'}, data[0]['price_line'])
+
+        self.assertEqual('400', data[1]['default_price'])
+        self.assertEqual("11-20", data[1]['header'])
+        self.assertEqual(0, data[1]['span'])
+        self.assertEqual({0: '600', 1: '500', 2: '400'}, data[1]['price_line'])
+
+        self.assertEqual([0, 1, 2], lines)
+
 
 class TestAppointment(BaseTestCase):
     def test_can_add_appointment(self):
