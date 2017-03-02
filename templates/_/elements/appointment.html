@@ -51,10 +51,20 @@
                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         <span class="help-block with-errors"></span>
                     </div>
+                    <div>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
-                    <button type="submit" class="btn btn-primary">Отправить</button>
+                    <div class="col-md-6" style="text-align: left">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
+                        <button type="submit" class="btn btn-primary">Отправить</button>
+                    </div>
+                    <div class="col-md-6" style="text-align: left">
+                        <small><small>нажимая на кнопку отправить вы соглашаетесь с
+                            <a target="_blank" href="{% url "confedential" %}" style="text-decoration: underline">правилами обработки данных</a>
+                        </small></small>
+                    </div>
+
                 </div>
             </div><!-- /.modal-content -->
         </form>

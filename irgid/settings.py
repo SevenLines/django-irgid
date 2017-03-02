@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TESTING= 'test' in sys.argv
 DEBUG = False
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'djangocms_admin_style',
 
     'django.contrib.admin',
@@ -46,9 +46,9 @@ INSTALLED_APPS = (
     'sharedcontroll',
     'custom_settings',
     'simple_history',
-)
+]
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE_CLASSES = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -59,7 +59,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
-)
+]
 
 ROOT_URLCONF = 'irgid.urls'
 
@@ -184,9 +184,8 @@ except:
 
 
 if DEBUG:
-    INSTALLED_APPS += 'debug_toolbar'
-    MIDDLEWARE_CLASSES += 'debug_toolbar.middleware.DebugToolbarMiddleware'
-
+    INSTALLED_APPS.append('debug_toolbar')
+    MIDDLEWARE_CLASSES.append('debug_toolbar.middleware.DebugToolbarMiddleware')
 
 # -=-=-=-=-=-=-=-=-=-=-=-=-
 # APPLICATION SETTINGS BEGIN

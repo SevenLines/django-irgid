@@ -52,6 +52,10 @@ urlpatterns = patterns('',
         template_name="about.html", data={'title': u'О нас'}
     ), name='about'),
 
+    url(r'^confedential/$', TemplateViewEx.as_view(
+        template_name="confedential.html", data={'title': u'Политика конфиденциальности'}
+    ), name='confedential'),
+
     # url(r'^calendar/$', TemplateViewEx.as_view(
     #     template_name="calendar.html", data={'title': u'Расписание экскурсий'}
     # ), name='calendar'),
