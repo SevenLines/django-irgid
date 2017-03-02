@@ -1,11 +1,12 @@
 from fabric.api import run, env, cd, prefix, settings
 from fabric.operations import local
 
-env.hosts = ['phosphorus.locum.ru']
-env.user = 'hosting_mmailm'
-env.activate = 'source /home/hosting_mmailm/projects/env-irgid/bin/activate'
+env.hosts = ['83.220.170.91']
+env.user = 'light'
+env.activate = 'source ~/.virtualenvs/irgid-django/bin/activate'
+env.use_ssh_config = True
 
-app_dir = "/home/hosting_mmailm/projects/django-irgid"
+app_dir = "~/projects/irgid-django"
 
 
 def build_production():
@@ -21,7 +22,6 @@ def build_production():
 
 def deploy():
     build_production()
-    local("ssh-add ~/.ssh/locum.ru")
     local("git push --all -u")
     with cd(app_dir):
         with prefix(env.activate):
@@ -33,7 +33,7 @@ def deploy():
             run("python manage.py migrate")
             run("python manage.py collectstatic --noinput")
             run("python manage.py update_settings")
-            run("touch django.wsgi")
+            run("touch uwsgi.ini --no-dereference")
 
 
 def download(only_base=False):
@@ -47,9 +47,8 @@ def download(only_base=False):
             user=env.user, host=env.hosts[0], app_dir=app_dir)
         )
 
-def backup(only_base=False):
-    local("ssh-add ~/.ssh/locum.ru")  # add ssh-key
 
+def backup(only_base=False):
     # create backip_archive on server
     with cd(app_dir):
         with prefix(env.activate):
