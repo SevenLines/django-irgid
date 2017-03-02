@@ -164,7 +164,6 @@ CACHES = {
     }
 }
 
-
 if TESTING:
     class DisableMigrations(object):
         def __contains__(self, item):

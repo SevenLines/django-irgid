@@ -1,6 +1,6 @@
 # coding=utf-8
-from custom_settings.models import Setting
-from excursions.models import ExcursionCategory, Excursion
+from custom_settings.models import Setting, TextSetting
+from excursions.models import ExcursionCategory, Excursion, ExcursionAppointment
 from tests import BaseTestCase
 
 
@@ -137,6 +137,28 @@ class ExcursionViewsTestCase(BaseTestCase):
 
         with self.login():
             self.api('excursions:item_preview', params={'pk': e.pk})
+
+
+class TestAppointment(BaseTestCase):
+    def test_can_add_appointment(self):
+        TextSetting.objects.filter(key='email_for_appointments')\
+            .update(value='some_mail@some_mail.com')
+
+        self.assertEqual(0, ExcursionAppointment.objects.count())
+        data = {
+            "email": "mail@mail.ru",
+            "phone": "2128506",
+            "full_name": "sardanapal",
+            "comment": "ohm mane padme hum",
+        }
+        r = self.api("appointment_create", data, post=True, ajax=True)
+        appointment = ExcursionAppointment.objects.first()
+        self.assertEqual(1, ExcursionAppointment.objects.count())
+        self.assertEqual(appointment.email, data['email'])
+        self.assertEqual(appointment.phone, data['phone'])
+        self.assertEqual(appointment.full_name, data['full_name'])
+        self.assertEqual(appointment.comment, data['comment'])
+        self.assertTrue(appointment.sended)
 
 
 

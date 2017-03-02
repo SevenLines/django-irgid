@@ -15,3 +15,4 @@ credentials.json
 env
 django.wsgi
 .webassets-cache
+/irgid/celery_config_local.py
