@@ -11,6 +11,7 @@ from django.core.urlresolvers import reverse
 from django.db.models.aggregates import Min, Max
 from django.http.response import Http404, HttpResponse
 from django.shortcuts import redirect
+from django.template.context import RequestContext
 from django.views.generic import DetailView, View
 from django.views.generic.detail import SingleObjectMixin
 

@@ -6,7 +6,7 @@
         $(function () {
             $("#yashare").on("click", ".b-share__link", function () {
                 var service = $(this).data("service");
-                $.get("{% url "sharedcontroll.views.share" %}", {
+                $.get("{% url "share" %}", {
                     service: service
                 })
             })

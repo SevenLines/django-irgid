@@ -36,12 +36,16 @@
                 <tr>
                     <td style="width:50%;text-align: center;">
                         <span style="display: inline-block;">
+                            {% autoescape off %}
                             {% custom_setting 'copyright' %}
+                            {% endautoescape %}
                         </span>
                     </td>
                     <td style="width:50%;text-align: center;">
+                        {% autoescape off %}
                         тел.: {% custom_setting 'phone' %}<br>
                         email: <a href="mailto:{% custom_setting 'email' %}">{% custom_setting 'email' %}</a>
+                        {% endautoescape %}
                     </td>
                 </tr>
             </table>
