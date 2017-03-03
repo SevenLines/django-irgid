@@ -1,7 +1,6 @@
 {% load static sekizai_tags thumbnail %}
-{#<form id="excursion-save-form" method="post" action="{% url "excursions.views.ajax.excursion_save" %}">#}
 <div id="excursion-content" xmlns="http://www.w3.org/1999/html">
-    <form class="excursion-form" action="{% url "excursions.views.ajax.excursion_save" %}">
+    <form class="excursion-form" action="{% url "excursions:ajax_save" %}">
         <div style="clear:right"></div>
 
         <div>
@@ -157,7 +156,7 @@
             new ExcursionModel({
                 id: {{ current_excursion.id }},
                 csrf: '{{ csrf_token }}',
-                save_url: '{% url "excursions.views.ajax.excursion_save" %}',
+                save_url: '{% url "excursions:ajax_save" %}',
             });
 
             var gallery = $(".excursion-gallery .images")[0];
