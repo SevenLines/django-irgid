@@ -175,11 +175,12 @@ if TESTING:
     TEMPLATE_DEBUG = False
     MIGRATION_MODULES = DisableMigrations()
 
+
 try:
     from local_settings import *
 except:
     print("Failed to import settings, local_settings.py don't exists or incorretc")
-    pass
+    exit(-1)
 
 
 if DEBUG:

@@ -1,7 +1,10 @@
 language: python
 python:
   - "2.7"
-# command to install dependencies
+services:
+  - postgresql
 install: "pip install -r requirements.txt"
-# command to run tests
+before_script:
+  - "cp irgid/local_settings.sample.py irgid/local_settings.py"
+  - "psql -c 'create database irgid;' -U postgres"
 script: python manage.py test tests
