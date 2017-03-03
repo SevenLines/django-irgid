@@ -82,7 +82,7 @@ def category_save(request):
         e.description = request.POST['description']
 
     if 'visible' in request.POST:
-        e.visible = request.POST['visible'] == "true"
+        e.visible = request.POST['visible'].lower() == "true"
 
     if 'image' in request.FILES:
         f = request.FILES['image']

@@ -92,6 +92,43 @@ class CategoryViewsTestCase(BaseTestCase):
             self.api('excursions:category_remove', params={'pk': c.pk}, post=True, ajax=True)
         self.assertEqual(ExcursionCategory.objects.filter(pk=c.pk).count(), 0)
 
+    def test_category_create(self):
+        with self.login():
+            self.assertEqual(0, ExcursionCategory.objects.count())
+            with open("tests/icon.png") as image:
+                self.api("ajax_category_save", {
+                    'title': "title",
+                    'description': "description",
+                    'visible': True,
+                    'image': image,
+                }, post=True, ajax=True)
+
+                cat = ExcursionCategory.objects.first()
+                self.assertEqual('title', cat.title)
+                self.assertEqual('description', cat.description)
+                self.assertTrue(cat.visible)
+                self.assertIsNotNone(cat.image)
+
+    def test_category_update(self):
+        with self.login():
+            c = ExcursionCategory.objects.create(
+                title=u'Название',
+                visible=True,
+            )
+            with open("tests/icon.png") as image:
+                self.api("ajax_category_save", {
+                    'id': c.pk,
+                    'title': "title",
+                    'description': "description",
+                    'visible': True,
+                    'image': image,
+                }, post=True, ajax=True)
+
+            cat = ExcursionCategory.objects.first()
+            self.assertEqual('title', cat.title)
+            self.assertEqual('description', cat.description)
+            self.assertTrue(cat.visible)
+            self.assertIsNotNone(cat.image)
 
 class ExcursionViewsTestCase(BaseTestCase):
     def test_it_can_be_dont_visible_for_guest(self):
@@ -110,7 +147,12 @@ class ExcursionViewsTestCase(BaseTestCase):
 
     def test_it_with_category_and_if_published_should_be_visible(self):
         category = ExcursionCategory.objects.create(visible=True)
-        e = Excursion.objects.create(title=u'Название', published=True, category=category)
+        e = Excursion.objects.create(
+            title=u'Название',
+            published=True,
+            category=category,
+            priceList=u"1-10|100/200/300\n11-20 | 100/300\n21 |100\n50|400 на всех"
+        )
         self.api('excursions:item', params={'pk': e.id})
 
         with self.login():
@@ -161,6 +203,41 @@ class ExcursionViewsTestCase(BaseTestCase):
         self.assertEqual({0: '600', 1: '500', 2: '400'}, data[1]['price_line'])
 
         self.assertEqual([0, 1, 2], lines)
+
+    def test_excursions_save(self):
+        with self.login():
+            c = ExcursionCategory.objects.create(
+                title="category_title"
+            )
+
+            ex = Excursion.objects.create(
+                title="exc1",
+                description="description",
+                short_description="short_description",
+            )
+
+            data = {
+                'id': ex.pk,
+                'title': "exc1_new",
+                'description': "description_new",
+                'short_description': "short_description_new",
+                'yandex_map_script': 'yandex_map_script',
+                'category_id': c.pk,
+                'price_list': '1-10|100\n11-20|200',
+                'time_length': 2,
+                'min_age': 3,
+                'published': True
+            }
+
+            r = self.api("ajax_save", data, post=True, follow=True)
+            ex = Excursion.objects.get(pk=ex.pk)
+
+            for key, item in data.items():
+                if key == 'price_list':
+                    self.assertEqual(item, ex.priceList)
+                else:
+                    self.assertEqual(item, ex.__dict__[key],
+                                     "{}: {} != {}".format(key, item, ex.__dict__[key]))
 
 
 class TestAppointment(BaseTestCase):
