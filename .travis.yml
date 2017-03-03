@@ -3,6 +3,7 @@ python:
   - "2.7"
 services:
   - postgresql
+  - redis-server
 install: "pip install -r requirements.txt"
 before_script:
   - "cp irgid/local_settings.sample.py irgid/local_settings.py"
