@@ -70,9 +70,6 @@ class Excursion(models.Model):
 
     history = HistoricalRecords()
 
-    # def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-    #     super(Excursion, self).save(force_insert, force_update, using, update_fields)
-
     def price_list_rendered(self):
         out = {
             'lines_count': 1,

@@ -1,13 +1,16 @@
 # coding=utf-8
+from __future__ import print_function
+
+import json
+
 from custom_settings.models import Setting, TextSetting
-from excursions.models import ExcursionCategory, Excursion, ExcursionAppointment
+from excursions.models import ExcursionCategory, Excursion, ExcursionAppointment, ExcursionImage
 from tests import BaseTestCase
 
 
 class ViewsTestCase(BaseTestCase):
     def test_index_page(self):
         r = self.api('index')
-        print r
 
 
 class CategoryViewsTestCase(BaseTestCase):
@@ -66,7 +69,8 @@ class CategoryViewsTestCase(BaseTestCase):
             title=u'Название',
             visible=True,
         )
-        c.excursion_set.add(Excursion.objects.create(published=True, title='title', short_description='description'))
+        c.excursion_set.add(Excursion.objects.create(published=True, title='title',
+                                                     short_description='description'))
         c.excursion_set.add(Excursion.objects.create(published=True))
 
         r = self.api('travel:index', status_code=404)
@@ -129,6 +133,76 @@ class CategoryViewsTestCase(BaseTestCase):
             self.assertEqual('description', cat.description)
             self.assertTrue(cat.visible)
             self.assertIsNotNone(cat.image)
+
+    def test_set_cattery_order(self):
+        c1 = ExcursionCategory.objects.create(
+            title=u'Название',
+            visible=True,
+        )
+        c2 = ExcursionCategory.objects.create(
+            title=u'Название2',
+            visible=True,
+        )
+
+        with self.login():
+            self.api("ajax_set_categories_order", {
+                "order": json.dumps({
+                    c1.pk: 1,
+                    c2.pk: 2,
+                })
+            }, ajax=True, post=True)
+            self.assertEqual(ExcursionCategory.objects.order_by("order").first().pk, c1.pk)
+
+            self.api("ajax_set_categories_order", {
+                "order": json.dumps({
+                    c1.pk: 2,
+                    c2.pk: 1,
+                })
+            }, ajax=True, post=True)
+            self.assertEqual(ExcursionCategory.objects.order_by("order").first().pk, c2.pk)
+
+    def test_category_toggle(self):
+        category = ExcursionCategory.objects.create(
+            title=u'Название',
+            visible=True,
+        )
+        with self.login():
+            r = self.api("ajax_toggle_category", {
+                'id': category.pk,
+                'visible': False
+            }, ajax=True)
+
+            category = ExcursionCategory.objects.get(pk=category.pk)
+            self.assertFalse(category.visible)
+
+            r = self.api("ajax_toggle_category", {
+                'id': category.pk,
+                'visible': True
+            }, ajax=True)
+
+            category = ExcursionCategory.objects.get(pk=category.pk)
+            self.assertTrue(category.visible)
+
+    def test_set_and_remove_category_image(self):
+        category = ExcursionCategory.objects.create(
+            title=u'Название',
+            visible=True,
+        )
+        with self.login():
+            with open("tests/icon.png") as image:
+                r = self.api("ajax_set_category_image", {
+                    'id': category.pk,
+                    'image': image
+                }, post=True, ajax=True)
+                category = ExcursionCategory.objects.get(pk=category.pk)
+                self.assertEqual(r.content, category.image.url)
+
+                r = self.api("ajax_remove_category_image", {
+                    'id': category.pk,
+                }, ajax=True)
+                category = ExcursionCategory.objects.get(pk=category.pk)
+                self.assertTrue(category.image.name == '')
+
 
 class ExcursionViewsTestCase(BaseTestCase):
     def test_it_can_be_dont_visible_for_guest(self):
@@ -206,43 +280,89 @@ class ExcursionViewsTestCase(BaseTestCase):
 
     def test_excursions_save(self):
         with self.login():
-            c = ExcursionCategory.objects.create(
-                title="category_title"
-            )
+            with open("tests/icon.png") as image:
+                c = ExcursionCategory.objects.create(
+                    title="category_title"
+                )
 
-            ex = Excursion.objects.create(
-                title="exc1",
-                description="description",
-                short_description="short_description",
-            )
+                ex = Excursion.objects.create(
+                    title="exc1",
+                    description="description",
+                    short_description="short_description",
+                )
 
-            data = {
-                'id': ex.pk,
-                'title': "exc1_new",
-                'description': "description_new",
-                'short_description': "short_description_new",
-                'yandex_map_script': 'yandex_map_script',
-                'category_id': c.pk,
-                'price_list': '1-10|100\n11-20|200',
-                'time_length': 2,
-                'min_age': 3,
-                'published': True
-            }
+                data = {
+                    'id': ex.pk,
+                    'title': "exc1_new",
+                    'description': "description_new",
+                    'short_description': "short_description_new",
+                    'yandex_map_script': 'yandex_map_script',
+                    'category_id': c.pk,
+                    'price_list': '1-10|100\n11-20|200',
+                    'time_length': 2,
+                    'min_age': 3,
+                    'published': True,
+                    'small_image': image,
+                    'gallery[]': [
+                        image,
+                        image,
+                    ]
+                }
 
-            r = self.api("ajax_save", data, post=True, follow=True)
-            ex = Excursion.objects.get(pk=ex.pk)
+                r = self.api("ajax_save", data, post=True, follow=True)
+                ex = Excursion.objects.get(pk=ex.pk)
 
-            for key, item in data.items():
-                if key == 'price_list':
-                    self.assertEqual(item, ex.priceList)
-                else:
-                    self.assertEqual(item, ex.__dict__[key],
-                                     "{}: {} != {}".format(key, item, ex.__dict__[key]))
+                for key, item in data.items():
+                    if key == 'small_image':
+                        self.assertTrue(ex.img_preview.name is not None and ex.img_preview.name != "")
+                    elif key == 'gallery[]':
+                        self.assertEqual(2, ex.images.count())
+                    elif key == 'price_list':
+                        self.assertEqual(item, ex.priceList)
+                    else:
+                        self.assertEqual(item, ex.__dict__[key],
+                                         "{}: {} != {}".format(key, item, ex.__dict__[key]))
 
+    def test_upload_image(self):
+        with self.login():
+            ex = Excursion.objects.create(title=u"название")
+            with open("tests/icon.png") as image:
+                self.api('image_add', {
+                    'excursion_id': ex.pk,
+                    'image': image
+                }, ajax=True, post=True)
+
+                ex = Excursion.objects.get(pk=ex.pk)
+                self.assertEqual(1, ex.images.count())
+
+    def test_excursion_image_remove(self):
+        with self.login():
+            ex = Excursion.objects.create(title=u"название")
+            im = ExcursionImage.objects.create(excursion_id=ex.pk)
+            r = self.api("ajax_image_remove", params={
+                "pk": im.pk
+            }, ajax=True)
+            self.assertEqual(0, ExcursionImage.objects.count())
+
+    def test_excursion_image_toggle(self):
+        with self.login():
+            ex = Excursion.objects.create(title=u"название")
+            im = ExcursionImage.objects.create(excursion_id=ex.pk, hidden=False)
+            r = self.api("ajax_image_toggle", params={
+                "pk": im.pk
+            }, ajax=True)
+            im = ExcursionImage.objects.get(pk=im.pk)
+            self.assertTrue(im.hidden)
+
+            r = self.api("ajax_image_toggle", params={
+                "pk": im.pk
+            }, ajax=True)
+            im = ExcursionImage.objects.get(pk=im.pk)
+            self.assertFalse(im.hidden)
 
 class TestAppointment(BaseTestCase):
     def test_can_add_appointment(self):
-        TextSetting.objects.filter(key='email_for_appointments')\
+        TextSetting.objects.filter(key='email_for_appointments') \
             .update(value='some_mail@some_mail.com')
 
         self.assertEqual(0, ExcursionAppointment.objects.count())
@@ -260,7 +380,3 @@ class TestAppointment(BaseTestCase):
         self.assertEqual(appointment.full_name, data['full_name'])
         self.assertEqual(appointment.comment, data['comment'])
         self.assertTrue(appointment.sended)
-
-
-
-

@@ -47,7 +47,8 @@ def _excursion_save(request):
     if 'big_image' in request.FILES:
         f = request.FILES['big_image']
         ext = f.name.split('.')[-1]
-        e.image.delete()
+        if e.image.name:
+            e.image.delete()
         e.image.save('%s.%s' % (uuid4(), ext), ContentFile(f.read()))
         e.save()
 

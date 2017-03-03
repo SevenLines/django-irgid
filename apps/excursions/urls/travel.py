@@ -6,8 +6,8 @@ from excursions.views import ExcursionTravelIndexView, ExcursionTravelItemView
 
 __author__ = 'm'
 
-urlpatterns = i18n_patterns('excursions.views',
+urlpatterns = [
     url(r'(?P<pk>(\d+))/(?P<title>(.*?))$', ExcursionTravelItemView.as_view(), name='item'),
     url(r'(?P<pk>(\d+))/$', ExcursionTravelItemView.as_view(), name='item'),
     url(r'$', ExcursionTravelIndexView.as_view(), name='index'),
-)
+]

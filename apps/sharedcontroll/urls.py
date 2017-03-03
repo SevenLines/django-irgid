@@ -1,5 +1,6 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
+import sharedcontroll.views
 
-urlpatterns = patterns('',
-                       url(r'shareurl/$', 'sharedcontroll.views.share'),
-)
+urlpatterns = [
+    url(r'shareurl/$', sharedcontroll.views.share),
+]

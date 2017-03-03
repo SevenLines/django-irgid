@@ -58,7 +58,7 @@ def set_categories_order(request):
 @require_in_GET("visible", "id")
 def toggle_category(request):
     c = ExcursionCategory.objects.get(pk=request.GET['id'])
-    c.visible = request.GET['visible'] == "true"
+    c.visible = request.GET['visible'].lower() == "true"
     c.save()
     return HttpResponse(c.visible)
 
@@ -131,8 +131,8 @@ class ExcursionMainImageRemove(LoginRequiredMixin, UpdateView):
 
 @login_required
 @permission_required("excursions.change_excursion")
-def excursion_image_remove(request, id):
-    ei = ExcursionImage.objects.get(id=id)
+def excursion_image_remove(request, pk):
+    ei = ExcursionImage.objects.get(id=pk)
     ei.image.delete()
     ei.delete()
     return HttpResponse()
@@ -140,8 +140,8 @@ def excursion_image_remove(request, id):
 
 @login_required
 @permission_required("excursions.change_excursion")
-def excursion_image_toggle(request, id):
-    ei = ExcursionImage.objects.get(id=id)
+def excursion_image_toggle(request, pk):
+    ei = ExcursionImage.objects.get(id=pk)
     ei.hidden = not ei.hidden
     ei.save()
     return HttpResponse()
