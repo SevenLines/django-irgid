@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.db import models
-from django.db.models.loading import get_model
-from polymorphic import PolymorphicModel
+from django.apps import apps
 from django.core.cache import cache
+from polymorphic.models import PolymorphicModel
 from simple_history.models import HistoricalRecords
 
 from custom_settings.managers import CustomSettingsCacheManager
@@ -43,7 +43,7 @@ class IntegerSetting(Setting):
         result = []
         model_name, title = model_name_title.split(':', 1)
         if model_name:
-            model = get_model(*model_name.split('.', 1))
+            model =  apps.get_model(*model_name.split('.', 1))
             result = [{'pk': item['pk'], 'title': item[title]} for item in model.objects.values('pk', title)]
 
         return result

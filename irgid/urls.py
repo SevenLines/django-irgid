@@ -1,6 +1,6 @@
 # coding=utf-8
 from django.conf import settings
-from django.conf.urls import include, patterns, url
+from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.sitemaps import GenericSitemap
 from django.contrib.sitemaps.views import sitemap
@@ -11,6 +11,9 @@ import excursions.urls.gallery
 import excursions.urls.travel
 import excursions.views.base
 import sharedcontroll.urls
+import django.contrib.auth.urls
+import django.views.static
+import django.contrib.staticfiles.urls
 from excursions.models import Excursion, ExcursionCategory
 from excursions.views import ExcursionCalendarView
 from irgid.views import TemplateViewEx, UploadFile
@@ -33,7 +36,7 @@ sitemaps = {
 }
 
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^upload-image/', UploadFile.as_view(), name='upload-image'),
     url(r'^excursions/', include(excursions.urls.excursions, namespace='excursions', app_name='excursions')),
@@ -56,9 +59,6 @@ urlpatterns = patterns('',
         template_name="confedential.html", data={'title': u'Политика конфиденциальности'}
     ), name='confedential'),
 
-    # url(r'^calendar/$', TemplateViewEx.as_view(
-    #     template_name="calendar.html", data={'title': u'Расписание экскурсий'}
-    # ), name='calendar'),
     url(r'^calendar/$', ExcursionCalendarView.as_view(), name='calendar'),
 
     url(r'^faq/$', TemplateViewEx.as_view(
@@ -66,14 +66,14 @@ urlpatterns = patterns('',
     ), name='faq'),
 
     url('^$', excursions.views.MainPageView.as_view(), name='index'),
-    url('^', include('django.contrib.auth.urls')),
+    url('^', include(django.contrib.auth.urls)),
     # url(r'^', include('cms.urls')),
-)
+]
 
 
 if settings.DEBUG:
-    urlpatterns = patterns('',
-        url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
+    urlpatterns += [
+        url(r'^media/(?P<path>.*)$', django.views.static.serve,
             {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
-        url(r'', include('django.contrib.staticfiles.urls')),
-    ) + urlpatterns
+        url(r'', include(django.contrib.staticfiles.urls)),
+    ]

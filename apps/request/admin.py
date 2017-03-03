@@ -41,7 +41,7 @@ class RequestAdmin(admin.ModelAdmin):
     request_from.allow_tags = True
 
     def get_urls(self):
-        from django.conf.urls import patterns, url
+        from django.conf.urls import url
 
         def wrap(view):
             def wrapper(*args, **kwargs):
@@ -50,10 +50,10 @@ class RequestAdmin(admin.ModelAdmin):
 
         info = self.model._meta.app_label, self.model._meta.model_name
 
-        return patterns('',
+        return [
             url(r'^overview/$', wrap(self.overview), name='%s_%s_overview' % info),
             url(r'^overview/traffic.json$', wrap(self.traffic), name='%s_%s_traffic' % info),
-        ) + super(RequestAdmin, self).get_urls()
+        ] + super(RequestAdmin, self).get_urls()
 
     def overview(self, request):
         qs = Request.objects.this_month()

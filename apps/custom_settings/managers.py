@@ -1,5 +1,5 @@
 from django.core.cache import cache
-from polymorphic import PolymorphicManager
+from polymorphic.managers import PolymorphicManager
 
 
 class CustomSettingsCacheManager(PolymorphicManager):
