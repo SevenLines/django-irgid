@@ -1,5 +1,5 @@
 {% load thumbnail excursions_tags %}
-<a href="{% url "excursions:item" e.pk %}">
+<a href="{% url "excursions:item" e.pk e.title %}">
     <div>
         <table style="width: 100%;table-layout: fixed">
             <tr>
@@ -23,7 +23,7 @@
                     <div class="description">
                         {{ e.short_description|safe }}
                     </div>
-                    <a href="{% url "excursions:item" e.pk %}">подробнее...</a>
+                    <a href="{% url "excursions:item" e.pk e.title %}">подробнее...</a>
                 </td>
                 {% if e.img_preview %}
                     <td style="width: 150px;text-align: right;">

@@ -45,7 +45,7 @@ class ExcursionCategory(models.Model):
             return Excursion.objects.filter(category=self)
 
     def get_absolute_url(self):
-        return reverse("excursions.views.category", args=[self.pk])
+        return reverse("excursions.views.category", args=[self.pk, self.title])
 
 
 class Excursion(models.Model):
