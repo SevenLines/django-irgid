@@ -9,3 +9,5 @@ before_script:
   - "cp irgid/local_settings.sample.py irgid/local_settings.py"
   - "psql -c 'create database irgid;' -U postgres"
 script: python manage.py test tests
+notifications:
+  email: false
