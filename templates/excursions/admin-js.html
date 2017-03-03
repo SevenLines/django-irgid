@@ -2,7 +2,7 @@
 {% if user.is_authenticated %}
     {% addtoblock "js" %}
         {% assets "excursions_admin_js" %}
-            <script type="text/javascript" src="{% static ASSET_URL %}"></script>
+            <script type="text/javascript" src="{%  ASSET_URL %}"></script>
         {% endassets %}
     {% endaddtoblock %}
 {% endif %}
