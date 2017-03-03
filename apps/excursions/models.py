@@ -1,6 +1,8 @@
 # coding=utf-8
 import calendar
 from datetime import date, datetime
+
+import re
 from django.core.urlresolvers import reverse
 from django.db import models, transaction
 from django.db.models.signals import pre_delete, post_delete
@@ -76,6 +78,7 @@ class Excursion(models.Model):
             'lines_count': 1,
             'data': []
         }
+        min_price = None
         price_lines = self.priceList.splitlines()
         for p in price_lines:
             values = p.split('|', 1)
@@ -92,6 +95,8 @@ class Excursion(models.Model):
                     2: data[-3] if len(data) > 2 else data[-1],  # дошкольный
                 },
             }
+            new_min_price = min(item['price_line'][0], item['price_line'][1], item['price_line'][2])
+            min_price = min(new_min_price, min_price) if min_price else new_min_price
             if item['price_line'][0] == item['price_line'][1]:
                 span = 2
                 if item['price_line'][1] == item['price_line'][2]:
@@ -103,6 +108,7 @@ class Excursion(models.Model):
             if len(data) > out['lines_count']:
                 out['lines_count'] = len(data)
         out['lines'] = range(out['lines_count'])
+        out['min_price'] = re.sub(r"(\d+)", u"\\1₽", min_price)
         return out
 
     def get_absolute_url(self):
