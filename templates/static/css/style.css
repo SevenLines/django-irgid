@@ -7,7 +7,7 @@ body {
   -ms-transition: all ease-in-out 0.3s;
   -o-transition: all ease-in-out 0.3s;
   transition: all ease-in-out 0.3s;
-  font-family: serif; }
+  font-family: 'PT Serif', serif; }
   @media (max-width: 765px) {
     body {
       padding: 0; } }

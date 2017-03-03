@@ -291,6 +291,9 @@
       padding: 0.5em;
       vertical-align: middle; }
 
+.excursion, .description {
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; }
+
 .excursion {
   display: block;
   min-height: 55px;
@@ -302,8 +305,7 @@
   transition: all ease-in-out 0.2s;
   margin: 0.25em 0 2px;
   padding: 0.5em 0.75em;
-  border-radius: 8px;
-  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; }
+  border-radius: 8px; }
   .excursion > a {
     text-decoration: none;
     color: #000000; }
@@ -325,8 +327,7 @@
     .excursion .toggle:hover {
       color: black; }
   .excursion .description {
-    text-align: justify;
-    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; }
+    text-align: justify; }
     @media (max-width: 500px) {
       .excursion .description {
         display: none; } }
@@ -342,8 +343,7 @@
     border: 1px solid black;
     border-bottom: none;
     border-right: none;
-    border-collapse: separate;
-    /*font-size: 1e*/ }
+    border-collapse: separate; }
   .excursion .price th, .excursion .price td {
     padding: 0.5em;
     border-bottom: 1px solid black;
