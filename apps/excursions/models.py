@@ -79,6 +79,7 @@ class Excursion(models.Model):
             'data': []
         }
         min_price = None
+        for_all = False
         price_lines = self.priceList.splitlines()
         for p in price_lines:
             values = p.split('|', 1)
@@ -96,6 +97,8 @@ class Excursion(models.Model):
                 },
             }
             new_min_price = min(item['price_line'][0], item['price_line'][1], item['price_line'][2])
+            new_min_price = re.sub("\D", "", new_min_price)
+            new_min_price = int(new_min_price)
             min_price = min(new_min_price, min_price) if min_price else new_min_price
             if item['price_line'][0] == item['price_line'][1]:
                 span = 2
@@ -108,7 +111,7 @@ class Excursion(models.Model):
             if len(data) > out['lines_count']:
                 out['lines_count'] = len(data)
         out['lines'] = range(out['lines_count'])
-        out['min_price'] = re.sub(r"(\d+)", u"\\1₽", min_price)
+        out['min_price'] = min_price
         return out
 
     def get_absolute_url(self):
