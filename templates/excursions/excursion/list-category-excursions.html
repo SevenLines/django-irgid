@@ -3,7 +3,7 @@
         <a class="e-category list-group-menu-item
         {% if c.pk == current_category.pk %} active{% endif %}
         {% if excursions|length == 1 and excursions.0.pk == current_excursion.pk %} without-excursions{% endif %}"
-           href="{% url "excursions:category" c.pk %}">
+           href="{% url "excursions:category" c.pk c.title %}">
             {{ c.title }}
         </a>
         {% if c.pk == current_category.pk %}
@@ -11,7 +11,7 @@
                 <div class="excursions-menu-container">
                     {% for e in excursions %}
                         {% if e.pk != current_excursion.pk %}
-                            <a href="{% url "excursions:item" e.pk %}"
+                            <a href="{% url "excursions:item" e.pk e.title %}"
                                class="list-group-item-excursion">
                                 {#                       {% if forloop. %} first{% endif %}">#}
                                 {{ e.title }}

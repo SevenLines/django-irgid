@@ -9,7 +9,7 @@
         <div class="excursions-menu-container" style="max-height: 600px">
             {% for e in excursions %}
                 {% if e.pk != current_excursion.pk %}
-                    <a href="{% url  "travel:item" e.pk %}"
+                    <a href="{% url  "travel:item" e.pk e.title %}"
                        class="list-group-item-excursion list-group-gallery-item">
                         <div>
                             <img style="max-width: 100%;" src="{% if e.img_preview %}

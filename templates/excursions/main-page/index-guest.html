@@ -4,7 +4,7 @@
         <div class="category-element">
             <a class="e-class-description" href="{% if gallery == c %}{% url "gallery:index" %}
             {% elif travel == c %} {% url "travel:index" %}
-            {% else %}{% url "excursions:category" pk=c.pk %}
+            {% else %}{% url "excursions:category" pk=c.pk title=c.title %}
             {% endif %}">
                 <div class="e-class">
                     {% if c.image %}<img src="{% thumbnail c.image 0x300 %}">{% endif %}
