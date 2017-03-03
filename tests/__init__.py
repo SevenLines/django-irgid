@@ -23,8 +23,7 @@ class BaseTestCase(TestCase):
         self.superuser = User.objects.create_superuser('admin', 'admin@mail.com', '1234')
         call_command('update_settings')
 
-    def api(self, name, data=None, params=None, status_code=200, post=None, ajax=False):
-        kwargs = {}
+    def api(self, name, data=None, params=None, status_code=200, post=False, ajax=False, **kwargs):
         if ajax:
             kwargs['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest'
 

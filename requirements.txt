@@ -11,11 +11,11 @@ django-braces==1.8.1
 django-polymorphic==0.7.2
 django-debug-toolbar
 django-extensions
-pytest-django
+django-redis==4.7
 django-simple-history
 ipython
 
-python-memcached
+celery==4.0
 
 transliterate==1.7.3
 cssmin==0.2.0

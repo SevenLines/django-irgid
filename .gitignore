@@ -16,3 +16,5 @@ env
 django.wsgi
 /.cache
 .webassets-cache
+/irgid/celery_config_local.py
+/.cache/

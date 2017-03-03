@@ -156,14 +156,14 @@ STATICFILES_FINDERS = (
 )
 
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
-        'KEY_FUNCTION': "irgid.utils.cache_key",
-        'KEY_PREFIX': '0957c690-7ddb-49fb-80e1-890def9f484b',
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://localhost:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
     }
 }
-
 
 if TESTING:
     class DisableMigrations(object):
@@ -176,11 +176,12 @@ if TESTING:
     TEMPLATE_DEBUG = False
     MIGRATION_MODULES = DisableMigrations()
 
+
 try:
     from local_settings import *
 except:
     print("Failed to import settings, local_settings.py don't exists or incorretc")
-    exit()
+    exit(-1)
 
 
 if DEBUG:

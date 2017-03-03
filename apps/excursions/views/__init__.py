@@ -2,10 +2,9 @@
 # Create your views here.
 import json
 from calendar import Calendar
-
-from braces.views import LoginRequiredMixin
 from datetime import date, datetime
 
+from braces.views import LoginRequiredMixin
 from django.conf import settings
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse
@@ -14,15 +13,14 @@ from django.http.response import Http404, HttpResponse
 from django.shortcuts import redirect
 from django.views.generic import DetailView, View
 from django.views.generic.detail import SingleObjectMixin
-from django.views.generic.edit import CreateView
 
-from excursions.helpers import ExcursionCalendarHelper
 from excursions.models import ExcursionCategory, Excursion, ExcursionImage, ExcursionCalendar, ExcursionAppointment
 from excursions.utils import get_price_list
 from excursions.views import ajax
 from excursions.views.base import _excursion_save, _excursion_context
 from irgid.utils import require_in_POST
 from irgid.views import TitledView
+from excursions.tasks import send_appointment
 
 
 class MainPageView(TitledView):
@@ -366,6 +364,7 @@ class ExcursionAppointmentCreateView(View):
                       "Ваш запрос принят и отправлен оператору. " \
                       "Мы постараемся в кратчайшие сроки ответить Вам"
             success = True
+            send_appointment.apply_async((appointment.pk,))
         else:
             message = "Возникли проблемы при создании заявки,\nпожалуйста, попробуйте еще раз."
             success = False

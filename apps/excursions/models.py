@@ -102,7 +102,7 @@ class Excursion(models.Model):
 
             if len(data) > out['lines_count']:
                 out['lines_count'] = len(data)
-        out['lines'] = xrange(out['lines_count'])
+        out['lines'] = range(out['lines_count'])
         return out
 
     def get_absolute_url(self):
