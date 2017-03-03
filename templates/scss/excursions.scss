@@ -188,6 +188,10 @@ $grid-gap: 8px;
   //}
 }
 
+.excursion, .description {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
 .excursion {
   display: block;
   min-height: 55px;
@@ -223,7 +227,6 @@ $grid-gap: 8px;
   padding: 0.5em 0.75em;
   border-radius: 8px;
 
-  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
   .toggle {
     color: $common_color;
     cursor: pointer;
@@ -235,7 +238,6 @@ $grid-gap: 8px;
 
   .description {
     text-align: justify;
-    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
     @media(max-width: $width-small) {
       display: none;
     }
@@ -246,7 +248,6 @@ $grid-gap: 8px;
     @media (max-width: $width-small) {
       font-size: 1.2em;
     }
-    //    padding-bottom: 4px;
   }
   .price {
     margin-top: 8px;
@@ -257,7 +258,6 @@ $grid-gap: 8px;
     border-bottom: none;
     border-right: none;
     border-collapse: separate;
-    /*font-size: 1e*/
   }
 
   .price th, .price td {

@@ -16,7 +16,7 @@
 {% if current_excursion.time_length or current_excursion.min_age %}
     <div style="float:left;">
         {% if current_excursion.price_list_rendered.min_price %}
-            <span style="margin-right: 0.5em" class="label label-primary" data-toggle="tooltip"
+            <span style="display: inline-block" class="label label-primary" data-toggle="tooltip"
                   data-placement="top" title="цена">
                             от {{ current_excursion.price_list_rendered.min_price }}₽
                         </span>
