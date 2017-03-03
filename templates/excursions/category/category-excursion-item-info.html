@@ -6,9 +6,11 @@
                 <td style="padding-right: 1em">
                     <h2>{{ e.title }}</h2>
                     <small style="display: block;padding: 4px 0">
+                        {% if e.price_list_rendered.min_price %}
                         <span style="margin-right: 0.5em" class="label label-primary" data-toggle="tooltip" data-placement="top" title="цена">
-                            от {{ e.price_list_rendered.min_price }}
+                            от {{ e.price_list_rendered.min_price }}₽
                         </span>
+                        {% endif %}
                         {% if e.time_length %}
                             <span class="label label-success" data-toggle="tooltip" data-placement="top" title="продолжительность экскурсии">({{ e.time_length|time_verbose }})</span>
                         {% endif %}
