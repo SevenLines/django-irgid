@@ -12,6 +12,8 @@ from django.db.models.aggregates import Min, Max
 from django.http.response import Http404, HttpResponse
 from django.shortcuts import redirect
 from django.template.context import RequestContext
+from django.utils.decorators import method_decorator
+from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.generic import DetailView, View
 from django.views.generic.detail import SingleObjectMixin
 
@@ -24,6 +26,7 @@ from irgid.views import TitledView
 from excursions.tasks import send_appointment
 
 
+@method_decorator(xframe_options_exempt, name='dispatch')
 class MainPageView(TitledView):
     title = u'Иргид - экскурсионное агентство'
     template_name = 'excursions/main-page/index.html'
@@ -53,6 +56,7 @@ class BaseModelDeleteView(LoginRequiredMixin, SingleObjectMixin, View):
         return result
 
 
+@method_decorator(xframe_options_exempt, name='dispatch')
 class CategoryView(DetailView):
     model = ExcursionCategory
     template_name = 'excursions/category/index.html'
@@ -84,6 +88,7 @@ class CategoryView(DetailView):
         return context
 
 
+@method_decorator(xframe_options_exempt, name='dispatch')
 class ExcursionItemBaseView(DetailView):
     model = Excursion
     template_name = "excursions/excursion/index.html"
@@ -196,7 +201,7 @@ class ExcursionIndexBaseView(TitledView):
 
         return context
 
-
+@method_decorator(xframe_options_exempt, name='dispatch')
 class ExcursionGalleryIndexView(ExcursionIndexBaseView):
     title = u'Галерея'
     template_name = "excursions/gallery/index.html"
