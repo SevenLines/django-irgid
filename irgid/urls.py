@@ -39,9 +39,9 @@ sitemaps = {
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^upload-image/', UploadFile.as_view(), name='upload-image'),
-    url(r'^excursions/', include(excursions.urls.excursions, namespace='excursions', app_name='excursions')),
-    url(r'^gallery/', include(excursions.urls.gallery, namespace='gallery', app_name='excursions')),
-    url(r'^travel/', include(excursions.urls.travel, namespace='travel', app_name='excursions')),
+    url(r'^excursions/', include(excursions.urls.excursions, namespace='excursions')),
+    url(r'^gallery/', include(excursions.urls.gallery, namespace='gallery')),
+    url(r'^travel/', include(excursions.urls.travel, namespace='travel')),
 
     # for old urls comaptability
     url(r'^excursions-app/', include(excursions.urls.excursions)),

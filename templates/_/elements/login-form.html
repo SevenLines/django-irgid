@@ -42,7 +42,7 @@
 
     {% if user.is_authenticated %}
         $("#enter-button").click(function () {
-            $.post("{% url "django.contrib.auth.views.logout" %}", {
+            $.post("{% url "logout" %}", {
                 csrfmiddlewaretoken: "{{ csrf_token }}"
             }).success(function () {
                 location.reload();
