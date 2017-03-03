@@ -6,7 +6,7 @@ easy_thumbnails==2.3
 django-sekizai==0.10.0
 django-filer==1.2.7
 djangocms-admin-style==0.2.8
-django-assets==0.11
+django-assets==0.12
 django-braces==1.8.1
 django-polymorphic==1.1
 django-debug-toolbar
