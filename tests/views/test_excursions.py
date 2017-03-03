@@ -1,6 +1,4 @@
 # coding=utf-8
-from __future__ import print_function
-
 import json
 
 from custom_settings.models import Setting, TextSetting

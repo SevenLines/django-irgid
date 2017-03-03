@@ -107,7 +107,7 @@ def menu(context):
     return render_to_string("_/elements/menu.html", {
         'menu': menu_dict,
         'menu_current_item': selected_item
-    }, context)
+    }, context.request)
 
 
 @register.filter

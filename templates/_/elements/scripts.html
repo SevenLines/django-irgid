@@ -1,7 +1,7 @@
 {% load sekizai_tags static assets %}
 {% addtoblock "js" %}
     {% assets "main_js" %}
-        <script type="text/javascript" src="{% static ASSET_URL %}"></script>
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
 {% endaddtoblock %}
 

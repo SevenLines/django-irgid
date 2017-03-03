@@ -1,6 +1,6 @@
 <div class="modal fade" id="modal-appointment">
     <div class="modal-dialog">
-        <form id="appointment-form" class="form" data-action="{% url 'excursions:appointment_create' %}"
+        <form id="appointment-form" class="form" data-action="{% url 'appointment_create' %}"
               data-toggle="validator">
             {% csrf_token %}
             <div class="modal-content">
@@ -11,9 +11,6 @@
                 <div class="modal-body">
                     Заполните эту форму, чтобы связаться с нами и получить ответы на Ваши вопросы.
                     Ваш запрос будет направлен оператору, и мы постараемся в кратчайшие сроки ответить Вам. <p>
-{#                    Здесь можно оставить заявку на экскурсию либо просто задать вопрос. <br>#}
-{#                    Обязательно укажите ваш адрес электронной почты или телефонный номер,#}
-{#                    иначе мы не сможем с вами связаться.<p>#}
                     <div class="form-group has-feedback">
                         <label>ФИО</label>
                         <div class="input-group" style="width: 100%">
