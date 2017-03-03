@@ -15,6 +15,12 @@
 <div style="clear:right"></div>
 {% if current_excursion.time_length or current_excursion.min_age %}
     <div style="float:left;">
+        {% if e.price_list_rendered.min_price %}
+            <span style="margin-right: 0.5em" class="label label-primary" data-toggle="tooltip"
+                  data-placement="top" title="цена">
+                            от {{ e.price_list_rendered.min_price }}₽
+                        </span>
+        {% endif %}
         {% if current_excursion.time_length %}
             <span class="label label-success"
                   style="display: inline-block" data-toggle="tooltip" data-placement="top" title="продолжительность экскурсии">({{ current_excursion.time_length|time_verbose }})</span>
