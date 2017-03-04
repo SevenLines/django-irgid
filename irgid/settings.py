@@ -266,7 +266,7 @@ LOGGING = {
         'django_file': {
             'class': 'logging.handlers.RotatingFileHandler',
             'level': 'ERROR',
-            'filename': 'django.log',
+            'filename': 'logs/django.log',
             'formatter': 'verbose',
             'maxBytes': 1024 * 1024 * 5,
             'backupCount': 5,
@@ -274,7 +274,7 @@ LOGGING = {
         'file': {
             'class': 'logging.handlers.RotatingFileHandler',
             'level': 'ERROR',
-            'filename': 'irgid.log',
+            'filename': 'logs/irgid.log',
             'formatter': 'verbose',
             'maxBytes': 1024 * 1024 * 5,
             'backupCount': 5,
