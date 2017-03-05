@@ -21,6 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Application definition
 TESTING= 'test' in sys.argv
 DEBUG = False
+SITE_ID = 1
 
 INSTALLED_APPS = [
     'djangocms_admin_style',

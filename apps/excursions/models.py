@@ -45,7 +45,7 @@ class ExcursionCategory(models.Model):
             return Excursion.objects.filter(category=self)
 
     def get_absolute_url(self):
-        return reverse("excursions.views.category", args=[self.pk, self.title])
+        return reverse("excursions:category", args=[self.pk, self.title])
 
 
 class Excursion(models.Model):
@@ -112,7 +112,7 @@ class Excursion(models.Model):
         return out
 
     def get_absolute_url(self):
-        return reverse("excursions.views.excursion", args=[self.pk])
+        return reverse("excursions:item", args=[self.pk, self.title])
 
     def __unicode__(self):
         return u"{title}|{id}".format(**self.__dict__)

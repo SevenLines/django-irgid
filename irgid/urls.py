@@ -15,6 +15,8 @@ import django.contrib.auth.urls
 import django.views.static
 import django.contrib.staticfiles.urls
 from excursions.models import Excursion, ExcursionCategory
+from excursions.sitemaps import ExcursionsSitemap, ExcursionsCategorySitemap, \
+    ExcursionsTravelSitemap, ExcursionsGallerySitemap, StaticViewSitemap, CalendarSitemap
 from excursions.views import ExcursionCalendarView
 from irgid.views import TemplateViewEx, UploadFile
 
@@ -22,16 +24,12 @@ admin.autodiscover()
 
 
 sitemaps = {
-    'excursions': GenericSitemap({
-        'queryset': Excursion.objects.all(),
-        'data_field': 'update_date',
-        'changefreq': 'weekly',
-    }),
-    'excursions-categories': GenericSitemap({
-        'queryset': ExcursionCategory.objects.all(),
-        'data_field': 'update_date',
-        'changefreq': 'weekly',
-    }),
+    'static': StaticViewSitemap(),
+    'excursions': ExcursionsSitemap(),
+    'excursions-travel': ExcursionsTravelSitemap(),
+    'excursions-gallery': ExcursionsGallerySitemap(),
+    'excursions-categories': ExcursionsCategorySitemap(),
+    'calendar': CalendarSitemap(),
     # 'cmspages': CMSSitemap,
 }
 
