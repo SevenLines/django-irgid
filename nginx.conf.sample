@@ -1,0 +1,30 @@
+server {
+    # for a public HTTP server:
+    listen 80;
+    # for a public HTTPS server:
+    # listen 443 ssl;
+    server_name new.irgid.ru irgid.ru www.irgid.ru; # 83.220.170.91;
+    access_log /home/light/projects/irgid-django/logs/access.log;
+    error_log /home/light/projects/irgid-django/logs/error.log;
+
+    location / {
+        include uwsgi_params;
+        uwsgi_pass unix:/tmp/irgid-django.sock;
+    }
+
+    location /static {
+        alias /home/light/projects/irgid-django/static;
+    }
+
+    location /media {
+        alias /home/light/projects/irgid-django/media;
+    }
+
+    location /robots.txt {
+        alias /home/light/projects/irgid-django/robots.txt;
+    }
+
+    location /favicon.ico {
+        alias /home/light/projects/irgid-django/static/favicon.png;
+    }
+}
