@@ -7,7 +7,7 @@ from sharedcontroll.models import SharedURL
 
 def share(request):
     url = SharedURL()
-    url.url = request.META['HTTP_REFERER']
+    url.url = request.META.get('HTTP_REFERER')
 
     if 'service' in request.GET:
         url.service = request.GET['service']
