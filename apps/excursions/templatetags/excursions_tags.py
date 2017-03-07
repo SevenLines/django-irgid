@@ -42,11 +42,11 @@ def time_verbose(value):
 
     if hours:
         hrs = str(hours).split('.')[0]
-        if hrs[:-2] in ('11', '12', '13', '14'):
+        if hrs[-2:] in ('11', '12', '13', '14'):
             hour_verb = 'часов'
-        elif hrs[:-1] == '1':
+        elif hrs[-1] == '1':
             hour_verb = 'час'
-        elif hrs[:-1] in ('2', '3', '4'):
+        elif hrs[-1] in ('2', '3', '4'):
             hour_verb = 'часа'
         else:
             hour_verb = 'часов'
