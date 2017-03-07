@@ -133,7 +133,7 @@ class ExcursionCalendar(models.Model):
         excursions = []
         for match in matches:
             excursion_title = match.group(1)
-            excursions.append((excursion_title, -1))
+            excursions.append((excursion_title, ''))
         excursions = dict(excursions)
 
         for excursion in Excursion.objects.filter(
@@ -144,11 +144,12 @@ class ExcursionCalendar(models.Model):
 
         def replace(matchobj):
             title = matchobj.group(1)
-            if matchobj.group(1) in excursions:
+            if title in excursions and excursions[title]:
                 return u'<a href="{url}">{title}</a>'.format(
                     url=excursions[title],
                     title=title
                 )
+            return title
 
         comment = reg.sub(replace, comment)
 

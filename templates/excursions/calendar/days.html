@@ -13,7 +13,11 @@
     {% if user.is_authenticated %}
         <div class="description" contenteditable="true">{{ item.comment|safe }}</div>
     {% else %}
-        <div class="description">{{ item.comment|safe }}</div>
+        <div class="description">{% if item.comment_rendered %}
+            {{ item.comment_rendered|safe }}
+        {% else %}
+            {{ item.comment|safe }}
+        {% endif %}</div>
     {% endif %}
     <div class="clearfix"></div>
 </div>
