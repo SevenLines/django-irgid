@@ -122,11 +122,43 @@ class ExcursionCalendar(models.Model):
     excursion = models.ForeignKey(Excursion, null=True, blank=True)
     date = models.DateField(default=date.today, unique=True)
     comment = models.TextField(default="")
+    comment_rendered = models.TextField(default="", null=True, blank=True)
 
     is_best = models.BooleanField(default=False, verbose_name='Является ли лучши предложением месяца')
 
+    @staticmethod
+    def replace_with_links(comment):
+        reg = re.compile(r"{(.*?)}", flags=re.UNICODE | re.MULTILINE)
+        matches = reg.finditer(comment)
+        excursions = []
+        for match in matches:
+            excursion_title = match.group(1)
+            excursions.append((excursion_title, ''))
+        excursions = dict(excursions)
+
+        for excursion in Excursion.objects.filter(
+            title__in=(excursions.keys())
+        ).values('pk', 'title'):
+            excursions[excursion['title']] = \
+                reverse("excursions:item", args=[excursion['pk'], excursion['title']])
+
+        def replace(matchobj):
+            title = matchobj.group(1)
+            if title in excursions and excursions[title]:
+                return u'<a href="{url}">{title}</a>'.format(
+                    url=excursions[title],
+                    title=title
+                )
+            return title
+
+        comment = reg.sub(replace, comment)
+
+        return comment
+
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         with transaction.atomic():
+            self.comment_rendered = self.replace_with_links(self.comment)
+
             if self.is_best:
                 min_range, max_range = calendar.monthrange(date.today().year, date.today().month)
                 min_range = date.today().replace(day=min_range)
