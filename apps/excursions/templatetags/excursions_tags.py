@@ -41,7 +41,14 @@ def time_verbose(value):
         out += "{} {}".format(days, day_verb)
 
     if hours:
-        hour_verb = 'часа' if hours <= 4 else 'часов'
+        if str(hours)[:-2] in ('11', '12', '13', '14'):
+            hour_verb = 'часов'
+        elif str(hours)[:-1] == '1':
+            hour_verb = 'час'
+        elif hours[:-1] in ('2', '3', '4'):
+            hour_verb = 'часа'
+        else:
+            hour_verb = 'часов'
         out += " {} {}".format(str(hours).rstrip('0').rstrip('.'), hour_verb)
 
     return out.strip()
