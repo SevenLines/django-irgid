@@ -36,6 +36,11 @@ class MainPageView(TitledView):
 
         categories = ExcursionCategory.objects.common_with_all(self.request.user)
         popular_excursions = Excursion.objects.filter(popular=True)
+        popular_excursions = list(popular_excursions)
+        if len(popular_excursions) < 4:
+            popular_excursions = []
+        else:
+            popular_excursions = popular_excursions[:4]
 
         context.update({
             'categories': categories,
