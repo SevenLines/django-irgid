@@ -3,6 +3,15 @@
 {% if user.is_authenticated %}
     <div class="e-excursion-item-menu">
         <div class="form-inline">
+            <button class="btn{% if e.popular %} btn-info{% else %} btn-default{% endif %} popular-button"
+                    data-toggle="modal"
+                    data-target="#modal-excursion-popular"
+                    data-title="{{ e.title }}"
+                    data-id="{{ e.id }}"
+                    data-popular="{{ e.popular }}"
+                    data-action="{% url "excursions:ajax_save" %}">
+                <span class="glyphicon glyphicon-star"></span>
+            </button>
             <button class="btn{% if e.published %} btn-success{% else %} btn-default{% endif %} publish-button"
                     data-title="{{ e.title }}"
                     data-category_id="{{ e.category_id }}"

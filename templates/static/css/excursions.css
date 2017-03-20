@@ -173,12 +173,11 @@
   -o-transition: all ease-in-out 0.2s;
   transition: all ease-in-out 0.2s;
   overflow: hidden;
-  border: 1px solid #2b679c;
+  border: 1px solid silver;
   position: relative;
   height: 240px;
-  border-radius: 8px;
   cursor: pointer;
-  box-shadow: 0 0 1px #2b679c;
+  box-shadow: 0 0 4px silver;
   color: #2b679c; }
   .e-class.add-button > div, .e-class.save-button > div {
     background-color: unset !important; }
@@ -190,7 +189,7 @@
   .e-class > div {
     padding: 16px;
     text-align: center;
-    border-bottom: 1px solid #2b679c;
+    border-bottom: 1px solid silver;
     position: absolute;
     width: 100%;
     text-shadow: 0 0 1px white;
@@ -221,7 +220,7 @@
       .e-class h3 {
         font-size: 1.4em; } }
   .e-class:hover {
-    box-shadow: 0 0 8px #2b679c; }
+    box-shadow: 0 0 8px silver; }
 
 .e-class-menu {
   margin-top: 0.5em; }
@@ -454,6 +453,54 @@
 
 #price-calculator .input-group-addon {
   width: 100px; }
+
+.popular-excursion-item {
+  padding: 0.5em; }
+  .popular-excursion-item .link {
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+    position: relative;
+    padding: .5em;
+    box-shadow: 0 0 4px silver;
+    background-color: white;
+    display: block;
+    height: 220px;
+    max-height: 220px;
+    text-align: center; }
+    @media (max-width: 500px) {
+      .popular-excursion-item .link {
+        height: 150px;
+        max-height: 150px; } }
+    .popular-excursion-item .link img {
+      max-width: 100%;
+      max-height: 100%; }
+    .popular-excursion-item .link:hover {
+      box-shadow: 0 0 8px silver; }
+  .popular-excursion-item .title {
+    text-align: center;
+    font-size: 1.5em;
+    padding: 1em;
+    padding-top: 0.5em;
+    background-color: rgba(255, 255, 255, 0.95);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0; }
+    @media (max-width: 500px) {
+      .popular-excursion-item .title {
+        font-size: 1.2em; } }
+  .popular-excursion-item .tags {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    text-align: right;
+    padding: 1em;
+    padding-top: 0.5em;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0; }
 
 .calendar .header {
   width: 3em;

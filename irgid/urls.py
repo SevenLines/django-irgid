@@ -17,7 +17,7 @@ import django.contrib.staticfiles.urls
 from excursions.models import Excursion, ExcursionCategory
 from excursions.sitemaps import ExcursionsSitemap, ExcursionsCategorySitemap, \
     ExcursionsTravelSitemap, ExcursionsGallerySitemap, StaticViewSitemap, CalendarSitemap
-from excursions.views import ExcursionCalendarView
+from excursions.views import ExcursionCalendarView, ExcursionOffersList
 from irgid.views import TemplateViewEx, UploadFile
 
 admin.autodiscover()
@@ -40,6 +40,7 @@ urlpatterns = [
     url(r'^excursions/', include(excursions.urls.excursions, namespace='excursions')),
     url(r'^gallery/', include(excursions.urls.gallery, namespace='gallery')),
     url(r'^travel/', include(excursions.urls.travel, namespace='travel')),
+    url(r'^yandex-offers.xml$', ExcursionOffersList.as_view(), name='yandex-offers'),
 
     # for old urls comaptability
     url(r'^excursions-app/', include(excursions.urls.excursions)),

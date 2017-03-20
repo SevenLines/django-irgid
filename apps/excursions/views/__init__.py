@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse
 from django.db.models.aggregates import Min, Max
 from django.http.response import Http404, HttpResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.template.context import RequestContext
 from django.utils.decorators import method_decorator
 from django.views.decorators.clickjacking import xframe_options_exempt
@@ -35,11 +35,13 @@ class MainPageView(TitledView):
         context = super(MainPageView, self).get_context_data(**kwargs)
 
         categories = ExcursionCategory.objects.common_with_all(self.request.user)
+        popular_excursions = Excursion.objects.filter(popular=True)
 
         context.update({
             'categories': categories,
             'gallery': ExcursionCategory.objects.gallery(),
-            'travel': ExcursionCategory.objects.travel()
+            'travel': ExcursionCategory.objects.travel(),
+            'popular_excursions': popular_excursions,
         })
         return context
 
@@ -384,6 +386,30 @@ class ExcursionAppointmentCreateView(View):
         else:
             return redirect(request.META['HTTP_REFERER'])
 
+
+class ExcursionOffersList(View):
+    def get(self, request):
+        categories = ExcursionCategory.objects.all()
+        excursion_categories = []
+        travel_category = None
+
+        for category in categories:
+            if category.is_travel:
+                travel_category = category
+            elif not category.is_gallery:
+                excursion_categories.append(category)
+
+        offers = Excursion.objects.filter(
+            category__in=excursion_categories,
+            category__visible=True,
+            published=True
+        )
+
+        return render(request, "offers.xml", {
+            'categories': excursion_categories + [travel_category,],
+            'offers': offers,
+            'tours': Excursion.objects.filter(category=travel_category, published=True)
+        }, content_type="text/xml; charset=utf-8")
 
 @login_required
 @permission_required("excursions.change_excursion")

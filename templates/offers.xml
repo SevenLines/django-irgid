@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE yml_catalog SYSTEM "shops.dtd">
+<yml_catalog date="{% now "Y-m-d H:i" %}">
+    <shop>
+        <name>Иргид</name>
+        <company>И.П. Балашенко</company>
+        <url>https://irgid.ru</url>
+        <currencies>
+            <currency id="RUR" rate="1"/>
+        </currencies>
+        <categories>
+            {% for category in categories %}
+                <category id="{{ category.id }}">{{ category.title }}</category>
+            {% endfor %}
+        </categories>
+        <offers>
+            {% for offer in offers %}
+                <offer available="true">
+                    <url>{{ offer.get_absolute_url }}</url>
+                    <price>{{ offer.price_list_rendered.min_price  }}</price>
+                    <currencyId>RUR</currencyId>
+                    <categoryId>{{ offer.category_id }}</categoryId>
+                    <delivery>false</delivery>
+                    <name>{{ offer.title }}</name>
+                    <description>{{ offer.short_description }}</description>
+                </offer>
+            {% endfor %}
+            {% for tour in tours %}
+            {% endfor %}
+        </offers>
+    </shop>
+</yml_catalog>
