@@ -67,6 +67,7 @@ class Excursion(models.Model):
 
     category = models.ForeignKey("ExcursionCategory", default=None, null=True)
     published = models.BooleanField("", default=False)
+    popular = models.BooleanField("", default=False)
 
     history = HistoricalRecords()
 

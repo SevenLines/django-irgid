@@ -14,7 +14,7 @@ $grid-gap: 8px;
 
   $height: 240px;
   overflow: hidden;
-  border: 1px solid $common_color;
+  border: 1px solid silver;
   position: relative;
 
   &.add-button, &.save-button {
@@ -38,7 +38,7 @@ $grid-gap: 8px;
     text-align: center;
     //    bottom: ;
     //    margin-top: $height/2.7;
-    border-bottom: 1px solid $common_color;
+    border-bottom: 1px solid silver;
 
     position: absolute;
     width: 100%;
@@ -62,9 +62,8 @@ $grid-gap: 8px;
   }
 
   height: $height;
-  border-radius: 8px;
   cursor: pointer;
-  box-shadow: 0 0 1px $common_color;
+  box-shadow: 0 0 4px silver;
   color: $common_color;
 
   @media (max-width: $width-small) {
@@ -84,7 +83,7 @@ $grid-gap: 8px;
   }
 
   &:hover {
-    box-shadow: 0 0 8px $common_color;
+    box-shadow: 0 0 8px silver;
   }
 
 }
@@ -402,6 +401,67 @@ $grid-gap: 8px;
 }
 
 $calendar_small_width: 600px;
+
+.popular-excursion-item {
+  padding: 0.5em;
+
+  .link {
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+
+    position: relative;
+    padding: .5em;
+    box-shadow: 0 0 4px silver;
+    background-color: white;
+    display: block;
+    height: 220px;
+    max-height: 220px;
+    @media (max-width: $width-small) {
+     height: 150px;
+    max-height: 150px;
+  }
+
+    text-align: center;
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+    &:hover {
+      box-shadow: 0 0 8px silver;
+    }
+  }
+  .title {
+    text-align: center;
+    font-size: 1.5em;
+    padding: 1em;
+    padding-top: 0.5em;
+    background-color: rgba(255, 255, 255, 0.95);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    @media (max-width: $width-small) {
+      font-size: 1.2em;
+    }
+  }
+
+
+
+  .tags {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    text-align: right;
+    padding: 1em;
+    padding-top: 0.5em;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+  }
+
+}
 
 .calendar {
   $fore_color: #00A6C7;

@@ -34,15 +34,17 @@
 
 
 <script>
-    $(".excursion").on('click', ".publish-button", function(e) {
+    $(".excursion").on('click', ".publish-button, .popular-button", function(e) {
         var id = e.currentTarget.dataset.id;
         var category_id = e.currentTarget.dataset.category_id;
         var action = e.currentTarget.dataset.action;
         var published = e.currentTarget.dataset.published;
+        var popular = e.currentTarget.dataset.popular;
         $.post(action,  {
             id: id,
             category_id: category_id,
             published: published=='True' ? 'False' : 'True',
+            popular: popular=='True' ? 'False' : 'True',
             csrfmiddlewaretoken: '{{ csrf_token }}'
         }).done(function (response) {
             $(e.currentTarget).parents(".excursion").html(response);

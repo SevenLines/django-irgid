@@ -90,4 +90,7 @@ def _excursion_save(request):
     if 'published' in request.POST:
         e.published = request.POST['published'] == 'True'
 
+    if 'popular' in request.POST:
+        e.popular = request.POST['popular'] == 'True'
+
     e.save()

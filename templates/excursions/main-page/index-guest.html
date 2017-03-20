@@ -1,5 +1,40 @@
-{% load thumbnail %}
+{% load thumbnail excursions_tags %}
 <div id="categories-list">
+    <div>
+        {% for e in popular_excursions %}
+            {% thumbnail e.img_preview 0x300 as thumb %}
+            <div class="col-xs-6 col-sm-3 col-md-3 popular-excursion-item">
+                <a class="link" href="{% url "excursions:item" e.pk e.title %}">
+                    {% if e.img_preview %}<img src="{{ thumb.url }}">{% endif %}
+                    <div class="title">
+                        {{ e.title }}
+                    </div>
+                    <div class="tags">
+                        <small style="display: block;padding: 4px 0">
+                            {% if e.price_list_rendered.min_price %}
+                                <span style="margin-right: 0.5em" class="label label-primary"
+                                      data-toggle="tooltip" data-placement="bottom" title="цена">
+                                    от {{ e.price_list_rendered.min_price }}Р
+                                </span>
+                            {% endif %}
+                            {% if e.time_length %}
+                                <span class="label label-success" data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="продолжительность экскурсии">({{ e.time_length|time_verbose }})</span>
+                            {% endif %}
+                            {% if e.min_age %}
+                                <span class="label label-danger" data-toggle="tooltip"
+                                      data-placement="bottom" title="рекомендуемый возраст">
+                                {{ e.min_age }}+
+                        </span>
+                            {% endif %}
+                        </small>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+        <div class="clearfix"></div>
+    </div>
     {% for c in categories %}
         <div class="category-element">
             <a class="e-class-description" href="{% if gallery == c %}{% url "gallery:index" %}
