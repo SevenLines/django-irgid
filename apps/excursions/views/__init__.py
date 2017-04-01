@@ -87,8 +87,7 @@ class CategoryView(DetailView):
             'title': self.category.title,
             'categories': categories,
             'meta': {
-                'description': u"Категория: %s; Описание: %s"
-                               % (self.category.title, self.category.description.strip())
+                'description': u"Экскурсии {}".format(self.category.title)
             }
         })
 
