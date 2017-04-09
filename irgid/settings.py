@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'filer',
     'easy_thumbnails',
     'django_extensions',
+    'raven.contrib.django.raven_compat',
 
     'excursions',
     'django_assets',

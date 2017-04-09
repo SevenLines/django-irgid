@@ -13,6 +13,7 @@ django-debug-toolbar
 django-extensions
 django-redis==4.7
 django-simple-history
+raven==6.0.0
 ipython
 
 celery==4.0
