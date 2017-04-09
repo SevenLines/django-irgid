@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'simple_history',
 ]
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -60,6 +60,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
+    'raven.contrib.django.raven_compat.middleware.Sentry404CatchMiddleware',
 ]
 
 ROOT_URLCONF = 'irgid.urls'
@@ -186,7 +187,7 @@ except:
 
 if DEBUG:
     INSTALLED_APPS.append('debug_toolbar')
-    MIDDLEWARE_CLASSES.append('debug_toolbar.middleware.DebugToolbarMiddleware')
+    MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')
 
 # -=-=-=-=-=-=-=-=-=-=-=-=-
 # APPLICATION SETTINGS BEGIN
@@ -259,6 +260,10 @@ MONTHS = [
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'root': {
+        'level': 'WARNING',
+        'handlers': ['sentry'],
+    },
     'formatters': {
         'verbose': {
             'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
@@ -272,6 +277,16 @@ LOGGING = {
             'formatter': 'verbose',
             'maxBytes': 1024 * 1024 * 5,
             'backupCount': 5,
+        },
+        'sentry': {
+            'level': 'ERROR',  # To capture more than ERROR, change to WARNING, INFO, etc.
+            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+            'tags': {'custom-tag': 'x'},
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
         },
         'file': {
             'class': 'logging.handlers.RotatingFileHandler',
@@ -287,20 +302,30 @@ LOGGING = {
         }
     },
     'loggers': {
-        'django': {
+        'django.db.backends': {
             'handlers': ['django_file', 'mail_admins'],
             'level': 'ERROR',
             'propagate': True,
         },
-        'django.request': {
-            'handlers': ['mail_admins', 'django_file'],
-            'level': 'ERROR',
+        # 'django.request': {
+        #     'handlers': ['mail_admins', 'django_file'],
+        #     'level': 'ERROR',
+        #     'propagate': False,
+        # },
+        # 'excursions': {
+        #     'handlers': ['file', 'mail_admins'],
+        #     'level': 'ERROR',
+        #     'propagate': True,
+        # },
+        'raven': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
             'propagate': False,
         },
-        'excursions': {
-            'handlers': ['file', 'mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
+        'sentry.errors': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': False,
         },
     },
 }
