@@ -35,6 +35,13 @@
         {% endfor %}
         <div class="clearfix"></div>
     </div>
+    {% if sign %}
+        <div class="sign alert alert-success" style="margin: 0.25em; padding: 0.5em; font-size: 1.15em; text-align: center">
+            {{ sign|safe }}
+            <hr style="margin: 0.25em">
+            <small><small>больше примет в нашем <a style="text-decoration: underline" href="{% url "calendar" %}">календаре</a> </small></small>
+        </div>
+    {% endif %}
     {% for c in categories %}
         <div class="category-element">
             <a class="e-class-description" href="{% if gallery == c %}{% url "gallery:index" %}

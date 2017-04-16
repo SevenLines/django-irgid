@@ -127,6 +127,18 @@ class ExcursionCalendar(models.Model):
 
     is_best = models.BooleanField(default=False, verbose_name='Является ли лучши предложением месяца')
 
+    @classmethod
+    def get_today_sign(cls):
+        clnd = ExcursionCalendar.objects.filter(date=date.today()).first()
+        comment = clnd.comment_rendered
+        rows = comment.split("\n")
+        sign = ""
+        for row in rows:
+            if u'примета дня' in row.lower():
+                sign = row
+                break
+        return sign
+
     @staticmethod
     def replace_with_links(comment):
         reg = re.compile(r"{(.*?)}", flags=re.UNICODE | re.MULTILINE)
