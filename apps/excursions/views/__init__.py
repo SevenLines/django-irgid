@@ -42,7 +42,10 @@ class MainPageView(TitledView):
         else:
             popular_excursions = popular_excursions[:4]
 
+        sign = ExcursionCalendar.get_today_sign()
+
         context.update({
+            'sign': sign,
             'categories': categories,
             'gallery': ExcursionCategory.objects.gallery(),
             'travel': ExcursionCategory.objects.travel(),
