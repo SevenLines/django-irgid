@@ -4,7 +4,8 @@
             <div class="modal-content">
                 {% csrf_token %}
                 <div class="modal-body">
-                    <h3>Удалить экскурсию</h3> <br><h1><span class="placeholder-title"></span>?</h1>
+                    <h3>Удалить экскурсию</h3> <br>
+                    <h1><span class="placeholder-title"></span>?</h1>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-danger">Удалить</button>
@@ -21,7 +22,8 @@
             <div class="modal-content">
                 {% csrf_token %}
                 <div class="modal-body">
-                    <h3>Опубликовать экскурсию</h3> <br><h1><span class="placeholder-title"></span>?</h1>
+                    <h3>Опубликовать экскурсию</h3> <br>
+                    <h1><span class="placeholder-title"></span>?</h1>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success">Да</button>
@@ -34,17 +36,25 @@
 
 
 <script>
-    $(".excursion").on('click', ".publish-button, .popular-button", function(e) {
+    $(".excursion").on('click', ".publish-button, .popular-button", function (e) {
         var id = e.currentTarget.dataset.id;
         var category_id = e.currentTarget.dataset.category_id;
         var action = e.currentTarget.dataset.action;
         var published = e.currentTarget.dataset.published;
         var popular = e.currentTarget.dataset.popular;
-        $.post(action,  {
+
+        var $target = $(e.currentTarget);
+        if ($target.hasClass("publish-button")) {
+            published = published === 'True' ? 'False' : 'True'
+        } else if ($target.hasClass("popular-button")) {
+            popular = popular === 'True' ? 'False' : 'True'
+        }
+
+        $.post(action, {
             id: id,
             category_id: category_id,
-            published: published=='True' ? 'False' : 'True',
-            popular: popular=='True' ? 'False' : 'True',
+            published: published,
+            popular: popular,
             csrfmiddlewaretoken: '{{ csrf_token }}'
         }).done(function (response) {
             $(e.currentTarget).parents(".excursion").html(response);
@@ -53,7 +63,7 @@
         });
     });
 
-    $("#modal-excursion-remove").on('show.bs.modal', function(e) {
+    $("#modal-excursion-remove").on('show.bs.modal', function (e) {
         var title = e.relatedTarget.dataset.title;
         var action = e.relatedTarget.dataset.action;
         console.log(action);
