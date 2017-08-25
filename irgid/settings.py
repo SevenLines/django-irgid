@@ -303,20 +303,20 @@ LOGGING = {
     },
     'loggers': {
         'django.db.backends': {
-            'handlers': ['django_file', 'mail_admins'],
+            'handlers': ['django_file'],
             'level': 'ERROR',
             'propagate': True,
         },
-        # 'django.request': {
-        #     'handlers': ['mail_admins', 'django_file'],
-        #     'level': 'ERROR',
-        #     'propagate': False,
-        # },
-        # 'excursions': {
-        #     'handlers': ['file', 'mail_admins'],
-        #     'level': 'ERROR',
-        #     'propagate': True,
-        # },
+        'django.request': {
+            'handlers': ['django_file'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'excursions': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
         'raven': {
             'level': 'DEBUG',
             'handlers': ['console'],
