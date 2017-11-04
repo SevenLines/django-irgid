@@ -149,6 +149,12 @@
                 var matches = re.exec(this.value);
                 if (matches) {
                     this.value = matches[1];
+                } else {
+                    re = /\?um=constructor%3A([\w-]+)?&amp/g;
+                    matches = re.exec(this.value);
+                    if (matches) {
+                        this.value = matches[1];
+                    }
                 }
 
                 // убираем width и height теги
