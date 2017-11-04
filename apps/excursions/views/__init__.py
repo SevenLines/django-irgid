@@ -285,9 +285,9 @@ class ExcursionCalendarView(TitledView):
             min_year = date.today().year
             max_year = min_year
         if hasattr(cls, 'request') and cls.request.user.is_authenticated():
-            return [year for year in xrange(min_year - 1, max_year + 2)]
+            return [year for year in range(min_year - 1, max_year + 2)]
         else:
-            return [year for year in xrange(min_year, max_year + 1)]
+            return [year for year in range(min_year, max_year + 1)]
 
     def get_calendar_items(self):
         dates = list(Calendar().itermonthdates(self.selected_year, self.selected_month))
