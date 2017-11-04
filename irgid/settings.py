@@ -179,7 +179,7 @@ if TESTING:
 
 
 try:
-    from local_settings import *
+    from .local_settings import *
 except:
     print("Failed to import settings, local_settings.py don't exists or incorretc")
     exit(-1)

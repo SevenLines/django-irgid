@@ -43,7 +43,7 @@ def set_count(items):
 
 class Plugins(object):
     def load(self):
-        from django.utils.importlib import import_module
+        from importlib import import_module
         from django.core import exceptions
 
         self._plugins = []
@@ -51,19 +51,19 @@ class Plugins(object):
             try:
                 dot = module_path.rindex('.')
             except ValueError:
-                raise exceptions.ImproperlyConfigured, '%s isn\'t a plugin' % module_path
+                raise exceptions.ImproperlyConfigured('%s isn\'t a plugin' % module_path)
             plugin, plugin_classname = module_path[:dot], module_path[dot + 1:]
 
             try:
                 mod = import_module(plugin)
-            except ImportError, e:
-                raise exceptions.ImproperlyConfigured, 'Error importing plugin %s: "%s"' % (plugin, e)
+            except ImportError as e:
+                raise exceptions.ImproperlyConfigured('Error importing plugin %s: "%s"' % (plugin, e))
 
             try:
                 plugin_class = getattr(mod, plugin_classname)
             except AttributeError:
-                raise exceptions.ImproperlyConfigured, 'Plugin "%s" does not define a "%s" class' % (
-                plugin, plugin_classname)
+                raise exceptions.ImproperlyConfigured('Plugin "%s" does not define a "%s" class' % (
+                    plugin, plugin_classname))
 
             self._plugins.append(plugin_class())
 
