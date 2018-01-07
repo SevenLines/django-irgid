@@ -7,12 +7,15 @@ from datetime import date, datetime
 from braces.views import LoginRequiredMixin
 from django.conf import settings
 from django.contrib.auth.decorators import login_required, permission_required
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, translate_url
 from django.db.models.aggregates import Min, Max
-from django.http.response import Http404, HttpResponse
+from django.http.response import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.template.context import RequestContext
+from django.utils import translation
 from django.utils.decorators import method_decorator
+from django.utils.http import urlunquote, is_safe_url
+from django.utils.translation import check_for_language, LANGUAGE_SESSION_KEY
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.generic import DetailView, View
 from django.views.generic.detail import SingleObjectMixin
@@ -417,6 +420,37 @@ class ExcursionOffersList(View):
             'offers': offers,
             'tours': Excursion.objects.filter(category=travel_category, published=True)
         }, content_type="text/xml; charset=utf-8")
+
+
+class SetLanguage(View):
+    def get(self, *args, **kwargs):
+        lang = kwargs.pop('lang')
+        next_url = self.request.GET.get('next')
+        if (next_url or not self.request.is_ajax()) and not is_safe_url(url=next_url, host=self.request.get_host()):
+            next_url = self.request.META.get('HTTP_REFERER')
+            if next_url:
+                next_url = urlunquote(next_url)  # HTTP_REFERER may be encoded.
+            if not is_safe_url(url=next_url, host=self.request.get_host()):
+                next_url = '/'
+        response = HttpResponseRedirect(next_url) if next_url else HttpResponse(status=204)
+
+        if lang and check_for_language(lang):
+            if next_url:
+                next_trans = translate_url(next_url, lang)
+                if next_trans != next_url:
+                    response = HttpResponseRedirect(next_trans)
+            translation.activate(lang)
+            if hasattr(self.request, 'session'):
+                self.request.session[translation.LANGUAGE_SESSION_KEY] = lang
+            else:
+                response.set_cookie(
+                    settings.LANGUAGE_COOKIE_NAME, lang,
+                    max_age=settings.LANGUAGE_COOKIE_AGE,
+                    path=settings.LANGUAGE_COOKIE_PATH,
+                    domain=settings.LANGUAGE_COOKIE_DOMAIN,
+                )
+        return response
+
 
 @login_required
 @permission_required("excursions.change_excursion")

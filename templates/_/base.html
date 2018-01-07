@@ -16,20 +16,31 @@
 </head>
 <body>
 
-<div class="container">
+
+<div class="container" style="position: relative">
+
+
     <div class="container-content">
+
         <div class="header">
             <nav class="navbar menu">
                 {% menu %}
             </nav>
+            <div class="language-selector" style="position: absolute; right: 5px; top:5px; z-index: 100">
+
+                <a class="btn btn-default" href="{% url "set_language" lang="ru" %}">RU</a>
+                <a class="btn btn-default" href="{% url "set_language" lang="en" %}">EN</a>
+            </div>
         </div>
+
+
         <div id="content">
             {% block content %}
             {% endblock content %}
             <div style="clear:both;"></div>
         </div>
-
     </div>
+
     <div id="footer">
         <div class="logo-info" style="margin: 0 auto">
             <table style="width:100%;table-layout: fixed">

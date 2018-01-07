@@ -9,6 +9,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
+from django.utils.translation import get_language
 
 from excursions.models import ExcursionCategory
 
@@ -94,7 +95,13 @@ def menu(context):
 
     menu_dict = []
     selected_item = None
+
+    lang = get_language()
+
     for item in settings.MENU:
+        if item[5] and lang not in item[5]:
+            continue
+
         if item[0] == 'travel:index' and 'travel_id' not in special_categories:
             continue
         if item[0] == 'gallery:index' and 'gallery_id' not in special_categories:

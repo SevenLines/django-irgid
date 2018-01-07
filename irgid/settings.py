@@ -26,6 +26,7 @@ SITE_ID = 1
 INSTALLED_APPS = [
     'djangocms_admin_style',
 
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,7 +49,7 @@ INSTALLED_APPS = [
     'request',
     'sharedcontroll',
     'custom_settings',
-    'simple_history',
+    # 'simple_history',
 ]
 
 MIDDLEWARE = [
@@ -61,6 +62,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
     'raven.contrib.django.raven_compat.middleware.Sentry404CatchMiddleware',
+    'excursions.middleware.LanguageMiddleware',
 ]
 
 ROOT_URLCONF = 'irgid.urls'
@@ -111,11 +113,16 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'ru-RU'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'Asia/Irkutsk'
 
-USE_I18N = False
+USE_I18N = True
+
+LANGUAGES = (
+    ('en', 'English'),
+    ('ru', "Russian"),
+)
 
 USE_L10N = True
 
@@ -201,13 +208,13 @@ def travel_menu_item_visible(context):
     ).exists()
 
 MENU = [
-    ('index', u'Экскурсии', '^/excursions|^$|^/$', '', lambda c: True),
-    ('calendar', u'Календарь Экскурсий', '^/calendar', '', lambda c: True),
-    ('travel:index', u'Путешествия', '^/travel', '', travel_menu_item_visible),
-    ('about', u'О нас', '^/about', '', lambda c: True),
-    ('faq', u'Частые вопросы (FAQ)', '^/faq', '', lambda c: True),
-    ('gallery:index', u'Галерея', '^/gallery', '', lambda c: True),
-    ('settings', u'Настройки', '^/settings', '', lambda c: c['user'].is_authenticated()),
+    ('index', u'Экскурсии', '^/excursions|^$|^/$', '', lambda c: True, []),
+    ('calendar', u'Календарь Экскурсий', '^/calendar', '', lambda c: True, ['ru']),
+    ('travel:index', u'Путешествия', '^/travel', '', travel_menu_item_visible, []),
+    ('about', u'О нас', '^/about', '', lambda c: True, []),
+    ('faq', u'Частые вопросы (FAQ)', '^/faq', '', lambda c: True, []),
+    ('gallery:index', u'Галерея', '^/gallery', '', lambda c: True, []),
+    ('settings', u'Настройки', '^/settings', '', lambda c: c['user'].is_authenticated(), []),
 ]
 
 CUSTOM_SETTINGS = {
