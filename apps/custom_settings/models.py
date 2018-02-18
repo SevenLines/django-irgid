@@ -29,7 +29,7 @@ class Setting(PolymorphicModel):
 class TextSetting(Setting):
     value = models.TextField(null=True, default=True)
 
-    history = HistoricalRecords()
+    # history = HistoricalRecords()
 
 
 class IntegerSetting(Setting):

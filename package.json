@@ -1,0 +1,16 @@
+{
+  "name": "irgid",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:SevenLines/django-irgid.git",
+  "author": "m <mmailm@mail.ru>",
+  "license": "MIT",
+  "scripts": {
+    "watch_styles": "node-sass --watch --include-path scss templates/scss -o templates/static/css",
+    "build_styles": "node-sass --include-path scss templates/scss -o templates/static/css"
+  },
+  "dependencies": {
+    "bower": "^1.8.2",
+    "node-sass": "^4.7.2"
+  }
+}

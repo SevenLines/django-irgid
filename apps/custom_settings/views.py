@@ -2,8 +2,10 @@
 # Create your views here.
 from itertools import chain
 
+from django.core.cache import cache
 from django.http.response import HttpResponse
 from django.shortcuts import redirect
+from django.utils.translation import get_language
 from django.views.generic.edit import UpdateView
 from django.views.generic.list import ListView
 
@@ -34,6 +36,10 @@ class SettingEditView(UpdateView):
         obj = self.get_object()
         obj.value = request.POST['value'] if request.POST['value'] != '-' else None
         obj.save()
+
+        lang = get_language()
+        key_lang = "{}_{}".format(obj.key, lang)
+        cache.delete(key_lang)
 
         if request.is_ajax():
             return HttpResponse()

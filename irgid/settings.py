@@ -80,6 +80,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'irgid.context_processors.debug',
                 'irgid.context_processors.custom_settings',
+                'irgid.context_processors.language',
                 'sekizai.context_processors.sekizai',
             ],
         },
