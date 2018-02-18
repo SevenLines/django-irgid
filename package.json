@@ -6,8 +6,8 @@
   "author": "m <mmailm@mail.ru>",
   "license": "MIT",
   "scripts": {
-    "watch_styles": "node-sass --watch --include-path scss templates/scss -o templates/static/css",
-    "build_styles": "node-sass --include-path scss templates/scss -o templates/static/css"
+    "watch": "node-sass --watch --include-path scss templates/scss -o templates/static/css",
+    "build": "node-sass --include-path scss templates/scss -o templates/static/css"
   },
   "dependencies": {
     "bower": "^1.8.2",
