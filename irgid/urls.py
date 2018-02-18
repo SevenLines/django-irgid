@@ -64,6 +64,8 @@ urlpatterns = [
         template_name="faq.html", data={'title': u'FAQ'}
     ), name='faq'),
 
+    url('i18n/', include('django.conf.urls.i18n')),
+
     url('^$', excursions.views.MainPageView.as_view(), name='index'),
     url('^', include(django.contrib.auth.urls)),
     # url(r'^', include('cms.urls')),

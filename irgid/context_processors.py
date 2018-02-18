@@ -1,10 +1,11 @@
+from django.utils.translation import get_language
 
 
 def debug(context):
     from django.conf import settings
     return {
         'DEBUG': settings.DEBUG,
-        'DONT_USE_METRICS': settings.DONT_USE_METRICS
+        'DONT_USE_METRICS': settings.DONT_USE_METRICS,
     }
 
 
@@ -34,3 +35,9 @@ def custom_settings(context):
 
     out['CUSTOMS'] = out
     return out
+
+def language(context):
+    lang = get_language()
+    return {
+        "LANGUAGE": lang
+    }

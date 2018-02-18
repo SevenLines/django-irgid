@@ -16,20 +16,32 @@
 </head>
 <body>
 
-<div class="container">
+{% if user.is_authenticated %}
+    <div id="language-selector">
+        <a class="btn {% if LANGUAGE == 'ru' %}btn-primary{% else %}btn-default{% endif %}" href="{% url "set_language" lang="ru" %}">RU</a>
+        <a class="btn {% if LANGUAGE == 'en' %}btn-primary{% else %}btn-default{% endif %}" href="{% url "set_language" lang="en" %}">EN</a>
+    </div>
+{% endif %}
+
+<div class="container" style="position: relative">
+
+
     <div class="container-content">
+
         <div class="header">
             <nav class="navbar menu">
                 {% menu %}
             </nav>
         </div>
+
+
         <div id="content">
             {% block content %}
             {% endblock content %}
             <div style="clear:both;"></div>
         </div>
-
     </div>
+
     <div id="footer">
         <div class="logo-info" style="margin: 0 auto">
             <table style="width:100%;table-layout: fixed">

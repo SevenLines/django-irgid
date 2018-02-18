@@ -25,7 +25,7 @@ class ExcursionCategory(models.Model):
 
     objects = ExcursionsCategoryManager()
 
-    history = HistoricalRecords()
+    # history = HistoricalRecords()
 
     def __unicode__(self):
         return u"{title}|{id}".format(**self.__dict__)
@@ -69,7 +69,7 @@ class Excursion(models.Model):
     published = models.BooleanField("", default=False)
     popular = models.BooleanField("", default=False)
 
-    history = HistoricalRecords()
+    # history = HistoricalRecords()
 
     def price_list_rendered(self):
         out = {
@@ -130,7 +130,7 @@ class ExcursionCalendar(models.Model):
     @classmethod
     def get_today_sign(cls):
         clnd = ExcursionCalendar.objects.filter(date=date.today()).first()
-        comment = clnd.comment_rendered
+        comment = clnd.comment_rendered if clnd else ""
         rows = comment.split("\n")
         sign = ""
         for row in rows:

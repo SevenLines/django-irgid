@@ -32,11 +32,11 @@
 @media (max-width: 1200px) {
   .excursion-preview-container {
     margin-right: 100px; }
-
   .excursion-gallery.guest {
     width: 95px; }
     .excursion-gallery.guest .excursion-gallery-item {
       width: 100%; } }
+
 @media (max-width: 990px) {
   .excursion-preview-container {
     position: relative;
@@ -58,7 +58,6 @@
         .excursion-preview-container .zoom-wrapper > div .zoom {
           margin-right: auto;
           margin-left: auto; }
-
   .excursion-gallery.guest {
     width: 100%;
     float: none;
@@ -74,6 +73,7 @@
       height: 70px;
       float: none;
       display: inline-block; } }
+
 .excursion-gallery-item {
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -147,6 +147,7 @@
 
 .list-group-menu .excursions-menu.without-angle {
   background-image: none; }
+
 .list-group-menu .excursions-menu .excursions-menu-container .list-group-gallery-item {
   position: relative; }
   .list-group-menu .excursions-menu .excursions-menu-container .list-group-gallery-item .description {
@@ -508,11 +509,14 @@
   padding: 12px;
   margin: 4px;
   border-right: 1px solid black; }
+
 .calendar .calendar-date-selector {
   overflow: hidden; }
+
 @media (max-width: 600px) {
   .calendar {
     display: none; } }
+
 .calendar td > div {
   width: 3em;
   height: 3em;
@@ -667,5 +671,3 @@
           border: 1px solid #f3684f; }
       .days .days-content .day-info.current .title {
         background-color: #00A6C7; }
-
-/*# sourceMappingURL=excursions.css.map */
