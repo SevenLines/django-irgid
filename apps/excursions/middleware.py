@@ -19,8 +19,11 @@ class LanguageMiddleware(object):
         return response
 
     def process_view(self, request, *args, **kwargs):
-        if translation.LANGUAGE_SESSION_KEY in request.session:
-            lang = request.session[translation.LANGUAGE_SESSION_KEY]
-            if lang in settings.AVAILABLE_LANGUAGES:
-                translation.activate(lang)
+        if request.user.is_authenticated():
+            if translation.LANGUAGE_SESSION_KEY in request.session:
+                lang = request.session[translation.LANGUAGE_SESSION_KEY]
+                if lang in settings.AVAILABLE_LANGUAGES:
+                    translation.activate(lang)
+        else:
+            translation.activate('ru')
 
