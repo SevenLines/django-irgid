@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.core.urlresolvers import reverse
 from django.test.testcases import TestCase
+from django.utils import translation
 
 
 class LoggedSession(object):
@@ -18,10 +19,12 @@ class LoggedSession(object):
 
 
 class BaseTestCase(TestCase):
+
     def setUp(self):
         super(BaseTestCase, self).setUp()
         self.superuser = User.objects.create_superuser('admin', 'admin@mail.com', '1234')
-        call_command('update_settings')
+        for lang in ('ru', 'en'):
+            call_command('update_settings', lang)
 
     def api(self, name, data=None, params=None, status_code=200, post=False, ajax=False, **kwargs):
         if ajax:

@@ -16,7 +16,7 @@ from django.template.context import RequestContext
 from django.utils import translation
 from django.utils.decorators import method_decorator
 from django.utils.http import urlunquote, is_safe_url
-from django.utils.translation import check_for_language, LANGUAGE_SESSION_KEY
+from django.utils.translation import check_for_language, LANGUAGE_SESSION_KEY, get_language
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.generic import DetailView, View
 from django.views.generic.detail import SingleObjectMixin
@@ -384,7 +384,7 @@ class ExcursionAppointmentCreateView(View):
                       "Ваш запрос принят и отправлен оператору. " \
                       "Мы постараемся в кратчайшие сроки ответить Вам"
             success = True
-            send_appointment.apply_async((appointment.pk,))
+            send_appointment.apply_async((appointment.pk, get_language()))
         else:
             message = "Возникли проблемы при создании заявки,\nпожалуйста, попробуйте еще раз."
             success = False
