@@ -10,6 +10,7 @@ from django.core.urlresolvers import reverse
 from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
 from django.utils.translation import get_language
+from django.utils.translation import ugettext_lazy as _
 
 from excursions.models import ExcursionCategory
 
@@ -34,23 +35,23 @@ def time_verbose(value):
 
     if days:
         day_verb = {
-            1: 'день',
-            2: 'дня',
-            3: 'дня',
-            4: 'дня',
-        }.get(days, 'дней')
+            1: _(u'день'),
+            2: _(u'дня'),
+            3: _(u'дня'),
+            4: _(u'дня'),
+        }.get(days, _(u'дней'))
         out += "{} {}".format(days, day_verb)
 
     if hours:
         hrs = str(hours).split('.')[0]
         if hrs[-2:] in ('11', '12', '13', '14'):
-            hour_verb = 'часов'
+            hour_verb = _(u'часов')
         elif hrs[-1] == '1':
-            hour_verb = 'час'
+            hour_verb = _(u'час')
         elif hrs[-1] in ('2', '3', '4'):
-            hour_verb = 'часа'
+            hour_verb = _(u'часа')
         else:
-            hour_verb = 'часов'
+            hour_verb = _(u'часов')
         out += " {} {}".format(str(hours).rstrip('0').rstrip('.'), hour_verb)
 
     return out.strip()
@@ -108,7 +109,7 @@ def menu(context):
             continue
 
         if item[4](context):
-            selected = re.match(item[2], path)
+            selected = re.search(item[2], path)
             menu_item = {
                 'url': reverse(item[0]),
                 'title': item[1],

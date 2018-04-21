@@ -1,14 +1,15 @@
-<h3>Заявка №{{ appointment.pk }} от {{ appointment.create_date|date:"Y.m.d H:i" }}</h3>
-Спасибо за оставленную заявку! <br>
-Ваш запрос принят и направлен нашему оператору. <br>
-Мы постараемся в кратчайшие сроки ответить Вам
+{% load i18n %}
+<h3>{% trans "Заявка"%} №{{ appointment.pk }} {% trans "от"%} {{ appointment.create_date|date:"Y.m.d H:i" }}</h3>
+{% trans "Спасибо за оставленную заявку!" %} <br>
+{% trans "Ваш запрос принят и направлен нашему оператору."%} <br>
+{% trans "Мы постараемся в кратчайшие сроки ответить Вам" %}
 <hr>
-<h4>Вы указали следующую информацию: </h4>
-ФИО: {{ appointment.full_name }} <br>
-{% if appointment.phone %}Телефон: {{ appointment.phone }} <br>{% endif %}
-{% if appointment.email %}Почта: <a href="mailto:{{ appointment.email }} ">{{ appointment.email }} </a>{% endif %}
+<h4>{% trans "Вы указали следующую информацию:" %}</h4>
+{% trans "ФИО" %}: {{ appointment.full_name }} <br>
+{% if appointment.phone %}{% trans "Телефон" %}: {{ appointment.phone }} <br>{% endif %}
+{% if appointment.email %}{% trans "Почта" %}: <a href="mailto:{{ appointment.email }} ">{{ appointment.email }} </a>{% endif %}
 <p>
 {{ appointment.comment }}
 <hr>
-Экскурсионное агентство <a href="http://irgid.ru">«Иргид»</a> <br>
-2012-{% now "Y" %} гг.
+{% trans "Экскурсионное агентство" %} <a href="http://irgid.ru">«{% trans "Иргид" %}»</a> <br>
+2012-{% now "Y" %} {% trans "гг."%}

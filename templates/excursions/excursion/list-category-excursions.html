@@ -11,7 +11,7 @@
                 <div class="excursions-menu-container">
                     {% for e in excursions %}
                         {% if e.pk != current_excursion.pk %}
-                            <a href="{% url "excursions:item" e.pk e.title %}"
+                            <a href="{% url "excursions:item" e.pk e.safe_title %}"
                                class="list-group-item-excursion">
                                 {#                       {% if forloop. %} first{% endif %}">#}
                                 {{ e.title }}

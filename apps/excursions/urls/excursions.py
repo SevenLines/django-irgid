@@ -38,7 +38,6 @@ urlpatterns = [
     url(r'calendar/$', ExcursionCalendarView.as_view(), name='calendar'),
 
     url(r'appointment/$', ExcursionAppointmentCreateView.as_view(), name='appointment_create'),
-    url(r'set-language/(?P<lang>\w+)$', v.SetLanguage.as_view(), name='set_language'),
 
     url(r'$', MainPageView.as_view(), name='index'),
 

@@ -1,4 +1,4 @@
-{% load thumbnail static excursions_tags %}
+{% load thumbnail static excursions_tags i18n %}
 {% if current_excursion.category %}
 <div>
     <a class="hidden-lg hidden-md hidden-sm" href="{% url "category" pk=current_excursion.category.pk %}">
@@ -17,16 +17,16 @@
     <div style="float:left;">
         {% if current_excursion.price_list_rendered.min_price %}
             <span style="display: inline-block" class="label label-primary" data-toggle="tooltip"
-                  data-placement="top" title="цена">
-                            от {{ current_excursion.price_list_rendered.min_price }}Р
+                  data-placement="top" title="{% trans "цена" %}">
+                            {% trans "от" %} {{ current_excursion.price_list_rendered.min_price }}Р
                         </span>
         {% endif %}
         {% if current_excursion.time_length %}
             <span class="label label-success"
-                  style="display: inline-block" data-toggle="tooltip" data-placement="top" title="продолжительность экскурсии">({{ current_excursion.time_length|time_verbose }})</span>
+                  style="display: inline-block" data-toggle="tooltip" data-placement="top" title="{% trans "продолжительность экскурсии" %}">({{ current_excursion.time_length|time_verbose }})</span>
         {% endif %}
         {% if current_excursion.min_age %}
-            <span class="label label-danger" style="display: inline-block" data-toggle="tooltip" data-placement="top" title="рекомендуемый возраст">
+            <span class="label label-danger" style="display: inline-block" data-toggle="tooltip" data-placement="top" title="{% trans "рекомендуемый возраст" %}">
                 {{ current_excursion.min_age }}+
             </span>
         {% endif %}

@@ -1,6 +1,7 @@
 # coding=utf-8
 # Create your views here.
 import json
+import re
 from calendar import Calendar
 from datetime import date, datetime
 
@@ -436,7 +437,10 @@ class SetLanguage(View):
 
         if lang and check_for_language(lang):
             if next_url:
-                next_trans = translate_url(next_url, lang)
+                if lang == 'ru':
+                    next_trans = re.sub("/en/", "/", next_url)
+                else:
+                    next_trans = translate_url(next_url, lang)
                 if next_trans != next_url:
                     response = HttpResponseRedirect(next_trans)
             translation.activate(lang)
