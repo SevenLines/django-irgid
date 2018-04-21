@@ -7,6 +7,7 @@ from excursions.models import Excursion, ExcursionCategory, ExcursionCalendar
 
 
 class ExcursionsSitemap(Sitemap):
+    i18n = True
     changefreq = 'weekly'
 
     def get_items(self):
@@ -27,6 +28,7 @@ class ExcursionsSitemap(Sitemap):
 
 
 class ExcursionsCategorySitemap(Sitemap):
+    i18n = True
     changefreq = 'monthly'
 
     def items(self):
@@ -37,6 +39,7 @@ class ExcursionsCategorySitemap(Sitemap):
 
 
 class ExcursionsTravelSitemap(ExcursionsSitemap):
+    i18n = True
     def items(self):
         out = []
         for item in self.get_items():
