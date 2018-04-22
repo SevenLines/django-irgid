@@ -70,9 +70,11 @@ a {
 
 .text-content img {
   max-width: 100%; }
+
 .text-content img[style*="float:left"], .text-content img[style*="float: left"] {
   margin-left: 0;
   margin-right: 1em; }
+
 .text-content img[style*="float:right"], .text-content img[style*="float: right"] {
   margin-left: 1em;
   margin-right: 0; }
@@ -81,6 +83,7 @@ a {
   color: #000000;
   background-color: #ffffff;
   border: 1px solid #15324c; }
+
 .tooltip.top .tooltip-arrow {
   border-top-color: #15324c; }
 
@@ -187,41 +190,51 @@ a {
     #enter-button {
       display: none; } }
 
+.btn-en {
+  background: url("./images/flag_en.png");
+  color: black;
+  font-weight: bold;
+  text-shadow: 0 0 5px white; }
+
+.btn-ru {
+  background: url("./images/flag_ru.png"); }
+
+.btn-en, .btn-ru {
+  -webkit-filter: grayscale(75%);
+  /* Safari 6.0 - 9.0 */
+  filter: grayscale(75%); }
+  .btn-en.btn-default, .btn-ru.btn-default {
+    -webkit-transition: all ease-in-out 0.2s;
+    -moz-transition: all ease-in-out 0.2s;
+    -ms-transition: all ease-in-out 0.2s;
+    -o-transition: all ease-in-out 0.2s;
+    transition: all ease-in-out 0.2s; }
+    .btn-en.btn-default:hover, .btn-ru.btn-default:hover {
+      -webkit-filter: grayscale(25%);
+      /* Safari 6.0 - 9.0 */
+      filter: grayscale(25%); }
+  .btn-en.btn-primary, .btn-ru.btn-primary {
+    -webkit-filter: grayscale(0);
+    /* Safari 6.0 - 9.0 */
+    filter: grayscale(0); }
+
+.menu-language-selector {
+  display: none; }
+  @media (max-width: 768px) {
+    .menu-language-selector {
+      display: block; } }
+
 #language-selector {
   position: fixed;
   left: -1em;
   top: 1em;
   width: 60px; }
   #language-selector .btn {
-    -webkit-filter: grayscale(75%);
-    /* Safari 6.0 - 9.0 */
-    filter: grayscale(75%);
     height: 30px;
     float: left;
     padding-left: 1.75em;
     border-radius: 0 1em 1em 0; }
     #language-selector .btn.btn-default {
-      margin-left: -0.75em;
-      -webkit-transition: all ease-in-out 0.2s;
-      -moz-transition: all ease-in-out 0.2s;
-      -ms-transition: all ease-in-out 0.2s;
-      -o-transition: all ease-in-out 0.2s;
-      transition: all ease-in-out 0.2s; }
+      margin-left: -0.75em; }
       #language-selector .btn.btn-default:hover {
-        margin-left: 0.5em;
-        -webkit-filter: grayscale(25%);
-        /* Safari 6.0 - 9.0 */
-        filter: grayscale(25%); }
-    #language-selector .btn.btn-primary {
-      -webkit-filter: grayscale(0);
-      /* Safari 6.0 - 9.0 */
-      filter: grayscale(0); }
-    #language-selector .btn.btn-en {
-      background: url("./images/flag_en.png");
-      color: black;
-      font-weight: bold;
-      text-shadow: 0 0 5px white; }
-    #language-selector .btn.btn-ru {
-      background: url("./images/flag_ru.png"); }
-
-/*# sourceMappingURL=style.css.map */
+        margin-left: 0.5em; }

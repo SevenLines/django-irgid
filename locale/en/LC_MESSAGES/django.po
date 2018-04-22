@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-21 20:19+0800\n"
+"POT-Creation-Date: 2018-04-23 00:51+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,11 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: apps/excursions/tasks.py:30 apps/excursions/tasks.py:43
+#: apps/excursions/tasks.py:43
 msgid "Заявка №{} на сайте irgid.ru"
 msgstr "Order #{} on irgid.ru"
 
-#: apps/excursions/tasks.py:31 apps/excursions/tasks.py:44
+#: apps/excursions/tasks.py:44
 #, python-brace-format
 msgid "ФИО: {full_name} | Телефон: {phone} |  email: {email} | {comment}"
 msgstr "Name: {full_name} | Phone: {phone} | email: {email} | {comment}"
@@ -473,13 +473,30 @@ msgstr ""
 msgid "ФИО"
 msgstr "Your Name"
 
+#: templates/_/elements/appointment.html:19
+#: templates/_/elements/appointment.html:47
+msgid "это поле необходимо заполнить"
+msgstr "please fill the field"
+
 #: templates/_/elements/appointment.html:26
 msgid "Номер телефона"
 msgstr "Сontact phone number"
 
+#: templates/_/elements/appointment.html:29
+msgid "необходимо указать хотя бы номер контактного телефона"
+msgstr "fill at least one of the fields"
+
 #: templates/_/elements/appointment.html:35
 msgid "Адрес электронной почты"
 msgstr "E-mail address"
+
+#: templates/_/elements/appointment.html:38
+msgid "укажите корректный адрес электронной почты"
+msgstr "please, provide correct email"
+
+#: templates/_/elements/appointment.html:39
+msgid "необходимо указать хотя бы адрес электронной почты"
+msgstr "fill at least one of the fields"
 
 #: templates/_/elements/appointment.html:45
 msgid "Комментарий"
@@ -629,7 +646,11 @@ msgstr "recommended age"
 #: templates/excursions/category/category-excursion-item-info.html:26
 #: templates/excursions/travel/category-excursion-item-info.html:21
 msgid "подробнее..."
-msgstr "more info..."
+msgstr "read more..."
+
+#: templates/excursions/excursion/price.html:5
+msgid "Стоимость"
+msgstr "Price list"
 
 #: templates/registration/login.html:6
 msgid "Please correct the error below."

@@ -23,7 +23,7 @@
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="navbar-collapse">
+        <div class="collapse navbar-collapse" id="navbar-collapse" style="overflow-x: hidden">
             <ul class="nav navbar-nav">
                 <li>
                     <a class="appointment-button" data-toggle="modal" href="#modal-appointment">
@@ -35,7 +35,24 @@
                         <a href="{{ item.url }}">{{ item.title }}</a>
                     </li>
                 {% endfor %}
+                <li>
+
+                </li>
             </ul>
+            <hr style="margin: 0;margin-bottom: 0.25em">
+            <div class="menu-language-selector">
+                <div class="row">
+                    <div class="col-md-12" style="padding-bottom: 0.5em">Выбрать язык:</div>
+                </div>
+                <div class="row" style="margin-bottom: 1em">
+                    <div class="col-md-12">
+                        <a class="btn btn-ru pull-left {% if LANGUAGE == 'ru' %}btn-primary{% else %}btn-default{% endif %}"
+                           href="{% url "set_language" lang="ru" %}" style="margin-right: 1em">Русский</a>
+                        <a class="btn btn-en pull-left {% if LANGUAGE == 'en' %}btn-primary{% else %}btn-default{% endif %}"
+                           href="{% url "set_language" lang="en" %}">English</a>
+                    </div>
+                </div>
+            </div>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
     <div class="clearfix"></div>

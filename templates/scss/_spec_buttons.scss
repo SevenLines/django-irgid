@@ -31,42 +31,58 @@ $common_color: silver;
   color: white;
 }
 
+
+
+.btn-en {
+  background: url("./images/flag_en.png");
+  color: black;
+  font-weight: bold;
+  text-shadow: 0 0 5px white;
+}
+.btn-ru {
+  background: url("./images/flag_ru.png");
+}
+
+.btn-en, .btn-ru {
+  -webkit-filter: grayscale(75%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(75%);
+
+  &.btn-default {
+    @include transition(0.2s);
+    &:hover {
+      -webkit-filter: grayscale(25%); /* Safari 6.0 - 9.0 */
+      filter: grayscale(25%);
+    }
+  }
+
+  &.btn-primary {
+    -webkit-filter: grayscale(0); /* Safari 6.0 - 9.0 */
+    filter: grayscale(0);
+  }
+}
+
+.menu-language-selector {
+  display: none;
+  @media (max-width: 768px) {
+    display: block;
+  }
+}
+
 #language-selector {
   position: fixed;
   left: -1em;
   top: 1em;
   width: 60px;
   .btn {
-    -webkit-filter: grayscale(75%); /* Safari 6.0 - 9.0 */
-    filter: grayscale(75%);
-
+    &.btn-default {
+      margin-left: -0.75em;
+      &:hover {
+        margin-left: 0.5em;
+      }
+    }
     height: 30px;
     float: left;
     padding-left: 1.75em;
     border-radius: 0 1em 1em 0;
-    &.btn-default {
-      margin-left: -0.75em;
-      @include transition(0.2s);
-      &:hover {
-        margin-left: 0.5em;
-        -webkit-filter: grayscale(25%); /* Safari 6.0 - 9.0 */
-        filter: grayscale(25%);
-      }
-    }
-
-    &.btn-primary {
-      -webkit-filter: grayscale(0); /* Safari 6.0 - 9.0 */
-      filter: grayscale(0);
-    }
-
-    &.btn-en {
-      background: url("./images/flag_en.png");
-      color: black;
-      font-weight: bold;
-      text-shadow: 0 0 5px white;
-    }
-    &.btn-ru {
-      background: url("./images/flag_ru.png");
-    }
   }
 }
