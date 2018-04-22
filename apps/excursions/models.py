@@ -44,8 +44,12 @@ class ExcursionCategory(models.Model):
         else:
             return Excursion.objects.filter(category=self)
 
+    @property
+    def safe_title(self):
+        return re.sub(ur"\W", u" ", self.title)
+
     def get_absolute_url(self):
-        return reverse("excursions:category", args=[self.pk, self.title])
+        return reverse("excursions:category", args=[self.pk, self.safe_title])
 
 
 class Excursion(models.Model):
@@ -112,8 +116,12 @@ class Excursion(models.Model):
         out['min_price'] = min_price
         return out
 
+    @property
+    def safe_title(self):
+        return re.sub(ur"\W", u" ", self.title)
+
     def get_absolute_url(self):
-        return reverse("excursions:item", args=[self.pk, self.title])
+        return reverse("excursions:item", args=[self.pk, self.safe_title])
 
     def __unicode__(self):
         return u"{title}|{id}".format(**self.__dict__)

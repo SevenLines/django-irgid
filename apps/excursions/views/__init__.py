@@ -1,6 +1,7 @@
 # coding=utf-8
 # Create your views here.
 import json
+import re
 from calendar import Calendar
 from datetime import date, datetime
 
@@ -15,7 +16,7 @@ from django.template.context import RequestContext
 from django.utils import translation
 from django.utils.decorators import method_decorator
 from django.utils.http import urlunquote, is_safe_url
-from django.utils.translation import check_for_language, LANGUAGE_SESSION_KEY
+from django.utils.translation import check_for_language, LANGUAGE_SESSION_KEY, get_language
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.generic import DetailView, View
 from django.views.generic.detail import SingleObjectMixin
@@ -383,7 +384,7 @@ class ExcursionAppointmentCreateView(View):
                       "Ваш запрос принят и отправлен оператору. " \
                       "Мы постараемся в кратчайшие сроки ответить Вам"
             success = True
-            send_appointment.apply_async((appointment.pk,))
+            send_appointment.apply_async((appointment.pk, get_language()))
         else:
             message = "Возникли проблемы при создании заявки,\nпожалуйста, попробуйте еще раз."
             success = False
@@ -436,7 +437,10 @@ class SetLanguage(View):
 
         if lang and check_for_language(lang):
             if next_url:
-                next_trans = translate_url(next_url, lang)
+                if lang == 'ru':
+                    next_trans = re.sub("/en/", "/", next_url)
+                else:
+                    next_trans = translate_url(next_url, lang)
                 if next_trans != next_url:
                     response = HttpResponseRedirect(next_trans)
             translation.activate(lang)

@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import sys
+from django.utils.translation import ugettext_lazy as _
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -62,7 +64,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
     'raven.contrib.django.raven_compat.middleware.Sentry404CatchMiddleware',
-    'excursions.middleware.LanguageMiddleware',
 ]
 
 ROOT_URLCONF = 'irgid.urls'
@@ -121,8 +122,13 @@ TIME_ZONE = 'Asia/Irkutsk'
 USE_I18N = True
 
 LANGUAGES = (
-    ('en', 'English'),
-    ('ru', "Russian"),
+    ('ru', _("Russian")),
+    ('en', _('English')),
+)
+
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
 )
 
 USE_L10N = True
@@ -209,13 +215,13 @@ def travel_menu_item_visible(context):
     ).exists()
 
 MENU = [
-    ('index', u'Экскурсии', '^/excursions|^$|^/$', '', lambda c: True, []),
-    ('calendar', u'Календарь Экскурсий', '^/calendar', '', lambda c: True, ['ru']),
-    ('travel:index', u'Путешествия', '^/travel', '', travel_menu_item_visible, []),
-    ('about', u'О нас', '^/about', '', lambda c: True, []),
-    ('faq', u'Частые вопросы (FAQ)', '^/faq', '', lambda c: True, []),
-    ('gallery:index', u'Галерея', '^/gallery', '', lambda c: True, []),
-    ('settings', u'Настройки', '^/settings', '', lambda c: c['user'].is_authenticated(), []),
+    ('index', _(u'Экскурсии'), '/excursions|^(en/)?$|^/(en/)?$', '', lambda c: True, []),
+    ('calendar', _(u'Календарь Экскурсий'), '/calendar', '', lambda c: True, ['ru']),
+    ('travel:index', _(u'Путешествия'), '/travel', '', travel_menu_item_visible, []),
+    ('about', _(u'О нас'), '/about', '', lambda c: True, []),
+    ('faq', _(u'Частые вопросы (FAQ)'), '/faq', '', lambda c: True, []),
+    ('gallery:index', _(u'Галерея'), '/gallery', '', lambda c: True, []),
+    ('settings', _(u'Настройки'), '/settings', '', lambda c: c['user'].is_authenticated(), []),
 ]
 
 CUSTOM_SETTINGS = {
@@ -234,7 +240,7 @@ CUSTOM_SETTINGS = {
     'gallery_id': (u'Раздел "Галерея"', None, 'ForeignKey', 'excursions.ExcursionCategory:title'),
     'travel_id': (u'Раздел "Путешествия"', None, 'ForeignKey', 'excursions.ExcursionCategory:title'),
 
-    'email_for_appointments': (u"Почта для перенаправления заявок", '', 'String'),
+    'email_for_appointments': (u"Почта для перенаправления заявок", 'mmailm@mail.ru', 'String'),
 }
 
 ASSETS_MODULES = [

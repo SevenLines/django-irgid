@@ -1,6 +1,7 @@
 # coding=utf-8
 from django.conf import settings
 from django.conf.urls import include, url
+from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.contrib.sitemaps import GenericSitemap
 from django.contrib.sitemaps.views import sitemap
@@ -17,7 +18,7 @@ import django.contrib.staticfiles.urls
 from excursions.models import Excursion, ExcursionCategory
 from excursions.sitemaps import ExcursionsSitemap, ExcursionsCategorySitemap, \
     ExcursionsTravelSitemap, ExcursionsGallerySitemap, StaticViewSitemap, CalendarSitemap
-from excursions.views import ExcursionCalendarView, ExcursionOffersList
+from excursions.views import ExcursionCalendarView, ExcursionOffersList, SetLanguage
 from irgid.views import TemplateViewEx, UploadFile
 
 admin.autodiscover()
@@ -33,8 +34,7 @@ sitemaps = {
     # 'cmspages': CMSSitemap,
 }
 
-
-urlpatterns = [
+urlpatterns = i18n_patterns(
     url(r'^admin/', include(admin.site.urls)),
     url(r'^upload-image/', UploadFile.as_view(), name='upload-image'),
     url(r'^excursions/', include(excursions.urls.excursions, namespace='excursions')),
@@ -64,12 +64,17 @@ urlpatterns = [
         template_name="faq.html", data={'title': u'FAQ'}
     ), name='faq'),
 
-    url('i18n/', include('django.conf.urls.i18n')),
 
     url('^$', excursions.views.MainPageView.as_view(), name='index'),
     url('^', include(django.contrib.auth.urls)),
     # url(r'^', include('cms.urls')),
-]
+    prefix_default_language=False
+)
+
+urlpatterns += (
+    url(r'set-language/(?P<lang>\w+)$', SetLanguage.as_view(), name='set_language'),
+    url('i18n/', include('django.conf.urls.i18n', app_name="i18n", namespace="i18n")),
+)
 
 
 if settings.DEBUG:

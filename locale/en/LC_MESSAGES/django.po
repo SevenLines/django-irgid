@@ -1,0 +1,737 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-23 00:51+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: apps/excursions/tasks.py:43
+msgid "Заявка №{} на сайте irgid.ru"
+msgstr "Order #{} on irgid.ru"
+
+#: apps/excursions/tasks.py:44
+#, python-brace-format
+msgid "ФИО: {full_name} | Телефон: {phone} |  email: {email} | {comment}"
+msgstr "Name: {full_name} | Phone: {phone} | email: {email} | {comment}"
+
+#: apps/excursions/templatetags/excursions_tags.py:38
+msgid "день"
+msgstr "day"
+
+#: apps/excursions/templatetags/excursions_tags.py:39
+#: apps/excursions/templatetags/excursions_tags.py:40
+#: apps/excursions/templatetags/excursions_tags.py:41
+msgid "дня"
+msgstr "days"
+
+#: apps/excursions/templatetags/excursions_tags.py:42
+msgid "дней"
+msgstr "days"
+
+#: apps/excursions/templatetags/excursions_tags.py:48
+#: apps/excursions/templatetags/excursions_tags.py:54
+msgid "часов"
+msgstr "hours"
+
+#: apps/excursions/templatetags/excursions_tags.py:50
+msgid "час"
+msgstr "hour"
+
+#: apps/excursions/templatetags/excursions_tags.py:52
+msgid "часа"
+msgstr "hours"
+
+#: apps/request/admin.py:19 templates/admin/request/request/overview.html:36
+#: templates/admin/request/request/overview.html:37
+msgid "Request"
+msgstr ""
+
+#: apps/request/admin.py:22 templates/request/plugins/latestrequests.html:9
+msgid "Response"
+msgstr ""
+
+#: apps/request/admin.py:25
+msgid "User info"
+msgstr ""
+
+#: apps/request/admin.py:38
+msgid "Show only requests from this user."
+msgstr ""
+
+#: apps/request/admin.py:39
+msgid "Show only requests from this IP address."
+msgstr ""
+
+#: apps/request/admin.py:64
+msgid "Request overview"
+msgstr ""
+
+#: apps/request/models.py:18
+msgid "response"
+msgstr ""
+
+#: apps/request/models.py:21
+msgid "method"
+msgstr ""
+
+#: apps/request/models.py:22
+msgid "path"
+msgstr ""
+
+#: apps/request/models.py:23
+msgid "time"
+msgstr ""
+
+#: apps/request/models.py:25
+msgid "is secure"
+msgstr ""
+
+#: apps/request/models.py:26
+msgid "is ajax"
+msgstr ""
+
+#: apps/request/models.py:26
+msgid "Wheather this request was used via javascript."
+msgstr ""
+
+#: apps/request/models.py:29
+msgid "ip address"
+msgstr ""
+
+#: apps/request/models.py:30
+msgid "user"
+msgstr ""
+
+#: apps/request/models.py:31
+msgid "referer"
+msgstr ""
+
+#: apps/request/models.py:32
+msgid "user agent"
+msgstr ""
+
+#: apps/request/models.py:33
+msgid "language"
+msgstr ""
+
+#: apps/request/models.py:38
+msgid "request"
+msgstr ""
+
+#: apps/request/models.py:39
+msgid "requests"
+msgstr ""
+
+#: apps/request/traffic.py:68
+msgid "Ajax"
+msgstr ""
+
+#: apps/request/traffic.py:75 apps/request/traffic.py:76
+msgid "Not Ajax"
+msgstr ""
+
+#: apps/request/traffic.py:83
+msgid "Error"
+msgstr ""
+
+#: apps/request/traffic.py:84
+msgid "Errors"
+msgstr ""
+
+#: apps/request/traffic.py:91
+msgid "Error 404"
+msgstr ""
+
+#: apps/request/traffic.py:92
+msgid "Errors 404"
+msgstr ""
+
+#: apps/request/traffic.py:99
+msgid "Hit"
+msgstr ""
+
+#: apps/request/traffic.py:100
+msgid "Hits"
+msgstr ""
+
+#: apps/request/traffic.py:107
+msgid "Search"
+msgstr ""
+
+#: apps/request/traffic.py:108
+msgid "Searches"
+msgstr ""
+
+#: apps/request/traffic.py:115 apps/request/traffic.py:116
+msgid "Secure"
+msgstr ""
+
+#: apps/request/traffic.py:123 apps/request/traffic.py:124
+msgid "Unsecure"
+msgstr ""
+
+#: apps/request/traffic.py:131
+msgid "Unique Visit"
+msgstr ""
+
+#: apps/request/traffic.py:132
+msgid "Unique Visits"
+msgstr ""
+
+#: apps/request/traffic.py:139 apps/request/traffic.py:140
+msgid "Unique Visitor"
+msgstr ""
+
+#: apps/request/traffic.py:147 apps/request/traffic.py:148
+#: templates/request/plugins/activeusers.html:6
+msgid "User"
+msgstr ""
+
+#: apps/request/traffic.py:155 apps/request/traffic.py:156
+msgid "Unique User"
+msgstr ""
+
+#: apps/request/utils.py:5
+msgid "Continue"
+msgstr ""
+
+#: apps/request/utils.py:6
+msgid "Switching Protocols"
+msgstr ""
+
+#: apps/request/utils.py:7
+msgid "Processing (WebDAV)"
+msgstr ""
+
+#: apps/request/utils.py:10
+msgid "OK"
+msgstr ""
+
+#: apps/request/utils.py:11
+msgid "Created"
+msgstr ""
+
+#: apps/request/utils.py:12
+msgid "Accepted"
+msgstr ""
+
+#: apps/request/utils.py:13
+msgid "Non-Authoritative Information"
+msgstr ""
+
+#: apps/request/utils.py:14
+msgid "No Content"
+msgstr ""
+
+#: apps/request/utils.py:15
+msgid "Reset Content"
+msgstr ""
+
+#: apps/request/utils.py:16
+msgid "Partial Content"
+msgstr ""
+
+#: apps/request/utils.py:17
+msgid "Multi-Status (WebDAV)"
+msgstr ""
+
+#: apps/request/utils.py:20
+msgid "Multiple Choices"
+msgstr ""
+
+#: apps/request/utils.py:21
+msgid "Moved Permanently"
+msgstr ""
+
+#: apps/request/utils.py:22
+msgid "Found"
+msgstr ""
+
+#: apps/request/utils.py:23
+msgid "See Other"
+msgstr ""
+
+#: apps/request/utils.py:24
+msgid "Not Modified"
+msgstr ""
+
+#: apps/request/utils.py:25
+msgid "Use Proxy"
+msgstr ""
+
+#: apps/request/utils.py:26
+msgid "Switch Proxy"
+msgstr ""
+
+#: apps/request/utils.py:27
+msgid "Temporary Redirect"
+msgstr ""
+
+#: apps/request/utils.py:30
+msgid "Bad Request"
+msgstr ""
+
+#: apps/request/utils.py:31
+msgid "Unauthorized"
+msgstr ""
+
+#: apps/request/utils.py:32
+msgid "Payment Required"
+msgstr ""
+
+#: apps/request/utils.py:33
+msgid "Forbidden"
+msgstr ""
+
+#: apps/request/utils.py:34
+msgid "Not Found"
+msgstr ""
+
+#: apps/request/utils.py:35
+msgid "Method Not Allowed"
+msgstr ""
+
+#: apps/request/utils.py:36
+msgid "Not Acceptable"
+msgstr ""
+
+#: apps/request/utils.py:37
+msgid "Proxy Authentication Required"
+msgstr ""
+
+#: apps/request/utils.py:38
+msgid "Request Timeout"
+msgstr ""
+
+#: apps/request/utils.py:39
+msgid "Conflict"
+msgstr ""
+
+#: apps/request/utils.py:40
+msgid "Gone"
+msgstr ""
+
+#: apps/request/utils.py:41
+msgid "Length Required"
+msgstr ""
+
+#: apps/request/utils.py:42
+msgid "Precondition Failed"
+msgstr ""
+
+#: apps/request/utils.py:43
+msgid "Request Entity Too Large"
+msgstr ""
+
+#: apps/request/utils.py:44
+msgid "Request-URI Too Long"
+msgstr ""
+
+#: apps/request/utils.py:45
+msgid "Unsupported Media Type"
+msgstr ""
+
+#: apps/request/utils.py:46
+msgid "Requested Range Not Satisfiable"
+msgstr ""
+
+#: apps/request/utils.py:47
+msgid "Expectation Failed"
+msgstr ""
+
+#: apps/request/utils.py:48
+msgid "I'm a teapot"
+msgstr ""
+
+#: apps/request/utils.py:49
+msgid "Unprocessable Entity (WebDAV)"
+msgstr ""
+
+#: apps/request/utils.py:50
+msgid "Locked (WebDAV)"
+msgstr ""
+
+#: apps/request/utils.py:51
+msgid "Failed Dependency (WebDAV)"
+msgstr ""
+
+#: apps/request/utils.py:52
+msgid "Unordered Collection"
+msgstr ""
+
+#: apps/request/utils.py:53
+msgid "Upgrade Required"
+msgstr ""
+
+#: apps/request/utils.py:54
+msgid "Retry With"
+msgstr ""
+
+#: apps/request/utils.py:57
+msgid "Internal Server Error"
+msgstr ""
+
+#: apps/request/utils.py:58
+msgid "Not Implemented"
+msgstr ""
+
+#: apps/request/utils.py:59
+msgid "Bad Gateway"
+msgstr ""
+
+#: apps/request/utils.py:60
+msgid "Service Unavailable"
+msgstr ""
+
+#: apps/request/utils.py:61
+msgid "Gateway Timeout"
+msgstr ""
+
+#: apps/request/utils.py:62
+msgid "HTTP Version Not Supported"
+msgstr ""
+
+#: apps/request/utils.py:63
+msgid "Variant Also Negotiates"
+msgstr ""
+
+#: apps/request/utils.py:64
+msgid "Insufficient Storage (WebDAV)"
+msgstr ""
+
+#: apps/request/utils.py:65
+msgid "Bandwidth Limit Exceeded"
+msgstr ""
+
+#: apps/request/utils.py:66
+msgid "Not Extended"
+msgstr ""
+
+#: irgid/settings.py:125
+msgid "Russian"
+msgstr ""
+
+#: irgid/settings.py:126
+msgid "English"
+msgstr ""
+
+#: irgid/settings.py:218
+msgid "Экскурсии"
+msgstr "Excursions"
+
+#: irgid/settings.py:219
+msgid "Календарь Экскурсий"
+msgstr "Excursions calendar"
+
+#: irgid/settings.py:220
+msgid "Путешествия"
+msgstr "Travels"
+
+#: irgid/settings.py:221
+msgid "О нас"
+msgstr "About us"
+
+#: irgid/settings.py:222
+msgid "Частые вопросы (FAQ)"
+msgstr "FAQ"
+
+#: irgid/settings.py:223
+msgid "Галерея"
+msgstr "Gallery"
+
+#: irgid/settings.py:224
+msgid "Настройки"
+msgstr "Settings"
+
+#: templates/_/base.html:56
+msgid "тел."
+msgstr "phone"
+
+#: templates/_/elements/appointment.html:13
+msgid ""
+"Заполните эту форму, чтобы связаться с нами и получить ответы на Ваши "
+"вопросы. Ваш запрос будет направлен оператору, и мы постараемся в кратчайшие "
+"сроки ответить Вам."
+msgstr ""
+"Fill out this form to contact us and get answers to your questions.Your "
+"request will be sent to the operator and we will try to answer you as soon "
+"as possible."
+
+#: templates/_/elements/appointment.html:16
+#: templates/emails/appointment_client.html:8
+msgid "ФИО"
+msgstr "Your Name"
+
+#: templates/_/elements/appointment.html:19
+#: templates/_/elements/appointment.html:47
+msgid "это поле необходимо заполнить"
+msgstr "please fill the field"
+
+#: templates/_/elements/appointment.html:26
+msgid "Номер телефона"
+msgstr "Сontact phone number"
+
+#: templates/_/elements/appointment.html:29
+msgid "необходимо указать хотя бы номер контактного телефона"
+msgstr "fill at least one of the fields"
+
+#: templates/_/elements/appointment.html:35
+msgid "Адрес электронной почты"
+msgstr "E-mail address"
+
+#: templates/_/elements/appointment.html:38
+msgid "укажите корректный адрес электронной почты"
+msgstr "please, provide correct email"
+
+#: templates/_/elements/appointment.html:39
+msgid "необходимо указать хотя бы адрес электронной почты"
+msgstr "fill at least one of the fields"
+
+#: templates/_/elements/appointment.html:45
+msgid "Комментарий"
+msgstr "Сomment"
+
+#: templates/_/elements/appointment.html:57
+msgid "Отменить"
+msgstr "Cancel"
+
+#: templates/_/elements/appointment.html:58
+msgid "Отправить"
+msgstr "Send"
+
+#: templates/_/elements/appointment.html:61
+msgid "нажимая на кнопку отправить вы соглашаетесь с"
+msgstr ""
+"By clicking on the submit button you agree with the data processing rules"
+
+#: templates/_/elements/appointment.html:62
+msgid "правилами обработки данных"
+msgstr "Privacy policy"
+
+#: templates/_/elements/appointment.html:77
+msgid "Сообщение"
+msgstr "Message"
+
+#: templates/_/elements/appointment.html:99
+msgid "необходимо указать хотя бы одно из полей"
+msgstr "fill at least one of the fields"
+
+#: templates/_/elements/appointment.html:105
+msgid "Обрабатываю заявку<br>подождите немного..."
+msgstr "Processing<br>please wait"
+
+#: templates/_/elements/menu.html:30
+msgid "Оставить заявку"
+msgstr "Order an excursion"
+
+#: templates/admin/request/app_index.html:10
+#, python-format
+msgid "Models available in the %(name)s application."
+msgstr ""
+
+#: templates/admin/request/app_index.html:11
+#, python-format
+msgid "%(name)s"
+msgstr ""
+
+#: templates/admin/request/app_index.html:21
+msgid "Add"
+msgstr ""
+
+#: templates/admin/request/app_index.html:27
+msgid "Change"
+msgstr ""
+
+#: templates/admin/request/app_index.html:35
+#: templates/admin/request/request/change_list.html:6
+#: templates/admin/request/request/overview.html:38
+msgid "Overview"
+msgstr ""
+
+#: templates/admin/request/app_index.html:45
+msgid "You don't have permission to edit anything."
+msgstr ""
+
+#: templates/admin/request/request/change_list.html:10
+#, python-format
+msgid "Add %(name)s"
+msgstr ""
+
+#: templates/admin/request/request/overview.html:34
+msgid "На сайт"
+msgstr ""
+
+#: templates/admin/request/request/overview.html:35
+msgid "Home"
+msgstr ""
+
+#: templates/emails/appointment_client.html:2
+msgid "Заявка"
+msgstr "Order"
+
+#: templates/emails/appointment_client.html:2
+#: templates/excursions/category/category-excursion-item-info.html:11
+#: templates/excursions/excursion/guest.html:21
+#: templates/excursions/main-page/index-guest.html:17
+msgid "от"
+msgstr "from"
+
+#: templates/emails/appointment_client.html:3
+msgid "Спасибо за оставленную заявку!"
+msgstr "Thanks for your order"
+
+#: templates/emails/appointment_client.html:4
+msgid "Ваш запрос принят и направлен нашему оператору."
+msgstr "Your request has been accepted and sent to our operator."
+
+#: templates/emails/appointment_client.html:5
+msgid "Мы постараемся в кратчайшие сроки ответить Вам"
+msgstr "We will try to answer you as soon as possible."
+
+#: templates/emails/appointment_client.html:7
+msgid "Вы указали следующую информацию:"
+msgstr "You've provided next info"
+
+#: templates/emails/appointment_client.html:9
+msgid "Телефон"
+msgstr "Contact phone number"
+
+#: templates/emails/appointment_client.html:10
+msgid "Почта"
+msgstr "email"
+
+#: templates/emails/appointment_client.html:14
+msgid "Экскурсионное агентство"
+msgstr "Excursion agency"
+
+#: templates/emails/appointment_client.html:14
+msgid "Иргид"
+msgstr "IRGID"
+
+#: templates/emails/appointment_client.html:15
+msgid "гг."
+msgstr "yy."
+
+#: templates/excursions/category/category-excursion-item-info.html:10
+#: templates/excursions/excursion/guest.html:20
+#: templates/excursions/main-page/index-guest.html:16
+msgid "цена"
+msgstr "price"
+
+#: templates/excursions/category/category-excursion-item-info.html:15
+#: templates/excursions/excursion/guest.html:26
+#: templates/excursions/main-page/index-guest.html:23
+#: templates/excursions/travel/category-excursion-item-info.html:10
+msgid "продолжительность экскурсии"
+msgstr "duration"
+
+#: templates/excursions/category/category-excursion-item-info.html:18
+#: templates/excursions/excursion/guest.html:29
+#: templates/excursions/main-page/index-guest.html:27
+#: templates/excursions/travel/category-excursion-item-info.html:13
+msgid "рекомендуемый возраст"
+msgstr "recommended age"
+
+#: templates/excursions/category/category-excursion-item-info.html:26
+#: templates/excursions/travel/category-excursion-item-info.html:21
+msgid "подробнее..."
+msgstr "read more..."
+
+#: templates/excursions/excursion/price.html:5
+msgid "Стоимость"
+msgstr "Price list"
+
+#: templates/registration/login.html:6
+msgid "Please correct the error below."
+msgstr ""
+
+#: templates/registration/login.html:7
+msgid "Please correct the errors below."
+msgstr ""
+
+#: templates/registration/login.html:33
+msgid "Forgotten your password or username?"
+msgstr ""
+
+#: templates/registration/login.html:37
+msgid "Log in"
+msgstr ""
+
+#: templates/request/plugins/iplist.html:7
+msgid "Ip"
+msgstr ""
+
+#: templates/request/plugins/iplist.html:8
+msgid "Agent"
+msgstr ""
+
+#: templates/request/plugins/iplist.html:9
+msgid "Last visit time"
+msgstr ""
+
+#: templates/request/plugins/iplist.html:10
+#: templates/request/plugins/toppaths.html:8
+#: templates/request/plugins/topreferrers.html:8
+#: templates/request/plugins/topsearchphrases.html:8
+msgid "Visits"
+msgstr ""
+
+#: templates/request/plugins/latestrequests.html:7
+#: templates/request/plugins/toppaths.html:7
+msgid "Path"
+msgstr ""
+
+#: templates/request/plugins/latestrequests.html:8
+msgid "From"
+msgstr ""
+
+#: templates/request/plugins/latestrequests.html:10
+msgid "Time"
+msgstr ""
+
+#: templates/request/plugins/shareditems.html:7
+msgid "URL"
+msgstr ""
+
+#: templates/request/plugins/shareditems.html:8
+msgid "Service"
+msgstr ""
+
+#: templates/request/plugins/topreferrers.html:7
+msgid "Referrer"
+msgstr ""
+
+#: templates/request/plugins/topsearchphrases.html:7
+msgid "Phrase"
+msgstr ""
+
+#: templates/request/plugins/trafficinformation.html:7
+msgid "Today"
+msgstr ""
+
+#: templates/request/plugins/trafficinformation.html:8
+msgid "This week"
+msgstr ""
+
+#: templates/request/plugins/trafficinformation.html:9
+msgid "This month"
+msgstr ""
+
+#: templates/request/plugins/trafficinformation.html:10
+msgid "This year"
+msgstr ""
+
+#: templates/request/plugins/trafficinformation.html:11
+msgid "Alltime"
+msgstr ""

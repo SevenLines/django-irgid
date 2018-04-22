@@ -1,8 +1,8 @@
-{% load excursions_tags %}
+{% load excursions_tags i18n %}
 {% if current_excursion.priceList %}
     <hr>
     <div>
-        <h3>Стоимость:</h3>
+        <h3>{% trans "Стоимость" %}:</h3>
         {% with current_excursion.price_list_rendered as price_list %}
             {% with CUSTOMS|get_item:price_headers as HEADERS %}
                 <div id="excursion-price-list">

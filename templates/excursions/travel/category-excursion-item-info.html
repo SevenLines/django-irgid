@@ -1,4 +1,4 @@
-{% load thumbnail excursions_tags %}
+{% load thumbnail excursions_tags i18n %}
 <a href="{% url "travel:item" e.pk e.title %}">
     <div>
         <table style="width: 100%;table-layout: fixed">
@@ -7,10 +7,10 @@
                     <h2>{{ e.title }}</h2>
                     <small style="display: block; padding:  4px 0">
                         {% if e.time_length %}
-                            <span class="label label-success" data-toggle="tooltip" data-placement="top" title="продолжительность экскурсии">({{ e.time_length|time_verbose }})</span>
+                            <span class="label label-success" data-toggle="tooltip" data-placement="top" title="{% trans "продолжительность экскурсии" %}">({{ e.time_length|time_verbose }})</span>
                         {% endif %}
                         {% if e.min_age %}
-                            <span class="label label-danger" data-toggle="tooltip" data-placement="top" title="рекомендуемый возраст">
+                            <span class="label label-danger" data-toggle="tooltip" data-placement="top" title="{% trans "рекомендуемый возраст" %}">
                                 {{ e.min_age }}+
                         </span>
                         {% endif %}
@@ -18,7 +18,7 @@
                     <div class="description">
                         {{ e.short_description|safe }}
                     </div>
-                    <a href="{% url "travel:item" e.pk e.title %}">подробнее...</a>
+                    <a href="{% url "travel:item" e.pk e.title %}">{% trans "подробнее..." %}</a>
                 </td>
                 {% if e.img_preview %}
                     <td style="width: 150px;text-align: right;">

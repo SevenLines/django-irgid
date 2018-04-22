@@ -1,4 +1,4 @@
-{% load sekizai_tags static ex_tags custom_settings_tags excursions_tags %}
+{% load sekizai_tags static ex_tags custom_settings_tags excursions_tags i18n %}
 <!DOCTYPE html>
 <!--[if lt IE 7]><html class="lt-ie9 lt-ie8 lt-ie7"><![endif]-->
 <!--[if IE 7]><html class="lt-ie9 lt-ie8"><![endif]-->
@@ -16,12 +16,7 @@
 </head>
 <body>
 
-{% if user.is_authenticated %}
-    <div id="language-selector">
-        <a class="btn {% if LANGUAGE == 'ru' %}btn-primary{% else %}btn-default{% endif %}" href="{% url "set_language" lang="ru" %}">RU</a>
-        <a class="btn {% if LANGUAGE == 'en' %}btn-primary{% else %}btn-default{% endif %}" href="{% url "set_language" lang="en" %}">EN</a>
-    </div>
-{% endif %}
+{% include "_/elements/language_selector.html" %}
 
 <div class="container" style="position: relative">
 
@@ -55,7 +50,7 @@
                     </td>
                     <td style="width:50%;text-align: center;">
                         {% autoescape off %}
-                        тел.: {% custom_setting 'phone' %}<br>
+                        {% trans "тел." %}: {% custom_setting 'phone' %}<br>
                         email: <a href="mailto:{% custom_setting 'email' %}">{% custom_setting 'email' %}</a>
                         {% endautoescape %}
                     </td>
