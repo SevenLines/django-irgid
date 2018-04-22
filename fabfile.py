@@ -21,8 +21,8 @@ def build_production():
 
 
 def deploy():
-    build_production()
-    local("git push --all -u")
+    # build_production()
+    # local("git push --all -u")
     with cd(app_dir):
         with prefix(env.activate):
             # run("git stash")
