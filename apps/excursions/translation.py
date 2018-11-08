@@ -12,6 +12,7 @@ class ExcursionTranslationOptions(TranslationOptions):
         'short_description',
         'published',
     )
+    fallback_undefined = {'published': None}
 
 
 @register(ExcursionCategory)
