@@ -7,13 +7,13 @@
     <div class="calendar" style="width: auto; float: left;margin: 0px 0.5em; ">
         <div class="calendar-date-selector" style="padding: 1em 0em">
             <form action="" class="form-inline pull-left">
-                <select name="year" id="" class="form-control" style="float: left; margin-right: 8px;width: auto;">
+                <select name="year" class="form-control" style="float: left; margin-right: 8px;width: auto;">
                     {% for year in view.actual_years %}
                         <option value="{{ year }}"
                                 {% if year == view.selected_year %}selected{% endif %}>{{ year }}</option>
                     {% endfor %}
                 </select>
-                <select name="month" id="" class="form-control" onchange="this.form.submit()" style="float: left;width: auto;">
+                <select name="month" class="form-control" onchange="this.form.submit()" style="float: left;width: auto;">
                     {% for month in view.months %}
                         <option value="{{ month.0 }}" {% if month.0 == view.selected_month %}selected{% endif %}>
                             {{ month.1 }}

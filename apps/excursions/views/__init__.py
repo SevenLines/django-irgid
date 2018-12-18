@@ -279,8 +279,7 @@ class ExcursionCalendarView(TitledView):
     def selected_month(self):
         return self.selected_month
 
-    @classmethod
-    def actual_years(cls):
+    def actual_years(self):
         rng = ExcursionCalendar.objects.aggregate(min_date=Min('date'), max_date=Max('date'))
         if rng:
             min_year = rng['min_date'].year
@@ -288,7 +287,7 @@ class ExcursionCalendarView(TitledView):
         else:
             min_year = date.today().year
             max_year = min_year
-        if hasattr(cls, 'request') and cls.request.user.is_authenticated():
+        if hasattr(self, 'request') and self.request.user.is_authenticated():
             return [year for year in range(min_year - 1, max_year + 2)]
         else:
             return [year for year in range(min_year, max_year + 1)]
