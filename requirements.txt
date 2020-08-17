@@ -16,7 +16,7 @@ django-simple-history==1.8.2
 django-modeltranslation==0.13b1
 raven==6.0.0
 ipython
-PyYAML==3.12
+PyYAML==5.1
 
 celery==4.0
 
