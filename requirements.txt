@@ -6,20 +6,21 @@ easy_thumbnails==2.3
 django-sekizai==0.10.0
 django-filer==1.2.7
 djangocms-admin-style==0.2.8
-git+https://github.com/miracle2k/django-assets
+django-assets==0.12
 django-braces==1.8.1
 django-polymorphic==1.1
-django-debug-toolbar
-django-extensions
+django-debug-toolbar==1.6
+django-extensions==1.7.7
 django-redis==4.7
-django-simple-history
+django-simple-history==1.8.2
 django-modeltranslation==0.13b1
 raven==6.0.0
 ipython
-PyYAML
+PyYAML==3.12
 
 celery==4.0
 
 transliterate==1.7.3
 cssmin==0.2.0
-yuicompressor
+yuicompressor==2.4.8
+requests==2.24.0

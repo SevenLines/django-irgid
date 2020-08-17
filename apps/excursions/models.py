@@ -208,6 +208,9 @@ class ExcursionAppointment(models.Model):
         self.update_date = datetime.now()
         super(ExcursionAppointment, self).save(force_insert, force_update, using, update_fields)
 
+    def __str__(self):
+        return self.full_name
+
 
 class ExcursionImage(models.Model):
     excursion = models.ForeignKey(Excursion, related_name='images')
